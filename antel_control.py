@@ -19,6 +19,8 @@ from morai_msgs.srv import MoraiEventCmdSrv
 import numpy as np
 import time
 from scipy.spatial import KDTree
+import serial
+
 
 from utils.lateral_controller import Pure_Pursuit
 from utils.longitudinal_controller import PI_Speed_controller, emergency_stop
@@ -45,6 +47,7 @@ def angle_clip(x):
 
 class Controller():
     def __init__(self):
+        self.ser = serial.Serial('/dev/ttyACM0', 2000000, timeout=1)
         rospy.init_node("controller")
         rospy.Subscriber("behavior", UInt8, self.behavior_callback)
         rospy.Subscriber('odom', Odometry, self.odom_callback) #위치 데이터 구독 - 인지랑 이름 맞추기
@@ -128,7 +131,25 @@ class Controller():
             self.is_path = False
 
     def publish(self):
+        #PWM 변환 후 시리얼로 아두이노에 전송
+        #속도 변환 (m/s → PWM 0~255)
+        PWM_speed = int((min(self.desired_speed, MAXIMUM_SPEED) / MAXIMUM_SPEED) * 255)
+        PWM_speed = max(0, min(PWM_speed, 255))  # 범위 제한
+
+        #조향각 변환 (rad → PWM 1000~2000us)
+        PWM_steering = int(1500 + (angle_clip(self.ctrl_cmd.steering) / MAX_WHEEL_ANGLE) * 500)
+        PWM_steering = max(1000, min(PWM_steering, 2000))  # 범위 제한
+
+        #시리얼 데이터 전송 ("조향PWM,속도PWM")
+        command = f"{PWM_steering},{PWM_speed}\n"
+        try:
+            self.ser.write(command.encode())
+        except serial.SerialException:
+            rospy.logwarn("Failed to send serial data. Check Arduino connection.")
+
+        # 혹시 모르니 기존 ROS 메시지도 유지
         self.ctrl_cmd_publisher.publish(self.ctrl_cmd)
+
 
     def behavior_callback(self, msg):
         self.behavior = msg.data
