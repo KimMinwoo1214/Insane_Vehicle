@@ -1,0 +1,16 @@
+package.xml
+setup.cfg
+setup.py
+../../build/centeroids/centeroids.egg-info/PKG-INFO
+../../build/centeroids/centeroids.egg-info/SOURCES.txt
+../../build/centeroids/centeroids.egg-info/dependency_links.txt
+../../build/centeroids/centeroids.egg-info/entry_points.txt
+../../build/centeroids/centeroids.egg-info/requires.txt
+../../build/centeroids/centeroids.egg-info/top_level.txt
+../../build/centeroids/centeroids.egg-info/zip-safe
+centeroids/__init__.py
+centeroids/cal_cen.py
+resource/centeroids
+test/test_copyright.py
+test/test_flake8.py
+test/test_pep257.py

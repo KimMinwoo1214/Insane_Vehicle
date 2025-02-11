@@ -1,0 +1,33 @@
+[1.092s] Invoking command in '/home/kmw/2025IEVE/lidar_ws/src/centroids': CONDA_PROMPT_MODIFIER=(ros2_py310) PYTHONPATH=/home/kmw/2025IEVE/lidar_ws/build/centroids/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/kmw/2025IEVE/lidar_ws/install/centroids/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/centroids build --build-base /home/kmw/2025IEVE/lidar_ws/build/centroids/build install --record /home/kmw/2025IEVE/lidar_ws/build/centroids/install.log --single-version-externally-managed install_data
+[1.405s] running egg_info
+[1.427s] creating ../../build/centroids/centroids.egg-info
+[1.428s] writing ../../build/centroids/centroids.egg-info/PKG-INFO
+[1.428s] writing dependency_links to ../../build/centroids/centroids.egg-info/dependency_links.txt
+[1.428s] writing entry points to ../../build/centroids/centroids.egg-info/entry_points.txt
+[1.428s] writing requirements to ../../build/centroids/centroids.egg-info/requires.txt
+[1.428s] writing top-level names to ../../build/centroids/centroids.egg-info/top_level.txt
+[1.429s] writing manifest file '../../build/centroids/centroids.egg-info/SOURCES.txt'
+[1.476s] reading manifest file '../../build/centroids/centroids.egg-info/SOURCES.txt'
+[1.477s] writing manifest file '../../build/centroids/centroids.egg-info/SOURCES.txt'
+[1.477s] running build
+[1.477s] running build_py
+[1.477s] creating /home/kmw/2025IEVE/lidar_ws/build/centroids/build/lib/centroids
+[1.478s] copying centroids/centroids_visualize.py -> /home/kmw/2025IEVE/lidar_ws/build/centroids/build/lib/centroids
+[1.478s] copying centroids/__init__.py -> /home/kmw/2025IEVE/lidar_ws/build/centroids/build/lib/centroids
+[1.478s] running install
+[1.483s] running install_lib
+[1.502s] creating /home/kmw/2025IEVE/lidar_ws/install/centroids/lib/python3.10/site-packages/centroids
+[1.503s] copying /home/kmw/2025IEVE/lidar_ws/build/centroids/build/lib/centroids/centroids_visualize.py -> /home/kmw/2025IEVE/lidar_ws/install/centroids/lib/python3.10/site-packages/centroids
+[1.503s] copying /home/kmw/2025IEVE/lidar_ws/build/centroids/build/lib/centroids/__init__.py -> /home/kmw/2025IEVE/lidar_ws/install/centroids/lib/python3.10/site-packages/centroids
+[1.503s] byte-compiling /home/kmw/2025IEVE/lidar_ws/install/centroids/lib/python3.10/site-packages/centroids/centroids_visualize.py to centroids_visualize.cpython-310.pyc
+[1.504s] byte-compiling /home/kmw/2025IEVE/lidar_ws/install/centroids/lib/python3.10/site-packages/centroids/__init__.py to __init__.cpython-310.pyc
+[1.504s] running install_data
+[1.504s] creating /home/kmw/2025IEVE/lidar_ws/install/centroids/share/ament_index/resource_index/packages
+[1.504s] copying resource/centroids -> /home/kmw/2025IEVE/lidar_ws/install/centroids/share/ament_index/resource_index/packages
+[1.505s] copying package.xml -> /home/kmw/2025IEVE/lidar_ws/install/centroids/share/centroids
+[1.505s] running install_egg_info
+[1.524s] Copying ../../build/centroids/centroids.egg-info to /home/kmw/2025IEVE/lidar_ws/install/centroids/lib/python3.10/site-packages/centroids-0.0.0-py3.10.egg-info
+[1.525s] running install_scripts
+[1.689s] Installing centroids_visualize script to /home/kmw/2025IEVE/lidar_ws/install/centroids/lib/centroids
+[1.689s] writing list of installed files to '/home/kmw/2025IEVE/lidar_ws/build/centroids/install.log'
+[1.720s] Invoked command in '/home/kmw/2025IEVE/lidar_ws/src/centroids' returned '0': CONDA_PROMPT_MODIFIER=(ros2_py310) PYTHONPATH=/home/kmw/2025IEVE/lidar_ws/build/centroids/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/kmw/2025IEVE/lidar_ws/install/centroids/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/centroids build --build-base /home/kmw/2025IEVE/lidar_ws/build/centroids/build install --record /home/kmw/2025IEVE/lidar_ws/build/centroids/install.log --single-version-externally-managed install_data
