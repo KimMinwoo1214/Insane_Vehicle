@@ -1,66 +1,62 @@
 import rclpy
 from rclpy.node import Node
-from sensor_msgs.msg import LaserScan
-from visualization_msgs.msg import Marker
+from visualization_msgs.msg import Marker, MarkerArray
 from geometry_msgs.msg import Point
-import numpy as np
 
-class LidarSideVisualizer(Node):
+class SegmentCentroidVisualizer(Node):
     def __init__(self):
-        super().__init__('lidar_side_visualizer')
+        super().__init__('segment_centroid_visualizer')
 
-        # `/scan` 토픽 구독
+        # `/segments/visualization` 토픽 구독
         self.subscription = self.create_subscription(
-            LaserScan,
-            '/scan',
-            self.process_scan,
+            MarkerArray,
+            '/segments/visualization',
+            self.process_segments,
             10
         )
 
-        # 왼쪽(L) 선을 위한 퍼블리셔
+        # 왼쪽(L) 중심을 연결하는 선을 퍼블리시
         self.left_publisher = self.create_publisher(
             Marker,
-            '/left_path',
+            '/left_centroid_path',
             10
         )
 
-        # 오른쪽(R) 선을 위한 퍼블리셔
+        # 오른쪽(R) 중심을 연결하는 선을 퍼블리시
         self.right_publisher = self.create_publisher(
             Marker,
-            '/right_path',
+            '/right_centroid_path',
             10
         )
 
-    def process_scan(self, msg):
-        angle_min = msg.angle_min  # 최소 각도 (rad)
-        angle_increment = msg.angle_increment  # 각도 증가량 (rad)
-        ranges = msg.ranges  # 거리 데이터 (m)
+    def process_segments(self, msg):
+        left_centroids = []
+        right_centroids = []
 
-        left_points = []
-        right_points = []
+        for marker in msg.markers:
+            if marker.ns == "id":  # 객체 ID 정보 포함된 데이터에서 중심 좌표 추출
+                x = marker.pose.position.x
+                y = marker.pose.position.y
 
-        for i, r in enumerate(ranges):
-            if r < 0.1 or r > 10:  # 10m 이상의 값은 무시
-                continue
+                if x < 0 and y < 0:  # 왼쪽 (-, -)
+                    left_centroids.append((x, y))
+                elif x < 0 and y > 0:  # 오른쪽 (-, +)
+                    right_centroids.append((x, y))
 
-            theta = angle_min + (i * angle_increment)  # 현재 포인트의 각도 (rad)
-            theta_deg = np.degrees(theta)  # 도(degree) 변환
+        if len(left_centroids) < 2 and len(right_centroids) < 2:
+            self.get_logger().warn("Not enough centroids to create paths.")
+            return
 
-            x = r * np.cos(theta)
-            y = r * np.sin(theta)
+        # 왼쪽 선 그리기 (초록색)
+        self.publish_marker(self.left_publisher, left_centroids, "left_path", 0.0, 1.0, 0.0)
 
-            if -180 <= theta_deg <= -90:  # 왼쪽 (-180° ~ -90°)
-                left_points.append((x, y))
-            elif 90 <= theta_deg <= 180:  # 오른쪽 (90° ~ 180°)
-                right_points.append((x, y))
-
-        # 왼쪽(L) 선 그리기
-        self.publish_marker(self.left_publisher, left_points, "left_path", 0.0, 1.0, 0.0)  # 초록색
-
-        # 오른쪽(R) 선 그리기
-        self.publish_marker(self.right_publisher, right_points, "right_path", 0.0, 0.0, 1.0)  # 파란색
+        # 오른쪽 선 그리기 (파란색)
+        self.publish_marker(self.right_publisher, right_centroids, "right_path", 0.0, 0.0, 1.0)
 
     def publish_marker(self, publisher, points, ns, r, g, b):
+        if len(points) < 2:
+            return  # 최소한 2개의 점이 있어야 선을 그림
+
         marker = Marker()
         marker.header.frame_id = "laser"
         marker.header.stamp = self.get_clock().now().to_msg()
@@ -76,7 +72,8 @@ class LidarSideVisualizer(Node):
         marker.color.g = g
         marker.color.b = b
 
-        for x, y in points:
+        # 중심 좌표를 정렬한 후 선으로 연결
+        for x, y in sorted(points, key=lambda p: p[0]):  # x축 기준 정렬
             point = Point()
             point.x = x
             point.y = y
@@ -88,7 +85,7 @@ class LidarSideVisualizer(Node):
 
 def main(args=None):
     rclpy.init(args=args)
-    node = LidarSideVisualizer()
+    node = SegmentCentroidVisualizer()
     rclpy.spin(node)
     node.destroy_node()
     rclpy.shutdown()

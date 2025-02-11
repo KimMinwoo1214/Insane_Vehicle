@@ -1,0 +1,22 @@
+[0.272s] Invoking command in '/home/kmw/2025IEVE/lidar_ws/build/sllidar_ros2': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/kmw/2025IEVE/lidar_ws/build/sllidar_ros2 -- -j8 -l8
+[0.295s] -- Found ament_cmake: 1.3.10 (/opt/ros/humble/share/ament_cmake/cmake)
+[0.487s] [31mCMake Error at CMakeLists.txt:35 (find_package):
+[0.487s]   By not providing "Findrclcpp.cmake" in CMAKE_MODULE_PATH this project has
+[0.487s]   asked CMake to find a package configuration file provided by "rclcpp", but
+[0.487s]   CMake did not find one.
+[0.487s] 
+[0.487s]   Could not find a package configuration file provided by "rclcpp" with any
+[0.487s]   of the following names:
+[0.488s] 
+[0.488s]     rclcppConfig.cmake
+[0.488s]     rclcpp-config.cmake
+[0.488s] 
+[0.488s]   Add the installation prefix of "rclcpp" to CMAKE_PREFIX_PATH or set
+[0.488s]   "rclcpp_DIR" to a directory containing one of the above files.  If "rclcpp"
+[0.488s]   provides a separate development package or SDK, be sure it has been
+[0.488s]   installed.
+[0.488s] 
+[0.488s] [0m
+[0.488s] -- Configuring incomplete, errors occurred!
+[0.488s] See also "/home/kmw/2025IEVE/lidar_ws/build/sllidar_ros2/CMakeFiles/CMakeOutput.log".
+[0.489s] gmake: *** [Makefile:740: cmake_check_build_system] Error 1

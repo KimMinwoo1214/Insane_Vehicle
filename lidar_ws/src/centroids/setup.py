@@ -20,6 +20,7 @@ setup(
     entry_points={
         'console_scripts': [
         'centroids_visualize = centroids.centroids_visualize:main',
+        'lr_dis = centroids.lr_dis:main',
         ],
     },
 )
