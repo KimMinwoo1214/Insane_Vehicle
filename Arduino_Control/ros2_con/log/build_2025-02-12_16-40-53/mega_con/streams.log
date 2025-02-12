@@ -1,0 +1,32 @@
+[0.840s] Invoking command in '/home/kmw/2025IEVE/Arduino_Control/ros2_con/src/mega_con': PYTHONPATH=/home/kmw/2025IEVE/Arduino_Control/ros2_con/build/mega_con/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/kmw/2025IEVE/Arduino_Control/ros2_con/install/mega_con/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/mega_con build --build-base /home/kmw/2025IEVE/Arduino_Control/ros2_con/build/mega_con/build install --record /home/kmw/2025IEVE/Arduino_Control/ros2_con/build/mega_con/install.log --single-version-externally-managed install_data
+[0.997s] /home/kmw/miniconda3/envs/ros2_py310/lib/python3.10/site-packages/setuptools/_distutils/dist.py:268: UserWarning: Unknown distribution option: 'tests_require'
+[0.997s]   warnings.warn(msg)
+[1.091s] running egg_info
+[1.106s] writing ../../build/mega_con/mega_con.egg-info/PKG-INFO
+[1.107s] writing dependency_links to ../../build/mega_con/mega_con.egg-info/dependency_links.txt
+[1.107s] writing entry points to ../../build/mega_con/mega_con.egg-info/entry_points.txt
+[1.107s] writing requirements to ../../build/mega_con/mega_con.egg-info/requires.txt
+[1.107s] writing top-level names to ../../build/mega_con/mega_con.egg-info/top_level.txt
+[1.140s] reading manifest file '../../build/mega_con/mega_con.egg-info/SOURCES.txt'
+[1.141s] writing manifest file '../../build/mega_con/mega_con.egg-info/SOURCES.txt'
+[1.141s] running build
+[1.142s] running build_py
+[1.142s] copying mega_con/joy_con.py -> /home/kmw/2025IEVE/Arduino_Control/ros2_con/build/mega_con/build/lib/mega_con
+[1.142s] copying mega_con/motor_con.py -> /home/kmw/2025IEVE/Arduino_Control/ros2_con/build/mega_con/build/lib/mega_con
+[1.142s] copying mega_con/__init__.py -> /home/kmw/2025IEVE/Arduino_Control/ros2_con/build/mega_con/build/lib/mega_con
+[1.142s] copying mega_con/tel_motor.py -> /home/kmw/2025IEVE/Arduino_Control/ros2_con/build/mega_con/build/lib/mega_con
+[1.142s] running install
+[1.147s] running install_lib
+[1.164s] running install_data
+[1.164s] copying resource/mega_con -> /home/kmw/2025IEVE/Arduino_Control/ros2_con/install/mega_con/share/ament_index/resource_index/packages
+[1.164s] copying package.xml -> /home/kmw/2025IEVE/Arduino_Control/ros2_con/install/mega_con/share/mega_con
+[1.164s] copying launch/joy_launch.py -> /home/kmw/2025IEVE/Arduino_Control/ros2_con/install/mega_con/share/mega_con/launch
+[1.164s] running install_egg_info
+[1.180s] removing '/home/kmw/2025IEVE/Arduino_Control/ros2_con/install/mega_con/lib/python3.10/site-packages/mega_con-0.0.1-py3.10.egg-info' (and everything under it)
+[1.181s] Copying ../../build/mega_con/mega_con.egg-info to /home/kmw/2025IEVE/Arduino_Control/ros2_con/install/mega_con/lib/python3.10/site-packages/mega_con-0.0.1-py3.10.egg-info
+[1.181s] running install_scripts
+[1.306s] Installing con script to /home/kmw/2025IEVE/Arduino_Control/ros2_con/install/mega_con/lib/mega_con
+[1.307s] Installing joy_con script to /home/kmw/2025IEVE/Arduino_Control/ros2_con/install/mega_con/lib/mega_con
+[1.307s] Installing tel script to /home/kmw/2025IEVE/Arduino_Control/ros2_con/install/mega_con/lib/mega_con
+[1.307s] writing list of installed files to '/home/kmw/2025IEVE/Arduino_Control/ros2_con/build/mega_con/install.log'
+[1.335s] Invoked command in '/home/kmw/2025IEVE/Arduino_Control/ros2_con/src/mega_con' returned '0': PYTHONPATH=/home/kmw/2025IEVE/Arduino_Control/ros2_con/build/mega_con/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/kmw/2025IEVE/Arduino_Control/ros2_con/install/mega_con/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/mega_con build --build-base /home/kmw/2025IEVE/Arduino_Control/ros2_con/build/mega_con/build install --record /home/kmw/2025IEVE/Arduino_Control/ros2_con/build/mega_con/install.log --single-version-externally-managed install_data
