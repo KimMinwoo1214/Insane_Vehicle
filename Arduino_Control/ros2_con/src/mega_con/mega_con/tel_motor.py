@@ -11,14 +11,15 @@ import select
 # 키보드 입력과 명령 매핑
 move_bindings = {
     'w': 'increase_speed',
+    'x': 'decrease_speed',
     's': 'stop',
     'a': 'ccw',
     'd': 'cw',
 }
 
-MAX_SPEED = 255  # 최대 속도
-SPEED_STEP = 50  # 속도 증가 단위
-MIN_SPEED = 0    # 최소 속도
+MAX_SPEED = 255   # 최대 전진 속도
+MIN_SPEED = -255  # 최대 후진 속도
+SPEED_STEP = 50   # 속도 증가 단위
 
 class TeleopKeyboard(Node):
     def __init__(self):
@@ -26,7 +27,7 @@ class TeleopKeyboard(Node):
         self.publisher = self.create_publisher(String, 'teleop_commands', 10)
         self.speed = 0  # 초기 속도
 
-        self.get_logger().info("키보드 제어 활성화: W(속도 증가), A(좌회전), D(우회전), S(정지)")
+        self.get_logger().info("키보드 제어 활성화: W(속도 증가), X(후진 속도 증가), A(좌회전), D(우회전), S(정지)")
         self.get_logger().info("Ctrl+C를 눌러 종료")
 
     def get_key(self):
@@ -59,6 +60,11 @@ class TeleopKeyboard(Node):
                         if self.speed > MAX_SPEED:
                             self.speed = MAX_SPEED
                         msg.data = f"forward:{self.speed}"  # 속도 값 포함
+                    elif command == "decrease_speed":
+                        self.speed -= SPEED_STEP
+                        if self.speed < MIN_SPEED:
+                            self.speed = MIN_SPEED
+                        msg.data = f"backward:{abs(self.speed)}"  # 속도 값 포함
                     elif command == "stop":
                         self.speed = 0
                         msg.data = "stop"

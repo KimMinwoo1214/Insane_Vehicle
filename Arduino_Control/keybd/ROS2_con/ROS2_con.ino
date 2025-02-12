@@ -21,6 +21,10 @@ void controlDriveMotor(String command) {
     speed = command.substring(8).toInt();  // 속도 값 파싱
     motor1.setSpeed(speed);
     motor2.setSpeed(speed);
+  } else if (command.startsWith("backward:")) {
+    speed = command.substring(9).toInt();  // 속도 값 파싱
+    motor1.setSpeed(-speed);
+    motor2.setSpeed(-speed);
   } else if (command == "stop") {
     speed = 0;
     motor1.setSpeed(0);
@@ -44,3 +48,4 @@ void loop() {
     controlDriveMotor(command);
   }
 }
+

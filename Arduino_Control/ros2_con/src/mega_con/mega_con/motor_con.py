@@ -10,7 +10,7 @@ class SerialBridge(Node):
         super().__init__('serial_bridge')
 
         # 아두이노와 연결할 시리얼 포트 설정 (포트 확인 후 수정 필요)
-        self.serial_port = serial.Serial('/dev/ttyACM0', 9600, timeout=1)
+        self.serial_port = serial.Serial('/dev/ttyUSB0', 9600, timeout=1)
 
         # ROS2에서 키보드 명령을 받기 위한 Subscriber 생성
         self.subscription = self.create_subscription(
