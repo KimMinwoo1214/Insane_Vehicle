@@ -1,0 +1,3 @@
+[console_scripts]
+con = mega_con.motor_con:main
+tel = mega_con.tel_motor:main
