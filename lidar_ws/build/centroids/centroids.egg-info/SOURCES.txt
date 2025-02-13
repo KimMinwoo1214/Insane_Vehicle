@@ -9,8 +9,10 @@ setup.py
 ../../build/centroids/centroids.egg-info/top_level.txt
 ../../build/centroids/centroids.egg-info/zip-safe
 centroids/__init__.py
+centroids/center_line.py
 centroids/centroids_visualize.py
 centroids/lr_dis.py
+launch/road_launch.py
 resource/centroids
 test/test_copyright.py
 test/test_flake8.py

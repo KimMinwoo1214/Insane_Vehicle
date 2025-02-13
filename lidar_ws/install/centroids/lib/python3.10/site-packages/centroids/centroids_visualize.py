@@ -3,9 +3,9 @@ from rclpy.node import Node
 from visualization_msgs.msg import Marker, MarkerArray
 from geometry_msgs.msg import Point
 
-class SegmentCentroidVisualizer(Node):
+class RoadLaneVisualizer(Node):
     def __init__(self):
-        super().__init__('segment_centroid_visualizer')
+        super().__init__('road_lane_visualizer')
 
         # `/segments/visualization` 토픽 구독
         self.subscription = self.create_subscription(
@@ -15,43 +15,107 @@ class SegmentCentroidVisualizer(Node):
             10
         )
 
-        # 왼쪽(L) 중심을 연결하는 선을 퍼블리시
-        self.left_publisher = self.create_publisher(
+        # 왼쪽(L) 차선을 위한 퍼블리셔
+        self.left_lane_publisher = self.create_publisher(
             Marker,
-            '/left_centroid_path',
+            '/left_lane',
             10
         )
 
-        # 오른쪽(R) 중심을 연결하는 선을 퍼블리시
-        self.right_publisher = self.create_publisher(
+        # 오른쪽(R) 차선을 위한 퍼블리셔
+        self.right_lane_publisher = self.create_publisher(
             Marker,
-            '/right_centroid_path',
+            '/right_lane',
+            10
+        )
+
+        # 중앙 차선을 위한 퍼블리셔
+        self.center_lane_publisher = self.create_publisher(
+            Marker,
+            '/center_lane',
             10
         )
 
     def process_segments(self, msg):
-        left_centroids = []
-        right_centroids = []
+        left_lane = []
+        right_lane = []
+
+        # 도로 중심을 찾기 위한 변수
+        all_y_values = []
 
         for marker in msg.markers:
-            if marker.ns == "id":  # 객체 ID 정보 포함된 데이터에서 중심 좌표 추출
+            if marker.ns == "id":  # 객체 중심 좌표만 가져옴
                 x = marker.pose.position.x
                 y = marker.pose.position.y
 
-                if x < 0 and y < 0:  # 왼쪽 (-, -)
-                    left_centroids.append((x, y))
-                elif x < 0 and y > 0:  # 오른쪽 (-, +)
-                    right_centroids.append((x, y))
+                # 📌 x < 0 인 객체 무시
+                if x < 0:
+                    continue
 
-        if len(left_centroids) < 2 and len(right_centroids) < 2:
-            self.get_logger().warn("Not enough centroids to create paths.")
+                # 📌 거리 제한: x 또는 y가 3m 이상이면 무시
+                if abs(x) > 3 or abs(y) > 3:
+                    continue  
+
+                all_y_values.append(y)
+
+        if not all_y_values:
+            self.get_logger().warn("No valid objects detected.")
+            return
+        
+        # 📌 도로 중심선 찾기 (평균 Y 값 사용)
+        road_center_y = sum(all_y_values) / len(all_y_values)
+
+        # 다시 객체를 분류
+        for marker in msg.markers:
+            if marker.ns == "id":
+                x = marker.pose.position.x
+                y = marker.pose.position.y
+
+                # 📌 x < 0 인 객체 무시
+                if x  > 0:
+                    continue
+
+                if abs(x) > 3.5 or abs(y) > 3.5:
+                    continue  
+
+                # 📌 도로 중심을 기준으로 좌우 차선 분류
+                if y < road_center_y:  # 왼쪽 차선
+                    left_lane.append((x, y))
+                else:  # 오른쪽 차선
+                    right_lane.append((x, y))
+
+        if len(left_lane) < 2 and len(right_lane) < 2:
+            self.get_logger().warn("Not enough centroids to create lanes.")
             return
 
-        # 왼쪽 선 그리기 (초록색)
-        self.publish_marker(self.left_publisher, left_centroids, "left_path", 0.0, 1.0, 0.0)
+        # 📌 중앙 차선 계산
+        center_lane = self.calculate_center_lane(left_lane, right_lane)
 
-        # 오른쪽 선 그리기 (파란색)
-        self.publish_marker(self.right_publisher, right_centroids, "right_path", 0.0, 0.0, 1.0)
+        # 📌 좌우 차선을 곡선으로 연결
+        self.publish_marker(self.left_lane_publisher, left_lane, "left_lane", 0.0, 1.0, 0.0)  # 초록색
+        self.publish_marker(self.right_lane_publisher, right_lane, "right_lane", 0.0, 0.0, 1.0)  # 파란색
+        self.publish_marker(self.center_lane_publisher, center_lane, "center_lane", 1.0, 1.0, 1.0)  # 흰색
+
+    def calculate_center_lane(self, left_lane, right_lane):
+        """ 왼쪽과 오른쪽 차선의 중심을 계산하여 중앙 차선을 생성 """
+        center_lane = []
+
+        # 왼쪽과 오른쪽 차선 포인트를 x축 기준으로 정렬
+        left_lane = sorted(left_lane, key=lambda p: p[0])
+        right_lane = sorted(right_lane, key=lambda p: p[0])
+
+        min_length = min(len(left_lane), len(right_lane))
+
+        for i in range(min_length):
+            left_x, left_y = left_lane[i]
+            right_x, right_y = right_lane[i]
+
+            center_x = (left_x + right_x) / 2
+            center_y = (left_y + right_y) / 2
+
+            center_lane.append((center_x, center_y))
+
+        return center_lane
 
     def publish_marker(self, publisher, points, ns, r, g, b):
         if len(points) < 2:
@@ -72,8 +136,8 @@ class SegmentCentroidVisualizer(Node):
         marker.color.g = g
         marker.color.b = b
 
-        # 중심 좌표를 정렬한 후 선으로 연결
-        for x, y in sorted(points, key=lambda p: p[0]):  # x축 기준 정렬
+        # 중심 좌표를 정렬하여 선을 부드럽게 연결
+        for x, y in points:
             point = Point()
             point.x = x
             point.y = y
@@ -85,7 +149,7 @@ class SegmentCentroidVisualizer(Node):
 
 def main(args=None):
     rclpy.init(args=args)
-    node = SegmentCentroidVisualizer()
+    node = RoadLaneVisualizer()
     rclpy.spin(node)
     node.destroy_node()
     rclpy.shutdown()
