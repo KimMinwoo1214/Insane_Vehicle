@@ -1,6 +1,5 @@
 #include "CytronMotorDriver.h"
 
-// 핀 설정
 const int pwmPin_r = 3;
 const int dirPin_r = 4;
 const int pwmPin_l = 5;
@@ -8,48 +7,81 @@ const int dirPin_l = 6;
 const int pwmPin_s = 8;
 const int dirPin_s = 9;
 
-CytronMD motor1(PWM_DIR, pwmPin_r, dirPin_r);
-CytronMD motor2(PWM_DIR, pwmPin_l, dirPin_l);
-CytronMD motor3(PWM_DIR, pwmPin_s, dirPin_s);
-
-int speed = 0;  // 이동 속도 변수
-int turn_speed = 0; // 회전 속도 변수
-
-void controlDriveMotor(String command) {
-  command.trim();  // 개행 문자 제거
-  // Serial.print("Received Command: "); 
-  // Serial.println(command);  // 수신된 명령을 시리얼 모니터에 출력
-
-  if (command.startsWith("forward:")) {
-    speed = command.substring(8).toInt();  // 숫자만 추출하여 정수 변환
-  } else if (command.startsWith("backward:")) {
-    speed = -command.substring(9).toInt();  // 후진 속도 값 파싱
-  } else if (command == "stop") {
-    speed = 0;
-    turn_speed = 0;
-  } else if (command.startsWith("cw:")) {
-    turn_speed = command.substring(3).toInt(); // 시계 방향 회전 속도 설정
-  } else if (command.startsWith("ccw:")) {
-    turn_speed = -command.substring(4).toInt(); // 반시계 방향 회전 속도 설정
-  } else {
-    Serial.println("⚠️ 오류: 알 수 없는 명령");
-  }
-
-  // 모터 속도 설정
-  // Serial.print("Motor Speed: ");
-  // Serial.println(speed);
-  motor1.setSpeed(speed);
-  motor2.setSpeed(speed);
-}
+// Cytron 모터 드라이버 객체 생성
+CytronMD motorLeft(PWM_DIR, pwmPin_l, dirPin_l);   // 왼쪽
+CytronMD motorRight(PWM_DIR, pwmPin_r, dirPin_r); // 오른쪽
+CytronMD motorSteer(PWM_DIR, pwmPin_s, dirPin_s); // 스티어링
 
 void setup() {
   Serial.begin(9600);
-  Serial.println("🔹 아두이노 모터 컨트롤러 시작");
+  Serial.println("🔹 Arduino Motor Controller Initialized");
 }
 
 void loop() {
-  if (Serial.available()) {
-    String command = Serial.readStringUntil('\n');  // '\n'까지 문자열 읽기
-    controlDriveMotor(command);
+  if (Serial.available() > 0) {
+    // '\n' 기준으로 문자열 받기
+    String command = Serial.readStringUntil('\n');
+    command.trim(); // 공백, 개행 문자 제거
+    parseCommand(command);
+  }
+}
+
+void parseCommand(String cmd) {
+  // 예) "drive: -100 120" -> 왼쪽 모터 -100, 오른쪽 모터 120
+  // 예) "steer: 50"       -> 스티어링 모터 50
+  // 예) "stop"            -> 정지
+  // 각 문자열 구문을 파싱
+
+  if (cmd.startsWith("drive:")) {
+    // "drive:" 뒤에 오는 값 2개 (왼쪽, 오른쪽) 파싱
+    // "drive: -100 120" 구조라고 가정
+    String valuePart = cmd.substring(6); 
+    valuePart.trim(); 
+    int spaceIndex = valuePart.indexOf(' ');
+
+    if (spaceIndex == -1) {
+      Serial.println("Invalid drive command format!");
+      return;
+    }
+
+    String leftStr = valuePart.substring(0, spaceIndex);
+    String rightStr = valuePart.substring(spaceIndex + 1);
+
+    int leftVal = leftStr.toInt(); 
+    int rightVal = rightStr.toInt();
+
+    motorLeft.setSpeed(leftVal);
+    motorRight.setSpeed(rightVal);
+
+    Serial.print("Driving => Left: ");
+    Serial.print(leftVal);
+    Serial.print(", Right: ");
+    Serial.println(rightVal);
+  }
+
+  else if (cmd.startsWith("steer:")) {
+    // "steer: 50" 구조
+    String valuePart = cmd.substring(6);
+    valuePart.trim();
+    int steerVal = valuePart.toInt();
+
+    motorSteer.setSpeed(steerVal);
+
+    Serial.print("Steering => ");
+    Serial.println(steerVal);
+  }
+
+  else if (cmd == "stop") {
+    // 모든 모터 정지
+    motorLeft.setSpeed(0);
+    motorRight.setSpeed(0);
+    motorSteer.setSpeed(0);
+    Serial.println("All motors stopped!");
+  }
+
+  else {
+    // 정의되지 않은 명령
+    Serial.print("Invalid Command: ");
+    Serial.println(cmd);
   }
 }

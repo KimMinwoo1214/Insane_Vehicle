@@ -2,6 +2,8 @@ import rclpy
 from rclpy.node import Node
 from visualization_msgs.msg import Marker, MarkerArray
 from geometry_msgs.msg import Point
+import numpy as np
+from scipy.spatial import distance
 
 class RoadLaneVisualizer(Node):
     def __init__(self):
@@ -49,11 +51,11 @@ class RoadLaneVisualizer(Node):
                 y = marker.pose.position.y
 
                 # 📌 x < 0 인 객체 무시
-                if x < 0:
+                if x > 0:
                     continue
 
                 # 📌 거리 제한: x 또는 y가 3m 이상이면 무시
-                if abs(x) > 3 or abs(y) > 3:
+                if abs(x) > 6 or abs(y) > 6:
                     continue  
 
                 all_y_values.append(y)
@@ -72,10 +74,10 @@ class RoadLaneVisualizer(Node):
                 y = marker.pose.position.y
 
                 # 📌 x < 0 인 객체 무시
-                if x  > 0:
+                if x > 0:
                     continue
 
-                if abs(x) > 3.5 or abs(y) > 3.5:
+                if abs(x) > 6 or abs(y) > 6:
                     continue  
 
                 # 📌 도로 중심을 기준으로 좌우 차선 분류
@@ -88,6 +90,10 @@ class RoadLaneVisualizer(Node):
             self.get_logger().warn("Not enough centroids to create lanes.")
             return
 
+        # 📌 가까운 순서대로 정렬 후 차선 생성
+        left_lane = self.sort_by_distance(left_lane)
+        right_lane = self.sort_by_distance(right_lane)
+
         # 📌 중앙 차선 계산
         center_lane = self.calculate_center_lane(left_lane, right_lane)
 
@@ -96,13 +102,26 @@ class RoadLaneVisualizer(Node):
         self.publish_marker(self.right_lane_publisher, right_lane, "right_lane", 0.0, 0.0, 1.0)  # 파란색
         self.publish_marker(self.center_lane_publisher, center_lane, "center_lane", 1.0, 1.0, 1.0)  # 흰색
 
+    def sort_by_distance(self, points):
+        """거리가 가까운 순서대로 정렬"""
+        if len(points) < 2:
+            return points  # 정렬할 필요 없음
+
+        points = np.array(points)
+        sorted_points = [points[0]]  # 시작점
+        remaining_points = points[1:].tolist()
+
+        while remaining_points:
+            last_point = sorted_points[-1]
+            nearest_point = min(remaining_points, key=lambda p: distance.euclidean(last_point, p))
+            sorted_points.append(nearest_point)
+            remaining_points.remove(nearest_point)
+
+        return sorted_points
+
     def calculate_center_lane(self, left_lane, right_lane):
         """ 왼쪽과 오른쪽 차선의 중심을 계산하여 중앙 차선을 생성 """
         center_lane = []
-
-        # 왼쪽과 오른쪽 차선 포인트를 x축 기준으로 정렬
-        left_lane = sorted(left_lane, key=lambda p: p[0])
-        right_lane = sorted(right_lane, key=lambda p: p[0])
 
         min_length = min(len(left_lane), len(right_lane))
 
@@ -136,7 +155,7 @@ class RoadLaneVisualizer(Node):
         marker.color.g = g
         marker.color.b = b
 
-        # 중심 좌표를 정렬하여 선을 부드럽게 연결
+        # 중심 좌표를 거리 순서대로 정렬하여 선을 부드럽게 연결
         for x, y in points:
             point = Point()
             point.x = x

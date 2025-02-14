@@ -2,66 +2,93 @@
 
 import rclpy
 from rclpy.node import Node
-from std_msgs.msg import String
-from sensor_msgs.msg import Joy  # 조이스틱 메시지
+from sensor_msgs.msg import Joy
+import serial
 
-# 속도 설정
-MAX_SPEED = 255   # 최대 전진 속도
-MIN_SPEED = -255  # 최대 후진 속도
-SPEED_STEP = 10   # 속도 증가 단위
-
-class TeleopJoystick(Node):
+class PS3TeleopNode(Node):
     def __init__(self):
-        super().__init__('teleop_joystick')
+        super().__init__('ps3_teleop_node')
 
-        # 조이스틱 입력을 받는 구독자
-        self.subscription = self.create_subscription(
+        # 조이스틱 토픽 구독 (사용중인 토픽명에 맞게 수정)
+        self.joy_sub = self.create_subscription(
             Joy,
-            '/joy',  # ROS2에서 조이스틱 데이터가 들어오는 기본 토픽
+            'joy',
             self.joy_callback,
             10
         )
 
-        # 모터 명령을 전송할 퍼블리셔
-        self.publisher = self.create_publisher(String, 'teleop_commands', 10)
+        # 시리얼 포트 열기 (환경에 맞게 수정)
+        try:
+            self.ser = serial.Serial('/dev/ttyACM0', 9600, timeout=0.1)
+            self.get_logger().info("Serial port opened successfully.")
+        except Exception as e:
+            self.get_logger().error(f"Failed to open serial port: {e}")
+            self.ser = None
 
-        # 현재 속도 값
-        self.speed = 0  
-        self.get_logger().info("PS3 조이스틱으로 제어 시작 (좌스틱: 전진/후진, 우스틱: 좌/우회전, X 버튼: 정지)")
+        # 속도/조향 스케일 (원하는 값으로 조정)
+        self.max_speed = 255
+        self.max_steer = 100
 
-    def joy_callback(self, msg):
-        """ 조이스틱 입력을 감지하여 속도 조절 후 ROS2 토픽으로 발행 """
-        command_msg = String()
+        # 직전 명령값 기록용(초기화)
+        self.last_left_speed = None
+        self.last_right_speed = None
+        self.last_steer_val = None
 
-        # 아날로그 스틱 입력값 (조이스틱마다 다를 수 있음)
-        linear_axis = msg.axes[1]  # 왼쪽 스틱의 위/아래 방향
-        angular_axis = msg.axes[0] # 왼쪽 스틱의 좌/우 방향
+    def joy_callback(self, msg: Joy):
+        if self.ser is None:
+            return  # 시리얼 포트가 열리지 않았으면 아무것도 안 함
 
-        # 속도 조절 (위 방향으로 밀면 속도 증가, 아래 방향이면 감소)
-        self.speed = int(linear_axis * MAX_SPEED)
+        # PS3 컨트롤러 축 매핑(실제 축 인덱스 확인 필요)
+        forward_axis = msg.axes[1]   # -1.0 ~ +1.0 (전후진)
+        steering_axis = msg.axes[0]  # -1.0 ~ +1.0 (좌우)
 
-        # 조향 (좌/우 방향으로 조이스틱 움직이면 회전)
-        if angular_axis > 0.5:
-            command_msg.data = "cw"  # 시계방향 회전
-        elif angular_axis < -0.5:
-            command_msg.data = "ccw"  # 반시계방향 회전
-        else:
-            command_msg.data = f"forward:{self.speed}" if self.speed > 0 else f"backward:{abs(self.speed)}"
+        # 전/후진 속도 계산 (왼/오 모터 동일하게)
+        left_speed = int(forward_axis * self.max_speed)
+        right_speed = int(forward_axis * self.max_speed)
 
-        # X 버튼 (`buttons[1]`)을 누르면 정지
-        if msg.buttons[1] == 1:
-            command_msg.data = "stop"
-            self.speed = 0
+        # 스티어링 속도 계산
+        steer_val = int(steering_axis * self.max_steer)
 
-        self.publisher.publish(command_msg)
-        self.get_logger().info(f"전송됨: {command_msg.data}")
+        # -----------------------------
+        # 1) drive 명령 전송 (값이 바뀌었을 때만)
+        # -----------------------------
+        if (left_speed != self.last_left_speed) or (right_speed != self.last_right_speed):
+            drive_cmd = f"drive: {left_speed} {right_speed}\n"
+            try:
+                sent_drive = self.ser.write(drive_cmd.encode('utf-8'))
+                self.get_logger().info(
+                    f"[DEBUG] Sent drive_cmd ({sent_drive} bytes): {drive_cmd.strip()}"
+                )
+            except Exception as e:
+                self.get_logger().error(f"Serial write error (drive_cmd): {e}")
 
-def main():
-    rclpy.init()
-    node = TeleopJoystick()
+            # 직전값 갱신
+            self.last_left_speed = left_speed
+            self.last_right_speed = right_speed
+
+        # -----------------------------
+        # 2) steer 명령 전송 (값이 바뀌었을 때만)
+        # -----------------------------
+        if steer_val != self.last_steer_val:
+            steer_cmd = f"steer: {steer_val}\n"
+            try:
+                sent_steer = self.ser.write(steer_cmd.encode('utf-8'))
+                self.get_logger().info(
+                    f"[DEBUG] Sent steer_cmd ({sent_steer} bytes): {steer_cmd.strip()}"
+                )
+            except Exception as e:
+                self.get_logger().error(f"Serial write error (steer_cmd): {e}")
+
+            # 직전값 갱신
+            self.last_steer_val = steer_val
+
+def main(args=None):
+    rclpy.init(args=args)
+    node = PS3TeleopNode()
     rclpy.spin(node)
     node.destroy_node()
     rclpy.shutdown()
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()
+

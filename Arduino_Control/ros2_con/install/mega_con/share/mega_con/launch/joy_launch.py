@@ -13,13 +13,6 @@ def generate_launch_description():
         ),
 
         # SerialBridge (아두이노와 시리얼 통신) 실행
-        Node(
-            package='mega_con',
-            executable='con',
-            name='serial_bridge',
-            output='screen'
-        ),
-
         # 조이스틱을 통한 ROS2 명령 생성 노드 실행
         Node(
             package='mega_con',
