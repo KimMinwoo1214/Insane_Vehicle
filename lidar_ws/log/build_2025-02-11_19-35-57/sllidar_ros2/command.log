@@ -1,1 +1,0 @@
-Invoking command in '/home/kmw/2025IEVE/lidar_ws/build/sllidar_ros2': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/kmw/2025IEVE/lidar_ws/build/sllidar_ros2 -- -j8 -l8
