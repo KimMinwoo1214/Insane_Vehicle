@@ -1,0 +1,33 @@
+[8.317s] Invoking command in '/home/kmw/2025IEVE/lidar_ws/src/calibration': PYTHONPATH=/home/kmw/2025IEVE/lidar_ws/build/calibration/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/kmw/2025IEVE/lidar_ws/install/calibration/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/calibration build --build-base /home/kmw/2025IEVE/lidar_ws/build/calibration/build install --record /home/kmw/2025IEVE/lidar_ws/build/calibration/install.log --single-version-externally-managed install_data
+[9.478s] /home/kmw/miniconda3/envs/ros2_py310/lib/python3.10/site-packages/setuptools/_distutils/dist.py:268: UserWarning: Unknown distribution option: 'tests_require'
+[9.480s]   warnings.warn(msg)
+[10.336s] running egg_info
+[10.484s] writing ../../build/calibration/calibration.egg-info/PKG-INFO
+[10.485s] writing dependency_links to ../../build/calibration/calibration.egg-info/dependency_links.txt
+[10.486s] writing entry points to ../../build/calibration/calibration.egg-info/entry_points.txt
+[10.487s] writing requirements to ../../build/calibration/calibration.egg-info/requires.txt
+[10.488s] writing top-level names to ../../build/calibration/calibration.egg-info/top_level.txt
+[10.831s] reading manifest file '../../build/calibration/calibration.egg-info/SOURCES.txt'
+[10.835s] writing manifest file '../../build/calibration/calibration.egg-info/SOURCES.txt'
+[10.836s] running build
+[10.837s] running build_py
+[10.838s] copying calibration/lidar_to_camera.py -> /home/kmw/2025IEVE/lidar_ws/build/calibration/build/lib/calibration
+[10.839s] copying calibration/__init__.py -> /home/kmw/2025IEVE/lidar_ws/build/calibration/build/lib/calibration
+[10.840s] copying calibration/camera_node.py -> /home/kmw/2025IEVE/lidar_ws/build/calibration/build/lib/calibration
+[10.842s] copying calibration/lidar_point.py -> /home/kmw/2025IEVE/lidar_ws/build/calibration/build/lib/calibration
+[10.845s] running install
+[10.883s] running install_lib
+[10.997s] copying /home/kmw/2025IEVE/lidar_ws/build/calibration/build/lib/calibration/camera_node.py -> /home/kmw/2025IEVE/lidar_ws/install/calibration/lib/python3.10/site-packages/calibration
+[11.000s] byte-compiling /home/kmw/2025IEVE/lidar_ws/install/calibration/lib/python3.10/site-packages/calibration/camera_node.py to camera_node.cpython-310.pyc
+[11.005s] running install_data
+[11.009s] copying resource/calibration -> /home/kmw/2025IEVE/lidar_ws/install/calibration/share/ament_index/resource_index/packages
+[11.012s] copying package.xml -> /home/kmw/2025IEVE/lidar_ws/install/calibration/share/calibration
+[11.014s] running install_egg_info
+[11.165s] removing '/home/kmw/2025IEVE/lidar_ws/install/calibration/lib/python3.10/site-packages/calibration-0.0.0-py3.10.egg-info' (and everything under it)
+[11.166s] Copying ../../build/calibration/calibration.egg-info to /home/kmw/2025IEVE/lidar_ws/install/calibration/lib/python3.10/site-packages/calibration-0.0.0-py3.10.egg-info
+[11.169s] running install_scripts
+[12.259s] Installing camera script to /home/kmw/2025IEVE/lidar_ws/install/calibration/lib/calibration
+[12.260s] Installing lidar_point script to /home/kmw/2025IEVE/lidar_ws/install/calibration/lib/calibration
+[12.261s] Installing lidar_to_camera script to /home/kmw/2025IEVE/lidar_ws/install/calibration/lib/calibration
+[12.263s] writing list of installed files to '/home/kmw/2025IEVE/lidar_ws/build/calibration/install.log'
+[12.493s] Invoked command in '/home/kmw/2025IEVE/lidar_ws/src/calibration' returned '0': PYTHONPATH=/home/kmw/2025IEVE/lidar_ws/build/calibration/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/kmw/2025IEVE/lidar_ws/install/calibration/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/calibration build --build-base /home/kmw/2025IEVE/lidar_ws/build/calibration/build install --record /home/kmw/2025IEVE/lidar_ws/build/calibration/install.log --single-version-externally-managed install_data

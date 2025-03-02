@@ -1,0 +1,52 @@
+[1.155s] Invoking command in '/home/kmw/2025IEVE/lidar_ws/build/laser_segmentation': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/kmw/2025IEVE/lidar_ws/install/calibration:/home/kmw/2025IEVE/lidar_ws/install/sllidar_ros2:/home/kmw/2025IEVE/lidar_ws/install/laser_segmentation:/home/kmw/2025IEVE/lidar_ws/install/centroids:/home/kmw/2025IEVE/lidar_ws/install/centeroids:/opt/ros/humble /usr/bin/cmake --build /home/kmw/2025IEVE/lidar_ws/build/laser_segmentation -- -j8 -l8
+[1.341s] [ 23%] Built target gtest
+[1.342s] [ 23%] Built target gtest_main
+[1.357s] [ 52%] Built target laser_segmentation_core
+[1.455s] [ 64%] Built target test_segmentations
+[1.467s] [ 76%] Built target laser_segmentation
+[1.472s] [ 88%] Built target test_laser_segmentation
+[1.478s] [100%] Built target test_integration
+[1.548s] Invoked command in '/home/kmw/2025IEVE/lidar_ws/build/laser_segmentation' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/kmw/2025IEVE/lidar_ws/install/calibration:/home/kmw/2025IEVE/lidar_ws/install/sllidar_ros2:/home/kmw/2025IEVE/lidar_ws/install/laser_segmentation:/home/kmw/2025IEVE/lidar_ws/install/centroids:/home/kmw/2025IEVE/lidar_ws/install/centeroids:/opt/ros/humble /usr/bin/cmake --build /home/kmw/2025IEVE/lidar_ws/build/laser_segmentation -- -j8 -l8
+[1.552s] Invoking command in '/home/kmw/2025IEVE/lidar_ws/build/laser_segmentation': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/kmw/2025IEVE/lidar_ws/install/calibration:/home/kmw/2025IEVE/lidar_ws/install/sllidar_ros2:/home/kmw/2025IEVE/lidar_ws/install/laser_segmentation:/home/kmw/2025IEVE/lidar_ws/install/centroids:/home/kmw/2025IEVE/lidar_ws/install/centeroids:/opt/ros/humble /usr/bin/cmake --install /home/kmw/2025IEVE/lidar_ws/build/laser_segmentation
+[1.579s] -- Install configuration: "Release"
+[1.579s] -- Up-to-date: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/lib/liblaser_segmentation_core.so
+[1.580s] -- Up-to-date: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/lib/laser_segmentation/laser_segmentation
+[1.580s] -- Up-to-date: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/include/laser_segmentation
+[1.581s] -- Up-to-date: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/include/laser_segmentation/laser_segmentation
+[1.581s] -- Up-to-date: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/include/laser_segmentation/laser_segmentation/segmentation
+[1.581s] -- Up-to-date: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/include/laser_segmentation/laser_segmentation/segmentation/jump_distance_merge.hpp
+[1.584s] -- Up-to-date: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/include/laser_segmentation/laser_segmentation/segmentation/segmentation.hpp
+[1.584s] -- Up-to-date: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/include/laser_segmentation/laser_segmentation/segmentation/jump_distance.hpp
+[1.585s] -- Up-to-date: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/include/laser_segmentation/laser_segmentation/laser_segmentation.hpp
+[1.585s] -- Up-to-date: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/include/laser_segmentation/laser_segmentation/parameter_handler.hpp
+[1.586s] -- Up-to-date: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/include/laser_segmentation/laser_segmentation/parula.hpp
+[1.586s] -- Up-to-date: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/share/laser_segmentation//launch
+[1.587s] -- Up-to-date: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/share/laser_segmentation//launch/segmentation.launch.py
+[1.587s] -- Up-to-date: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/share/laser_segmentation//params
+[1.587s] -- Up-to-date: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/share/laser_segmentation//params/default_params.yml
+[1.587s] -- Up-to-date: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/share/laser_segmentation//params/close_steps_detect.yml
+[1.588s] -- Up-to-date: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/share/laser_segmentation/environment/library_path.sh
+[1.588s] -- Up-to-date: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/share/laser_segmentation/environment/library_path.dsv
+[1.588s] -- Up-to-date: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/share/ament_index/resource_index/package_run_dependencies/laser_segmentation
+[1.589s] -- Up-to-date: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/share/ament_index/resource_index/parent_prefix_path/laser_segmentation
+[1.589s] -- Up-to-date: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/share/laser_segmentation/environment/ament_prefix_path.sh
+[1.589s] -- Up-to-date: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/share/laser_segmentation/environment/ament_prefix_path.dsv
+[1.589s] -- Up-to-date: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/share/laser_segmentation/environment/path.sh
+[1.590s] -- Up-to-date: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/share/laser_segmentation/environment/path.dsv
+[1.590s] -- Up-to-date: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/share/laser_segmentation/local_setup.bash
+[1.590s] -- Up-to-date: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/share/laser_segmentation/local_setup.sh
+[1.591s] -- Up-to-date: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/share/laser_segmentation/local_setup.zsh
+[1.591s] -- Up-to-date: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/share/laser_segmentation/local_setup.dsv
+[1.591s] -- Installing: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/share/laser_segmentation/package.dsv
+[1.591s] -- Up-to-date: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/share/ament_index/resource_index/packages/laser_segmentation
+[1.593s] -- Up-to-date: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/share/ament_index/resource_index/rclcpp_components/laser_segmentation
+[1.593s] -- Up-to-date: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/share/laser_segmentation/cmake/laser_segmentationExport.cmake
+[1.594s] -- Up-to-date: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/share/laser_segmentation/cmake/laser_segmentationExport-release.cmake
+[1.594s] -- Up-to-date: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/share/laser_segmentation/cmake/ament_cmake_export_include_directories-extras.cmake
+[1.594s] -- Up-to-date: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/share/laser_segmentation/cmake/ament_cmake_export_libraries-extras.cmake
+[1.595s] -- Up-to-date: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/share/laser_segmentation/cmake/ament_cmake_export_dependencies-extras.cmake
+[1.595s] -- Up-to-date: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/share/laser_segmentation/cmake/ament_cmake_export_targets-extras.cmake
+[1.595s] -- Up-to-date: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/share/laser_segmentation/cmake/laser_segmentationConfig.cmake
+[1.596s] -- Up-to-date: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/share/laser_segmentation/cmake/laser_segmentationConfig-version.cmake
+[1.596s] -- Up-to-date: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/share/laser_segmentation/package.xml
+[1.634s] Invoked command in '/home/kmw/2025IEVE/lidar_ws/build/laser_segmentation' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/kmw/2025IEVE/lidar_ws/install/calibration:/home/kmw/2025IEVE/lidar_ws/install/sllidar_ros2:/home/kmw/2025IEVE/lidar_ws/install/laser_segmentation:/home/kmw/2025IEVE/lidar_ws/install/centroids:/home/kmw/2025IEVE/lidar_ws/install/centeroids:/opt/ros/humble /usr/bin/cmake --install /home/kmw/2025IEVE/lidar_ws/build/laser_segmentation
