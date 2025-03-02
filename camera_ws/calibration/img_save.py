@@ -7,6 +7,8 @@ def capture_and_save():
         print("Error: Could not open camera.")
         return
     
+    count = 0  # 이미지 저장 번호
+    
     while True:
         ret, frame = cap.read()
         if not ret:
@@ -17,8 +19,10 @@ def capture_and_save():
         
         key = cv2.waitKey(1) & 0xFF
         if key == ord('s'):  # 's' 키를 누르면 사진 저장
-            cv2.imwrite("captured_image.jpg", frame)
-            print("Image saved as captured_image.jpg")
+            filename = f"captured_image_{count}.jpg"
+            cv2.imwrite(filename, frame)
+            print(f"Image saved as {filename}")
+            count += 1
         elif key == ord('q'):  # 'q' 키를 누르면 종료
             break
     
@@ -27,3 +31,4 @@ def capture_and_save():
 
 if __name__ == "__main__":
     capture_and_save()
+
