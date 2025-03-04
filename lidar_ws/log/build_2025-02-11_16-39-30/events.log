@@ -1,0 +1,490 @@
+[0.000000] (-) TimerEvent: {}
+[0.000196] (laser_segmentation) JobQueued: {'identifier': 'laser_segmentation', 'dependencies': OrderedDict()}
+[0.000243] (sllidar_ros2) JobQueued: {'identifier': 'sllidar_ros2', 'dependencies': OrderedDict()}
+[0.000263] (laser_segmentation) JobStarted: {'identifier': 'laser_segmentation'}
+[0.006764] (sllidar_ros2) JobStarted: {'identifier': 'sllidar_ros2'}
+[0.010489] (laser_segmentation) JobProgress: {'identifier': 'laser_segmentation', 'progress': 'cmake'}
+[0.010896] (laser_segmentation) Command: {'cmd': ['/usr/bin/cmake', '/home/kmw/2025IEVE/lidar_ws/src/laser_segmentation', '-DCMAKE_INSTALL_PREFIX=/home/kmw/2025IEVE/lidar_ws/install/laser_segmentation'], 'cwd': '/home/kmw/2025IEVE/lidar_ws/build/laser_segmentation', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('CONDA_PROMPT_MODIFIER', '(base)'), ('LANGUAGE', 'en_US:en'), ('USER', 'kmw'), ('LC_TIME', 'ko_KR.UTF-8'), ('XDG_SESSION_TYPE', 'x11'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/home/kmw'), ('CONDA_SHLVL', '1'), ('OLDPWD', '/home/kmw/2025IEVE/lidar_ws/src'), ('DESKTOP_SESSION', 'ubuntu'), ('ROS_PYTHON_VERSION', '3'), ('GNOME_SHELL_SESSION_MODE', 'ubuntu'), ('GTK_MODULES', 'gail:atk-bridge'), ('LC_MONETARY', 'ko_KR.UTF-8'), ('MANAGERPID', '906'), ('SYSTEMD_EXEC_PID', '1902'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('_CE_M', ''), ('TERMINATOR_DBUS_NAME', 'net.tenshu.Terminator21a9d5db22c73a993ff0b42f64b396873'), ('GIO_LAUNCHED_DESKTOP_FILE_PID', '5945'), ('ROS_DISTRO', 'humble'), ('GTK_IM_MODULE', 'ibus'), ('LOGNAME', 'kmw'), ('JOURNAL_STREAM', '8:15550'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('USERNAME', 'kmw'), ('TERM', 'xterm-256color'), ('GNOME_DESKTOP_SESSION_ID', 'this-is-deprecated'), ('_CE_CONDA', ''), ('ROS_LOCALHOST_ONLY', '0'), ('WINDOWPATH', '2'), ('PATH', '/opt/ros/humble/bin:/home/kmw/gems/bin:/home/kmw/gems/bin:/home/kmw/miniconda3/bin:/home/kmw/miniconda3/condabin:/home/kmw/.cargo/bin:/home/kmw/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin'), ('SESSION_MANAGER', 'local/er:@/tmp/.ICE-unix/1709,unix/er:/tmp/.ICE-unix/1709'), ('INVOCATION_ID', '7838b0234f5b46b2adcc9b3e6d0d711c'), ('PAPERSIZE', 'a4'), ('XDG_MENU_PREFIX', 'gnome-'), ('LC_ADDRESS', 'ko_KR.UTF-8'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('DISPLAY', ':0'), ('TERMINATOR_DBUS_PATH', '/net/tenshu/Terminator2'), ('LANG', 'en_US.UTF-8'), ('XDG_CURRENT_DESKTOP', 'ubuntu:GNOME'), ('IBUS_DISABLE_SNOOPER', '1'), ('LC_TELEPHONE', 'ko_KR.UTF-8'), ('RMW_IMPLEMENTATION', 'rmw_fastrtps_cpp'), ('XMODIFIERS', '@im=ibus'), ('XDG_SESSION_DESKTOP', 'ubuntu'), ('XAUTHORITY', '/run/user/1000/gdm/Xauthority'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('SSH_AGENT_LAUNCHER', 'gnome-keyring'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('ROS_DOMAIN_ID', '15'), ('AMENT_PREFIX_PATH', '/opt/ros/humble'), ('CONDA_PYTHON_EXE', '/home/kmw/miniconda3/bin/python'), ('SHELL', '/bin/bash'), ('LC_NAME', 'ko_KR.UTF-8'), ('TERMINATOR_UUID', 'urn:uuid:7218e82b-bf28-4ab2-998e-894073a59fa1'), ('QT_ACCESSIBILITY', '1'), ('GDMSESSION', 'ubuntu'), ('GEM_HOME', '/home/kmw/gems'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('CONDA_DEFAULT_ENV', 'base'), ('LC_MEASUREMENT', 'ko_KR.UTF-8'), ('GPG_AGENT_INFO', '/run/user/1000/gnupg/S.gpg-agent:0:1'), ('LC_IDENTIFICATION', 'ko_KR.UTF-8'), ('QT_IM_MODULE', 'ibus'), ('PWD', '/home/kmw/2025IEVE/lidar_ws/build/laser_segmentation'), ('LC_ALL', 'en_US.UTF-8'), ('XDG_CONFIG_DIRS', '/etc/xdg/xdg-ubuntu:/etc/xdg'), ('CONDA_EXE', '/home/kmw/miniconda3/bin/conda'), ('XDG_DATA_DIRS', '/usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages:/home/kmw/miniconda3/envs/ros2_py310/lib/python3.10/site-packages/'), ('LC_NUMERIC', 'ko_KR.UTF-8'), ('CONDA_PREFIX', '/home/kmw/miniconda3'), ('LC_PAPER', 'ko_KR.UTF-8'), ('COLCON', '1'), ('VTE_VERSION', '6800'), ('CMAKE_PREFIX_PATH', '/opt/ros/humble')]), 'shell': False}
+[0.015089] (sllidar_ros2) JobProgress: {'identifier': 'sllidar_ros2', 'progress': 'cmake'}
+[0.016409] (sllidar_ros2) JobProgress: {'identifier': 'sllidar_ros2', 'progress': 'build'}
+[0.017874] (sllidar_ros2) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/kmw/2025IEVE/lidar_ws/build/sllidar_ros2', '--', '-j8', '-l8'], 'cwd': '/home/kmw/2025IEVE/lidar_ws/build/sllidar_ros2', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('CONDA_PROMPT_MODIFIER', '(base)'), ('LANGUAGE', 'en_US:en'), ('USER', 'kmw'), ('LC_TIME', 'ko_KR.UTF-8'), ('XDG_SESSION_TYPE', 'x11'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/home/kmw'), ('CONDA_SHLVL', '1'), ('OLDPWD', '/home/kmw/2025IEVE/lidar_ws/src'), ('DESKTOP_SESSION', 'ubuntu'), ('ROS_PYTHON_VERSION', '3'), ('GNOME_SHELL_SESSION_MODE', 'ubuntu'), ('GTK_MODULES', 'gail:atk-bridge'), ('LC_MONETARY', 'ko_KR.UTF-8'), ('MANAGERPID', '906'), ('SYSTEMD_EXEC_PID', '1902'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('_CE_M', ''), ('TERMINATOR_DBUS_NAME', 'net.tenshu.Terminator21a9d5db22c73a993ff0b42f64b396873'), ('GIO_LAUNCHED_DESKTOP_FILE_PID', '5945'), ('ROS_DISTRO', 'humble'), ('GTK_IM_MODULE', 'ibus'), ('LOGNAME', 'kmw'), ('JOURNAL_STREAM', '8:15550'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('USERNAME', 'kmw'), ('TERM', 'xterm-256color'), ('GNOME_DESKTOP_SESSION_ID', 'this-is-deprecated'), ('_CE_CONDA', ''), ('ROS_LOCALHOST_ONLY', '0'), ('WINDOWPATH', '2'), ('PATH', '/opt/ros/humble/bin:/home/kmw/gems/bin:/home/kmw/gems/bin:/home/kmw/miniconda3/bin:/home/kmw/miniconda3/condabin:/home/kmw/.cargo/bin:/home/kmw/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin'), ('SESSION_MANAGER', 'local/er:@/tmp/.ICE-unix/1709,unix/er:/tmp/.ICE-unix/1709'), ('INVOCATION_ID', '7838b0234f5b46b2adcc9b3e6d0d711c'), ('PAPERSIZE', 'a4'), ('XDG_MENU_PREFIX', 'gnome-'), ('LC_ADDRESS', 'ko_KR.UTF-8'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('DISPLAY', ':0'), ('TERMINATOR_DBUS_PATH', '/net/tenshu/Terminator2'), ('LANG', 'en_US.UTF-8'), ('XDG_CURRENT_DESKTOP', 'ubuntu:GNOME'), ('IBUS_DISABLE_SNOOPER', '1'), ('LC_TELEPHONE', 'ko_KR.UTF-8'), ('RMW_IMPLEMENTATION', 'rmw_fastrtps_cpp'), ('XMODIFIERS', '@im=ibus'), ('XDG_SESSION_DESKTOP', 'ubuntu'), ('XAUTHORITY', '/run/user/1000/gdm/Xauthority'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('SSH_AGENT_LAUNCHER', 'gnome-keyring'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('ROS_DOMAIN_ID', '15'), ('AMENT_PREFIX_PATH', '/opt/ros/humble'), ('CONDA_PYTHON_EXE', '/home/kmw/miniconda3/bin/python'), ('SHELL', '/bin/bash'), ('LC_NAME', 'ko_KR.UTF-8'), ('TERMINATOR_UUID', 'urn:uuid:7218e82b-bf28-4ab2-998e-894073a59fa1'), ('QT_ACCESSIBILITY', '1'), ('GDMSESSION', 'ubuntu'), ('GEM_HOME', '/home/kmw/gems'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('CONDA_DEFAULT_ENV', 'base'), ('LC_MEASUREMENT', 'ko_KR.UTF-8'), ('GPG_AGENT_INFO', '/run/user/1000/gnupg/S.gpg-agent:0:1'), ('LC_IDENTIFICATION', 'ko_KR.UTF-8'), ('QT_IM_MODULE', 'ibus'), ('PWD', '/home/kmw/2025IEVE/lidar_ws/build/sllidar_ros2'), ('LC_ALL', 'en_US.UTF-8'), ('XDG_CONFIG_DIRS', '/etc/xdg/xdg-ubuntu:/etc/xdg'), ('CONDA_EXE', '/home/kmw/miniconda3/bin/conda'), ('XDG_DATA_DIRS', '/usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages:/home/kmw/miniconda3/envs/ros2_py310/lib/python3.10/site-packages/'), ('LC_NUMERIC', 'ko_KR.UTF-8'), ('CONDA_PREFIX', '/home/kmw/miniconda3'), ('LC_PAPER', 'ko_KR.UTF-8'), ('COLCON', '1'), ('VTE_VERSION', '6800'), ('CMAKE_PREFIX_PATH', '/opt/ros/humble')]), 'shell': False}
+[0.099415] (-) TimerEvent: {}
+[0.104995] (sllidar_ros2) StdoutLine: {'line': b'[ 10%] Built target sllidar_client\n'}
+[0.108397] (sllidar_ros2) StdoutLine: {'line': b'[100%] Built target sllidar_node\n'}
+[0.121128] (sllidar_ros2) CommandEnded: {'returncode': 0}
+[0.121603] (laser_segmentation) StdoutLine: {'line': b'-- The C compiler identification is GNU 11.4.0\n'}
+[0.122221] (sllidar_ros2) JobProgress: {'identifier': 'sllidar_ros2', 'progress': 'install'}
+[0.131866] (sllidar_ros2) Command: {'cmd': ['/usr/bin/cmake', '--install', '/home/kmw/2025IEVE/lidar_ws/build/sllidar_ros2'], 'cwd': '/home/kmw/2025IEVE/lidar_ws/build/sllidar_ros2', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('CONDA_PROMPT_MODIFIER', '(base)'), ('LANGUAGE', 'en_US:en'), ('USER', 'kmw'), ('LC_TIME', 'ko_KR.UTF-8'), ('XDG_SESSION_TYPE', 'x11'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/home/kmw'), ('CONDA_SHLVL', '1'), ('OLDPWD', '/home/kmw/2025IEVE/lidar_ws/src'), ('DESKTOP_SESSION', 'ubuntu'), ('ROS_PYTHON_VERSION', '3'), ('GNOME_SHELL_SESSION_MODE', 'ubuntu'), ('GTK_MODULES', 'gail:atk-bridge'), ('LC_MONETARY', 'ko_KR.UTF-8'), ('MANAGERPID', '906'), ('SYSTEMD_EXEC_PID', '1902'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('_CE_M', ''), ('TERMINATOR_DBUS_NAME', 'net.tenshu.Terminator21a9d5db22c73a993ff0b42f64b396873'), ('GIO_LAUNCHED_DESKTOP_FILE_PID', '5945'), ('ROS_DISTRO', 'humble'), ('GTK_IM_MODULE', 'ibus'), ('LOGNAME', 'kmw'), ('JOURNAL_STREAM', '8:15550'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('USERNAME', 'kmw'), ('TERM', 'xterm-256color'), ('GNOME_DESKTOP_SESSION_ID', 'this-is-deprecated'), ('_CE_CONDA', ''), ('ROS_LOCALHOST_ONLY', '0'), ('WINDOWPATH', '2'), ('PATH', '/opt/ros/humble/bin:/home/kmw/gems/bin:/home/kmw/gems/bin:/home/kmw/miniconda3/bin:/home/kmw/miniconda3/condabin:/home/kmw/.cargo/bin:/home/kmw/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin'), ('SESSION_MANAGER', 'local/er:@/tmp/.ICE-unix/1709,unix/er:/tmp/.ICE-unix/1709'), ('INVOCATION_ID', '7838b0234f5b46b2adcc9b3e6d0d711c'), ('PAPERSIZE', 'a4'), ('XDG_MENU_PREFIX', 'gnome-'), ('LC_ADDRESS', 'ko_KR.UTF-8'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('DISPLAY', ':0'), ('TERMINATOR_DBUS_PATH', '/net/tenshu/Terminator2'), ('LANG', 'en_US.UTF-8'), ('XDG_CURRENT_DESKTOP', 'ubuntu:GNOME'), ('IBUS_DISABLE_SNOOPER', '1'), ('LC_TELEPHONE', 'ko_KR.UTF-8'), ('RMW_IMPLEMENTATION', 'rmw_fastrtps_cpp'), ('XMODIFIERS', '@im=ibus'), ('XDG_SESSION_DESKTOP', 'ubuntu'), ('XAUTHORITY', '/run/user/1000/gdm/Xauthority'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('SSH_AGENT_LAUNCHER', 'gnome-keyring'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('ROS_DOMAIN_ID', '15'), ('AMENT_PREFIX_PATH', '/opt/ros/humble'), ('CONDA_PYTHON_EXE', '/home/kmw/miniconda3/bin/python'), ('SHELL', '/bin/bash'), ('LC_NAME', 'ko_KR.UTF-8'), ('TERMINATOR_UUID', 'urn:uuid:7218e82b-bf28-4ab2-998e-894073a59fa1'), ('QT_ACCESSIBILITY', '1'), ('GDMSESSION', 'ubuntu'), ('GEM_HOME', '/home/kmw/gems'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('CONDA_DEFAULT_ENV', 'base'), ('LC_MEASUREMENT', 'ko_KR.UTF-8'), ('GPG_AGENT_INFO', '/run/user/1000/gnupg/S.gpg-agent:0:1'), ('LC_IDENTIFICATION', 'ko_KR.UTF-8'), ('QT_IM_MODULE', 'ibus'), ('PWD', '/home/kmw/2025IEVE/lidar_ws/build/sllidar_ros2'), ('LC_ALL', 'en_US.UTF-8'), ('XDG_CONFIG_DIRS', '/etc/xdg/xdg-ubuntu:/etc/xdg'), ('CONDA_EXE', '/home/kmw/miniconda3/bin/conda'), ('XDG_DATA_DIRS', '/usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages:/home/kmw/miniconda3/envs/ros2_py310/lib/python3.10/site-packages/'), ('LC_NUMERIC', 'ko_KR.UTF-8'), ('CONDA_PREFIX', '/home/kmw/miniconda3'), ('LC_PAPER', 'ko_KR.UTF-8'), ('COLCON', '1'), ('VTE_VERSION', '6800'), ('CMAKE_PREFIX_PATH', '/opt/ros/humble')]), 'shell': False}
+[0.138151] (sllidar_ros2) StdoutLine: {'line': b'-- Install configuration: ""\n'}
+[0.138638] (sllidar_ros2) StdoutLine: {'line': b'-- Up-to-date: /home/kmw/2025IEVE/lidar_ws/install/sllidar_ros2/share/sllidar_ros2/launch\n'}
+[0.138945] (sllidar_ros2) StdoutLine: {'line': b'-- Up-to-date: /home/kmw/2025IEVE/lidar_ws/install/sllidar_ros2/share/sllidar_ros2/launch/view_sllidar_s2e_launch.py\n'}
+[0.139037] (sllidar_ros2) StdoutLine: {'line': b'-- Up-to-date: /home/kmw/2025IEVE/lidar_ws/install/sllidar_ros2/share/sllidar_ros2/launch/sllidar_a2m8_launch.py\n'}
+[0.139111] (sllidar_ros2) StdoutLine: {'line': b'-- Up-to-date: /home/kmw/2025IEVE/lidar_ws/install/sllidar_ros2/share/sllidar_ros2/launch/view_sllidar_s1_tcp_launch.py\n'}
+[0.139305] (sllidar_ros2) StdoutLine: {'line': b'-- Up-to-date: /home/kmw/2025IEVE/lidar_ws/install/sllidar_ros2/share/sllidar_ros2/launch/sllidar_a2m12_launch .py\n'}
+[0.139373] (sllidar_ros2) StdoutLine: {'line': b'-- Up-to-date: /home/kmw/2025IEVE/lidar_ws/install/sllidar_ros2/share/sllidar_ros2/launch/sllidar_c1_launch.py\n'}
+[0.139434] (sllidar_ros2) StdoutLine: {'line': b'-- Up-to-date: /home/kmw/2025IEVE/lidar_ws/install/sllidar_ros2/share/sllidar_ros2/launch/view_sllidar_a1_launch.py\n'}
+[0.139492] (sllidar_ros2) StdoutLine: {'line': b'-- Up-to-date: /home/kmw/2025IEVE/lidar_ws/install/sllidar_ros2/share/sllidar_ros2/launch/view_sllidar_s3_launch.py\n'}
+[0.139549] (sllidar_ros2) StdoutLine: {'line': b'-- Up-to-date: /home/kmw/2025IEVE/lidar_ws/install/sllidar_ros2/share/sllidar_ros2/launch/sllidar_s2_launch.py\n'}
+[0.139605] (sllidar_ros2) StdoutLine: {'line': b'-- Up-to-date: /home/kmw/2025IEVE/lidar_ws/install/sllidar_ros2/share/sllidar_ros2/launch/sllidar_a2m7_launch.py\n'}
+[0.139660] (sllidar_ros2) StdoutLine: {'line': b'-- Up-to-date: /home/kmw/2025IEVE/lidar_ws/install/sllidar_ros2/share/sllidar_ros2/launch/sllidar_a3_launch.py\n'}
+[0.139720] (sllidar_ros2) StdoutLine: {'line': b'-- Up-to-date: /home/kmw/2025IEVE/lidar_ws/install/sllidar_ros2/share/sllidar_ros2/launch/view_sllidar_a2m12_launch.py\n'}
+[0.139779] (sllidar_ros2) StdoutLine: {'line': b'-- Up-to-date: /home/kmw/2025IEVE/lidar_ws/install/sllidar_ros2/share/sllidar_ros2/launch/sllidar_a1_launch.py\n'}
+[0.139835] (sllidar_ros2) StdoutLine: {'line': b'-- Up-to-date: /home/kmw/2025IEVE/lidar_ws/install/sllidar_ros2/share/sllidar_ros2/launch/view_sllidar_t1_launch.py\n'}
+[0.139890] (sllidar_ros2) StdoutLine: {'line': b'-- Up-to-date: /home/kmw/2025IEVE/lidar_ws/install/sllidar_ros2/share/sllidar_ros2/launch/view_sllidar_s1_launch.py\n'}
+[0.139946] (sllidar_ros2) StdoutLine: {'line': b'-- Up-to-date: /home/kmw/2025IEVE/lidar_ws/install/sllidar_ros2/share/sllidar_ros2/launch/sllidar_s1_tcp_launch.py\n'}
+[0.140001] (sllidar_ros2) StdoutLine: {'line': b'-- Up-to-date: /home/kmw/2025IEVE/lidar_ws/install/sllidar_ros2/share/sllidar_ros2/launch/sllidar_s3_launch.py\n'}
+[0.140055] (sllidar_ros2) StdoutLine: {'line': b'-- Up-to-date: /home/kmw/2025IEVE/lidar_ws/install/sllidar_ros2/share/sllidar_ros2/launch/sllidar_s1_launch.py\n'}
+[0.140120] (sllidar_ros2) StdoutLine: {'line': b'-- Up-to-date: /home/kmw/2025IEVE/lidar_ws/install/sllidar_ros2/share/sllidar_ros2/launch/view_sllidar_c1_launch.py\n'}
+[0.140228] (sllidar_ros2) StdoutLine: {'line': b'-- Up-to-date: /home/kmw/2025IEVE/lidar_ws/install/sllidar_ros2/share/sllidar_ros2/launch/sllidar_s2e_launch.py\n'}
+[0.140281] (sllidar_ros2) StdoutLine: {'line': b'-- Up-to-date: /home/kmw/2025IEVE/lidar_ws/install/sllidar_ros2/share/sllidar_ros2/launch/view_sllidar_a2m7_launch.py\n'}
+[0.140333] (sllidar_ros2) StdoutLine: {'line': b'-- Up-to-date: /home/kmw/2025IEVE/lidar_ws/install/sllidar_ros2/share/sllidar_ros2/launch/view_sllidar_a3_launch.py\n'}
+[0.140392] (sllidar_ros2) StdoutLine: {'line': b'-- Up-to-date: /home/kmw/2025IEVE/lidar_ws/install/sllidar_ros2/share/sllidar_ros2/launch/sllidar_t1_launch.py\n'}
+[0.140443] (sllidar_ros2) StdoutLine: {'line': b'-- Up-to-date: /home/kmw/2025IEVE/lidar_ws/install/sllidar_ros2/share/sllidar_ros2/launch/view_sllidar_a2m8_launch.py\n'}
+[0.140494] (sllidar_ros2) StdoutLine: {'line': b'-- Up-to-date: /home/kmw/2025IEVE/lidar_ws/install/sllidar_ros2/share/sllidar_ros2/launch/view_sllidar_s2_launch.py\n'}
+[0.140545] (sllidar_ros2) StdoutLine: {'line': b'-- Up-to-date: /home/kmw/2025IEVE/lidar_ws/install/sllidar_ros2/share/sllidar_ros2/rviz\n'}
+[0.140596] (sllidar_ros2) StdoutLine: {'line': b'-- Up-to-date: /home/kmw/2025IEVE/lidar_ws/install/sllidar_ros2/share/sllidar_ros2/rviz/sllidar_ros2.rviz\n'}
+[0.140852] (sllidar_ros2) StdoutLine: {'line': b'-- Up-to-date: /home/kmw/2025IEVE/lidar_ws/install/sllidar_ros2/lib/sllidar_ros2/sllidar_node\n'}
+[0.141608] (sllidar_ros2) StdoutLine: {'line': b'-- Up-to-date: /home/kmw/2025IEVE/lidar_ws/install/sllidar_ros2/lib/sllidar_ros2/sllidar_client\n'}
+[0.142107] (sllidar_ros2) StdoutLine: {'line': b'-- Up-to-date: /home/kmw/2025IEVE/lidar_ws/install/sllidar_ros2/share/ament_index/resource_index/package_run_dependencies/sllidar_ros2\n'}
+[0.142279] (sllidar_ros2) StdoutLine: {'line': b'-- Up-to-date: /home/kmw/2025IEVE/lidar_ws/install/sllidar_ros2/share/ament_index/resource_index/parent_prefix_path/sllidar_ros2\n'}
+[0.142474] (sllidar_ros2) StdoutLine: {'line': b'-- Up-to-date: /home/kmw/2025IEVE/lidar_ws/install/sllidar_ros2/share/sllidar_ros2/environment/ament_prefix_path.sh\n'}
+[0.142563] (sllidar_ros2) StdoutLine: {'line': b'-- Up-to-date: /home/kmw/2025IEVE/lidar_ws/install/sllidar_ros2/share/sllidar_ros2/environment/ament_prefix_path.dsv\n'}
+[0.142650] (sllidar_ros2) StdoutLine: {'line': b'-- Up-to-date: /home/kmw/2025IEVE/lidar_ws/install/sllidar_ros2/share/sllidar_ros2/environment/path.sh\n'}
+[0.142737] (sllidar_ros2) StdoutLine: {'line': b'-- Up-to-date: /home/kmw/2025IEVE/lidar_ws/install/sllidar_ros2/share/sllidar_ros2/environment/path.dsv\n'}
+[0.142831] (sllidar_ros2) StdoutLine: {'line': b'-- Up-to-date: /home/kmw/2025IEVE/lidar_ws/install/sllidar_ros2/share/sllidar_ros2/local_setup.bash\n'}
+[0.142947] (sllidar_ros2) StdoutLine: {'line': b'-- Up-to-date: /home/kmw/2025IEVE/lidar_ws/install/sllidar_ros2/share/sllidar_ros2/local_setup.sh\n'}
+[0.143001] (sllidar_ros2) StdoutLine: {'line': b'-- Up-to-date: /home/kmw/2025IEVE/lidar_ws/install/sllidar_ros2/share/sllidar_ros2/local_setup.zsh\n'}
+[0.143054] (sllidar_ros2) StdoutLine: {'line': b'-- Up-to-date: /home/kmw/2025IEVE/lidar_ws/install/sllidar_ros2/share/sllidar_ros2/local_setup.dsv\n'}
+[0.143111] (sllidar_ros2) StdoutLine: {'line': b'-- Installing: /home/kmw/2025IEVE/lidar_ws/install/sllidar_ros2/share/sllidar_ros2/package.dsv\n'}
+[0.143282] (sllidar_ros2) StdoutLine: {'line': b'-- Up-to-date: /home/kmw/2025IEVE/lidar_ws/install/sllidar_ros2/share/ament_index/resource_index/packages/sllidar_ros2\n'}
+[0.143528] (sllidar_ros2) StdoutLine: {'line': b'-- Up-to-date: /home/kmw/2025IEVE/lidar_ws/install/sllidar_ros2/share/sllidar_ros2/cmake/ament_cmake_export_dependencies-extras.cmake\n'}
+[0.143616] (sllidar_ros2) StdoutLine: {'line': b'-- Up-to-date: /home/kmw/2025IEVE/lidar_ws/install/sllidar_ros2/share/sllidar_ros2/cmake/ament_cmake_export_include_directories-extras.cmake\n'}
+[0.143721] (sllidar_ros2) StdoutLine: {'line': b'-- Up-to-date: /home/kmw/2025IEVE/lidar_ws/install/sllidar_ros2/share/sllidar_ros2/cmake/sllidar_ros2Config.cmake\n'}
+[0.143778] (sllidar_ros2) StdoutLine: {'line': b'-- Up-to-date: /home/kmw/2025IEVE/lidar_ws/install/sllidar_ros2/share/sllidar_ros2/cmake/sllidar_ros2Config-version.cmake\n'}
+[0.143832] (sllidar_ros2) StdoutLine: {'line': b'-- Up-to-date: /home/kmw/2025IEVE/lidar_ws/install/sllidar_ros2/share/sllidar_ros2/package.xml\n'}
+[0.145298] (sllidar_ros2) CommandEnded: {'returncode': 0}
+[0.170658] (sllidar_ros2) JobEnded: {'identifier': 'sllidar_ros2', 'rc': 0}
+[0.199542] (-) TimerEvent: {}
+[0.209387] (laser_segmentation) StdoutLine: {'line': b'-- The CXX compiler identification is GNU 11.4.0\n'}
+[0.218639] (laser_segmentation) StdoutLine: {'line': b'-- Detecting C compiler ABI info\n'}
+[0.280752] (laser_segmentation) StdoutLine: {'line': b'-- Detecting C compiler ABI info - done\n'}
+[0.288380] (laser_segmentation) StdoutLine: {'line': b'-- Check for working C compiler: /usr/bin/cc - skipped\n'}
+[0.288767] (laser_segmentation) StdoutLine: {'line': b'-- Detecting C compile features\n'}
+[0.289214] (laser_segmentation) StdoutLine: {'line': b'-- Detecting C compile features - done\n'}
+[0.292395] (laser_segmentation) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info\n'}
+[0.299663] (-) TimerEvent: {}
+[0.361315] (laser_segmentation) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info - done\n'}
+[0.369232] (laser_segmentation) StdoutLine: {'line': b'-- Check for working CXX compiler: /usr/bin/c++ - skipped\n'}
+[0.369521] (laser_segmentation) StdoutLine: {'line': b'-- Detecting CXX compile features\n'}
+[0.369987] (laser_segmentation) StdoutLine: {'line': b'-- Detecting CXX compile features - done\n'}
+[0.370507] (laser_segmentation) StdoutLine: {'line': b'-- Setting build type to Release as none was specified.\n'}
+[0.374082] (laser_segmentation) StdoutLine: {'line': b'-- Found ament_cmake: 1.3.10 (/opt/ros/humble/share/ament_cmake/cmake)\n'}
+[0.399797] (-) TimerEvent: {}
+[0.500048] (-) TimerEvent: {}
+[0.506813] (laser_segmentation) StdoutLine: {'line': b'-- Found Python3: /home/kmw/miniconda3/bin/python3 (found version "3.12.4") found components: Interpreter \n'}
+[0.600178] (-) TimerEvent: {}
+[0.628835] (laser_segmentation) StdoutLine: {'line': b'-- Found rclcpp: 16.0.10 (/opt/ros/humble/share/rclcpp/cmake)\n'}
+[0.674647] (laser_segmentation) StdoutLine: {'line': b'-- Found rosidl_generator_c: 3.1.5 (/opt/ros/humble/share/rosidl_generator_c/cmake)\n'}
+[0.679656] (laser_segmentation) StdoutLine: {'line': b'-- Found rosidl_adapter: 3.1.5 (/opt/ros/humble/share/rosidl_adapter/cmake)\n'}
+[0.688778] (laser_segmentation) StdoutLine: {'line': b'-- Found rosidl_generator_cpp: 3.1.5 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)\n'}
+[0.700285] (-) TimerEvent: {}
+[0.701915] (laser_segmentation) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[0.719093] (laser_segmentation) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[0.767588] (laser_segmentation) StdoutLine: {'line': b'-- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)\n'}
+[0.770670] (laser_segmentation) StdoutLine: {'line': b'-- Found rmw_fastrtps_cpp: 6.2.7 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)\n'}
+[0.800404] (-) TimerEvent: {}
+[0.846284] (laser_segmentation) StdoutLine: {'line': b'-- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.2")  \n'}
+[0.870411] (laser_segmentation) StdoutLine: {'line': b'-- Found FastRTPS: /opt/ros/humble/include  \n'}
+[0.900534] (-) TimerEvent: {}
+[0.905621] (laser_segmentation) StdoutLine: {'line': b"-- Using RMW implementation 'rmw_fastrtps_cpp' as default\n"}
+[0.915343] (laser_segmentation) StdoutLine: {'line': b'-- Looking for pthread.h\n'}
+[0.981301] (laser_segmentation) StdoutLine: {'line': b'-- Looking for pthread.h - found\n'}
+[0.981725] (laser_segmentation) StdoutLine: {'line': b'-- Performing Test CMAKE_HAVE_LIBC_PTHREAD\n'}
+[1.000677] (-) TimerEvent: {}
+[1.044628] (laser_segmentation) StdoutLine: {'line': b'-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success\n'}
+[1.045652] (laser_segmentation) StdoutLine: {'line': b'-- Found Threads: TRUE  \n'}
+[1.100787] (-) TimerEvent: {}
+[1.105396] (laser_segmentation) StdoutLine: {'line': b'-- Found rclcpp_lifecycle: 16.0.10 (/opt/ros/humble/share/rclcpp_lifecycle/cmake)\n'}
+[1.128725] (laser_segmentation) StdoutLine: {'line': b'-- Found rclcpp_components: 16.0.10 (/opt/ros/humble/share/rclcpp_components/cmake)\n'}
+[1.159967] (laser_segmentation) StdoutLine: {'line': b'-- Found sensor_msgs: 4.2.4 (/opt/ros/humble/share/sensor_msgs/cmake)\n'}
+[1.193451] (laser_segmentation) StdoutLine: {'line': b'-- Found visualization_msgs: 4.2.4 (/opt/ros/humble/share/visualization_msgs/cmake)\n'}
+[1.200883] (-) TimerEvent: {}
+[1.214095] (laser_segmentation) StdoutLine: {'line': b'-- Found slg_msgs: 3.9.1 (/opt/ros/humble/share/slg_msgs/cmake)\n'}
+[1.232400] (laser_segmentation) StdoutLine: {'line': b'-- Found ament_lint_auto: 0.12.11 (/opt/ros/humble/share/ament_lint_auto/cmake)\n'}
+[1.301027] (-) TimerEvent: {}
+[1.342360] (laser_segmentation) StdoutLine: {'line': b"-- Found gtest sources under '/opt/ros/humble/src/gtest_vendor': C++ tests using 'Google Test' will be built\n"}
+[1.356977] (laser_segmentation) StdoutLine: {'line': b"-- Added test 'cppcheck' to perform static code analysis on C / C++ code\n"}
+[1.357135] (laser_segmentation) StdoutLine: {'line': b'-- Configured cppcheck include dirs: $<BUILD_INTERFACE:/home/kmw/2025IEVE/lidar_ws/src/laser_segmentation/include>\n'}
+[1.357203] (laser_segmentation) StdoutLine: {'line': b'-- Configured cppcheck exclude dirs and/or files: \n'}
+[1.359956] (laser_segmentation) StdoutLine: {'line': b"-- Added test 'cpplint' to check C / C++ code against the Google style\n"}
+[1.360045] (laser_segmentation) StdoutLine: {'line': b'-- Configured cpplint exclude dirs and/or files: \n'}
+[1.360736] (laser_segmentation) StdoutLine: {'line': b"-- Added test 'flake8' to check Python code syntax and style conventions\n"}
+[1.361802] (laser_segmentation) StdoutLine: {'line': b"-- Added test 'lint_cmake' to check CMake code style\n"}
+[1.362570] (laser_segmentation) StdoutLine: {'line': b"-- Added test 'pep257' to check Python code against some of the docstring style conventions in PEP 257\n"}
+[1.365397] (laser_segmentation) StdoutLine: {'line': b"-- Added test 'uncrustify' to check C / C++ code style\n"}
+[1.365484] (laser_segmentation) StdoutLine: {'line': b'-- Configured uncrustify additional arguments: \n'}
+[1.366222] (laser_segmentation) StdoutLine: {'line': b"-- Added test 'xmllint' to check XML markup files\n"}
+[1.369789] (laser_segmentation) StdoutLine: {'line': b'-- Configuring done\n'}
+[1.396645] (laser_segmentation) StdoutLine: {'line': b'-- Generating done\n'}
+[1.401135] (-) TimerEvent: {}
+[1.407319] (laser_segmentation) StdoutLine: {'line': b'-- Build files have been written to: /home/kmw/2025IEVE/lidar_ws/build/laser_segmentation\n'}
+[1.417773] (laser_segmentation) CommandEnded: {'returncode': 0}
+[1.419124] (laser_segmentation) JobProgress: {'identifier': 'laser_segmentation', 'progress': 'build'}
+[1.419229] (laser_segmentation) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/kmw/2025IEVE/lidar_ws/build/laser_segmentation', '--', '-j8', '-l8'], 'cwd': '/home/kmw/2025IEVE/lidar_ws/build/laser_segmentation', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('CONDA_PROMPT_MODIFIER', '(base)'), ('LANGUAGE', 'en_US:en'), ('USER', 'kmw'), ('LC_TIME', 'ko_KR.UTF-8'), ('XDG_SESSION_TYPE', 'x11'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/home/kmw'), ('CONDA_SHLVL', '1'), ('OLDPWD', '/home/kmw/2025IEVE/lidar_ws/src'), ('DESKTOP_SESSION', 'ubuntu'), ('ROS_PYTHON_VERSION', '3'), ('GNOME_SHELL_SESSION_MODE', 'ubuntu'), ('GTK_MODULES', 'gail:atk-bridge'), ('LC_MONETARY', 'ko_KR.UTF-8'), ('MANAGERPID', '906'), ('SYSTEMD_EXEC_PID', '1902'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('_CE_M', ''), ('TERMINATOR_DBUS_NAME', 'net.tenshu.Terminator21a9d5db22c73a993ff0b42f64b396873'), ('GIO_LAUNCHED_DESKTOP_FILE_PID', '5945'), ('ROS_DISTRO', 'humble'), ('GTK_IM_MODULE', 'ibus'), ('LOGNAME', 'kmw'), ('JOURNAL_STREAM', '8:15550'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('USERNAME', 'kmw'), ('TERM', 'xterm-256color'), ('GNOME_DESKTOP_SESSION_ID', 'this-is-deprecated'), ('_CE_CONDA', ''), ('ROS_LOCALHOST_ONLY', '0'), ('WINDOWPATH', '2'), ('PATH', '/opt/ros/humble/bin:/home/kmw/gems/bin:/home/kmw/gems/bin:/home/kmw/miniconda3/bin:/home/kmw/miniconda3/condabin:/home/kmw/.cargo/bin:/home/kmw/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin'), ('SESSION_MANAGER', 'local/er:@/tmp/.ICE-unix/1709,unix/er:/tmp/.ICE-unix/1709'), ('INVOCATION_ID', '7838b0234f5b46b2adcc9b3e6d0d711c'), ('PAPERSIZE', 'a4'), ('XDG_MENU_PREFIX', 'gnome-'), ('LC_ADDRESS', 'ko_KR.UTF-8'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('DISPLAY', ':0'), ('TERMINATOR_DBUS_PATH', '/net/tenshu/Terminator2'), ('LANG', 'en_US.UTF-8'), ('XDG_CURRENT_DESKTOP', 'ubuntu:GNOME'), ('IBUS_DISABLE_SNOOPER', '1'), ('LC_TELEPHONE', 'ko_KR.UTF-8'), ('RMW_IMPLEMENTATION', 'rmw_fastrtps_cpp'), ('XMODIFIERS', '@im=ibus'), ('XDG_SESSION_DESKTOP', 'ubuntu'), ('XAUTHORITY', '/run/user/1000/gdm/Xauthority'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('SSH_AGENT_LAUNCHER', 'gnome-keyring'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('ROS_DOMAIN_ID', '15'), ('AMENT_PREFIX_PATH', '/opt/ros/humble'), ('CONDA_PYTHON_EXE', '/home/kmw/miniconda3/bin/python'), ('SHELL', '/bin/bash'), ('LC_NAME', 'ko_KR.UTF-8'), ('TERMINATOR_UUID', 'urn:uuid:7218e82b-bf28-4ab2-998e-894073a59fa1'), ('QT_ACCESSIBILITY', '1'), ('GDMSESSION', 'ubuntu'), ('GEM_HOME', '/home/kmw/gems'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('CONDA_DEFAULT_ENV', 'base'), ('LC_MEASUREMENT', 'ko_KR.UTF-8'), ('GPG_AGENT_INFO', '/run/user/1000/gnupg/S.gpg-agent:0:1'), ('LC_IDENTIFICATION', 'ko_KR.UTF-8'), ('QT_IM_MODULE', 'ibus'), ('PWD', '/home/kmw/2025IEVE/lidar_ws/build/laser_segmentation'), ('LC_ALL', 'en_US.UTF-8'), ('XDG_CONFIG_DIRS', '/etc/xdg/xdg-ubuntu:/etc/xdg'), ('CONDA_EXE', '/home/kmw/miniconda3/bin/conda'), ('XDG_DATA_DIRS', '/usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages:/home/kmw/miniconda3/envs/ros2_py310/lib/python3.10/site-packages/'), ('LC_NUMERIC', 'ko_KR.UTF-8'), ('CONDA_PREFIX', '/home/kmw/miniconda3'), ('LC_PAPER', 'ko_KR.UTF-8'), ('COLCON', '1'), ('VTE_VERSION', '6800'), ('CMAKE_PREFIX_PATH', '/opt/ros/humble')]), 'shell': False}
+[1.463650] (laser_segmentation) StdoutLine: {'line': b'[ 11%] \x1b[32mBuilding CXX object gtest/CMakeFiles/gtest_main.dir/src/gtest_main.cc.o\x1b[0m\n'}
+[1.463964] (laser_segmentation) StdoutLine: {'line': b'[ 11%] \x1b[32mBuilding CXX object CMakeFiles/laser_segmentation_core.dir/src/segmentation/jump_distance.cpp.o\x1b[0m\n'}
+[1.465217] (laser_segmentation) StdoutLine: {'line': b'[ 17%] \x1b[32mBuilding CXX object gtest/CMakeFiles/gtest.dir/src/gtest-all.cc.o\x1b[0m\n'}
+[1.466283] (laser_segmentation) StdoutLine: {'line': b'[ 35%] \x1b[32mBuilding CXX object CMakeFiles/laser_segmentation_core.dir/src/laser_segmentation.cpp.o\x1b[0m\n'}
+[1.466570] (laser_segmentation) StdoutLine: {'line': b'[ 35%] \x1b[32mBuilding CXX object CMakeFiles/laser_segmentation_core.dir/src/parameter_handler.cpp.o\x1b[0m\n'}
+[1.466716] (laser_segmentation) StdoutLine: {'line': b'[ 35%] \x1b[32mBuilding CXX object CMakeFiles/laser_segmentation_core.dir/src/segmentation/jump_distance_merge.cpp.o\x1b[0m\n'}
+[1.501257] (-) TimerEvent: {}
+[1.601584] (-) TimerEvent: {}
+[1.701940] (-) TimerEvent: {}
+[1.802402] (-) TimerEvent: {}
+[1.902801] (-) TimerEvent: {}
+[2.003193] (-) TimerEvent: {}
+[2.103550] (-) TimerEvent: {}
+[2.203959] (-) TimerEvent: {}
+[2.304480] (-) TimerEvent: {}
+[2.404912] (-) TimerEvent: {}
+[2.505375] (-) TimerEvent: {}
+[2.605814] (-) TimerEvent: {}
+[2.706231] (-) TimerEvent: {}
+[2.713363] (laser_segmentation) StdoutLine: {'line': b'[ 41%] \x1b[32m\x1b[1mLinking CXX static library libgtest_main.a\x1b[0m\n'}
+[2.755548] (laser_segmentation) StdoutLine: {'line': b'[ 41%] Built target gtest_main\n'}
+[2.806373] (-) TimerEvent: {}
+[2.906785] (-) TimerEvent: {}
+[3.007187] (-) TimerEvent: {}
+[3.107576] (-) TimerEvent: {}
+[3.208010] (-) TimerEvent: {}
+[3.308449] (-) TimerEvent: {}
+[3.408832] (-) TimerEvent: {}
+[3.509162] (-) TimerEvent: {}
+[3.609506] (-) TimerEvent: {}
+[3.709859] (-) TimerEvent: {}
+[3.810194] (-) TimerEvent: {}
+[3.910542] (-) TimerEvent: {}
+[4.010862] (-) TimerEvent: {}
+[4.111194] (-) TimerEvent: {}
+[4.211551] (-) TimerEvent: {}
+[4.311904] (-) TimerEvent: {}
+[4.412228] (-) TimerEvent: {}
+[4.512571] (-) TimerEvent: {}
+[4.612963] (-) TimerEvent: {}
+[4.713414] (-) TimerEvent: {}
+[4.813794] (-) TimerEvent: {}
+[4.914220] (-) TimerEvent: {}
+[5.014679] (-) TimerEvent: {}
+[5.115085] (-) TimerEvent: {}
+[5.215494] (-) TimerEvent: {}
+[5.315806] (-) TimerEvent: {}
+[5.416142] (-) TimerEvent: {}
+[5.516471] (-) TimerEvent: {}
+[5.616800] (-) TimerEvent: {}
+[5.717126] (-) TimerEvent: {}
+[5.817441] (-) TimerEvent: {}
+[5.917747] (-) TimerEvent: {}
+[6.018063] (-) TimerEvent: {}
+[6.118340] (-) TimerEvent: {}
+[6.218664] (-) TimerEvent: {}
+[6.318973] (-) TimerEvent: {}
+[6.419258] (-) TimerEvent: {}
+[6.519589] (-) TimerEvent: {}
+[6.619913] (-) TimerEvent: {}
+[6.720204] (-) TimerEvent: {}
+[6.820520] (-) TimerEvent: {}
+[6.920863] (-) TimerEvent: {}
+[7.021191] (-) TimerEvent: {}
+[7.121489] (-) TimerEvent: {}
+[7.221796] (-) TimerEvent: {}
+[7.322144] (-) TimerEvent: {}
+[7.422453] (-) TimerEvent: {}
+[7.522748] (-) TimerEvent: {}
+[7.623064] (-) TimerEvent: {}
+[7.723343] (-) TimerEvent: {}
+[7.823687] (-) TimerEvent: {}
+[7.923998] (-) TimerEvent: {}
+[8.024291] (-) TimerEvent: {}
+[8.124616] (-) TimerEvent: {}
+[8.224923] (-) TimerEvent: {}
+[8.325157] (-) TimerEvent: {}
+[8.425466] (-) TimerEvent: {}
+[8.525758] (-) TimerEvent: {}
+[8.626067] (-) TimerEvent: {}
+[8.726358] (-) TimerEvent: {}
+[8.826655] (-) TimerEvent: {}
+[8.926977] (-) TimerEvent: {}
+[9.027379] (-) TimerEvent: {}
+[9.127733] (-) TimerEvent: {}
+[9.228098] (-) TimerEvent: {}
+[9.329071] (-) TimerEvent: {}
+[9.429422] (-) TimerEvent: {}
+[9.529788] (-) TimerEvent: {}
+[9.630172] (-) TimerEvent: {}
+[9.730499] (-) TimerEvent: {}
+[9.830995] (-) TimerEvent: {}
+[9.931759] (-) TimerEvent: {}
+[10.032446] (-) TimerEvent: {}
+[10.133203] (-) TimerEvent: {}
+[10.234032] (-) TimerEvent: {}
+[10.334358] (-) TimerEvent: {}
+[10.434729] (-) TimerEvent: {}
+[10.465007] (laser_segmentation) StdoutLine: {'line': b'[ 47%] \x1b[32m\x1b[1mLinking CXX static library libgtest.a\x1b[0m\n'}
+[10.507410] (laser_segmentation) StdoutLine: {'line': b'[ 47%] Built target gtest\n'}
+[10.534847] (-) TimerEvent: {}
+[10.635137] (-) TimerEvent: {}
+[10.735421] (-) TimerEvent: {}
+[10.835700] (-) TimerEvent: {}
+[10.935958] (-) TimerEvent: {}
+[11.036316] (-) TimerEvent: {}
+[11.136642] (-) TimerEvent: {}
+[11.237011] (-) TimerEvent: {}
+[11.337299] (-) TimerEvent: {}
+[11.437560] (-) TimerEvent: {}
+[11.537835] (-) TimerEvent: {}
+[11.638156] (-) TimerEvent: {}
+[11.738433] (-) TimerEvent: {}
+[11.838736] (-) TimerEvent: {}
+[11.939057] (-) TimerEvent: {}
+[12.039402] (-) TimerEvent: {}
+[12.139670] (-) TimerEvent: {}
+[12.239965] (-) TimerEvent: {}
+[12.340302] (-) TimerEvent: {}
+[12.440574] (-) TimerEvent: {}
+[12.540847] (-) TimerEvent: {}
+[12.641142] (-) TimerEvent: {}
+[12.741430] (-) TimerEvent: {}
+[12.841708] (-) TimerEvent: {}
+[12.941985] (-) TimerEvent: {}
+[13.042307] (-) TimerEvent: {}
+[13.142627] (-) TimerEvent: {}
+[13.242952] (-) TimerEvent: {}
+[13.343186] (-) TimerEvent: {}
+[13.443472] (-) TimerEvent: {}
+[13.543751] (-) TimerEvent: {}
+[13.644029] (-) TimerEvent: {}
+[13.744291] (-) TimerEvent: {}
+[13.844561] (-) TimerEvent: {}
+[13.944842] (-) TimerEvent: {}
+[14.045150] (-) TimerEvent: {}
+[14.145427] (-) TimerEvent: {}
+[14.245704] (-) TimerEvent: {}
+[14.345975] (-) TimerEvent: {}
+[14.446184] (-) TimerEvent: {}
+[14.546437] (-) TimerEvent: {}
+[14.646717] (-) TimerEvent: {}
+[14.747002] (-) TimerEvent: {}
+[14.847256] (-) TimerEvent: {}
+[14.947561] (-) TimerEvent: {}
+[15.047838] (-) TimerEvent: {}
+[15.148148] (-) TimerEvent: {}
+[15.248484] (-) TimerEvent: {}
+[15.348817] (-) TimerEvent: {}
+[15.447717] (laser_segmentation) StdoutLine: {'line': b'[ 52%] \x1b[32m\x1b[1mLinking CXX shared library liblaser_segmentation_core.so\x1b[0m\n'}
+[15.448927] (-) TimerEvent: {}
+[15.549196] (-) TimerEvent: {}
+[15.649541] (-) TimerEvent: {}
+[15.665675] (laser_segmentation) StdoutLine: {'line': b'[ 52%] Built target laser_segmentation_core\n'}
+[15.685301] (laser_segmentation) StdoutLine: {'line': b'[ 64%] \x1b[32mBuilding CXX object test/CMakeFiles/test_integration.dir/test_integration.cpp.o\x1b[0m\n'}
+[15.685533] (laser_segmentation) StdoutLine: {'line': b'[ 64%] \x1b[32mBuilding CXX object test/CMakeFiles/test_segmentations.dir/test_segmentations.cpp.o\x1b[0m\n'}
+[15.687272] (laser_segmentation) StdoutLine: {'line': b'[ 76%] \x1b[32mBuilding CXX object CMakeFiles/laser_segmentation.dir/src/main.cpp.o\x1b[0m\n'}
+[15.687540] (laser_segmentation) StdoutLine: {'line': b'[ 76%] \x1b[32mBuilding CXX object test/CMakeFiles/test_laser_segmentation.dir/test_laser_segmentation.cpp.o\x1b[0m\n'}
+[15.749669] (-) TimerEvent: {}
+[15.849962] (-) TimerEvent: {}
+[15.950288] (-) TimerEvent: {}
+[16.050656] (-) TimerEvent: {}
+[16.151072] (-) TimerEvent: {}
+[16.251508] (-) TimerEvent: {}
+[16.351875] (-) TimerEvent: {}
+[16.452297] (-) TimerEvent: {}
+[16.552664] (-) TimerEvent: {}
+[16.653044] (-) TimerEvent: {}
+[16.753463] (-) TimerEvent: {}
+[16.853824] (-) TimerEvent: {}
+[16.954241] (-) TimerEvent: {}
+[17.054702] (-) TimerEvent: {}
+[17.155081] (-) TimerEvent: {}
+[17.255545] (-) TimerEvent: {}
+[17.355938] (-) TimerEvent: {}
+[17.456434] (-) TimerEvent: {}
+[17.556969] (-) TimerEvent: {}
+[17.657394] (-) TimerEvent: {}
+[17.757804] (-) TimerEvent: {}
+[17.858257] (-) TimerEvent: {}
+[17.958707] (-) TimerEvent: {}
+[18.059073] (-) TimerEvent: {}
+[18.159463] (-) TimerEvent: {}
+[18.259864] (-) TimerEvent: {}
+[18.360274] (-) TimerEvent: {}
+[18.460756] (-) TimerEvent: {}
+[18.561196] (-) TimerEvent: {}
+[18.661608] (-) TimerEvent: {}
+[18.762090] (-) TimerEvent: {}
+[18.862808] (-) TimerEvent: {}
+[18.911129] (laser_segmentation) StdoutLine: {'line': b'[ 82%] \x1b[32m\x1b[1mLinking CXX executable test_segmentations\x1b[0m\n'}
+[18.962928] (-) TimerEvent: {}
+[19.063350] (-) TimerEvent: {}
+[19.119400] (laser_segmentation) StdoutLine: {'line': b'[ 82%] Built target test_segmentations\n'}
+[19.163469] (-) TimerEvent: {}
+[19.264061] (-) TimerEvent: {}
+[19.365082] (-) TimerEvent: {}
+[19.466228] (-) TimerEvent: {}
+[19.567265] (-) TimerEvent: {}
+[19.667685] (-) TimerEvent: {}
+[19.768026] (-) TimerEvent: {}
+[19.868450] (-) TimerEvent: {}
+[19.968889] (-) TimerEvent: {}
+[20.069276] (-) TimerEvent: {}
+[20.169666] (-) TimerEvent: {}
+[20.203792] (laser_segmentation) StdoutLine: {'line': b'[ 88%] \x1b[32m\x1b[1mLinking CXX executable laser_segmentation\x1b[0m\n'}
+[20.269835] (-) TimerEvent: {}
+[20.370215] (-) TimerEvent: {}
+[20.380875] (laser_segmentation) StdoutLine: {'line': b'[ 88%] Built target laser_segmentation\n'}
+[20.470313] (-) TimerEvent: {}
+[20.570614] (-) TimerEvent: {}
+[20.670905] (-) TimerEvent: {}
+[20.771161] (-) TimerEvent: {}
+[20.871478] (-) TimerEvent: {}
+[20.971776] (-) TimerEvent: {}
+[21.072091] (-) TimerEvent: {}
+[21.172405] (-) TimerEvent: {}
+[21.272697] (-) TimerEvent: {}
+[21.372969] (-) TimerEvent: {}
+[21.473307] (-) TimerEvent: {}
+[21.573643] (-) TimerEvent: {}
+[21.673961] (-) TimerEvent: {}
+[21.774288] (-) TimerEvent: {}
+[21.874626] (-) TimerEvent: {}
+[21.974948] (-) TimerEvent: {}
+[22.075282] (-) TimerEvent: {}
+[22.175631] (-) TimerEvent: {}
+[22.275974] (-) TimerEvent: {}
+[22.376313] (-) TimerEvent: {}
+[22.476697] (-) TimerEvent: {}
+[22.577035] (-) TimerEvent: {}
+[22.677393] (-) TimerEvent: {}
+[22.777729] (-) TimerEvent: {}
+[22.878057] (-) TimerEvent: {}
+[22.978404] (-) TimerEvent: {}
+[23.078757] (-) TimerEvent: {}
+[23.179117] (-) TimerEvent: {}
+[23.279646] (-) TimerEvent: {}
+[23.380337] (-) TimerEvent: {}
+[23.480960] (-) TimerEvent: {}
+[23.581291] (-) TimerEvent: {}
+[23.681594] (-) TimerEvent: {}
+[23.760012] (laser_segmentation) StdoutLine: {'line': b'[ 94%] \x1b[32m\x1b[1mLinking CXX executable test_laser_segmentation\x1b[0m\n'}
+[23.781734] (-) TimerEvent: {}
+[23.882225] (-) TimerEvent: {}
+[23.982742] (-) TimerEvent: {}
+[24.039198] (laser_segmentation) StdoutLine: {'line': b'[ 94%] Built target test_laser_segmentation\n'}
+[24.082874] (-) TimerEvent: {}
+[24.183168] (-) TimerEvent: {}
+[24.283437] (-) TimerEvent: {}
+[24.383767] (-) TimerEvent: {}
+[24.484047] (-) TimerEvent: {}
+[24.584335] (-) TimerEvent: {}
+[24.684651] (-) TimerEvent: {}
+[24.785036] (-) TimerEvent: {}
+[24.885331] (-) TimerEvent: {}
+[24.985694] (-) TimerEvent: {}
+[25.086377] (-) TimerEvent: {}
+[25.187310] (-) TimerEvent: {}
+[25.287617] (-) TimerEvent: {}
+[25.387915] (-) TimerEvent: {}
+[25.488204] (-) TimerEvent: {}
+[25.588473] (-) TimerEvent: {}
+[25.688832] (-) TimerEvent: {}
+[25.789125] (-) TimerEvent: {}
+[25.889431] (-) TimerEvent: {}
+[25.989710] (-) TimerEvent: {}
+[26.090150] (-) TimerEvent: {}
+[26.190688] (-) TimerEvent: {}
+[26.290975] (-) TimerEvent: {}
+[26.391263] (-) TimerEvent: {}
+[26.491546] (-) TimerEvent: {}
+[26.591798] (-) TimerEvent: {}
+[26.692086] (-) TimerEvent: {}
+[26.792345] (-) TimerEvent: {}
+[26.892620] (-) TimerEvent: {}
+[26.992907] (-) TimerEvent: {}
+[27.093201] (-) TimerEvent: {}
+[27.193491] (-) TimerEvent: {}
+[27.293807] (-) TimerEvent: {}
+[27.394072] (-) TimerEvent: {}
+[27.494321] (-) TimerEvent: {}
+[27.594598] (-) TimerEvent: {}
+[27.694893] (-) TimerEvent: {}
+[27.795165] (-) TimerEvent: {}
+[27.895448] (-) TimerEvent: {}
+[27.995715] (-) TimerEvent: {}
+[28.095984] (-) TimerEvent: {}
+[28.196189] (-) TimerEvent: {}
+[28.296453] (-) TimerEvent: {}
+[28.396855] (-) TimerEvent: {}
+[28.497419] (-) TimerEvent: {}
+[28.597946] (-) TimerEvent: {}
+[28.698203] (-) TimerEvent: {}
+[28.798458] (-) TimerEvent: {}
+[28.898745] (-) TimerEvent: {}
+[28.999032] (-) TimerEvent: {}
+[29.099281] (-) TimerEvent: {}
+[29.199579] (-) TimerEvent: {}
+[29.299866] (-) TimerEvent: {}
+[29.400149] (-) TimerEvent: {}
+[29.500428] (-) TimerEvent: {}
+[29.600704] (-) TimerEvent: {}
+[29.701012] (-) TimerEvent: {}
+[29.753403] (laser_segmentation) StdoutLine: {'line': b'[100%] \x1b[32m\x1b[1mLinking CXX executable test_integration\x1b[0m\n'}
+[29.801151] (-) TimerEvent: {}
+[29.901477] (-) TimerEvent: {}
+[29.952636] (laser_segmentation) StdoutLine: {'line': b'[100%] Built target test_integration\n'}
+[29.962750] (laser_segmentation) CommandEnded: {'returncode': 0}
+[29.963521] (laser_segmentation) JobProgress: {'identifier': 'laser_segmentation', 'progress': 'install'}
+[29.963776] (laser_segmentation) Command: {'cmd': ['/usr/bin/cmake', '--install', '/home/kmw/2025IEVE/lidar_ws/build/laser_segmentation'], 'cwd': '/home/kmw/2025IEVE/lidar_ws/build/laser_segmentation', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('CONDA_PROMPT_MODIFIER', '(base)'), ('LANGUAGE', 'en_US:en'), ('USER', 'kmw'), ('LC_TIME', 'ko_KR.UTF-8'), ('XDG_SESSION_TYPE', 'x11'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/home/kmw'), ('CONDA_SHLVL', '1'), ('OLDPWD', '/home/kmw/2025IEVE/lidar_ws/src'), ('DESKTOP_SESSION', 'ubuntu'), ('ROS_PYTHON_VERSION', '3'), ('GNOME_SHELL_SESSION_MODE', 'ubuntu'), ('GTK_MODULES', 'gail:atk-bridge'), ('LC_MONETARY', 'ko_KR.UTF-8'), ('MANAGERPID', '906'), ('SYSTEMD_EXEC_PID', '1902'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('_CE_M', ''), ('TERMINATOR_DBUS_NAME', 'net.tenshu.Terminator21a9d5db22c73a993ff0b42f64b396873'), ('GIO_LAUNCHED_DESKTOP_FILE_PID', '5945'), ('ROS_DISTRO', 'humble'), ('GTK_IM_MODULE', 'ibus'), ('LOGNAME', 'kmw'), ('JOURNAL_STREAM', '8:15550'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('USERNAME', 'kmw'), ('TERM', 'xterm-256color'), ('GNOME_DESKTOP_SESSION_ID', 'this-is-deprecated'), ('_CE_CONDA', ''), ('ROS_LOCALHOST_ONLY', '0'), ('WINDOWPATH', '2'), ('PATH', '/opt/ros/humble/bin:/home/kmw/gems/bin:/home/kmw/gems/bin:/home/kmw/miniconda3/bin:/home/kmw/miniconda3/condabin:/home/kmw/.cargo/bin:/home/kmw/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin'), ('SESSION_MANAGER', 'local/er:@/tmp/.ICE-unix/1709,unix/er:/tmp/.ICE-unix/1709'), ('INVOCATION_ID', '7838b0234f5b46b2adcc9b3e6d0d711c'), ('PAPERSIZE', 'a4'), ('XDG_MENU_PREFIX', 'gnome-'), ('LC_ADDRESS', 'ko_KR.UTF-8'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('DISPLAY', ':0'), ('TERMINATOR_DBUS_PATH', '/net/tenshu/Terminator2'), ('LANG', 'en_US.UTF-8'), ('XDG_CURRENT_DESKTOP', 'ubuntu:GNOME'), ('IBUS_DISABLE_SNOOPER', '1'), ('LC_TELEPHONE', 'ko_KR.UTF-8'), ('RMW_IMPLEMENTATION', 'rmw_fastrtps_cpp'), ('XMODIFIERS', '@im=ibus'), ('XDG_SESSION_DESKTOP', 'ubuntu'), ('XAUTHORITY', '/run/user/1000/gdm/Xauthority'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('SSH_AGENT_LAUNCHER', 'gnome-keyring'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('ROS_DOMAIN_ID', '15'), ('AMENT_PREFIX_PATH', '/opt/ros/humble'), ('CONDA_PYTHON_EXE', '/home/kmw/miniconda3/bin/python'), ('SHELL', '/bin/bash'), ('LC_NAME', 'ko_KR.UTF-8'), ('TERMINATOR_UUID', 'urn:uuid:7218e82b-bf28-4ab2-998e-894073a59fa1'), ('QT_ACCESSIBILITY', '1'), ('GDMSESSION', 'ubuntu'), ('GEM_HOME', '/home/kmw/gems'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('CONDA_DEFAULT_ENV', 'base'), ('LC_MEASUREMENT', 'ko_KR.UTF-8'), ('GPG_AGENT_INFO', '/run/user/1000/gnupg/S.gpg-agent:0:1'), ('LC_IDENTIFICATION', 'ko_KR.UTF-8'), ('QT_IM_MODULE', 'ibus'), ('PWD', '/home/kmw/2025IEVE/lidar_ws/build/laser_segmentation'), ('LC_ALL', 'en_US.UTF-8'), ('XDG_CONFIG_DIRS', '/etc/xdg/xdg-ubuntu:/etc/xdg'), ('CONDA_EXE', '/home/kmw/miniconda3/bin/conda'), ('XDG_DATA_DIRS', '/usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages:/home/kmw/miniconda3/envs/ros2_py310/lib/python3.10/site-packages/'), ('LC_NUMERIC', 'ko_KR.UTF-8'), ('CONDA_PREFIX', '/home/kmw/miniconda3'), ('LC_PAPER', 'ko_KR.UTF-8'), ('COLCON', '1'), ('VTE_VERSION', '6800'), ('CMAKE_PREFIX_PATH', '/opt/ros/humble')]), 'shell': False}
+[29.971243] (laser_segmentation) StdoutLine: {'line': b'-- Install configuration: "Release"\n'}
+[29.971518] (laser_segmentation) StdoutLine: {'line': b'-- Installing: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/lib/liblaser_segmentation_core.so\n'}
+[29.972441] (laser_segmentation) StdoutLine: {'line': b'-- Set runtime path of "/home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/lib/liblaser_segmentation_core.so" to ""\n'}
+[29.972624] (laser_segmentation) StdoutLine: {'line': b'-- Installing: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/lib/laser_segmentation/laser_segmentation\n'}
+[29.972807] (laser_segmentation) StdoutLine: {'line': b'-- Set runtime path of "/home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/lib/laser_segmentation/laser_segmentation" to ""\n'}
+[29.973008] (laser_segmentation) StdoutLine: {'line': b'-- Installing: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/include/laser_segmentation\n'}
+[29.973098] (laser_segmentation) StdoutLine: {'line': b'-- Installing: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/include/laser_segmentation/laser_segmentation\n'}
+[29.973192] (laser_segmentation) StdoutLine: {'line': b'-- Installing: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/include/laser_segmentation/laser_segmentation/segmentation\n'}
+[29.973259] (laser_segmentation) StdoutLine: {'line': b'-- Installing: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/include/laser_segmentation/laser_segmentation/segmentation/jump_distance_merge.hpp\n'}
+[29.973323] (laser_segmentation) StdoutLine: {'line': b'-- Installing: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/include/laser_segmentation/laser_segmentation/segmentation/segmentation.hpp\n'}
+[29.973414] (laser_segmentation) StdoutLine: {'line': b'-- Installing: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/include/laser_segmentation/laser_segmentation/segmentation/jump_distance.hpp\n'}
+[29.973475] (laser_segmentation) StdoutLine: {'line': b'-- Installing: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/include/laser_segmentation/laser_segmentation/laser_segmentation.hpp\n'}
+[29.973534] (laser_segmentation) StdoutLine: {'line': b'-- Installing: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/include/laser_segmentation/laser_segmentation/parameter_handler.hpp\n'}
+[29.973594] (laser_segmentation) StdoutLine: {'line': b'-- Installing: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/include/laser_segmentation/laser_segmentation/parula.hpp\n'}
+[29.973675] (laser_segmentation) StdoutLine: {'line': b'-- Installing: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/share/laser_segmentation//launch\n'}
+[29.973784] (laser_segmentation) StdoutLine: {'line': b'-- Installing: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/share/laser_segmentation//launch/segmentation.launch.py\n'}
+[29.973848] (laser_segmentation) StdoutLine: {'line': b'-- Installing: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/share/laser_segmentation//params\n'}
+[29.973908] (laser_segmentation) StdoutLine: {'line': b'-- Installing: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/share/laser_segmentation//params/default_params.yml\n'}
+[29.973986] (laser_segmentation) StdoutLine: {'line': b'-- Installing: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/share/laser_segmentation//params/close_steps_detect.yml\n'}
+[29.974073] (laser_segmentation) StdoutLine: {'line': b'-- Installing: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/share/laser_segmentation/environment/library_path.sh\n'}
+[29.974148] (laser_segmentation) StdoutLine: {'line': b'-- Installing: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/share/laser_segmentation/environment/library_path.dsv\n'}
+[29.974248] (laser_segmentation) StdoutLine: {'line': b'-- Installing: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/share/ament_index/resource_index/package_run_dependencies/laser_segmentation\n'}
+[29.974386] (laser_segmentation) StdoutLine: {'line': b'-- Installing: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/share/ament_index/resource_index/parent_prefix_path/laser_segmentation\n'}
+[29.974488] (laser_segmentation) StdoutLine: {'line': b'-- Installing: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/share/laser_segmentation/environment/ament_prefix_path.sh\n'}
+[29.974564] (laser_segmentation) StdoutLine: {'line': b'-- Installing: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/share/laser_segmentation/environment/ament_prefix_path.dsv\n'}
+[29.974669] (laser_segmentation) StdoutLine: {'line': b'-- Installing: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/share/laser_segmentation/environment/path.sh\n'}
+[29.974778] (laser_segmentation) StdoutLine: {'line': b'-- Installing: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/share/laser_segmentation/environment/path.dsv\n'}
+[29.974908] (laser_segmentation) StdoutLine: {'line': b'-- Installing: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/share/laser_segmentation/local_setup.bash\n'}
+[29.974984] (laser_segmentation) StdoutLine: {'line': b'-- Installing: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/share/laser_segmentation/local_setup.sh\n'}
+[29.975122] (laser_segmentation) StdoutLine: {'line': b'-- Installing: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/share/laser_segmentation/local_setup.zsh\n'}
+[29.975220] (laser_segmentation) StdoutLine: {'line': b'-- Installing: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/share/laser_segmentation/local_setup.dsv\n'}
+[29.975306] (laser_segmentation) StdoutLine: {'line': b'-- Installing: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/share/laser_segmentation/package.dsv\n'}
+[29.975433] (laser_segmentation) StdoutLine: {'line': b'-- Installing: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/share/ament_index/resource_index/packages/laser_segmentation\n'}
+[29.975556] (laser_segmentation) StdoutLine: {'line': b'-- Installing: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/share/ament_index/resource_index/rclcpp_components/laser_segmentation\n'}
+[29.975710] (laser_segmentation) StdoutLine: {'line': b'-- Installing: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/share/laser_segmentation/cmake/laser_segmentationExport.cmake\n'}
+[29.975820] (laser_segmentation) StdoutLine: {'line': b'-- Installing: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/share/laser_segmentation/cmake/laser_segmentationExport-release.cmake\n'}
+[29.975924] (laser_segmentation) StdoutLine: {'line': b'-- Installing: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/share/laser_segmentation/cmake/ament_cmake_export_include_directories-extras.cmake\n'}
+[29.976024] (laser_segmentation) StdoutLine: {'line': b'-- Installing: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/share/laser_segmentation/cmake/ament_cmake_export_libraries-extras.cmake\n'}
+[29.976168] (laser_segmentation) StdoutLine: {'line': b'-- Installing: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/share/laser_segmentation/cmake/ament_cmake_export_dependencies-extras.cmake\n'}
+[29.976309] (laser_segmentation) StdoutLine: {'line': b'-- Installing: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/share/laser_segmentation/cmake/ament_cmake_export_targets-extras.cmake\n'}
+[29.976415] (laser_segmentation) StdoutLine: {'line': b'-- Installing: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/share/laser_segmentation/cmake/laser_segmentationConfig.cmake\n'}
+[29.976513] (laser_segmentation) StdoutLine: {'line': b'-- Installing: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/share/laser_segmentation/cmake/laser_segmentationConfig-version.cmake\n'}
+[29.976606] (laser_segmentation) StdoutLine: {'line': b'-- Installing: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/share/laser_segmentation/package.xml\n'}
+[29.978468] (laser_segmentation) CommandEnded: {'returncode': 0}
+[29.992918] (laser_segmentation) JobEnded: {'identifier': 'laser_segmentation', 'rc': 0}
+[29.993434] (-) EventReactorShutdown: {}
