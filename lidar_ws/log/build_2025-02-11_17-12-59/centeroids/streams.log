@@ -1,0 +1,27 @@
+[0.975s] Invoking command in '/home/kmw/2025IEVE/lidar_ws/src/centeroids': CONDA_PROMPT_MODIFIER=(ros2_py310) PYTHONPATH=/home/kmw/2025IEVE/lidar_ws/build/centeroids/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/kmw/2025IEVE/lidar_ws/install/centeroids/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/centeroids build --build-base /home/kmw/2025IEVE/lidar_ws/build/centeroids/build install --record /home/kmw/2025IEVE/lidar_ws/build/centeroids/install.log --single-version-externally-managed install_data
+[1.140s] /home/kmw/miniconda3/envs/ros2_py310/lib/python3.10/site-packages/setuptools/_distutils/dist.py:261: UserWarning: Unknown distribution option: 'tests_require'
+[1.141s]   warnings.warn(msg)
+[1.272s] running egg_info
+[1.294s] writing ../../build/centeroids/centeroids.egg-info/PKG-INFO
+[1.294s] writing dependency_links to ../../build/centeroids/centeroids.egg-info/dependency_links.txt
+[1.294s] writing entry points to ../../build/centeroids/centeroids.egg-info/entry_points.txt
+[1.295s] writing requirements to ../../build/centeroids/centeroids.egg-info/requires.txt
+[1.295s] writing top-level names to ../../build/centeroids/centeroids.egg-info/top_level.txt
+[1.342s] reading manifest file '../../build/centeroids/centeroids.egg-info/SOURCES.txt'
+[1.343s] writing manifest file '../../build/centeroids/centeroids.egg-info/SOURCES.txt'
+[1.344s] running build
+[1.344s] running build_py
+[1.344s] copying centeroids/__init__.py -> /home/kmw/2025IEVE/lidar_ws/build/centeroids/build/lib/centeroids
+[1.344s] copying centeroids/cal_cen.py -> /home/kmw/2025IEVE/lidar_ws/build/centeroids/build/lib/centeroids
+[1.344s] running install
+[1.350s] running install_lib
+[1.373s] running install_data
+[1.373s] copying resource/centeroids -> /home/kmw/2025IEVE/lidar_ws/install/centeroids/share/ament_index/resource_index/packages
+[1.373s] copying package.xml -> /home/kmw/2025IEVE/lidar_ws/install/centeroids/share/centeroids
+[1.373s] running install_egg_info
+[1.396s] removing '/home/kmw/2025IEVE/lidar_ws/install/centeroids/lib/python3.10/site-packages/centeroids-0.0.0-py3.10.egg-info' (and everything under it)
+[1.396s] Copying ../../build/centeroids/centeroids.egg-info to /home/kmw/2025IEVE/lidar_ws/install/centeroids/lib/python3.10/site-packages/centeroids-0.0.0-py3.10.egg-info
+[1.397s] running install_scripts
+[1.567s] Installing cal_cen script to /home/kmw/2025IEVE/lidar_ws/install/centeroids/lib/centeroids
+[1.567s] writing list of installed files to '/home/kmw/2025IEVE/lidar_ws/build/centeroids/install.log'
+[1.594s] Invoked command in '/home/kmw/2025IEVE/lidar_ws/src/centeroids' returned '0': CONDA_PROMPT_MODIFIER=(ros2_py310) PYTHONPATH=/home/kmw/2025IEVE/lidar_ws/build/centeroids/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/kmw/2025IEVE/lidar_ws/install/centeroids/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/centeroids build --build-base /home/kmw/2025IEVE/lidar_ws/build/centeroids/build install --record /home/kmw/2025IEVE/lidar_ws/build/centeroids/install.log --single-version-externally-managed install_data

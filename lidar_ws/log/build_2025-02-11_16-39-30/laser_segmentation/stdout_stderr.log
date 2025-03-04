@@ -1,0 +1,119 @@
+-- The C compiler identification is GNU 11.4.0
+-- The CXX compiler identification is GNU 11.4.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Setting build type to Release as none was specified.
+-- Found ament_cmake: 1.3.10 (/opt/ros/humble/share/ament_cmake/cmake)
+-- Found Python3: /home/kmw/miniconda3/bin/python3 (found version "3.12.4") found components: Interpreter 
+-- Found rclcpp: 16.0.10 (/opt/ros/humble/share/rclcpp/cmake)
+-- Found rosidl_generator_c: 3.1.5 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+-- Found rosidl_adapter: 3.1.5 (/opt/ros/humble/share/rosidl_adapter/cmake)
+-- Found rosidl_generator_cpp: 3.1.5 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+-- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+-- Found rmw_fastrtps_cpp: 6.2.7 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)
+-- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.2")  
+-- Found FastRTPS: /opt/ros/humble/include  
+-- Using RMW implementation 'rmw_fastrtps_cpp' as default
+-- Looking for pthread.h
+-- Looking for pthread.h - found
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE  
+-- Found rclcpp_lifecycle: 16.0.10 (/opt/ros/humble/share/rclcpp_lifecycle/cmake)
+-- Found rclcpp_components: 16.0.10 (/opt/ros/humble/share/rclcpp_components/cmake)
+-- Found sensor_msgs: 4.2.4 (/opt/ros/humble/share/sensor_msgs/cmake)
+-- Found visualization_msgs: 4.2.4 (/opt/ros/humble/share/visualization_msgs/cmake)
+-- Found slg_msgs: 3.9.1 (/opt/ros/humble/share/slg_msgs/cmake)
+-- Found ament_lint_auto: 0.12.11 (/opt/ros/humble/share/ament_lint_auto/cmake)
+-- Found gtest sources under '/opt/ros/humble/src/gtest_vendor': C++ tests using 'Google Test' will be built
+-- Added test 'cppcheck' to perform static code analysis on C / C++ code
+-- Configured cppcheck include dirs: $<BUILD_INTERFACE:/home/kmw/2025IEVE/lidar_ws/src/laser_segmentation/include>
+-- Configured cppcheck exclude dirs and/or files: 
+-- Added test 'cpplint' to check C / C++ code against the Google style
+-- Configured cpplint exclude dirs and/or files: 
+-- Added test 'flake8' to check Python code syntax and style conventions
+-- Added test 'lint_cmake' to check CMake code style
+-- Added test 'pep257' to check Python code against some of the docstring style conventions in PEP 257
+-- Added test 'uncrustify' to check C / C++ code style
+-- Configured uncrustify additional arguments: 
+-- Added test 'xmllint' to check XML markup files
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/kmw/2025IEVE/lidar_ws/build/laser_segmentation
+[ 11%] [32mBuilding CXX object gtest/CMakeFiles/gtest_main.dir/src/gtest_main.cc.o[0m
+[ 11%] [32mBuilding CXX object CMakeFiles/laser_segmentation_core.dir/src/segmentation/jump_distance.cpp.o[0m
+[ 17%] [32mBuilding CXX object gtest/CMakeFiles/gtest.dir/src/gtest-all.cc.o[0m
+[ 35%] [32mBuilding CXX object CMakeFiles/laser_segmentation_core.dir/src/laser_segmentation.cpp.o[0m
+[ 35%] [32mBuilding CXX object CMakeFiles/laser_segmentation_core.dir/src/parameter_handler.cpp.o[0m
+[ 35%] [32mBuilding CXX object CMakeFiles/laser_segmentation_core.dir/src/segmentation/jump_distance_merge.cpp.o[0m
+[ 41%] [32m[1mLinking CXX static library libgtest_main.a[0m
+[ 41%] Built target gtest_main
+[ 47%] [32m[1mLinking CXX static library libgtest.a[0m
+[ 47%] Built target gtest
+[ 52%] [32m[1mLinking CXX shared library liblaser_segmentation_core.so[0m
+[ 52%] Built target laser_segmentation_core
+[ 64%] [32mBuilding CXX object test/CMakeFiles/test_integration.dir/test_integration.cpp.o[0m
+[ 64%] [32mBuilding CXX object test/CMakeFiles/test_segmentations.dir/test_segmentations.cpp.o[0m
+[ 76%] [32mBuilding CXX object CMakeFiles/laser_segmentation.dir/src/main.cpp.o[0m
+[ 76%] [32mBuilding CXX object test/CMakeFiles/test_laser_segmentation.dir/test_laser_segmentation.cpp.o[0m
+[ 82%] [32m[1mLinking CXX executable test_segmentations[0m
+[ 82%] Built target test_segmentations
+[ 88%] [32m[1mLinking CXX executable laser_segmentation[0m
+[ 88%] Built target laser_segmentation
+[ 94%] [32m[1mLinking CXX executable test_laser_segmentation[0m
+[ 94%] Built target test_laser_segmentation
+[100%] [32m[1mLinking CXX executable test_integration[0m
+[100%] Built target test_integration
+-- Install configuration: "Release"
+-- Installing: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/lib/liblaser_segmentation_core.so
+-- Set runtime path of "/home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/lib/liblaser_segmentation_core.so" to ""
+-- Installing: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/lib/laser_segmentation/laser_segmentation
+-- Set runtime path of "/home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/lib/laser_segmentation/laser_segmentation" to ""
+-- Installing: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/include/laser_segmentation
+-- Installing: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/include/laser_segmentation/laser_segmentation
+-- Installing: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/include/laser_segmentation/laser_segmentation/segmentation
+-- Installing: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/include/laser_segmentation/laser_segmentation/segmentation/jump_distance_merge.hpp
+-- Installing: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/include/laser_segmentation/laser_segmentation/segmentation/segmentation.hpp
+-- Installing: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/include/laser_segmentation/laser_segmentation/segmentation/jump_distance.hpp
+-- Installing: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/include/laser_segmentation/laser_segmentation/laser_segmentation.hpp
+-- Installing: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/include/laser_segmentation/laser_segmentation/parameter_handler.hpp
+-- Installing: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/include/laser_segmentation/laser_segmentation/parula.hpp
+-- Installing: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/share/laser_segmentation//launch
+-- Installing: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/share/laser_segmentation//launch/segmentation.launch.py
+-- Installing: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/share/laser_segmentation//params
+-- Installing: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/share/laser_segmentation//params/default_params.yml
+-- Installing: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/share/laser_segmentation//params/close_steps_detect.yml
+-- Installing: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/share/laser_segmentation/environment/library_path.sh
+-- Installing: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/share/laser_segmentation/environment/library_path.dsv
+-- Installing: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/share/ament_index/resource_index/package_run_dependencies/laser_segmentation
+-- Installing: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/share/ament_index/resource_index/parent_prefix_path/laser_segmentation
+-- Installing: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/share/laser_segmentation/environment/ament_prefix_path.sh
+-- Installing: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/share/laser_segmentation/environment/ament_prefix_path.dsv
+-- Installing: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/share/laser_segmentation/environment/path.sh
+-- Installing: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/share/laser_segmentation/environment/path.dsv
+-- Installing: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/share/laser_segmentation/local_setup.bash
+-- Installing: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/share/laser_segmentation/local_setup.sh
+-- Installing: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/share/laser_segmentation/local_setup.zsh
+-- Installing: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/share/laser_segmentation/local_setup.dsv
+-- Installing: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/share/laser_segmentation/package.dsv
+-- Installing: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/share/ament_index/resource_index/packages/laser_segmentation
+-- Installing: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/share/ament_index/resource_index/rclcpp_components/laser_segmentation
+-- Installing: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/share/laser_segmentation/cmake/laser_segmentationExport.cmake
+-- Installing: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/share/laser_segmentation/cmake/laser_segmentationExport-release.cmake
+-- Installing: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/share/laser_segmentation/cmake/ament_cmake_export_include_directories-extras.cmake
+-- Installing: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/share/laser_segmentation/cmake/ament_cmake_export_libraries-extras.cmake
+-- Installing: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/share/laser_segmentation/cmake/ament_cmake_export_dependencies-extras.cmake
+-- Installing: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/share/laser_segmentation/cmake/ament_cmake_export_targets-extras.cmake
+-- Installing: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/share/laser_segmentation/cmake/laser_segmentationConfig.cmake
+-- Installing: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/share/laser_segmentation/cmake/laser_segmentationConfig-version.cmake
+-- Installing: /home/kmw/2025IEVE/lidar_ws/install/laser_segmentation/share/laser_segmentation/package.xml

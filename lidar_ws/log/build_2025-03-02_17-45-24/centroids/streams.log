@@ -1,0 +1,23 @@
+[7.782s] Invoking command in '/home/kmw/2025IEVE/lidar_ws/src/centroids': PYTHONPATH=/home/kmw/2025IEVE/lidar_ws/build/centroids/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/kmw/2025IEVE/lidar_ws/install/centroids/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/centroids build --build-base /home/kmw/2025IEVE/lidar_ws/build/centroids/build install --record /home/kmw/2025IEVE/lidar_ws/build/centroids/install.log --single-version-externally-managed install_data
+[9.779s] running egg_info
+[9.914s] writing ../../build/centroids/centroids.egg-info/PKG-INFO
+[9.917s] writing dependency_links to ../../build/centroids/centroids.egg-info/dependency_links.txt
+[9.919s] writing entry points to ../../build/centroids/centroids.egg-info/entry_points.txt
+[9.921s] writing requirements to ../../build/centroids/centroids.egg-info/requires.txt
+[9.921s] writing top-level names to ../../build/centroids/centroids.egg-info/top_level.txt
+[10.183s] reading manifest file '../../build/centroids/centroids.egg-info/SOURCES.txt'
+[10.188s] writing manifest file '../../build/centroids/centroids.egg-info/SOURCES.txt'
+[10.190s] running build
+[10.193s] running build_py
+[10.195s] copying centroids/centroids_visualize.py -> /home/kmw/2025IEVE/lidar_ws/build/centroids/build/lib/centroids
+[10.200s] running install
+[10.232s] running install_lib
+[10.393s] running install_data
+[10.395s] running install_egg_info
+[10.542s] removing '/home/kmw/2025IEVE/lidar_ws/install/centroids/lib/python3.10/site-packages/centroids-0.0.0-py3.10.egg-info' (and everything under it)
+[10.543s] Copying ../../build/centroids/centroids.egg-info to /home/kmw/2025IEVE/lidar_ws/install/centroids/lib/python3.10/site-packages/centroids-0.0.0-py3.10.egg-info
+[10.549s] running install_scripts
+[11.620s] Installing centroids_visualize script to /home/kmw/2025IEVE/lidar_ws/install/centroids/lib/centroids
+[11.622s] Installing lr_dis script to /home/kmw/2025IEVE/lidar_ws/install/centroids/lib/centroids
+[11.625s] writing list of installed files to '/home/kmw/2025IEVE/lidar_ws/build/centroids/install.log'
+[11.845s] Invoked command in '/home/kmw/2025IEVE/lidar_ws/src/centroids' returned '0': PYTHONPATH=/home/kmw/2025IEVE/lidar_ws/build/centroids/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/kmw/2025IEVE/lidar_ws/install/centroids/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/centroids build --build-base /home/kmw/2025IEVE/lidar_ws/build/centroids/build install --record /home/kmw/2025IEVE/lidar_ws/build/centroids/install.log --single-version-externally-managed install_data

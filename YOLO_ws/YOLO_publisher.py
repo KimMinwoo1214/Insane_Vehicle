@@ -8,37 +8,47 @@ import torch
 from ultralytics import YOLO
 from sensor_msgs.msg import LaserScan, CompressedImage
 from visualization_msgs.msg import Marker, MarkerArray
+from std_msgs.msg import String
 from cv_bridge import CvBridge
 import time
 from scipy.spatial import KDTree
-from math import cos, sin
+from sklearn.cluster import DBSCAN 
+from math import cos, sin, sqrt
 
 # YOLO 학습된 클래스
 CON = 0  # 라바콘
 DRUM = 1  # PE드럼
 
-# 하이퍼파라미터 : LIDAR가 bbox 높이의 몇 % 높이에 있는지 (라바콘 기준으로 설정하면 될듯)
+# 터널 감지 기준
+TUNNEL_POINT_THRESHOLD = 10  # 좌우 각각 최소 감지 포인트 개수
+TUNNEL_WIDTH_MIN = 0.5       # 좌우 벽 간 최소 거리 (m)
+TUNNEL_WIDTH_MAX = 4.0       # 좌우 벽 간 최대 거리 (m)
+DBSCAN_EPS = 0.5             # DBSCAN 거리 기준 (m)
+DBSCAN_MIN_SAMPLES = 5       # DBSCAN 클러스터 최소 포인트 수
+
+# 하이퍼파라미터: LiDAR가 bbox 높이의 몇 % 높이에 있는지 (라바콘 기준)
 HEIGHT_RATIO = 0.3  # 0.0 ~ 1.0
 
 class ConeDrumDetection:
     def __init__(self):
         rospy.init_node('cone_drum_detector', anonymous=True)
 
-        # ROS 파라미터에서 높이 비율을 조정 가능하도록 설정
+        # ROS 파라미터에서 높이 비율 조정 가능
         self.height_ratio = rospy.get_param("~height_ratio", HEIGHT_RATIO)
 
         # 퍼블리셔
-        self.visualization_publish = rospy.Publisher("/yolo_viz", MarkerArray, queue_size=10)
-        self.image_pub = rospy.Publisher("/yolo_debug", CompressedImage, queue_size=10)  # SSH에서도 이미지 볼 수 있게
+        self.visualization_publish = rospy.Publisher("/yolo_viz", MarkerArray, queue_size=10)  # RViz용 마커
+        self.image_pub = rospy.Publisher("/yolo_debug", CompressedImage, queue_size=10)  # SSH 디버깅용 이미지
+        self.object_info_pub = rospy.Publisher("/object_info", String, queue_size=10)  # 플래닝이 쓸 토픽
 
-        # 섭스크라이버  ############ 이미지 토픽 확인하기
+        # 섭스크라이버
         self.image_sub = rospy.Subscriber("/image_jpeg/compressed", CompressedImage, self.image_callback, queue_size=10)
         self.lidar_sub = rospy.Subscriber("/scan", LaserScan, self.lidar_callback)
 
         # YOLO 모델 로드
-        self.model = YOLO('/home/user/YOLO_ws/weights/YOLO_0216.pt') ############ 경로 수정하기
+        self.model = YOLO('/home/user/YOLO_ws/weights/YOLO_0216.pt')  # 경로 수정 필요
 
-        # 이미지 및 LiDAR 데이터 저장 변수
+        # 데이터 저장 변수
         self.bridge = CvBridge()
         self.img_bgr = None
         self.lidar_points = None
@@ -46,7 +56,7 @@ class ConeDrumDetection:
 
         # YOLO 실행 간격 (프레임 간격 조정)
         self.frame_counter = 0
-        self.frame_interval = 2  # 2 프레임마다 YOLO 실행 (연산량 조절)
+        self.frame_interval = 2  # 2 프레임마다 YOLO 실행
 
     def image_callback(self, msg):
         """ 카메라 이미지 수신 후 YOLO 감지 수행 """
@@ -68,6 +78,9 @@ class ConeDrumDetection:
         roi_mask = (self.lidar_points[:, 0] > 0.5) & (self.lidar_points[:, 0] < 10.0) & \
                    (self.lidar_points[:, 1] > -3.0) & (self.lidar_points[:, 1] < 3.0)
         self.filtered_points = self.lidar_points[roi_mask]
+
+        # LiDAR만으로 터널 감지
+        self.detect_tunnel()
 
     def process_detections(self):
         """ YOLO 탐지 수행 후 2D LiDAR와 매칭 """
@@ -98,46 +111,35 @@ class ConeDrumDetection:
                 msg = self.bridge.cv2_to_compressed_imgmsg(res[0].plot())
                 self.image_pub.publish(msg)
 
-    def create_marker(self, box, i, label, color):
-        """ 감지된 객체에 대한 2D 마커 생성 """
-        center_2d_x = box.xywh[0, 0].item()
-        center_2d_y = box.xywh[0, 1].item()
-        box_height = box.xywh[0, 3].item()
-
-        # 하이퍼파라미터 적용
-        target_y = center_2d_y - (box_height * self.height_ratio)
-
-        # LiDAR 데이터 예외 처리
+    def detect_tunnel(self):
+        """ ✅ LiDAR 데이터만으로 터널 감지 후 퍼블리시 """
         if self.filtered_points is None or len(self.filtered_points) == 0:
-            rospy.logwarn("No valid LiDAR points available for marker.")
             return
 
-        # KNN (YOLO 중심점과 가장 가까운 LiDAR 점 찾기)
-        kdtree = KDTree(self.filtered_points)
-        _, index = kdtree.query([center_2d_x, target_y])
-        closest_point_2d = self.filtered_points[index]
+        # 좌우로 LiDAR 포인트 나누기
+        left_points = self.filtered_points[self.filtered_points[:, 1] > 0]
+        right_points = self.filtered_points[self.filtered_points[:, 1] < 0]
 
-        marker = Marker()
-        marker.header.stamp = rospy.Time.now()
-        marker.header.frame_id = "map"
-        marker.type = Marker.CUBE
-        marker.action = Marker.ADD
-        marker.ns = label
-        marker.id = i
-        marker.lifetime = rospy.Duration(3.0)
+        # 좌우 LiDAR 포인트 개수 조건
+        if len(left_points) >= TUNNEL_POINT_THRESHOLD and len(right_points) >= TUNNEL_POINT_THRESHOLD:
+            left_x_mean = np.mean(left_points[:, 0])
+            right_x_mean = np.mean(right_points[:, 0])
+            tunnel_width = abs(left_x_mean - right_x_mean)
 
-        marker.pose.position.x = closest_point_2d[0]
-        marker.pose.position.y = closest_point_2d[1]
-        marker.pose.position.z = 0.0  
+            # 터널 폭 조건
+            if TUNNEL_WIDTH_MIN <= tunnel_width <= TUNNEL_WIDTH_MAX:
+                tunnel_x = (left_x_mean + right_x_mean) / 2
+                tunnel_y = (np.mean(left_points[:, 1]) + np.mean(right_points[:, 1])) / 2
+                distance = sqrt(tunnel_x**2 + tunnel_y**2)
 
-        marker.scale.x = 0.5
-        marker.scale.y = 0.5
-        marker.scale.z = 0.5 if label == "con" else 0.7
+                self.object_info_pub.publish(f"tunnel,{tunnel_x:.2f},{tunnel_y:.2f},{distance:.2f}")
 
-        marker.color.r, marker.color.g, marker.color.b = color
-        marker.color.a = 0.5
+                # DBSCAN
+                dbscan = DBSCAN(eps=DBSCAN_EPS, min_samples=DBSCAN_MIN_SAMPLES)
+                labels = dbscan.fit_predict(self.filtered_points)
 
-        self.visualization_publish.publish(marker)
+                if np.any(labels != -1):  # 클러스터가 존재하면 터널로 확정
+                    self.object_info_pub.publish(f"tunnel_confirmed,{tunnel_x:.2f},{tunnel_y:.2f},{distance:.2f}")
 
 if __name__ == '__main__':
     detector = ConeDrumDetection()

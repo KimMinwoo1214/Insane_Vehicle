@@ -1,0 +1,36 @@
+[0.270s] Invoking command in '/home/kmw/2025IEVE/lidar_ws/build/laser_segmentation': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/kmw/2025IEVE/lidar_ws/build/laser_segmentation -- -j8 -l8
+[0.294s] -- Found ament_cmake: 1.3.10 (/opt/ros/humble/share/ament_cmake/cmake)
+[0.462s] -- Found rclcpp: 16.0.11 (/opt/ros/humble/share/rclcpp/cmake)
+[0.504s] -- Found rosidl_generator_c: 3.1.6 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[0.506s] -- Found rosidl_adapter: 3.1.6 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[0.513s] -- Found rosidl_generator_cpp: 3.1.6 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[0.523s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[0.537s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[0.569s] -- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[0.571s] -- Found rmw_fastrtps_cpp: 6.2.7 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)
+[0.663s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[0.715s] -- Found rclcpp_lifecycle: 16.0.11 (/opt/ros/humble/share/rclcpp_lifecycle/cmake)
+[0.734s] -- Found rclcpp_components: 16.0.11 (/opt/ros/humble/share/rclcpp_components/cmake)
+[0.756s] -- Found sensor_msgs: 4.2.4 (/opt/ros/humble/share/sensor_msgs/cmake)
+[0.788s] -- Found visualization_msgs: 4.2.4 (/opt/ros/humble/share/visualization_msgs/cmake)
+[0.818s] [31mCMake Error at CMakeLists.txt:59 (find_package):
+[0.818s]   By not providing "Findslg_msgs.cmake" in CMAKE_MODULE_PATH this project has
+[0.818s]   asked CMake to find a package configuration file provided by "slg_msgs",
+[0.818s]   but CMake did not find one.
+[0.818s] 
+[0.818s]   Could not find a package configuration file provided by "slg_msgs" with any
+[0.819s]   of the following names:
+[0.819s] 
+[0.819s]     slg_msgsConfig.cmake
+[0.819s]     slg_msgs-config.cmake
+[0.819s] 
+[0.819s]   Add the installation prefix of "slg_msgs" to CMAKE_PREFIX_PATH or set
+[0.819s]   "slg_msgs_DIR" to a directory containing one of the above files.  If
+[0.819s]   "slg_msgs" provides a separate development package or SDK, be sure it has
+[0.819s]   been installed.
+[0.819s] 
+[0.819s] [0m
+[0.819s] -- Configuring incomplete, errors occurred!
+[0.820s] See also "/home/kmw/2025IEVE/lidar_ws/build/laser_segmentation/CMakeFiles/CMakeOutput.log".
+[0.830s] gmake: *** [Makefile:459: cmake_check_build_system] Error 1
+[0.832s] Invoked command in '/home/kmw/2025IEVE/lidar_ws/build/laser_segmentation' returned '2': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/kmw/2025IEVE/lidar_ws/build/laser_segmentation -- -j8 -l8

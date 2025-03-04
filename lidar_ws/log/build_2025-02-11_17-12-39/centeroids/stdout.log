@@ -1,0 +1,31 @@
+running egg_info
+creating ../../build/centeroids/centeroids.egg-info
+writing ../../build/centeroids/centeroids.egg-info/PKG-INFO
+writing dependency_links to ../../build/centeroids/centeroids.egg-info/dependency_links.txt
+writing entry points to ../../build/centeroids/centeroids.egg-info/entry_points.txt
+writing requirements to ../../build/centeroids/centeroids.egg-info/requires.txt
+writing top-level names to ../../build/centeroids/centeroids.egg-info/top_level.txt
+writing manifest file '../../build/centeroids/centeroids.egg-info/SOURCES.txt'
+reading manifest file '../../build/centeroids/centeroids.egg-info/SOURCES.txt'
+writing manifest file '../../build/centeroids/centeroids.egg-info/SOURCES.txt'
+running build
+running build_py
+creating /home/kmw/2025IEVE/lidar_ws/build/centeroids/build/lib/centeroids
+copying centeroids/__init__.py -> /home/kmw/2025IEVE/lidar_ws/build/centeroids/build/lib/centeroids
+copying centeroids/cal_cen.py -> /home/kmw/2025IEVE/lidar_ws/build/centeroids/build/lib/centeroids
+running install
+running install_lib
+creating /home/kmw/2025IEVE/lidar_ws/install/centeroids/lib/python3.10/site-packages/centeroids
+copying /home/kmw/2025IEVE/lidar_ws/build/centeroids/build/lib/centeroids/__init__.py -> /home/kmw/2025IEVE/lidar_ws/install/centeroids/lib/python3.10/site-packages/centeroids
+copying /home/kmw/2025IEVE/lidar_ws/build/centeroids/build/lib/centeroids/cal_cen.py -> /home/kmw/2025IEVE/lidar_ws/install/centeroids/lib/python3.10/site-packages/centeroids
+byte-compiling /home/kmw/2025IEVE/lidar_ws/install/centeroids/lib/python3.10/site-packages/centeroids/__init__.py to __init__.cpython-310.pyc
+byte-compiling /home/kmw/2025IEVE/lidar_ws/install/centeroids/lib/python3.10/site-packages/centeroids/cal_cen.py to cal_cen.cpython-310.pyc
+running install_data
+creating /home/kmw/2025IEVE/lidar_ws/install/centeroids/share/ament_index/resource_index/packages
+copying resource/centeroids -> /home/kmw/2025IEVE/lidar_ws/install/centeroids/share/ament_index/resource_index/packages
+copying package.xml -> /home/kmw/2025IEVE/lidar_ws/install/centeroids/share/centeroids
+running install_egg_info
+Copying ../../build/centeroids/centeroids.egg-info to /home/kmw/2025IEVE/lidar_ws/install/centeroids/lib/python3.10/site-packages/centeroids-0.0.0-py3.10.egg-info
+running install_scripts
+Installing cal_cen script to /home/kmw/2025IEVE/lidar_ws/install/centeroids/lib/centeroids
+writing list of installed files to '/home/kmw/2025IEVE/lidar_ws/build/centeroids/install.log'
