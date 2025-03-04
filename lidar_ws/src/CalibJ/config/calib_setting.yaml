@@ -1,0 +1,34 @@
+# 2D LiDAR - 카메라 캘리브레이션 세팅
+# Ros2 Foxy 
+
+scan_topic: /scan
+camera_number: 0
+
+target_object: apriltag # 지금은 apriltag만 가능
+
+cluster_type: dbscan
+cluster_topic: /clusters
+cluster_frame: laser
+max_distance: 6 # 라이다는 그 이상 볼 수 있지만 시각화는 이것 까지만 하겠다는 것
+epsilon: 0.065 # 0.036
+min_samples: 4 # 4
+
+result_path: /home/f1tenth/kjy_ws/src/CalibJ/CalibJ/results
+cam_calib_result_json: /home/f1tenth/kjy_ws/src/CalibJ/CalibJ/results/calibration_result.json
+
+
+ex_calib_result_json: /home/f1tenth/kjy_ws/src/CalibJ/CalibJ/results/calibration_extrinsic.json
+
+canvas_size: 800
+lidar_max_distance: 10.0 # 실제 기계 성능상 라이다의 최대 거리
+divide_num: 18
+add_num: 3
+
+
+vis_distance: True
+
+min_width: 100
+
+min_frequency: 10
+
+num_bins: 85

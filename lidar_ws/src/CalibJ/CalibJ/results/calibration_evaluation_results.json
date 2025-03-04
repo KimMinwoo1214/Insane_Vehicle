@@ -1,0 +1,59 @@
+{
+    "file_averages": {
+        "reprojection_errors_1.csv": 7.010352424534339,
+        "reprojection_errors_10.csv": 5.1560643149970105,
+        "reprojection_errors_2.csv": 7.561888678377242,
+        "reprojection_errors_3.csv": 6.0575614613265145,
+        "reprojection_errors_4.csv": 6.441224760570925,
+        "reprojection_errors_5.csv": 6.5424473268091505,
+        "reprojection_errors_6.csv": 6.264264568887303,
+        "reprojection_errors_7.csv": 6.630760661453949,
+        "reprojection_errors_8.csv": 4.862335332760045,
+        "reprojection_errors_9.csv": 7.089899480796263
+    },
+    "overall_average_error": 6.443533870091534,
+    "rvec_deviation": [
+        [
+            0.0018834529215915642
+        ],
+        [
+            0.012625393451092995
+        ],
+        [
+            0.013882825209825046
+        ]
+    ],
+    "tvec_deviation": [
+        [
+            4.922731535756786
+        ],
+        [
+            1.1805906338225425
+        ],
+        [
+            7.04197359696466
+        ]
+    ],
+    "rvec_percentage_deviation": [
+        [
+            0.12737165396743186
+        ],
+        [
+            93.57760504271859
+        ],
+        [
+            112.32756194621145
+        ]
+    ],
+    "tvec_percentage_deviation": [
+        [
+            1.2326112265238574
+        ],
+        [
+            2.741708382331598
+        ],
+        [
+            1.7882589628814414
+        ]
+    ]
+}
