@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*-
 
 import rospy
+import numpy as np
+from scipy.spatial import KDTree
 from nav_msgs.msg import Odometry, Path
 from std_msgs.msg import UInt8, Float32, Bool
 from geometry_msgs.msg import PoseStamped
@@ -11,6 +13,7 @@ from utils.functions import get_closest_index_kdtree #파일명 수정 필요
 import time
 
 LIMIT_DISTANCE = 10.0
+#이런 값들은 나중에 따로 모아서 정리하기
 
 class WaypointParser():
     def __init__(self):
@@ -54,7 +57,17 @@ class WaypointParser():
                 "points": list(zip(self.point_data[1][i:min(i + link_size, len(self.point_data[1]))],
                                    self.point_data[2][i:min(i + link_size, len(self.point_data[2]))]))
             }
-       
+    
+    def get_closest_index_kdtree(points: list, ego_odom: list) -> int:
+        points_xy = np.array(points)[:, :2]
+        tree = KDTree(points_xy)
+        dist, index = tree.query([ego_odom[0], ego_odom[1]])
+
+        if dist > LIMIT_DISTANCE and index < len(points) - 1:
+            return index
+        else:
+            return index + 1
+
     def create_and_publish_global_waypoints(self):
         if self.current_link_index not in self.link_data:
             return
