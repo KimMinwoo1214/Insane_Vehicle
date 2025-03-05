@@ -1,172 +1,209 @@
-#include <ros/ros.h>
-#include <geometry_msgs/PoseStamped.h>
-#include <nav_msgs/Path.h>
-#include <sensor_msgs/LaserScan.h>
-#include <pcl/point_cloud.h>
-#include <pcl/filters/passthrough.h>
-#include <pcl/point_types.h>
-#include <queue>
-#include <vector>
-#include <cmath>
+import rclpy
+from rclpy.node import Node
+from visualization_msgs.msg import MarkerArray
+import numpy as np
+from std_msgs.msg import Header
 
-// 장애물 회피 및 경로 탐색을 위한 노드 클래스 정의
-struct Node {
-    double x, y;  // 위치
-    double g_cost; // 시작 지점부터 현재까지의 비용
-    double h_cost; // 목표 지점까지의 추정 비용 (휴리스틱)
-    double f_cost() const { return g_cost + h_cost; }  // f = g + h
-    Node* parent; // 부모 노드
+class OccupancyGridGenerator(Node):
+    def __init__(self):
+        super().__init__('occupancy_grid_generator')
 
-    bool operator>(const Node& other) const { return f_cost() > other.f_cost(); } // 우선순위 큐에 필요
-};
+        # /segments/visualization 토픽 구독
+        self.subscription = self.create_subscription(
+            MarkerArray,
+            '/segments/visualization',
+            self.process_segments,
+            10
+        )
+        
+        # 점유 그리드 맵 초기화
+        self.grid_width = 100  # 그리드의 가로 크기
+        self.grid_height = 100  # 그리드의 세로 크기
+        self.resolution = 0.1  # 그리드 해상도 (1격자의 크기)
+        
+        # 점유 그리드 맵 (0: 비어 있음, 1: 장애물)
+        self.occupancy_grid = np.zeros((self.grid_height, self.grid_width), dtype=int)
+        
+        # 퍼블리셔 설정 (점유 그리드 맵을 퍼블리시)
+        self.occupancy_grid_pub = self.create_publisher(MarkerArray, 'occupancy_grid', 10)
 
-// LatticePlanner 클래스
-class LatticePlanner {
-public:
-    LatticePlanner(ros::NodeHandle& nh) {
-        path_pub_ = nh.advertise<nav_msgs::Path>("planned_path", 1);
-        laser_sub_ = nh.subscribe("/scan", 1, &LatticePlanner::laserCallback, this);
-        ros::spin();
-    }
+    def process_segments(self, msg: MarkerArray):
+        """
+        세그먼트의 중심 좌표를 점유 그리드에 매핑하여 장애물로 표시
+        """
+        # 세그먼트 정보 처리
+        for marker in msg.markers:
+            # 각 세그먼트의 중심 좌표 추출 (marker.pose.position.x, y)
+            centroid_x = marker.pose.position.x
+            centroid_y = marker.pose.position.y
 
-    void laserCallback(const sensor_msgs::LaserScan::ConstPtr& msg) {
-        pcl::PointCloud<pcl::PointXYZ>::Ptr cloud(new pcl::PointCloud<pcl::PointXYZ>());
-        for (int i = 0; i < msg->ranges.size(); ++i) {
-            pcl::PointXYZ point;
-            point.x = msg->ranges[i] * cos(i * msg->angle_increment);
-            point.y = msg->ranges[i] * sin(i * msg->angle_increment);
-            cloud->points.push_back(point);
-        }
+            # 좌표를 그리드 좌표로 변환
+            grid_x = int(centroid_x / self.resolution)
+            grid_y = int(centroid_y / self.resolution)
 
-        pcl::PassThrough<pcl::PointXYZ> pass;
-        pass.setInputCloud(cloud);
-        pass.setFilterFieldName("x");
-        pass.setFilterLimits(-10.0, 10.0);
-        pass.filter(*cloud);
+            # 유효한 그리드 좌표인지 확인
+            if 0 <= grid_x < self.grid_width and 0 <= grid_y < self.grid_height:
+                self.occupancy_grid[grid_y][grid_x] = 1  # 장애물로 표시
 
-        pass.setFilterFieldName("y");
-        pass.setFilterLimits(-10.0, 10.0);
-        pass.filter(*cloud);
+        # 점유 그리드 맵을 퍼블리시
+        self.publish_occupancy_grid()
 
-        planPath(cloud);
-    }
+        # 시작점과 목표점 설정 (예시) 여기 수정!!!!!!!!!!!!!!
+        start = (5, 5)  # 시작점 (그리드 좌표)
+        goal = (90, 90)  # 목표점 (그리드 좌표)
 
-    // Simple lattice planner to generate a path
-    void planPath(const pcl::PointCloud<pcl::PointXYZ>::Ptr& cloud) {
-        nav_msgs::Path path;
-        path.header.stamp = ros::Time::now();
-        path.header.frame_id = "base_link";
+        # A* 알고리즘으로 경로 찾기
+        path = self.a_star(start, goal)
 
-        // Define a simple start and goal pose
-        geometry_msgs::PoseStamped start_pose, goal_pose;
-        start_pose.pose.position.x = 0.0;
-        start_pose.pose.position.y = 0.0;
-        start_pose.pose.position.z = 0.0;
-        start_pose.pose.orientation.w = 1.0;
+        # 경로 퍼블리시
+        self.publish_path(path)
 
-        goal_pose.pose.position.x = 5.0;  // Target x position
-        goal_pose.pose.position.y = 5.0;  // Target y position
-        goal_pose.pose.position.z = 0.0;
-        // 여기 다음 goal을 설정하도록 수정하기
 
-        // A* 알고리즘을 통해 경로 생성
-        std::vector<geometry_msgs::PoseStamped> feasible_path = generateFeasiblePath(start_pose, goal_pose, cloud);
-        for (const auto& pose : feasible_path) {
-            path.poses.push_back(pose);
-        }
+    def publish_occupancy_grid(self):
+        """
+        점유 그리드 맵을 ROS 메시지로 퍼블리시
+        """
+        occupancy_grid_msg = MarkerArray()
+        
+        # 점유 그리드 맵을 MarkerArray 형식으로 변환하여 퍼블리시
+        for y in range(self.grid_height):
+            for x in range(self.grid_width):
+                if self.occupancy_grid[y][x] == 1:
+                    marker = Marker()
+                    marker.header = Header()
+                    marker.header.stamp = self.get_clock().now().to_msg()
+                    marker.header.frame_id = 'map'
+                    marker.type = marker.SPHERE
+                    marker.action = marker.ADD
+                    marker.pose.position.x = x * self.resolution
+                    marker.pose.position.y = y * self.resolution
+                    marker.pose.position.z = 0.0
+                    marker.scale.x = self.resolution
+                    marker.scale.y = self.resolution
+                    marker.scale.z = self.resolution
+                    marker.color.a = 1.0
+                    marker.color.r = 1.0  # 빨간색으로 장애물 표시
 
-        path_pub_.publish(path);
-    }
+                    occupancy_grid_msg.markers.append(marker)
 
-    // A* 경로 생성 함수
-    std::vector<geometry_msgs::PoseStamped> generateFeasiblePath(
-        const geometry_msgs::PoseStamped& start_pose,
-        const geometry_msgs::PoseStamped& goal_pose,
-        const pcl::PointCloud<pcl::PointXYZ>::Ptr& cloud) {
+        # 점유 그리드 맵을 퍼블리시
+        self.occupancy_grid_pub.publish(occupancy_grid_msg)
+    
 
-        std::vector<geometry_msgs::PoseStamped> path;
+    def a_star(self, start, goal):
+        """
+        A* 알고리즘을 사용하여 경로를 찾는 함수
+        """
+        # 우선순위 큐를 사용하여 A* 알고리즘 구현
+        def heuristic(a, b):
+            # 유클리드 거리 (Heuristic 함수)
+            return np.sqrt((a[0] - b[0])**2 + (a[1] - b[1])**2)
+        
+        def cubic_curve(x_start, y_start, x_end, y_end):
+            """
+            삼차 함수로 곡선을 생성하는 함수.
+            x_start, y_start는 시작점, x_end, y_end는 끝점.
+            """
+            # 삼차 함수 계수 계산 (y = a3*x^3 + a2*x^2 + a1*x + a0)
+            # (시작점과 끝점에 맞춰서 a0, a1, a2, a3를 계산)
+            a0 = y_start
+            a1 = 0  # 초기 속도는 0으로 설정
+            a2 = 3 * (y_end - y_start) / (x_end ** 2)
+            a3 = -2 * (y_end - y_start) / (x_end ** 3)
 
-        std::priority_queue<Node, std::vector<Node>, std::greater<Node>> open_set;
-        std::vector<std::vector<bool>> closed_set(100, std::vector<bool>(100, false)); // 예시로 100x100 그리드
-        Node start_node = {start_pose.pose.position.x, start_pose.pose.position.y, 0.0, calculateHeuristic(start_pose, goal_pose), nullptr};
-        open_set.push(start_node);
+            # 곡선 계산
+            x_values = np.linspace(x_start, x_end, 100)
+            y_values = a3 * x_values**3 + a2 * x_values**2 + a1 * x_values + a0
+            return x_values, y_values
 
-        while (!open_set.empty()) {
-            Node current_node = open_set.top();
-            open_set.pop();
 
-            if (isGoalReached(current_node, goal_pose)) {
-                Node* node = &current_node;
-                while (node != nullptr) {
-                    geometry_msgs::PoseStamped pose;
-                    pose.pose.position.x = node->x;
-                    pose.pose.position.y = node->y;
-                    path.push_back(pose);
-                    node = node->parent;
-                }
-                std::reverse(path.begin(), path.end());
-                break;
-            }
+        def neighbors(node):
+            """
+            인접 노드를 찾을 때, 직선 및 삼차 곡선으로 경로를 생성
+            """
+            x, y = node
+            possible_moves = []
 
-            closed_set[static_cast<int>(current_node.x)][static_cast<int>(current_node.y)] = true;
+            # 직선 이동 (상하좌우)
+            for dx, dy in [(1, 0), (-1, 0), (0, 1), (0, -1)]:
+                nx, ny = x + dx, y + dy
+                if 0 <= nx < self.grid_width and 0 <= ny < self.grid_height and self.occupancy_grid[ny][nx] == 0:
+                    possible_moves.append((nx, ny))
 
-            // 인접 노드 탐색
-            for (const auto& direction : directions) {
-                double new_x = current_node.x + direction.first;
-                double new_y = current_node.y + direction.second;
+            # 곡선 이동: 삼차 함수로 경로를 만들어서 그 사이의 점들을 경로로 추가
+            # 예를 들어 (x, y) -> (x + 3, y + 3) 같은 경로를 삼차 함수로 만든다고 할 때,
+            # 이 두 점 사이에 여러 개의 곡선 점들을 추가할 수 있습니다.
+            for dx, dy in [(3, 3), (3, -3), (-3, 3), (-3, -3)]:
+                nx, ny = x + dx, y + dy
+                if 0 <= nx < self.grid_width and 0 <= ny < self.grid_height and self.occupancy_grid[ny][nx] == 0:
+                    x_vals, y_vals = cubic_curve(x, y, nx, ny)
+                    # 곡선상의 점들을 모두 경로로 추가
+                    for i in range(len(x_vals)):
+                        possible_moves.append((int(x_vals[i]), int(y_vals[i])))
 
-                if (isValidMove(new_x, new_y, closed_set, cloud)) {
-                    double new_g_cost = current_node.g_cost + 1.0; // 이동 비용 (1단계로 설정)
-                    double new_h_cost = calculateHeuristic({new_x, new_y, 0.0, 0.0, nullptr}, goal_pose);
-                    Node new_node = {new_x, new_y, new_g_cost, new_h_cost, nullptr};
-                    new_node.parent = new Node(current_node);
-                    open_set.push(new_node);
-                }
-            }
-        }
+            return possible_moves
 
-        return path;
-    }
+        open_list = []
+        closed_list = set()
+        came_from = {}
 
-    bool isGoalReached(const Node& current_node, const geometry_msgs::PoseStamped& goal_pose) {
-        return std::abs(current_node.x - goal_pose.pose.position.x) < 0.1 &&
-               std::abs(current_node.y - goal_pose.pose.position.y) < 0.1;
-    }
+        start_node = start
+        goal_node = goal
 
-    double calculateHeuristic(const geometry_msgs::PoseStamped& current_pose, const geometry_msgs::PoseStamped& goal_pose) {
-        return std::sqrt(std::pow(current_pose.pose.position.x - goal_pose.pose.position.x, 2) +
-                         std::pow(current_pose.pose.position.y - goal_pose.pose.position.y, 2));
-    }
+        heapq.heappush(open_list, (0 + heuristic(start_node, goal_node), 0, start_node))  # (f, g, node)
+        
+        g_score = {start_node: 0}
+        f_score = {start_node: heuristic(start_node, goal_node)}
 
-    bool isValidMove(double x, double y, const std::vector<std::vector<bool>>& closed_set, const pcl::PointCloud<pcl::PointXYZ>::Ptr& cloud) {
-        // 그리드 내에서 유효한지 체크하고, 장애물이 있는지 확인
-        if (closed_set[static_cast<int>(x)][static_cast<int>(y)]) {
-            return false;
-        }
+        while open_list:
+            _, g, current = heapq.heappop(open_list)
 
-        for (const auto& point : cloud->points) {
-            double distance = std::sqrt(std::pow(x - point.x, 2) + std::pow(y - point.y, 2));
-            if (distance < 0.5) {  // 장애물이 0.5m 이내에 있으면 이동 불가
-                return false;
-            }
-        }
-        return true;
-    }
-private:
-    ros::Publisher path_pub_;
-    ros::Subscriber laser_sub_;
-    std::vector<std::pair<double, double>> directions = {{1, 0}, {0, 1}, {-1, 0}, {0, -1}}; // 상, 하, 좌, 우
-};
+            if current == goal_node:
+                # 목표에 도달하면 경로 반환
+                path = []
+                while current in came_from:
+                    path.append(current)
+                    current = came_from[current]
+                path.reverse()
+                return path
 
-int main(int argc, char** argv) {
-};
+            closed_list.add(current)
 
-int main(int argc, char** argv) {
-    ros::init(argc, argv, "lattice_planner");
-    ros::NodeHandle nh;
+            for neighbor in neighbors(current):
+                if neighbor in closed_list:
+                    continue
 
-    // Instantiate the LatticePlanner class
-    LatticePlanner lattice_planner(nh);
+                tentative_g_score = g + 1  # 인접한 노드로 가는 비용은 1
 
-    return 0;
-}
+                if neighbor not in g_score or tentative_g_score < g_score[neighbor]:
+                    came_from[neighbor] = current
+                    g_score[neighbor] = tentative_g_score
+                    f_score[neighbor] = tentative_g_score + heuristic(neighbor, goal_node)
+                    heapq.heappush(open_list, (f_score[neighbor], tentative_g_score, neighbor))
+
+        return []  # 경로를 찾을 수 없을 경우 빈 리스트 반환
+    
+    def publish_path(self, path):
+        """
+        A* 알고리즘을 통해 찾은 경로를 시각화하여 퍼블리시
+        """
+        path_msg = Path()
+
+        for (x, y) in path:
+            pose = PoseStamped()
+            pose.pose.position.x = x * self.resolution
+            pose.pose.position.y = y * self.resolution
+            pose.pose.position.z = 0.0
+            path_msg.poses.append(pose)
+
+        return path_msg
+    
+def main(args=None):
+    rclpy.init(args=args)
+    node = OccupancyGridGenerator()
+    rclpy.spin(node)
+    node.destroy_node()
+    rclpy.shutdown()
+
+if __name__ == '__main__':
+    main()
