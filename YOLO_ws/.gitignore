@@ -1,0 +1,15 @@
+# ROS2 colcon build 관련
+build/
+install/
+log/
+.colcon/
+
+# Python 관련
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+*.egg
+
+# VSCode 설정 (사용 중이라면)
+.vscode/
