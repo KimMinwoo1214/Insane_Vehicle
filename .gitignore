@@ -1,39 +1,31 @@
+# ROS2 빌드 관련 폴더
+build/
+install/
+log/
 lidar_ws/log/
-build/
-install/
-log/
+
+# Python 캐시 파일
 *.pyc
 *.pyo
-*.egg-info/
 __pycache__/
+
+# 패키지 관련 불필요한 파일
+*.egg-info/
+*.so
+*.a
+*.o
+
+# CMake 관련 파일
 CMakeCache.txt
 CMakeFiles/
 Makefile
 *.cmake
-*.o
-*.so
-*.a
+
+# 가상 환경
 venv/
 .env/
-/colcon.log
-/.colcon_install_layout
-/.colcon_build.rc
-build/
-install/
-log/
-*.pyc
-*.pyo
-*.egg-info/
-__pycache__/
-CMakeCache.txt
-CMakeFiles/
-Makefile
-*.cmake
-*.o
-*.so
-*.a
-venv/
-.env/
+
+# Colcon 빌드 로그 및 설정 파일
 /colcon.log
 /.colcon_install_layout
 /.colcon_build.rc
