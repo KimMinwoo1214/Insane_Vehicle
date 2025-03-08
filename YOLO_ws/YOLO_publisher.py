@@ -28,6 +28,11 @@ LIDAR_RANGE = 10  # LiDAR 최대 탐색 거리 (m)
 DBSCAN_EPS = 0.5            # DBSCAN 거리 기준 (m)
 DBSCAN_MIN_SAMPLES = 5      # DBSCAN 클러스터 최소 포인트 수
 
+# 터널 감지 설정
+TUNNEL_MIN_WIDTH = 1.0  # 터널 최소 폭 (m)
+TUNNEL_MAX_WIDTH = 4.0  # 터널 최대 폭 (m)
+TUNNEL_MIN_POINTS = 10  # 좌우 각각 최소 감지 포인트 개수
+
 
 class ObstacleDetection:
     def __init__(self):
@@ -138,6 +143,32 @@ class ObstacleDetection:
 
             # 장애물 정보 퍼블리시
             self.object_info_pub.publish(f"obstacle,{center_x:.2f},{center_y:.2f},{distance:.2f}")
+
+    def detect_tunnel(self):
+        """ LiDAR 데이터를 사용하여 터널 감지 및 플래닝에게 정보 전달 """
+        ##### 차가 틀어져있을 때 헤딩값 가지고 보정하는 부분 필요할듯
+        if self.filtered_points is None or len(self.filtered_points) == 0:
+            return
+
+        # 좌우 LiDAR 포인트 분리
+        left_points = self.filtered_points[self.filtered_points[:, 1] > 0]
+        right_points = self.filtered_points[self.filtered_points[:, 1] < 0]
+
+        # 좌우 벽 감지 조건 (터널 내부로 판단)
+        if len(left_points) >= TUNNEL_MIN_POINTS and len(right_points) >= TUNNEL_MIN_POINTS:
+            left_x_mean = np.mean(left_points[:, 0])
+            right_x_mean = np.mean(right_points[:, 0])
+            tunnel_width = abs(left_x_mean - right_x_mean)
+
+            # 터널 폭이 일정 범위 내에 있는지 확인
+            if TUNNEL_MIN_WIDTH <= tunnel_width <= TUNNEL_MAX_WIDTH:
+                tunnel_x = (left_x_mean + right_x_mean) / 2
+                tunnel_y = (np.mean(left_points[:, 1]) + np.mean(right_points[:, 1])) / 2
+                distance = sqrt(tunnel_x**2 + tunnel_y**2)
+
+                # 플래닝에게 터널 정보 전달
+                tunnel_msg = f"mode:tunnel,{left_x_mean:.2f},{right_x_mean:.2f}"
+                self.object_info_pub.publish(tunnel_msg)
 
 
 if __name__ == '__main__':
