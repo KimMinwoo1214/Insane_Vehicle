@@ -15,9 +15,22 @@ from sklearn.cluster import DBSCAN
 from math import cos, sin, sqrt
 
 # 하이퍼파라미터
-BBOX_WIDTH_THRESHOLD = 50   # YOLO 바운딩 박스 가로 크기 최소값 (픽셀)
-BBOX_HEIGHT_THRESHOLD = 50  # YOLO 바운딩 박스 세로 크기 최소값 (픽셀)
-LIDAR_HEIGHT_OFFSET = 0.05  # LiDAR와 카메라 높이 차이 (m)
+LAVA_CONE_WIDTH_THRESHOLD = 50   # 라바콘 바운딩 박스 최소 너비 (픽셀)
+LAVA_CONE_HEIGHT_THRESHOLD = 50  # 라바콘 바운딩 박스 최소 높이 (픽셀)
+
+DRUM_WIDTH_THRESHOLD = 80   # 드럼 바운딩 박스 최소 너비 (픽셀)
+DRUM_HEIGHT_THRESHOLD = 80  # 드럼 바운딩 박스 최소 높이 (픽셀)
+
+TUNNEL_WIDTH_THRESHOLD = 100   # 터널 바운딩 박스 최소 너비 (픽셀)
+TUNNEL_HEIGHT_THRESHOLD = 100  # 터널 바운딩 박스 최소 높이 (픽셀)
+
+# 카메라 내부 행렬
+K = np.array([[700, 0, 320],
+              [0, 700, 240],
+              [0, 0, 1]])
+
+# 카메라-라이다 높이 차이 (m)
+CAMERA_LIDAR_HEIGHT_DIFF = 0.3
 
 # CAM & LiDAR 설정
 CAMERA_FOV = 70   # 카메라 화각 (도)
@@ -28,26 +41,20 @@ LIDAR_RANGE = 10  # LiDAR 최대 탐색 거리 (m)
 DBSCAN_EPS = 0.5            # DBSCAN 거리 기준 (m)
 DBSCAN_MIN_SAMPLES = 5      # DBSCAN 클러스터 최소 포인트 수
 
-# 터널 감지 설정
-TUNNEL_MIN_WIDTH = 1.0  # 터널 최소 폭 (m)
-TUNNEL_MAX_WIDTH = 4.0  # 터널 최대 폭 (m)
-TUNNEL_MIN_POINTS = 10  # 좌우 각각 최소 감지 포인트 개수
-
-
 class ObstacleDetection(Node):
     def __init__(self):
         super().__init__('obstacle_detector')
 
         # 퍼블리셔
         self.object_info_pub = self.create_publisher(String, "/object_info", 10)
-        self.image_pub = self.create_publisher(Image, "/yolo_debug", 10)
+        self.tunnel_info_pub = self.create_publisher(String, "/tunnel_info", 10)
 
         # 섭스크라이버
         self.create_subscription(Image, "/image_jpeg", self.image_callback, 10)
         self.create_subscription(LaserScan, "/scan", self.lidar_callback, 10)
 
         # YOLO 모델 로드
-        self.model = YOLO('/home/antel/2025IEVE_1of5/2025IEVE/YOLO_ws/weights/YOLO_0216.pt')  # 경로 수정 필요
+        self.model = YOLO('/path/to/yolo_weights.pt')  
 
         # 데이터 저장 변수
         self.bridge = CvBridge()
@@ -55,91 +62,82 @@ class ObstacleDetection(Node):
         self.lidar_points = None
         self.filtered_points = None
 
-        # YOLO 실행 간격 (프레임 간격 조정)
-        self.frame_counter = 0
-        self.frame_interval = 2  # 2 프레임마다 YOLO 실행
+        # 터널 모드 플래그
+        self.tunnel_mode = False
 
     def image_callback(self, msg):
         """ 카메라 이미지 수신 후 YOLO 감지 수행 """
-        try:
-            np_arr = np.frombuffer(msg.data, np.uint8)
-            self.img_bgr = cv2.imdecode(np_arr, cv2.IMREAD_COLOR)
-        except Exception as e:
-            self.get_logger().error(f"Error processing image: {e}")
+        np_arr = np.frombuffer(msg.data, np.uint8)
+        self.img_bgr = cv2.imdecode(np_arr, cv2.IMREAD_COLOR)
 
     def lidar_callback(self, msg):
         """ 2D LiDAR 데이터를 (x, y) 좌표로 변환 후 ROI 필터 적용 """
         ranges = np.array(msg.ranges)
         angles = np.linspace(msg.angle_min, msg.angle_max, len(ranges))
-
-        # 극좌표 → 직교좌표 변환
         self.lidar_points = np.array([ranges * np.cos(angles), ranges * np.sin(angles)]).T
 
-        # ROI 필터 적용 (전방 10m 이내, 좌우 ±3m 범위)
-        roi_mask = (self.lidar_points[:, 0] > 0.5) & (self.lidar_points[:, 0] < LIDAR_RANGE) & \
-                   (self.lidar_points[:, 1] > -3.0) & (self.lidar_points[:, 1] < 3.0)
-        self.filtered_points = self.lidar_points[roi_mask]
-
     def process_detections(self):
-        """ YOLO 탐지 후 LiDAR 탐색 영역 변환 """
+        """ YOLO 탐지 후 객체별 LiDAR 처리 및 퍼블리시 """
         if self.img_bgr is not None:
-            self.frame_counter += 1
-            if self.frame_counter % self.frame_interval == 0:
-                res = self.model.predict(self.img_bgr, stream=True)
+            res = self.model.predict(self.img_bgr, stream=True)
 
-                if len(res[0].boxes) > 0:
-                    for box in res[0].boxes:
-                        bbox_x = box.xywh[0, 0].item()
-                        bbox_y = box.xywh[0, 1].item()
-                        bbox_width = box.xywh[0, 2].item()
-                        bbox_height = box.xywh[0, 3].item()
+            tunnel_detected = False
+            left_wall, right_wall = None, None
 
-                        # 바운딩 박스 크기 기준 만족 시 LiDAR 탐색 영역 변환
-                        if bbox_width > BBOX_WIDTH_THRESHOLD and bbox_height > BBOX_HEIGHT_THRESHOLD:
-                            self.map_bbox_to_lidar(bbox_x)
+            for box in res[0].boxes:
+                bbox_x = box.xywh[0, 0].item()
+                bbox_y = box.xywh[0, 1].item()
+                bbox_width = box.xywh[0, 2].item()
+                bbox_height = box.xywh[0, 3].item()
+                label = int(box.cls[0].item())  
 
-                # YOLO 탐지 결과 퍼블리시
-                msg = self.bridge.cv2_to_imgmsg(res[0].plot(), encoding="bgr8")
-                self.image_pub.publish(msg)
+                # 라바콘 (label 0) - LiDAR 스캔 후 퍼블리시
+                if label == 0 and bbox_width > LAVA_CONE_WIDTH_THRESHOLD and bbox_height > LAVA_CONE_HEIGHT_THRESHOLD:
+                    self.scan_lidar_for_object(bbox_x, label)
 
-    def map_bbox_to_lidar(self, bbox_x):
-        """ YOLO 바운딩 박스 x좌표 → LiDAR 탐색 각도로 변환 """
-        x_ratio = bbox_x / 640  # 640은 이미지 가로 크기
-        camera_angle = (x_ratio * CAMERA_FOV) - (CAMERA_FOV / 2)
+                # 드럼 (label 1) - LiDAR 스캔 후 퍼블리시
+                if label == 1 and bbox_width > DRUM_WIDTH_THRESHOLD and bbox_height > DRUM_HEIGHT_THRESHOLD:
+                    self.scan_lidar_for_object(bbox_x, label)
 
-        # LiDAR 기준 각도로 변환
-        lidar_angle = ((camera_angle + (CAMERA_FOV / 2)) / CAMERA_FOV) * LIDAR_FOV - (LIDAR_FOV / 2)
-        angle_min = np.deg2rad(lidar_angle - 10)  # 탐색 범위 ±10도
-        angle_max = np.deg2rad(lidar_angle + 10)
+                # 터널 (label 2) - 크기 조건 만족 시 LiDAR 벽 위치 계산 후 퍼블리시
+                if label == 2 and bbox_width > TUNNEL_WIDTH_THRESHOLD and bbox_height > TUNNEL_HEIGHT_THRESHOLD:
+                    tunnel_detected = True
+                    left_wall, right_wall = self.estimate_tunnel_walls()
 
-        # LiDAR 필터링 (높이 차이 반영)
-        if self.filtered_points is not None and len(self.filtered_points) > 0:
-            angles = np.arctan2(self.filtered_points[:, 1], self.filtered_points[:, 0])
-            mask = (angles > angle_min) & (angles < angle_max)
-            selected_points = self.filtered_points[mask]
+            # 터널 정보 퍼블리시
+            self.tunnel_info_pub.publish(String(data=f"tunnel,{int(tunnel_detected)},{left_wall},{right_wall}"))
 
-            # 장애물 탐지
-            self.detect_obstacle_from_lidar(selected_points)
-
-    def detect_obstacle_from_lidar(self, selected_points):
-        """ LiDAR 포인트 클러스터링을 통한 장애물 탐지 (특정 탐색 범위) """
-        if selected_points is None or len(selected_points) == 0:
+    def scan_lidar_for_object(self, bbox_x, label):
+        """ YOLO 바운딩 박스 위치를 기반으로 LiDAR 스캔 수행 및 객체 정보 퍼블리시 """
+        if self.filtered_points is None or len(self.filtered_points) == 0:
             return
 
-        dbscan = DBSCAN(eps=DBSCAN_EPS, min_samples=DBSCAN_MIN_SAMPLES)
-        labels = dbscan.fit_predict(selected_points)
+        # LiDAR 탐색 각도 변환
+        angle_ratio = bbox_x / 640
+        lidar_angle = (angle_ratio * LIDAR_FOV) - (LIDAR_FOV / 2)
+        angle_min = np.deg2rad(lidar_angle - 10)
+        angle_max = np.deg2rad(lidar_angle + 10)
 
-        unique_labels = set(labels)
-        for label in unique_labels:
-            if label == -1:
-                continue
+        # 특정 각도 범위의 LiDAR 데이터만 필터링
+        angles = np.arctan2(self.filtered_points[:, 1], self.filtered_points[:, 0])
+        mask = (angles > angle_min) & (angles < angle_max)
+        selected_points = self.filtered_points[mask]
 
-            cluster_points = selected_points[labels == label]
-            center_x = np.mean(cluster_points[:, 0])
-            center_y = np.mean(cluster_points[:, 1])
+        if selected_points.shape[0] > 0:
+            center_x = np.mean(selected_points[:, 0])
+            center_y = np.mean(selected_points[:, 1])
             distance = sqrt(center_x**2 + center_y**2)
+            self.object_info_pub.publish(String(data=f"object,{label},{center_x:.2f},{center_y:.2f},{distance:.2f}"))
 
-            self.object_info_pub.publish(f"obstacle,{center_x:.2f},{center_y:.2f},{distance:.2f}")
+    def estimate_tunnel_walls(self):
+        """ LiDAR 데이터에서 좌우 벽의 위치 추정 """
+        if self.filtered_points is None or len(self.filtered_points) == 0:
+            return None, None
+
+        left_wall = np.min(self.filtered_points[:, 1])
+        right_wall = np.max(self.filtered_points[:, 1])
+
+        return round(left_wall, 2), round(right_wall, 2)
 
 def main():
     rclpy.init()
