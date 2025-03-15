@@ -34,7 +34,7 @@ class PurePursuitController(Node):
         self.cmd_pub = self.create_publisher(String, 'teleop_commands', 10)
 
         # 목표 waypoint에 도달할 때까지의 lookahead 거리 (미터 단위, 필요시 튜닝)
-        self.lookahead_distance = 5.0
+        self.lookahead_distance = 1.0
         # 기본 throttle 값 (0~30 범위; 필요에 따라 조정)
         self.base_throttle = 20
 
