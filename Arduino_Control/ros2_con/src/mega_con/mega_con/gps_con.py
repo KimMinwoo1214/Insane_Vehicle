@@ -7,6 +7,7 @@ from std_msgs.msg import String
 import math
 import csv
 import os
+import utm  # Turbo87의 utm 모듈
 
 class PurePursuitController(Node):
     def __init__(self):
@@ -38,10 +39,11 @@ class PurePursuitController(Node):
         # 기본 throttle 값 (0~30 범위; 필요에 따라 조정)
         self.base_throttle = 20
 
-        # 좌표 변환을 위한 기준점 (첫번째 waypoint 사용)
+        # 기준점 설정: 첫 번째 waypoint를 기준점으로 사용하고, UTM 좌표를 계산
         self.ref_lat = self.waypoints[0][0]
         self.ref_lon = self.waypoints[0][1]
-        self.earth_radius = 6371000.0  # m
+        self.ref_easting, self.ref_northing, self.ref_zone_number, self.ref_zone_letter = utm.from_latlon(self.ref_lat, self.ref_lon)
+        self.get_logger().info(f"기준점: {self.ref_lat}, {self.ref_lon} -> UTM: {self.ref_easting:.2f}, {self.ref_northing:.2f} Zone {self.ref_zone_number}{self.ref_zone_letter}")
 
     def load_waypoints(self, filename):
         """
@@ -64,14 +66,13 @@ class PurePursuitController(Node):
 
     def gps_to_xy(self, lat, lon):
         """
-        간단한 등각 투영법을 사용해 위도/경도를 로컬 x, y 좌표로 변환합니다.
-        기준점(self.ref_lat, self.ref_lon)을 기준으로 계산합니다.
+        utm 모듈을 사용해 위도/경도를 UTM 좌표 (easting, northing)로 변환한 후,
+        기준점(self.ref_easting, self.ref_northing)으로부터의 상대 좌표(x, y)를 계산합니다.
         """
-        dlat = math.radians(lat - self.ref_lat)
-        dlon = math.radians(lon - self.ref_lon)
-        avg_lat = math.radians((lat + self.ref_lat) / 2.0)
-        x = self.earth_radius * dlon * math.cos(avg_lat)
-        y = self.earth_radius * dlat
+        easting, northing, zone_number, zone_letter = utm.from_latlon(lat, lon)
+        # 보통 동일 지역(예: Zone 52N) 내에 있음을 가정합니다.
+        x = easting - self.ref_easting
+        y = northing - self.ref_northing
         return x, y
 
     def gps_callback(self, msg):
@@ -102,7 +103,7 @@ class PurePursuitController(Node):
             target_x, target_y = self.gps_to_xy(target_lat, target_lon)
             distance = math.hypot(target_x - current_x, target_y - current_y)
 
-        # 목표 waypoint까지의 방향(heading) 계산 (현재 차량 heading 정보가 없으므로 단순화)
+        # 목표 waypoint까지의 방향(heading) 계산 (현재 차량의 heading 정보는 없으므로 단순화)
         path_angle = math.atan2(target_y - current_y, target_x - current_x)
         heading_error = path_angle
 
@@ -146,3 +147,4 @@ def main(args=None):
 
 if __name__ == '__main__':
     main()
+
