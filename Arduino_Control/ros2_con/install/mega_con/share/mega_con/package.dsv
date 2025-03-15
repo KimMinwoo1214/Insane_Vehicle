@@ -1,9 +1,0 @@
-source;share/mega_con/hook/pythonpath.ps1
-source;share/mega_con/hook/pythonpath.dsv
-source;share/mega_con/hook/pythonpath.sh
-source;share/mega_con/hook/ament_prefix_path.ps1
-source;share/mega_con/hook/ament_prefix_path.dsv
-source;share/mega_con/hook/ament_prefix_path.sh
-source;../../build/mega_con/share/mega_con/hook/pythonpath_develop.ps1
-source;../../build/mega_con/share/mega_con/hook/pythonpath_develop.dsv
-source;../../build/mega_con/share/mega_con/hook/pythonpath_develop.sh
