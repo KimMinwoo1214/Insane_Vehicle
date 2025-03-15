@@ -1,2 +1,0 @@
-[console_scripts]
-cal_cen = centeroids.cal_cen:main

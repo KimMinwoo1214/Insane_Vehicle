@@ -1,8 +1,0 @@
-Metadata-Version: 2.1
-Name: mega_con
-Version: 0.0.1
-Summary: ROS2 package for joystick and serial control
-Maintainer: kmw
-Maintainer-email: werkm1214@hanyang.ac.kr
-License: MIT
-Requires-Dist: setuptools

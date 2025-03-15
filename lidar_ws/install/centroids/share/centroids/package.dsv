@@ -1,6 +1,0 @@
-source;share/centroids/hook/pythonpath.ps1
-source;share/centroids/hook/pythonpath.dsv
-source;share/centroids/hook/pythonpath.sh
-source;share/centroids/hook/ament_prefix_path.ps1
-source;share/centroids/hook/ament_prefix_path.dsv
-source;share/centroids/hook/ament_prefix_path.sh

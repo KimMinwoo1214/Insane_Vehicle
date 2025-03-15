@@ -1,5 +1,0 @@
-[console_scripts]
-camera = calibration.camera_node:main
-lidar_point = calibration.lidar_point:main
-lidar_to_camera = calibration.lidar_to_camera:main
-projection = calibration.projection:main
