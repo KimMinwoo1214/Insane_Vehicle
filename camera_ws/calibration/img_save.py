@@ -1,7 +1,7 @@
 import cv2
 
 def capture_and_save():
-    cap = cv2.VideoCapture(2)  # 기본 카메라(웹캠) 실행
+    cap = cv2.VideoCapture(4)  # 기본 카메라(웹캠) 실행
     
     if not cap.isOpened():
         print("Error: Could not open camera.")

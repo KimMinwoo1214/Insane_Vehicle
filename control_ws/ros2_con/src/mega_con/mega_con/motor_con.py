@@ -19,7 +19,7 @@ class ArduinoCommander(Node):
 
         # 아두이노와의 시리얼 연결 설정
         try:
-            self.ser = serial.Serial('/dev/ttyUSB0', 9600, timeout=1)
+            self.ser = serial.Serial('/dev/ttyACM0', 9600, timeout=1)
             self.get_logger().info("아두이노 시리얼 포트 열림: /dev/ttyUSB0")
         except Exception as e:
             self.get_logger().error(f"아두이노 시리얼 연결 실패: {e}")

@@ -5,8 +5,9 @@ import cv2
 import rclpy
 from rclpy.node import Node
 import numpy as np
-import torch
-from ultralytics import YOLO
+import tensorrt as trt
+import pycuda.driver as cuda
+import pycuda.autoinit
 from sensor_msgs.msg import LaserScan, Image
 from std_msgs.msg import String
 from cv_bridge import CvBridge
@@ -14,33 +15,57 @@ from scipy.spatial import KDTree
 from sklearn.cluster import DBSCAN
 from math import cos, sin, sqrt
 
-# 하이퍼파라미터
-LAVA_CONE_WIDTH_THRESHOLD = 50   # 라바콘 바운딩 박스 최소 너비 (픽셀)
-LAVA_CONE_HEIGHT_THRESHOLD = 50  # 라바콘 바운딩 박스 최소 높이 (픽셀)
+# ===========================
+# TensorRT YOLOv8 엔진 로드 클래스
+# ===========================
+class TrtYOLOv8:
+    def __init__(self, engine_path):
+        self.logger = trt.Logger(trt.Logger.WARNING)
+        with open(engine_path, "rb") as f:
+            runtime = trt.Runtime(self.logger)
+            self.engine = runtime.deserialize_cuda_engine(f.read())
 
-DRUM_WIDTH_THRESHOLD = 80   # 드럼 바운딩 박스 최소 너비 (픽셀)
-DRUM_HEIGHT_THRESHOLD = 80  # 드럼 바운딩 박스 최소 높이 (픽셀)
+        self.context = self.engine.create_execution_context()
 
-TUNNEL_WIDTH_THRESHOLD = 100   # 터널 바운딩 박스 최소 너비 (픽셀)
-TUNNEL_HEIGHT_THRESHOLD = 100  # 터널 바운딩 박스 최소 높이 (픽셀)
+        # 입력/출력 바인딩 설정
+        self.input_idx = self.engine.get_binding_index("images")
+        self.output_idx = self.engine.get_binding_index("output0")
 
-# 카메라 내부 행렬
-K = np.array([[700, 0, 320],
-              [0, 700, 240],
-              [0, 0, 1]])
+        self.input_shape = self.engine.get_binding_shape(self.input_idx)
+        self.output_shape = self.engine.get_binding_shape(self.output_idx)
 
-# 카메라-라이다 높이 차이 (m)
-CAMERA_LIDAR_HEIGHT_DIFF = 0.3
+        self.input_size = np.prod(self.input_shape) * np.dtype(np.float32).itemsize
+        self.output_size = np.prod(self.output_shape) * np.dtype(np.float32).itemsize
 
-# CAM & LiDAR 설정
-CAMERA_FOV = 70   # 카메라 화각 (도)
-LIDAR_FOV = 270   # LiDAR 화각 (도)
-LIDAR_RANGE = 10  # LiDAR 최대 탐색 거리 (m)
+        # GPU 메모리 할당
+        self.d_input = cuda.mem_alloc(self.input_size)
+        self.d_output = cuda.mem_alloc(self.output_size)
 
-# LiDAR 클러스터링 설정
-DBSCAN_EPS = 0.5            # DBSCAN 거리 기준 (m)
-DBSCAN_MIN_SAMPLES = 5      # DBSCAN 클러스터 최소 포인트 수
+        self.stream = cuda.Stream()
 
+    def preprocess(self, img):
+        """ 이미지 전처리 (YOLOv8 TensorRT 형식으로 변환) """
+        img = cv2.resize(img, (640, 640))
+        img = img.astype(np.float32) / 255.0
+        img = np.transpose(img, (2, 0, 1))  # HWC → CHW 변환
+        img = np.expand_dims(img, axis=0)   # 배치 차원 추가
+        return np.ascontiguousarray(img)
+
+    def detect(self, img):
+        """ TensorRT YOLOv8 추론 실행 """
+        img_input = self.preprocess(img)
+        
+        cuda.memcpy_htod_async(self.d_input, img_input, self.stream)
+        self.context.execute_v2([self.d_input, self.d_output])
+        output = np.empty(self.output_shape, dtype=np.float32)
+        cuda.memcpy_dtoh_async(output, self.d_output, self.stream)
+        self.stream.synchronize()
+        
+        return output  # (N, 6) 형식으로 반환됨: [x, y, w, h, conf, class]
+
+# ===========================
+# ROS2 장애물 탐지 노드
+# ===========================
 class ObstacleDetection(Node):
     def __init__(self):
         super().__init__('obstacle_detector')
@@ -53,8 +78,8 @@ class ObstacleDetection(Node):
         self.create_subscription(Image, "/image_jpeg", self.image_callback, 10)
         self.create_subscription(LaserScan, "/scan", self.lidar_callback, 10)
 
-        # YOLO 모델 로드
-        self.model = YOLO('/path/to/yolo_weights.pt')  
+        # YOLOv8 TensorRT 모델 로드
+        self.model = TrtYOLOv8('#############경로 적기############')
 
         # 데이터 저장 변수
         self.bridge = CvBridge()
@@ -62,11 +87,8 @@ class ObstacleDetection(Node):
         self.lidar_points = None
         self.filtered_points = None
 
-        # 터널 모드 플래그
-        self.tunnel_mode = False
-
     def image_callback(self, msg):
-        """ 카메라 이미지 수신 후 YOLO 감지 수행 """
+        """ 카메라 이미지 수신 후 YOLOv8 TensorRT 탐지 수행 """
         np_arr = np.frombuffer(msg.data, np.uint8)
         self.img_bgr = cv2.imdecode(np_arr, cv2.IMREAD_COLOR)
 
@@ -79,32 +101,23 @@ class ObstacleDetection(Node):
     def process_detections(self):
         """ YOLO 탐지 후 객체별 LiDAR 처리 및 퍼블리시 """
         if self.img_bgr is not None:
-            res = self.model.predict(self.img_bgr, stream=True)
+            res = self.model.detect(self.img_bgr)
 
             tunnel_detected = False
             left_wall, right_wall = None, None
 
-            for box in res[0].boxes:
-                bbox_x = box.xywh[0, 0].item()
-                bbox_y = box.xywh[0, 1].item()
-                bbox_width = box.xywh[0, 2].item()
-                bbox_height = box.xywh[0, 3].item()
-                label = int(box.cls[0].item())  
+            for det in res:
+                bbox_x, bbox_y, bbox_width, bbox_height, conf, label = det
+                label = int(label)
 
-                # 라바콘 (label 0) - LiDAR 스캔 후 퍼블리시
-                if label == 0 and bbox_width > LAVA_CONE_WIDTH_THRESHOLD and bbox_height > LAVA_CONE_HEIGHT_THRESHOLD:
+                if label == 0 and bbox_width > 50 and bbox_height > 50:  # 라바콘
                     self.scan_lidar_for_object(bbox_x, label)
-
-                # 드럼 (label 1) - LiDAR 스캔 후 퍼블리시
-                if label == 1 and bbox_width > DRUM_WIDTH_THRESHOLD and bbox_height > DRUM_HEIGHT_THRESHOLD:
+                if label == 1 and bbox_width > 80 and bbox_height > 80:  # 드럼
                     self.scan_lidar_for_object(bbox_x, label)
-
-                # 터널 (label 2) - 크기 조건 만족 시 LiDAR 벽 위치 계산 후 퍼블리시
-                if label == 2 and bbox_width > TUNNEL_WIDTH_THRESHOLD and bbox_height > TUNNEL_HEIGHT_THRESHOLD:
+                if label == 2 and bbox_width > 100 and bbox_height > 100:  # 터널
                     tunnel_detected = True
                     left_wall, right_wall = self.estimate_tunnel_walls()
 
-            # 터널 정보 퍼블리시
             self.tunnel_info_pub.publish(String(data=f"tunnel,{int(tunnel_detected)},{left_wall},{right_wall}"))
 
     def scan_lidar_for_object(self, bbox_x, label):
@@ -112,13 +125,11 @@ class ObstacleDetection(Node):
         if self.filtered_points is None or len(self.filtered_points) == 0:
             return
 
-        # LiDAR 탐색 각도 변환
         angle_ratio = bbox_x / 640
-        lidar_angle = (angle_ratio * LIDAR_FOV) - (LIDAR_FOV / 2)
+        lidar_angle = (angle_ratio * 270) - (270 / 2)
         angle_min = np.deg2rad(lidar_angle - 10)
         angle_max = np.deg2rad(lidar_angle + 10)
 
-        # 특정 각도 범위의 LiDAR 데이터만 필터링
         angles = np.arctan2(self.filtered_points[:, 1], self.filtered_points[:, 0])
         mask = (angles > angle_min) & (angles < angle_max)
         selected_points = self.filtered_points[mask]
@@ -148,4 +159,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-

@@ -14,7 +14,7 @@ class PurePursuitController(Node):
         super().__init__('pure_pursuit_controller')
 
         # CSV 파일 경로 (현재 파일과 같은 디렉토리에 위치한다고 가정)
-        csv_file_path = os.path.join(os.path.dirname(__file__), "waypoints.csv")
+        csv_file_path = os.path.join("/home/antel/2025IEVE_1of5/2025IEVE/MongToGongcen.csv")
         self.waypoints = self.load_waypoints(csv_file_path)
 
         if not self.waypoints:
@@ -27,7 +27,7 @@ class PurePursuitController(Node):
         # GPS 데이터 수신 구독자 (sensor_msgs/NavSatFix)
         self.gps_sub = self.create_subscription(
             NavSatFix,
-            '/gps/fix',
+            '/fix',
             self.gps_callback,
             10
         )
@@ -35,7 +35,7 @@ class PurePursuitController(Node):
         self.cmd_pub = self.create_publisher(String, 'teleop_commands', 10)
 
         # 목표 waypoint에 도달할 때까지의 lookahead 거리 (미터 단위, 필요시 튜닝)
-        self.lookahead_distance = 1.0
+        self.lookahead_distance = 5.0
         # 기본 throttle 값 (0~30 범위; 필요에 따라 조정)
         self.base_throttle = 20
 
@@ -114,9 +114,9 @@ class PurePursuitController(Node):
         # 계산된 angular_z를 기반으로 스티어링 명령 생성  
         # 양수(좌회전): multiplier 33, 음수(우회전): multiplier 36
         if angular_z >= 0:
-            steering = 90 + int(angular_z * 33)
+            steering = 90 + int(angular_z/2 * 33)
         else:
-            steering = 90 + int(angular_z * 36)
+            steering = 90 + int(angular_z/2 * 36)
         # 스티어링 범위를 [54, 123]으로 제한
         steering = max(54, min(123, steering))
 
