@@ -8,35 +8,38 @@ import termios
 import tty
 import select
 
-# 키보드 입력과 명령 매핑
-move_bindings = {
-    'w': 'increase_speed',
-    'x': 'decrease_speed',
-    's': 'stop',
-    'a': 'ccw',
-    'd': 'cw',
-}
+# 상수 정의
+MAX_THROTTLE = 30    # 최대 전진 속도
+MIN_THROTTLE = 0      # 정지
+THROTTLE_STEP = 5    # throttle 증감 단위
 
-MAX_SPEED = 255   # 최대 전진 속도
-MIN_SPEED = -255  # 최대 후진 속도
-SPEED_STEP = 50   # 속도 증가 단위
+CENTER_STEERING = 90  # 스티어링 중앙값
+LEFT_MAX = 123        # 왼쪽 최대값 (여러번 'a'를 눌러야 도달)
+RIGHT_MAX = 54        # 오른쪽 최대값 (여러번 'd'를 눌러야 도달)
+STEERING_STEP = 8     # steering 증감 단위
 
 class TeleopKeyboard(Node):
     def __init__(self):
         super().__init__('teleop_keyboard')
         self.publisher = self.create_publisher(String, 'teleop_commands', 10)
-        self.speed = 0  # 초기 속도
-
-        self.get_logger().info("키보드 제어 활성화: W(속도 증가), X(후진 속도 증가), A(좌회전), D(우회전), S(정지)")
+        self.throttle = 0
+        self.steering = CENTER_STEERING
+        
+        self.get_logger().info("키보드 제어 활성화:")
+        self.get_logger().info("  W: throttle 증가")
+        self.get_logger().info("  S: throttle 정지 (0)")
+        self.get_logger().info("  A: 왼쪽 회전 (steering 증가)")
+        self.get_logger().info("  D: 오른쪽 회전 (steering 감소)")
+        self.get_logger().info("  X: steering 리셋 (90)")
         self.get_logger().info("Ctrl+C를 눌러 종료")
-
+    
     def get_key(self):
-        """ 키보드에서 단일 키 입력을 읽어오는 함수 """
+        """ 키보드에서 단일 키 입력을 읽어옵니다 """
         fd = sys.stdin.fileno()
         old_settings = termios.tcgetattr(fd)
         try:
             tty.setraw(fd)
-            rlist, _, _ = select.select([sys.stdin], [], [], 0.1)  # 비동기 입력 감지
+            rlist, _, _ = select.select([sys.stdin], [], [], 0.1)
             if rlist:
                 key = sys.stdin.read(1)
             else:
@@ -46,49 +49,60 @@ class TeleopKeyboard(Node):
         return key
 
     def run(self):
-        """ 키 입력을 감지하고 속도 조절 후 ROS2 토픽으로 발행 """
         try:
             while rclpy.ok():
                 key = self.get_key()
                 msg = String()
 
-                if key in move_bindings:
-                    command = move_bindings[key]
-
-                    if command == "increase_speed":
-                        self.speed += SPEED_STEP
-                        if self.speed > MAX_SPEED:
-                            self.speed = MAX_SPEED
-                        msg.data = f"forward:{self.speed}"  # 속도 값 포함
-                    elif command == "decrease_speed":
-                        self.speed -= SPEED_STEP
-                        if self.speed < MIN_SPEED:
-                            self.speed = MIN_SPEED
-                        msg.data = f"backward:{abs(self.speed)}"  # 속도 값 포함
-                    elif command == "stop":
-                        self.speed = 0
-                        msg.data = "stop"
-                    elif command == "ccw":
-                        msg.data = "ccw"
-                    elif command == "cw":
-                        msg.data = "cw"
-
-                    self.publisher.publish(msg)
-                    self.get_logger().info(f"전송됨: {msg.data}")
-
+                if key == 'w':
+                    # throttle 증가
+                    self.throttle += THROTTLE_STEP
+                    if self.throttle > MAX_THROTTLE:
+                        self.throttle = MAX_THROTTLE
+                    msg.data = f"{self.steering},{self.throttle}"
+                    self.get_logger().info(f"Throttle 증가: {self.throttle}")
+                elif key == 's':
+                    # throttle 정지
+                    self.throttle = 0
+                    msg.data = f"{self.steering},{self.throttle}"
+                    self.get_logger().info("Throttle 정지: 0")
+                elif key == 'a':
+                    # 왼쪽 회전: steering 값 증가 (최대 LEFT_MAX)
+                    self.steering += STEERING_STEP
+                    if self.steering > LEFT_MAX:
+                        self.steering = LEFT_MAX
+                    msg.data = f"{self.steering},{self.throttle}"
+                    self.get_logger().info(f"좌회전: Steering {self.steering}")
+                elif key == 'd':
+                    # 오른쪽 회전: steering 값 감소 (최소 RIGHT_MAX)
+                    self.steering -= STEERING_STEP
+                    if self.steering < RIGHT_MAX:
+                        self.steering = RIGHT_MAX
+                    msg.data = f"{self.steering},{self.throttle}"
+                    self.get_logger().info(f"우회전: Steering {self.steering}")
+                elif key == 'x':
+                    # 스티어링 리셋: 중앙값 90으로 복원
+                    self.steering = CENTER_STEERING
+                    msg.data = f"{self.steering},{self.throttle}"
+                    self.get_logger().info("스티어링 리셋: 90")
                 elif key == '\x03':  # Ctrl+C
                     self.get_logger().info("프로그램 종료")
                     break
+                else:
+                    continue
 
+                # 명령 메시지 발행
+                self.publisher.publish(msg)
+                self.get_logger().info(f"명령 전송: {msg.data}")
+                
         except Exception as e:
             self.get_logger().error(f"오류 발생: {e}")
-
         finally:
-            # 종료 시 정지 명령 전송
+            # 종료 시 throttle 0 (정지) 명령 전송
             msg = String()
-            msg.data = "stop"
+            msg.data = f"{self.steering},0"
             self.publisher.publish(msg)
-            self.get_logger().info("모터 정지 명령 전송")
+            self.get_logger().info("종료: 모터 정지 명령 전송")
             rclpy.shutdown()
 
 def main():
@@ -96,6 +110,6 @@ def main():
     node = TeleopKeyboard()
     node.run()
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()
 
