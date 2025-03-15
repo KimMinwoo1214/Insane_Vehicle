@@ -1,13 +1,24 @@
-# ROS2 빌드 관련 폴더
-build/
-install/
-log/
-lidar_ws/log/
+# 빌드, 설치, 로그 폴더 무시
+**/build/
+**/install/
+**/log/
 
-# Python 캐시 파일
+# ROS 2 관련 빌드 폴더
+Arduino_Control/ros2_con/build/
+Arduino_Control/ros2_con/install/
+Arduino_Control/ros2_con/log/
+control_ws/ros2_con/build/
+control_ws/ros2_con/install/
+control_ws/ros2_con/log/
+lidar_ws/log/
+YOLO_ws/log/
+
+# 캐시 및 임시 파일 무시
 *.pyc
 *.pyo
 __pycache__/
+*.swp
+.~lock.*
 
 # 패키지 관련 불필요한 파일
 *.egg-info/
@@ -29,3 +40,4 @@ venv/
 /colcon.log
 /.colcon_install_layout
 /.colcon_build.rc
+
