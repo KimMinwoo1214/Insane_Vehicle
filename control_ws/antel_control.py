@@ -52,19 +52,17 @@ def calc_curvature_and_slope(local_path_points):
     x = np.array([point.pose.position.x for point in local_path_points.poses])
     y = np.array([point.pose.position.y for point in local_path_points.poses])
 
-    if len(x) < 3:  # 최소 3개 이상의 포인트가 필요함
+    if len(x) < 3:
         return np.poly1d([0]), 0.0
 
-    # 3차 다항식 피팅
     z = np.polyfit(x, y, 3)
     p = np.poly1d(z)
 
-    # 미분
     first_derivative = p.deriv()
     second_derivative = first_derivative.deriv()
 
     curvature_list = [min(1e3, abs(second_derivative(x[i]) / ((1 + first_derivative(x[i]) ** 2) ** 1.5))) for i in range(len(x))]
-    curvature = max(curvature_list) if len(curvature_list) > 0 else 0.0
+    curvature = max(curvature_list) if curvature_list else 0.0
 
     return first_derivative, curvature
 
@@ -77,30 +75,26 @@ class PurePursuit:
         self.actual_look_ahead_point_x = 0
 
     def update_params(self, look_ahead_point):
-        """Look-ahead Point 설정 및 조향각 계산"""
-        self.actual_look_ahead_point_x = look_ahead_point.x + WHEELBASE  # 조향은 앞바퀴 기준이므로 WHEELBASE 차이 보정
+        self.actual_look_ahead_point_x = look_ahead_point.x + WHEELBASE
         self.lfd = sqrt(pow(self.actual_look_ahead_point_x, 2) + pow(look_ahead_point.y, 2))
         self.theta = angle_clip(atan2(look_ahead_point.y, self.actual_look_ahead_point_x))
 
-    def command(self, look_ahead_point):
-        """조향 명령 생성"""
+    def calculate_angle(self, look_ahead_point):
         self.update_params(look_ahead_point)
         print(f'Look-ahead point: {self.actual_look_ahead_point_x}, {look_ahead_point.y}')
         print(f'LFD: {self.lfd}')
-
-        steering_command = angle_clip(atan2(2 * WHEELBASE * sin(self.theta), self.lfd))
-        print(f'Lateral command: {steering_command}')
-        return steering_mapping(steering_command)
+        return angle_clip(atan2(2 * WHEELBASE * sin(self.theta), self.lfd))
 
 class Controller(Node):
     def __init__(self):
         super().__init__("controller")
         self.ser = serial.Serial('/dev/ttyACM0', 9600, timeout=1)
 
+        #########근데 이거 플래닝에서 받아오는 거도 /붙여줘야하는 거 아닌가 모르겠음
         self.create_subscription(UInt8, "behavior", self.behavior_callback, 10)
-        self.create_subscription(NavSatFix, "gps_topic", self.gps_callback, 10)
+        self.create_subscription(NavSatFix, "/fix", self.gps_callback, 10)
         self.create_subscription(Path, "local_path", self.path_callback, 10)
-        self.create_subscription(Image, "camera_topic", self.camera_callback, 10)
+        self.create_subscription(Image, "/image_jpeg", self.camera_callback, 10)
 
         self.cmd_pub = self.create_publisher(String, "teleop_commands", 10)
 
@@ -139,10 +133,22 @@ class Controller(Node):
             self.heading = sum(heading_history) / len(heading_history)
 
     def path_callback(self, msg):
-        """경로 데이터 업데이트"""
+        """
+        경로 데이터 업데이트 (local path일 때 기준으로 작성함. global path이면 주석처리한 부분 사용하기)
+        """
         self.local_path = msg
         _, self.curvature = calc_curvature_and_slope(self.local_path)
         self.is_path = True
+
+        # ---- global path를 받는 경우 (선택적으로 사용) ----
+        # import utm
+        # converted_path = []
+        # for pose in msg.poses:
+        #     lat = pose.pose.position.x
+        #     lon = pose.pose.position.y
+        #     utm_x, utm_y, _, _ = utm.from_latlon(lat, lon)
+        #     converted_path.append((utm_x, utm_y))
+        # self.local_path = convert_global_to_local(converted_path, self.current_position, self.heading)
 
     def control_loop(self):
         """제어 루프 실행"""
@@ -152,15 +158,43 @@ class Controller(Node):
     def lateral_control(self):
         """곡률 기반 Look-ahead Distance 조정 (Pure Pursuit)"""
         if self.is_path and len(self.local_path.poses) > 0:
-            self.lfd = LFD_MIN + (LFD_MAX - LFD_MIN) * (1 - self.curvature / 1e3)
-            self.lfd = max(LFD_MIN, min(self.lfd, LFD_MAX))
+            self.pure_pursuit.lfd = LFD_MIN + (LFD_MAX - LFD_MIN) * (1 - self.curvature / 1e3)
+            self.pure_pursuit.lfd = max(LFD_MIN, min(self.pure_pursuit.lfd, LFD_MAX))
 
-            self.look_ahead_point = self.local_path.poses[min(len(self.local_path.poses)-1, int(self.lfd))].pose.position
-            self.steering_angle = self.pure_pursuit.command(self.look_ahead_point)
+            idx = min(len(self.local_path.poses) - 1, round(self.pure_pursuit.lfd))
+            self.look_ahead_point = self.local_path.poses[idx].pose.position
+            self.steering_angle = self.pure_pursuit.calculate_angle(self.look_ahead_point)
+
+    def camera_callback(self, msg):
+        """Optical Flow를 이용한 헤딩 보정"""
+        global prev_gray, prev_pts
+        frame = self.bridge.imgmsg_to_cv2(msg, desired_encoding="bgr8")
+        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+
+        if prev_gray is None:
+            prev_gray = gray
+            prev_pts = cv2.goodFeaturesToTrack(gray, maxCorners=100, qualityLevel=0.3, minDistance=7)
+            return
+
+        next_pts, status, _ = cv2.calcOpticalFlowPyrLK(prev_gray, gray, prev_pts, None)
+
+        if next_pts is not None and prev_pts is not None and len(next_pts) > 5:
+            movement = next_pts - prev_pts
+            avg_angle = np.mean(np.arctan2(movement[:, 0, 1], movement[:, 0, 0]))
+            heading_change = np.rad2deg(avg_angle)
+
+            prev_gray = gray
+            prev_pts = next_pts
+
+            gps_reliability = min(1.0, len(heading_history) / N)
+            alpha = 0.7 * gps_reliability + 0.3
+
+            self.heading = alpha * self.heading + (1 - alpha) * heading_change
 
     def publish(self):
         """Arduino에 명령 전송"""
-        command_str = f"{self.steering_angle},{MAXIMUM_SPEED}"
+        pwm = steering_mapping(self.steering_angle)
+        command_str = f"{pwm},{MAXIMUM_SPEED}"
         self.cmd_pub.publish(String(data=command_str))
         self.ser.write((command_str + "\n").encode())
 
