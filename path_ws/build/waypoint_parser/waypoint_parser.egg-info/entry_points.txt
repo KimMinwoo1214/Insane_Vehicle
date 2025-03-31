@@ -1,3 +1,0 @@
-[console_scripts]
-waypoint_parser = waypoint_parser.waypoint_parser:main
-
