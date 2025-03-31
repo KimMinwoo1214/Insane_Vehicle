@@ -35,7 +35,7 @@ class WaypointParser(Node):
         # WGS84 → UTM 변환기 설정 (예제: UTM Zone 52N)
         self.transformer = Transformer.from_crs("epsg:4326", "epsg:32652", always_xy=True)
 
-        csv_path = "/home/chaewan/다운로드/ieve_git/path_ws/waypoint_parser/MongToGongcen.csv"
+        csv_path = "/home/chaewan/다운로드/ieve_git/Info/MongToGongcen.csv"
         
         #경로 맞춰서 지정하기
         with open(csv_path, mode='r', encoding='utf-8') as file:
