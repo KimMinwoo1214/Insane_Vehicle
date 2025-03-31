@@ -20,6 +20,7 @@ setup(
     entry_points={
         'console_scripts': [
             'yolo_publisher = yolo_publisher.yolo_publisher:main',
+            'yolo_publisher = yolo_publisher.pt_yolo_publisher:main'
         ],
     },
 )
