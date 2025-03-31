@@ -1,33 +1,38 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import rospy
+import rclpy
+from rclpy.node import Node
 import numpy as np
 from scipy.spatial import KDTree
 from nav_msgs.msg import Odometry, Path
-from std_msgs.msg import UInt8, Float32, Bool
+from std_msgs.msg import UInt8
 from geometry_msgs.msg import PoseStamped
 import json
-import os
-from utils.functions import get_closest_index_kdtree #파일명 수정 필요
-import time
+from pyproj import Transformer
 
 LIMIT_DISTANCE = 10.0
 #이런 값들은 나중에 따로 모아서 정리하기
 
 class WaypointParser():
     def __init__(self):
-        rospy.init_node('waypoint_parser', anonymous=True)
-        self.odom_sub = rospy.Subscriber('/odom', Odometry, self.odom_callback)
-        self.waypoints_pub = rospy.Publisher('/waypoints', Path, queue_size=5)
-        self.linkindex_pub = rospy.Publisher('/link_index', UInt8, queue_size=1)
+        super().__init__('waypoint_parser')
 
-        self.ego_loc = []
+        # ROS 2 Subscriber & Publisher 설정
+        self.odom_sub = self.create_subscription(Odometry, '/odom', self.odom_callback, 10)
+        self.waypoints_pub = self.create_publisher(Path, '/waypoints', 10)
+        self.linkindex_pub = self.create_publisher(UInt8, '/link_index', 10)
+
+        self.ego_loc = []  # WGS84 (위도, 경도)
+        self.ego_loc_utm = []  # UTM 좌표
         self.is_odom = False
         self.current_link_index = 0
         self.waypoints = Path()
         self.link_index = UInt8()
         self.global_waypoints = []
+
+        # WGS84 → UTM 변환기 설정 (예제: UTM Zone 52N)
+        self.transformer = Transformer.from_crs("epsg:4326", "epsg:32652", always_xy=True)
 
         path = "/home/path.json"
         #경로 맞춰서 지정하기
@@ -35,15 +40,9 @@ class WaypointParser():
             self.point_data = json.load(file)
         
         self.process_links()
-        
-        rate = rospy.Rate(20)
-        while not rospy.is_shutdown():
-            if self.is_odom:
-                #start_time = time.time()
-                self.global_waypoints = []
-                self.create_and_publish_global_waypoints()
-                self.is_odom = False
-            rate.sleep()
+
+        # 주기적으로 실행할 타이머 (50ms마다 실행)
+        self.create_timer(0.05, self.update_waypoints)
 
     def process_links(self):
         """링크를 30개씩 묶어 저장."""
@@ -58,22 +57,41 @@ class WaypointParser():
                                    self.point_data[2][i:min(i + link_size, len(self.point_data[2]))]))
             }
     
-    def get_closest_index_kdtree(points: list, ego_odom: list) -> int:
-        points_xy = np.array(points)[:, :2]
-        tree = KDTree(points_xy)
-        dist, index = tree.query([ego_odom[0], ego_odom[1]])
+    def get_closest_index_kdtree(points: list, indices: list, ego_odom: list) -> int:
+        tree = KDTree(points)
+        dist, local_index = tree.query([ego_odom[0], ego_odom[1]])
+
+        global_index = indices[local_index]  # 원래 point_data에서의 인덱스로 변환
 
         if dist > LIMIT_DISTANCE and index < len(points) - 1:
-            return index
+            return global_index
         else:
-            return index + 1
+            return indices[min(local_index + 1, len(indices) - 1)]
+        
+    def wgs84_to_utm(self, lat, lon):
+        """WGS84에서 UTM으로 변환"""
+        utm_x, utm_y = self.transformer.transform(lon, lat)
+        return utm_x, utm_y
+    
+    def update_waypoints(self):
+        """주기적으로 실행하여 웨이포인트 업데이트 및 퍼블리시"""
+        if not self.is_odom:
+            return
+
+        self.global_waypoints = []
+        self.create_and_publish_global_waypoints()
+        self.is_odom = False  # 갱신 후 초기화
 
     def create_and_publish_global_waypoints(self):
         if self.current_link_index not in self.link_data:
             return
-
+        
         points = self.link_data[self.current_link_index]["points"]
-        current_point_index = get_closest_index_kdtree(points, self.ego_loc)
+        current_point_index = self.get_closest_index_kdtree(
+            points,
+            self.link_data[self.current_link_index]["point_index"],
+            self.ego_loc_utm
+        )
 
         if len(points) - current_point_index <= 2:
             self.current_link_index += 1
@@ -105,7 +123,7 @@ class WaypointParser():
         waypoints_pub = Path()
         waypoints_pub.header.frame_id = "map"
         #좌표계 확인해서 넣기
-        waypoints_pub.header.stamp = rospy.Time.now()
+        waypoints_pub.header.stamp = self.get_clock().now().to_msg()
 
         for waypoint in waypoints:
             tmp_pose = PoseStamped()
@@ -121,10 +139,24 @@ class WaypointParser():
 
     def odom_callback(self, odom_msg):
         self.is_odom = True
-        self.ego_loc = [odom_msg.pose.pose.position.x, odom_msg.pose.pose.position.y]
+        lat = odom_msg.pose.pose.position.x  
+        lon = odom_msg.pose.pose.position.y 
+
+        # WGS84 좌표를 UTM으로 변환
+        self.ego_loc_utm = self.wgs84_to_utm(lat, lon)
+
+        # WGS84 위치도 저장 (추후에 확인 필요)
+        self.ego_loc = [lat, lon]
+
+        self.get_logger().info(f"Converted UTM: ({self.ego_loc_utm[0]}, {self.ego_loc_utm[1]})")
+
+
+def main(args=None):
+    rclpy.init(args=args)
+    waypoint_parser = WaypointParser()
+    rclpy.spin(waypoint_parser)
+    waypoint_parser.destroy_node()
+    rclpy.shutdown()
 
 if __name__ == '__main__':
-    try:
-        waypoint_parser = WaypointParser()
-    except rospy.ROSInterruptException:
-        pass
+    main()

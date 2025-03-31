@@ -1,0 +1,17 @@
+[1.145s] Invoking command in '/home/chaewan/다운로드/ieve_git/path_ws/build/waypoint_parser': PYTHONPATH=/home/chaewan/다운로드/ieve_git/path_ws/build/waypoint_parser/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/chaewan/다운로드/ieve_git/path_ws/install/waypoint_parser/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/chaewan/다운로드/ieve_git/path_ws/build/waypoint_parser/build --no-deps symlink_data
+[1.643s] running develop
+[1.950s] running egg_info
+[1.950s] writing waypoint_parser.egg-info/PKG-INFO
+[1.951s] writing dependency_links to waypoint_parser.egg-info/dependency_links.txt
+[1.951s] writing entry points to waypoint_parser.egg-info/entry_points.txt
+[1.951s] writing requirements to waypoint_parser.egg-info/requires.txt
+[1.951s] writing top-level names to waypoint_parser.egg-info/top_level.txt
+[1.954s] reading manifest file 'waypoint_parser.egg-info/SOURCES.txt'
+[1.956s] writing manifest file 'waypoint_parser.egg-info/SOURCES.txt'
+[1.958s] running build_ext
+[1.958s] Creating /home/chaewan/다운로드/ieve_git/path_ws/install/waypoint_parser/lib/python3.10/site-packages/waypoint-parser.egg-link (link to .)
+[1.960s] Installing waypoint_parser script to /home/chaewan/다운로드/ieve_git/path_ws/install/waypoint_parser/lib/waypoint_parser
+[1.960s] 
+[1.960s] Installed /home/chaewan/다운로드/ieve_git/path_ws/build/waypoint_parser
+[1.961s] running symlink_data
+[2.012s] Invoked command in '/home/chaewan/다운로드/ieve_git/path_ws/build/waypoint_parser' returned '0': PYTHONPATH=/home/chaewan/다운로드/ieve_git/path_ws/build/waypoint_parser/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/chaewan/다운로드/ieve_git/path_ws/install/waypoint_parser/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/chaewan/다운로드/ieve_git/path_ws/build/waypoint_parser/build --no-deps symlink_data

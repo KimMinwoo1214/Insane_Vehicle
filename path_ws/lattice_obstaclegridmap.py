@@ -89,7 +89,6 @@ class LatticePlanner(Node):
         """
         A* 알고리즘을 사용하여 경로를 찾는 함수
         """
-        ##경로 만드는 부분 수정하기
 
         def heuristic(a, b):
             # 유클리드 거리 (Heuristic 함수)
@@ -143,7 +142,7 @@ class LatticePlanner(Node):
 
         start_node = start
         goal_node = goal
-        ##목표점 뭘로 설정할건지
+        ##목표점 뭘로 설정할건지 -> local_path 에서 다음 지점?
 
         heapq.heappush(open_list, (0 + heuristic(start_node, goal_node), 0, start_node))  # (f, g, node)
         
@@ -185,8 +184,7 @@ class LatticePlanner(Node):
         if not path:
             self.get_logger().warn("No path found!")
             return
-        ## 이 부분 수정해야 함. 경로가 없는 게 아니라 래티스 모드일 때로
-
+            
         path_msg = Path()
 
         for (x, y) in path:
