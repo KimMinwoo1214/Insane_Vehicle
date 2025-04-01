@@ -54,7 +54,7 @@ class ObstacleDetection(Node):
         self.create_subscription(LaserScan, "/scan", self.lidar_callback, 10)
 
         # YOLO 모델 로드
-        self.model = YOLO('/home/kmw/2025IEVE/YOLO_ws/weights/YOLO_0216.pt')  
+        self.model = YOLO('/home/antel/2025IEVE_1of5/2025IEVE/YOLO_ws/weights/YOLO_0216.pt')  
 
         # 데이터 저장 변수
         self.bridge = CvBridge()
@@ -80,9 +80,24 @@ class ObstacleDetection(Node):
 
     def lidar_callback(self, msg):
         """ 2D LiDAR 데이터를 (x, y) 좌표로 변환 후 ROI 필터 적용 """
-        ranges = np.array(msg.ranges)
-        angles = np.linspace(msg.angle_min, msg.angle_max, len(ranges))
-        self.lidar_points = np.array([ranges * np.cos(angles), ranges * np.sin(angles)]).T
+        ranges = np.array(msg.ranges)  # LiDAR 거리 값
+        angles = np.linspace(msg.angle_min, msg.angle_max, len(ranges))  # 각도 값
+
+        # LiDAR 포인트를 (x, y) 좌표로 변환
+        lidar_points = np.array([ranges * np.cos(angles), ranges * np.sin(angles)]).T
+        
+        # LiDAR 포인트를 클래스 변수에 저장
+        self.lidar_points = lidar_points
+
+        # 간단한 필터링 로직: 최대 거리 범위 내의 포인트만 필터링
+        max_range = LIDAR_RANGE  # 최대 탐색 거리
+        self.filtered_points = lidar_points[ranges < max_range]  # 최대 거리 내의 포인트만 필터링
+
+        # 디버깅을 위한 로그
+        self.get_logger().info(f"Total LiDAR points: {len(lidar_points)}")
+        self.get_logger().info(f"Filtered LiDAR points: {len(self.filtered_points)}")
+        if len(self.filtered_points) == 0:
+            self.get_logger().warn("No LiDAR points available after filtering!")
 
     def process_detections(self):
         """ YOLO 탐지 후 bounding box 시각화 및 객체별 LiDAR 처리 및 퍼블리시 """
@@ -144,6 +159,8 @@ class ObstacleDetection(Node):
     def scan_lidar_for_object(self, bbox_x, label):
         """ YOLO 바운딩 박스 위치를 기반으로 LiDAR 스캔 수행 및 객체 정보 퍼블리시 """
         if self.filtered_points is None or len(self.filtered_points) == 0:
+            self.get_logger().info(f"No LiDAR points available for object {label}")
+
             return
 
         # LiDAR 탐색 각도 변환
@@ -162,6 +179,9 @@ class ObstacleDetection(Node):
             center_y = np.mean(selected_points[:, 1])
             distance = sqrt(center_x**2 + center_y**2)
             self.object_info_pub.publish(String(data=f"object,{label},{center_x:.2f},{center_y:.2f},{distance:.2f}"))
+        else:
+            self.get_logger().info(f"No valid LiDAR points found for object {label}")
+
 
     def estimate_tunnel_walls(self):
         """ LiDAR 데이터에서 좌우 벽의 위치 추정 """
