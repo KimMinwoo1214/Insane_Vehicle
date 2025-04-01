@@ -1,48 +1,17 @@
-'''
-/*MIT License
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 
-Copyright (c) 2024 JD edu. http://jdedu.kr author: conner.jeong@gmail.com
-     
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-     
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-     
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN TH
-SOFTWARE.*/
-'''
+import rclpy  # Python Client Library for ROS 2
+from rclpy.node import Node  # Handles the creation of nodes
+from sensor_msgs.msg import Image  # Image 메시지 타입
+from cv_bridge import CvBridge, CvBridgeError  # ROS와 OpenCV 이미지 변환 패키지
+import cv2  # OpenCV 라이브러리
 
-# Basic ROS 2 program to publish real-time streaming 
-# video from your built-in webcam
-# Author:
-# - Addison Sears-Collins
-# - https://automaticaddison.com
-  
-# Import the necessary libraries
-import rclpy # Python Client Library for ROS 2
-from rclpy.node import Node # Handles the creation of nodes
-from sensor_msgs.msg import Image # Image is the message type
-from cv_bridge import CvBridge # Package to convert between ROS and OpenCV Images
-import cv2 # OpenCV library
- 
 class ImagePublisher(Node):
-  """
-  Create an ImagePublisher class, which is a subclass of the Node class.
-  """
-  def __init__(self):
     """
-    Class constructor to set up the node
+    ImagePublisher 클래스: ROS2 노드로, 내장 웹캠에서 영상을 캡처하여 'video_frames' 토픽으로 퍼블리시합니다.
     """
+<<<<<<< Updated upstream
     # Initiate the Node class's constructor and give it a name
     super().__init__('image_publisher')
       
@@ -82,24 +51,43 @@ class ImagePublisher(Node):
     # Display the message on the console
     self.get_logger().info('Publishing video frame')
   
+=======
+    def __init__(self):
+        super().__init__('image_publisher')
+        
+        # 'video_frames' 토픽에 Image 메시지를 퍼블리시하는 퍼블리셔 생성 (큐 사이즈: 10)
+        self.publisher_ = self.create_publisher(Image, 'video_frames', 10)
+        
+        # 0.1초마다 타이머 콜백 실행
+        timer_period = 0.1  # 초
+        self.timer = self.create_timer(timer_period, self.timer_callback)
+        
+        # 웹캠 캡처 객체 생성 (예: 인덱스 2의 카메라 사용)
+        self.cap = cv2.VideoCapture(2)
+        
+        # ROS와 OpenCV 이미지 변환용 CvBridge 객체 생성
+        self.br = CvBridge()
+
+    def timer_callback(self):
+        """
+        타이머 콜백 함수: 웹캠에서 영상을 캡처한 후 ROS Image 메시지로 변환하여 퍼블리시합니다.
+        """
+        ret, frame = self.cap.read()
+        if ret:
+            # OpenCV 이미지(frame)가 이미 BGR 형식이므로 encoding을 "bgr8"로 명시하여 ROS 이미지 메시지로 변환
+            img_msg = self.br.cv2_to_imgmsg(frame, encoding="bgr8")
+            self.publisher_.publish(img_msg)
+            
+        self.get_logger().info('Publishing video frame')
+
+>>>>>>> Stashed changes
 def main(args=None):
-  
-    # Initialize the rclpy library
     rclpy.init(args=args)
-    
-    # Create the node
     image_publisher = ImagePublisher()
-    
-    # Spin the node so the callback function is called.
     rclpy.spin(image_publisher)
-    
-    # Destroy the node explicitly
-    # (optional - otherwise it will be done automatically
-    # when the garbage collector destroys the node object)
     image_publisher.destroy_node()
-    
-    # Shutdown the ROS client library for Python
     rclpy.shutdown()
-    
+
 if __name__ == '__main__':
     main()
+

@@ -18,11 +18,11 @@ from math import cos, sin, sqrt
 LAVA_CONE_WIDTH_THRESHOLD = 50   # 라바콘 바운딩 박스 최소 너비 (픽셀)
 LAVA_CONE_HEIGHT_THRESHOLD = 50  # 라바콘 바운딩 박스 최소 높이 (픽셀)
 
-DRUM_WIDTH_THRESHOLD = 80   # 드럼 바운딩 박스 최소 너비 (픽셀)
-DRUM_HEIGHT_THRESHOLD = 80  # 드럼 바운딩 박스 최소 높이 (픽셀)
+DRUM_WIDTH_THRESHOLD = 80        # 드럼 바운딩 박스 최소 너비 (픽셀)
+DRUM_HEIGHT_THRESHOLD = 80       # 드럼 바운딩 박스 최소 높이 (픽셀)
 
-TUNNEL_WIDTH_THRESHOLD = 100   # 터널 바운딩 박스 최소 너비 (픽셀)
-TUNNEL_HEIGHT_THRESHOLD = 100  # 터널 바운딩 박스 최소 높이 (픽셀)
+TUNNEL_WIDTH_THRESHOLD = 100     # 터널 바운딩 박스 최소 너비 (픽셀)
+TUNNEL_HEIGHT_THRESHOLD = 100    # 터널 바운딩 박스 최소 높이 (픽셀)
 
 # 카메라 내부 행렬
 K = np.array([[700, 0, 320],
@@ -50,11 +50,11 @@ class ObstacleDetection(Node):
         self.tunnel_info_pub = self.create_publisher(String, "/tunnel_info", 10)
 
         # 섭스크라이버
-        self.create_subscription(Image, "/image_jpeg", self.image_callback, 10)
+        self.create_subscription(Image, "/video_frames", self.image_callback, 10)
         self.create_subscription(LaserScan, "/scan", self.lidar_callback, 10)
 
         # YOLO 모델 로드
-        self.model = YOLO('/path/to/yolo_weights.pt')  
+        self.model = YOLO('/home/kmw/2025IEVE/YOLO_ws/weights/YOLO_0216.pt')  
 
         # 데이터 저장 변수
         self.bridge = CvBridge()
@@ -66,9 +66,17 @@ class ObstacleDetection(Node):
         self.tunnel_mode = False
 
     def image_callback(self, msg):
-        """ 카메라 이미지 수신 후 YOLO 감지 수행 """
-        np_arr = np.frombuffer(msg.data, np.uint8)
-        self.img_bgr = cv2.imdecode(np_arr, cv2.IMREAD_COLOR)
+        """ 카메라 이미지 수신 후 YOLO 감지 및 bbox 시각화 """
+        self.get_logger().info('Receiving video frame')
+ 
+        # ROS Image 메시지를 OpenCV 이미지로 변환 (BGR 형식)
+        current_frame = self.bridge.imgmsg_to_cv2(msg, desired_encoding='bgr8')
+    
+        # 수신 프레임 저장
+        self.img_bgr = current_frame.copy()
+        
+        # YOLO 감지 및 bbox 시각화 처리
+        self.process_detections()
 
     def lidar_callback(self, msg):
         """ 2D LiDAR 데이터를 (x, y) 좌표로 변환 후 ROI 필터 적용 """
@@ -77,35 +85,61 @@ class ObstacleDetection(Node):
         self.lidar_points = np.array([ranges * np.cos(angles), ranges * np.sin(angles)]).T
 
     def process_detections(self):
-        """ YOLO 탐지 후 객체별 LiDAR 처리 및 퍼블리시 """
+        """ YOLO 탐지 후 bounding box 시각화 및 객체별 LiDAR 처리 및 퍼블리시 """
         if self.img_bgr is not None:
-            res = self.model.predict(self.img_bgr, stream=True)
-
+            # YOLO 모델을 사용하여 감지 실행
+            results = self.model(self.img_bgr)
+            
+            # 원본 이미지를 복사하여 bbox 그리기
+            annotated_image = self.img_bgr.copy()
             tunnel_detected = False
             left_wall, right_wall = None, None
 
-            for box in res[0].boxes:
-                bbox_x = box.xywh[0, 0].item()
-                bbox_y = box.xywh[0, 1].item()
-                bbox_width = box.xywh[0, 2].item()
-                bbox_height = box.xywh[0, 3].item()
-                label = int(box.cls[0].item())  
+            for box in results[0].boxes:
+                # xyxy 좌표로 bounding box 추출
+                xyxy = box.xyxy[0]
+                x1 = int(xyxy[0].item())
+                y1 = int(xyxy[1].item())
+                x2 = int(xyxy[2].item())
+                y2 = int(xyxy[3].item())
+                bbox_width = x2 - x1
+                bbox_height = y2 - y1
 
-                # 라바콘 (label 0) - LiDAR 스캔 후 퍼블리시
+                # bounding box 중앙 x좌표 (LiDAR 각도 산출용)
+                bbox_center_x = int((x1 + x2) / 2)
+                label = int(box.cls[0].item())
+                conf = box.conf[0].item()
+
+                # 라벨 별 텍스트 설정 (필요시 수정)
+                if label == 0:
+                    label_text = "Lava Cone"
+                elif label == 1:
+                    label_text = "Drum"
+                elif label == 2:
+                    label_text = "Tunnel"
+                else:
+                    label_text = f"Label {label}"
+
+                # bounding box 및 라벨, 신뢰도 시각화
+                cv2.rectangle(annotated_image, (x1, y1), (x2, y2), (0, 255, 0), 2)
+                cv2.putText(annotated_image, f"{label_text} {conf:.2f}", (x1, y1 - 10),
+                            cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
+
+                # 조건에 따라 LiDAR 처리 수행
                 if label == 0 and bbox_width > LAVA_CONE_WIDTH_THRESHOLD and bbox_height > LAVA_CONE_HEIGHT_THRESHOLD:
-                    self.scan_lidar_for_object(bbox_x, label)
-
-                # 드럼 (label 1) - LiDAR 스캔 후 퍼블리시
-                if label == 1 and bbox_width > DRUM_WIDTH_THRESHOLD and bbox_height > DRUM_HEIGHT_THRESHOLD:
-                    self.scan_lidar_for_object(bbox_x, label)
-
-                # 터널 (label 2) - 크기 조건 만족 시 LiDAR 벽 위치 계산 후 퍼블리시
-                if label == 2 and bbox_width > TUNNEL_WIDTH_THRESHOLD and bbox_height > TUNNEL_HEIGHT_THRESHOLD:
+                    self.scan_lidar_for_object(bbox_center_x, label)
+                elif label == 1 and bbox_width > DRUM_WIDTH_THRESHOLD and bbox_height > DRUM_HEIGHT_THRESHOLD:
+                    self.scan_lidar_for_object(bbox_center_x, label)
+                elif label == 2 and bbox_width > TUNNEL_WIDTH_THRESHOLD and bbox_height > TUNNEL_HEIGHT_THRESHOLD:
                     tunnel_detected = True
                     left_wall, right_wall = self.estimate_tunnel_walls()
 
             # 터널 정보 퍼블리시
             self.tunnel_info_pub.publish(String(data=f"tunnel,{int(tunnel_detected)},{left_wall},{right_wall}"))
+
+            # annotated_image를 윈도우에 출력
+            cv2.imshow("camera", annotated_image)
+            cv2.waitKey(1)
 
     def scan_lidar_for_object(self, bbox_x, label):
         """ YOLO 바운딩 박스 위치를 기반으로 LiDAR 스캔 수행 및 객체 정보 퍼블리시 """
@@ -118,7 +152,7 @@ class ObstacleDetection(Node):
         angle_min = np.deg2rad(lidar_angle - 10)
         angle_max = np.deg2rad(lidar_angle + 10)
 
-        # 특정 각도 범위의 LiDAR 데이터만 필터링
+        # 특정 각도 범위의 LiDAR 데이터 필터링
         angles = np.arctan2(self.filtered_points[:, 1], self.filtered_points[:, 0])
         mask = (angles > angle_min) & (angles < angle_max)
         selected_points = self.filtered_points[mask]
@@ -148,3 +182,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+

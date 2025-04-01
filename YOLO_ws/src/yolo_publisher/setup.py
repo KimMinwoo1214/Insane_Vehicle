@@ -19,8 +19,8 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'yolo_publisher = yolo_publisher.yolo_publisher:main',
-            'yolo_publisher = yolo_publisher.pt_yolo_publisher:main'
+            'yolo_pub = yolo_publisher.yolo_publisher:main',
+            'yolo_sub = yolo_publisher.pt_yolo_publisher:main'
         ],
     },
 )
