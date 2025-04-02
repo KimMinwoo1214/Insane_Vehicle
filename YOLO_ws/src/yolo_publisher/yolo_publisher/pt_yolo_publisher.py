@@ -33,8 +33,8 @@ K = np.array([[700, 0, 320],
 CAMERA_LIDAR_HEIGHT_DIFF = 0.3
 
 # CAM & LiDAR 설정
-CAMERA_FOV = 70   # 카메라 화각 (도)
-LIDAR_FOV = 270   # LiDAR 화각 (도)
+CAMERA_FOV = 78   # 카메라 화각 (도)
+LIDAR_FOV = 360   # LiDAR 화각 (도)
 LIDAR_RANGE = 10  # LiDAR 최대 탐색 거리 (m)
 
 # LiDAR 클러스터링 설정
