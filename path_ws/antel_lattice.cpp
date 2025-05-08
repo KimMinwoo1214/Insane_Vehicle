@@ -116,7 +116,12 @@ private:
                 }
             }
         }
-        return std::distance(weights.begin(), std::min_element(weights.begin(), weights.end()));
+        int best = 1;  // 기본값 : 직진
+        for (size_t i = 0; i < weights.size(); ++i) {
+            if (weights[i] < weights[best]) best = i;
+        }
+        return best;
+
     }
 
     void publishObstacleMarkers() {
