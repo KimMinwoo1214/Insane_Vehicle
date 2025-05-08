@@ -30,7 +30,7 @@ K = np.array([[700, 0, 320],
               [0, 0, 1]])
 
 # 카메라-라이다 높이 차이 (m)
-CAMERA_LIDAR_HEIGHT_DIFF = 0.3
+CAMERA_LIDAR_HEIGHT_DIFF = 0.05
 
 # CAM & LiDAR 설정
 CAMERA_FOV = 78   # 카메라 화각 (도)
