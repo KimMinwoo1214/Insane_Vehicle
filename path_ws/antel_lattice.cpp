@@ -1,12 +1,14 @@
 //빌드 전 할 일
-//CMakeLists.txt에 : add_executable(lattice_planner_node src/lattice_planner_node.cpp)
-//ament_target_dependencies(lattice_planner_node rclcpp nav_msgs geometry_msgs std_msgs visualization_msgs)
-//install(TARGETS lattice_planner_node DESTINATION lib/${PROJECT_NAME})
-//package.xml에 : <depend>rclcpp</depend>
-//<depend>nav_msgs</depend>
-//<depend>geometry_msgs</depend>
-//<depend>std_msgs</depend>
-//<depend>visualization_msgs</depend>
+//CMakeLists.txt에 : 
+// add_executable(lattice_planner_node src/lattice_planner_node.cpp)
+// ament_target_dependencies(lattice_planner_node rclcpp nav_msgs geometry_msgs std_msgs visualization_msgs)
+// install(TARGETS lattice_planner_node DESTINATION lib/${PROJECT_NAME})
+//package.xml에 : 
+// <depend>rclcpp</depend>
+// <depend>nav_msgs</depend>
+// <depend>geometry_msgs</depend>
+// <depend>std_msgs</depend>
+// <depend>visualization_msgs</depend>
 
 #include <rclcpp/rclcpp.hpp>
 #include <nav_msgs/msg/path.hpp>
@@ -52,8 +54,8 @@ private:
             std::getline(ss, sy, ',');
             double raw_x = std::stod(sx);
             double raw_y = std::stod(sy);
-            double x = -raw_x;
-            double y = -raw_y;
+            double x = -raw_x;  // 뒤 → 앞
+            double y = -raw_y;  // 오른쪽 → 왼쪽
             obstacles_.emplace_back(std::make_pair(x, y));
         }
     }
@@ -67,6 +69,7 @@ private:
 
         path_pub_->publish(lattice_paths[best_index]);
         publishObstacleMarkers();
+        publishPathMarkers(lattice_paths[best_index]);
     }
 
     std::vector<nav_msgs::msg::Path> generateLatticePaths(double xf, double yf_center) {
@@ -135,6 +138,30 @@ private:
             marker.color.a = 1.0;
             marker_array.markers.push_back(marker);
         }
+        marker_pub_->publish(marker_array);
+    }
+
+    void publishPathMarkers(const nav_msgs::msg::Path &path) {
+        visualization_msgs::msg::MarkerArray marker_array;
+        int base_id = 1000;  // 장애물과 구분을 위해 id offset
+
+        for (size_t i = 0; i < path.poses.size(); ++i) {
+            const auto &pose = path.poses[i];
+            visualization_msgs::msg::Marker marker;
+            marker.header.frame_id = "base_link";
+            marker.header.stamp = now();
+            marker.id = base_id + i;
+            marker.type = visualization_msgs::msg::Marker::SPHERE;
+            marker.action = visualization_msgs::msg::Marker::ADD;
+            marker.pose = pose.pose;
+            marker.scale.x = 0.15;
+            marker.scale.y = 0.15;
+            marker.scale.z = 0.15;
+            marker.color.g = 1.0;
+            marker.color.a = 1.0;
+            marker_array.markers.push_back(marker);
+        }
+
         marker_pub_->publish(marker_array);
     }
 
