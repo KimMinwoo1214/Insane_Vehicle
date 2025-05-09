@@ -32,7 +32,7 @@ public:
         obstacle_sub_ = this->create_subscription<std_msgs::msg::String>(
             "/object_info", 10, std::bind(&LatticePlanner::obstacleCallback, this, _1));
 
-        path_pub_ = this->create_publisher<nav_msgs::msg::Path>("/planned_path", 10);
+        path_pub_ = this->create_publisher<nav_msgs::msg::Path>("/lattice_path", 10);
         marker_pub_ = this->create_publisher<visualization_msgs::msg::MarkerArray>("/obstacle_markers", 10);
 
         timer_ = this->create_wall_timer(std::chrono::milliseconds(300), std::bind(&LatticePlanner::planAndPublish, this));
