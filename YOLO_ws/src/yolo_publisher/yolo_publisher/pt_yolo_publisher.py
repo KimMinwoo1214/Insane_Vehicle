@@ -158,29 +158,24 @@ class ObstacleDetection(Node):
 
     def scan_lidar_for_object(self, bbox_x, label):
         """ YOLO 바운딩 박스 위치를 기반으로 LiDAR 스캔 수행 및 객체 정보 퍼블리시 """
-        if self.filtered_points is None or len(self.filtered_points) == 0:
-            self.get_logger().info(f"No LiDAR points available for object {label}")
-
+        if self.lidar_points is None or len(self.lidar_points) == 0:
+            self.get_logger().warn(f"No LiDAR points available for object {label}")
             return
 
-        # LiDAR 탐색 각도 변환
-        angle_ratio = bbox_x / 640
-        lidar_angle = (angle_ratio * LIDAR_FOV) - (LIDAR_FOV / 2)
-        angle_min = np.deg2rad(lidar_angle - 10)
-        angle_max = np.deg2rad(lidar_angle + 10)
+        # LiDAR 데이터 전체 사용 (필터링 없음)
+        selected_points = self.lidar_points
 
-        # 특정 각도 범위의 LiDAR 데이터 필터링
-        angles = np.arctan2(self.filtered_points[:, 1], self.filtered_points[:, 0])
-        mask = (angles > angle_min) & (angles < angle_max)
-        selected_points = self.filtered_points[mask]
+        # 선택된 LiDAR 포인트가 없다면
+        if selected_points.shape[0] == 0:
+            self.get_logger().warn(f"No LiDAR points selected for object {label}")
+        else:
+            self.get_logger().info(f"Selected {selected_points.shape[0]} LiDAR points for object {label}")
 
         if selected_points.shape[0] > 0:
             center_x = np.mean(selected_points[:, 0])
             center_y = np.mean(selected_points[:, 1])
             distance = sqrt(center_x**2 + center_y**2)
             self.object_info_pub.publish(String(data=f"object,{label},{center_x:.2f},{center_y:.2f},{distance:.2f}"))
-        else:
-            self.get_logger().info(f"No valid LiDAR points found for object {label}")
 
 
     def estimate_tunnel_walls(self):
