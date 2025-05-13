@@ -54,7 +54,7 @@ class ObstacleDetection(Node):
         self.create_subscription(LaserScan, "/scan", self.lidar_callback, 10)
 
         # YOLO 모델 로드
-        self.model = YOLO('/home/antel/2025IEVE_1of5/2025IEVE/YOLO_ws/weights/YOLO_0216.pt')  
+        self.model = YOLO('../weights/YOLO_0216.pt')
 
         # 데이터 저장 변수
         self.bridge = CvBridge()
