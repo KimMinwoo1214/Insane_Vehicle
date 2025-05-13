@@ -74,7 +74,7 @@ class ObstacleDetection(Node):
         self.create_subscription(Image, "/image_jpeg", self.image_callback, 10)
         self.create_subscription(LaserScan, "/scan", self.lidar_callback, 10)
 
-        self.model = TrtYOLOv8('/path/to/yolov8.engine')  # 경로 수정
+        self.model = TrtYOLOv8('../weights/YOLO_0216.engine')
 
         self.bridge = CvBridge()
         self.img_bgr = None
