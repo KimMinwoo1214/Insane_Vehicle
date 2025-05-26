@@ -68,6 +68,23 @@ class ObstacleDetection(Node):
     def __init__(self):
         super().__init__('obstacle_detector')
 
+        # 카메라 내부 파라미터 (예시 값 - 실제 카메라 파라미터로 교체 필요)
+        self.K = np.array([
+            [640, 0, 320],   # fx, cx
+            [0, 640, 320],   # fy, cy
+            [0, 0, 1]
+        ])
+        
+        # 외부 파라미터: 라이다와 카메라 간의 변환
+        self.T = np.array([
+            0.04,   # 라이다가 4cm 앞
+            0.0,    # 좌우 차이 없음
+            -0.06   # 라이다가 6cm 아래
+        ]).reshape(3, 1)
+        
+        # 현재는 회전 없음 가정
+        self.R = np.eye(3)
+
         self.object_info_pub = self.create_publisher(String, "/object_info", 10)
         self.tunnel_info_pub = self.create_publisher(String, "/tunnel_info", 10)
 
@@ -122,6 +139,20 @@ class ObstacleDetection(Node):
         angle_min = np.deg2rad(lidar_angle - 10)
         angle_max = np.deg2rad(lidar_angle + 10)
 
+        # 이미지 좌표 -> 카메라 좌표계
+        camera_coords = np.linalg.inv(self.K) @ pixel_coords
+        
+        # 카메라 좌표계 -> 라이다 좌표계
+        lidar_coords = (self.R @ camera_coords + self.T).flatten()
+        
+        # 라이다 각도 계산
+        lidar_angle = np.arctan2(lidar_coords[1], lidar_coords[0])
+        
+        # 각도 범위 설정 (이전과 동일하게 ±10도 범위 유지)
+        angle_min = lidar_angle - np.deg2rad(10)
+        angle_max = lidar_angle + np.deg2rad(10)
+
+        # 라이다 포인트 필터링
         angles = np.arctan2(self.filtered_points[:, 1], self.filtered_points[:, 0])
         mask = (angles > angle_min) & (angles < angle_max)
         selected_points = self.filtered_points[mask]
@@ -129,9 +160,11 @@ class ObstacleDetection(Node):
         if len(selected_points) == 0:
             return
 
+        # DBSCAN 클러스터링
         dbscan = DBSCAN(eps=DBSCAN_EPS, min_samples=DBSCAN_MIN_SAMPLES)
         labels = dbscan.fit_predict(selected_points)
 
+        # 클러스터 처리
         for cluster_id in set(labels):
             if cluster_id == -1:
                 continue
