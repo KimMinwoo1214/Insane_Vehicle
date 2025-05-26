@@ -37,6 +37,10 @@ LIDAR_RANGE = 10  # LiDAR 최대 탐색 거리 (m)
 DBSCAN_EPS = 0.5  # DBSCAN 거리 기준 (m)
 DBSCAN_MIN_SAMPLES = 5  # DBSCAN 클러스터 최소 포인트 수
 
+# 물체와 라이다 높이 설정
+LIDAR_HEIGHT = 0.16  # 16cm
+OBJECT_HEIGHT = 0.84  # 84cm
+
 
 class ObstacleDetection(Node):
     def __init__(self):
@@ -101,14 +105,14 @@ class ObstacleDetection(Node):
         return kf
 
     def image_callback(self, msg):
-        """카메라 이미지 수신 후 YOLO 감지 및 bbox 시각화"""
+        """카메라 이미지 수신"""
         self.get_logger().info('Receiving video frame')
         current_frame = self.bridge.imgmsg_to_cv2(msg, desired_encoding='bgr8')
         self.img_bgr = current_frame.copy()
         self.process_detections()
 
     def lidar_callback(self, msg):
-        """2D LiDAR 데이터를 (x, y) 좌표로 변환 후 ROI 필터 적용"""
+        """2D LiDAR 데이터를 (x, y) 좌표로 변환"""
         ranges = np.array(msg.ranges)
         angles = np.linspace(msg.angle_min, msg.angle_max, len(ranges))
 
@@ -118,13 +122,6 @@ class ObstacleDetection(Node):
 
         # 간단한 필터링: 최대 거리 범위 내의 포인트만 선택
         self.filtered_points = lidar_points[ranges < LIDAR_RANGE]
-
-    def estimate_object_height(self, bbox_height, distance):
-        """물체의 실제 높이 추정"""
-        focal_length = self.K[1, 1]  # fy 사용
-        pixel_height = bbox_height
-        real_height = (pixel_height * distance) / focal_length
-        return real_height
 
     def cluster_lidar_points(self, points):
         """DBSCAN을 사용한 라이다 포인트 클러스터링"""
@@ -147,16 +144,25 @@ class ObstacleDetection(Node):
 
         return cluster_center, cluster_points
 
-    def scan_lidar_for_object(self, bbox_x, bbox_height, label):
-        """개선된 물체 감지 함수"""
+    def scan_lidar_for_object(self, bbox_x, bbox_y, bbox_height, bbox_width, label):
+        """개선된 물체 감지 함수 - 라이다 높이에 해당하는 지점 사용"""
         if self.lidar_points is None or len(self.lidar_points) == 0:
             return
 
+        # 바운딩 박스에서 라이다 높이에 해당하는 y좌표 계산
+        height_ratio = LIDAR_HEIGHT / OBJECT_HEIGHT
+        lidar_height_pixel_offset = int(bbox_height * (1 - height_ratio))
+
+        # 라이다 높이에 해당하는 이미지 좌표 계산
+        lidar_point_x = bbox_x
+        lidar_point_y = bbox_y + lidar_height_pixel_offset  # bbox_y는 박스 상단
+
         # 이미지 좌표를 정규화된 카메라 좌표로 변환
-        normalized_x = (bbox_x - self.K[0, 2]) / self.K[0, 0]
+        normalized_x = (lidar_point_x - self.K[0, 2]) / self.K[0, 0]
+        normalized_y = (lidar_point_y - self.K[1, 2]) / self.K[1, 1]
 
         # 카메라 좌표계에서의 시선 벡터
-        ray = np.array([normalized_x, 0, 1]).reshape(3, 1)
+        ray = np.array([normalized_x, normalized_y, 1]).reshape(3, 1)
 
         # 라이다 좌표계로 변환
         ray_lidar = self.R.T @ (ray - self.T)
@@ -164,16 +170,36 @@ class ObstacleDetection(Node):
         # 라이다 평면에서의 각도 계산
         angle = np.arctan2(ray_lidar[1], ray_lidar[0])
 
-        # 바운딩 박스 크기에 따른 동적 각도 임계값 설정
-        angle_threshold = np.radians(max(5, min(30, bbox_height / 10)))
+        # 바운딩 박스 크기에 기반한 검색 범위 설정
+        angle_threshold = np.radians(max(5, min(30, bbox_width / 10)))
+
+        # 예상되는 거리 범위 설정
+        estimated_distance = (OBJECT_HEIGHT / normalized_y) if abs(normalized_y) > 0.1 else 5.0
+        distance_threshold = estimated_distance * 0.3
 
         # 관심 영역의 라이다 포인트 선택
         lidar_angles = np.arctan2(self.lidar_points[:, 1], self.lidar_points[:, 0])
+        distances = np.sqrt(np.sum(self.lidar_points ** 2, axis=1))
+
+        # 각도와 거리 조건을 모두 만족하는 포인트 선택
         angle_diff = np.abs(lidar_angles - angle)
-        selected_points = self.lidar_points[angle_diff < angle_threshold]
+        distance_diff = np.abs(distances - estimated_distance)
+
+        selected_points = self.lidar_points[
+            (angle_diff < angle_threshold) &
+            (distance_diff < distance_threshold)
+            ]
 
         if len(selected_points) == 0:
+            self.get_logger().warn(f"No LiDAR points found for {label} at expected location")
             return
+
+        # 디버깅을 위한 시각화
+        if self.img_bgr is not None:
+            # 라이다 높이에 해당하는 점 표시 (빨간색)
+            cv2.circle(self.img_bgr, (int(lidar_point_x), int(lidar_point_y)), 5, (0, 0, 255), -1)
+            # 바운딩 박스 중심점 표시 (파란색)
+            cv2.circle(self.img_bgr, (int(bbox_x), int(bbox_y)), 5, (255, 0, 0), -1)
 
         # 클러스터링 수행
         cluster_center, cluster_points = self.cluster_lidar_points(selected_points)
@@ -196,21 +222,14 @@ class ObstacleDetection(Node):
         velocity = kf.x[2:]
 
         # 거리 계산 (높이 차이 고려)
-        distance = np.sqrt(np.sum(filtered_position ** 2))
-        adjusted_distance = np.sqrt(distance ** 2 + self.T[2] ** 2)
-
-        # 실제 높이 추정
-        estimated_height = self.estimate_object_height(bbox_height, adjusted_distance)
-
-        # 속도 계산 (m/s)
+        planar_distance = np.sqrt(np.sum(filtered_position ** 2))
         speed = np.sqrt(np.sum(velocity ** 2))
 
         # 로그 출력
         self.get_logger().info(
             f"Object {label} detected:"
             f"\nPosition (x,y): ({filtered_position[0]:.2f}, {filtered_position[1]:.2f})"
-            f"\nDistance: {adjusted_distance:.2f}m"
-            f"\nEstimated Height: {estimated_height:.2f}m"
+            f"\nPlanar Distance: {planar_distance:.2f}m"
             f"\nSpeed: {speed:.2f}m/s"
         )
 
@@ -218,12 +237,11 @@ class ObstacleDetection(Node):
         self.object_info_pub.publish(String(data=f"object,{label},"
                                                  f"{filtered_position[0]:.2f},"
                                                  f"{filtered_position[1]:.2f},"
-                                                 f"{adjusted_distance:.2f},"
-                                                 f"{estimated_height:.2f},"
+                                                 f"{planar_distance:.2f},"
                                                  f"{speed:.2f}"))
 
     def process_detections(self):
-        """YOLO 탐지 후 bounding box 시각화 및 객체별 LiDAR 처리 및 퍼블리시"""
+        """YOLO 탐지 후 bbox 시각화 및 객체별 LiDAR 처리"""
         if self.img_bgr is not None:
             results = self.model(self.img_bgr)
             annotated_image = self.img_bgr.copy()
@@ -236,6 +254,7 @@ class ObstacleDetection(Node):
                 bbox_width = x2 - x1
                 bbox_height = y2 - y1
                 bbox_center_x = (x1 + x2) // 2
+                bbox_center_y = (y1 + y2) // 2
 
                 label = int(box.cls[0].item())
                 conf = box.conf[0].item()
@@ -250,9 +269,9 @@ class ObstacleDetection(Node):
 
                 # 조건에 따라 LiDAR 처리 수행
                 if label == 0 and bbox_width > LAVA_CONE_WIDTH_THRESHOLD and bbox_height > LAVA_CONE_HEIGHT_THRESHOLD:
-                    self.scan_lidar_for_object(bbox_center_x, bbox_height, label)
+                    self.scan_lidar_for_object(bbox_center_x, y1, bbox_height, bbox_width, label)
                 elif label == 1 and bbox_width > DRUM_WIDTH_THRESHOLD and bbox_height > DRUM_HEIGHT_THRESHOLD:
-                    self.scan_lidar_for_object(bbox_center_x, bbox_height, label)
+                    self.scan_lidar_for_object(bbox_center_x, y1, bbox_height, bbox_width, label)
                 elif label == 2 and bbox_width > TUNNEL_WIDTH_THRESHOLD and bbox_height > TUNNEL_HEIGHT_THRESHOLD:
                     tunnel_detected = True
                     left_wall, right_wall = self.estimate_tunnel_walls()
