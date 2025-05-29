@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>antel_lidar</name>
+  <version>0.0.0</version>
+  <description>TODO: Package description</description>
+  <maintainer email="ati0423@hanyang.ac.kr">antel</maintainer>
+  <license>TODO: License declaration</license>
+
+  <!-- 빌드 툴 -->
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <!-- 여기에 실행/컴파일에 필요한 의존성 추가 -->
+  <depend>rclcpp</depend>
+  <depend>std_msgs</depend>
+  <depend>sensor_msgs</depend>
+  <depend>pcl_ros</depend>
+  <depend>pcl_conversions</depend>
+
+  <!-- 테스트 관련 의존성 -->
+  <test_depend>ament_lint_auto</test_depend>
+  <test_depend>ament_lint_common</test_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>
+
