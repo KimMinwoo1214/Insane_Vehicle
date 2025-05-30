@@ -28,6 +28,7 @@ class GPSBasedLocalPath(Node):
         self.utm_x, self.utm_y = None, None
         self.timer = self.create_timer(0.5, self.publish_path)
 
+    # 서울 테스트용
     def load_csv_path(self, file_path):
         path = []
         with open(file_path, 'r', encoding='utf-8') as f:
@@ -38,6 +39,18 @@ class GPSBasedLocalPath(Node):
                 utm_x, utm_y = self.transformer.transform(float(lon), float(lat))
                 path.append((utm_x, utm_y))
         return path
+
+    # 대회용
+    # def load_csv_path(self, file_path):
+    #     path = []
+    #     with open(file_path, 'r', encoding='utf-8') as f:
+    #         reader = csv.reader(f)
+    #         next(reader)  # 헤더 스킵
+    #         for row in reader:
+    #             utm_x = float(row[3])  # UTM_X(East) 직접 사용
+    #             utm_y = float(row[4])  # UTM_Y(North) 직접 사용
+    #             path.append((utm_x, utm_y))
+    #     return path
 
     def gps_callback(self, msg: NavSatFix):
         if msg.position_covariance_type != 1:
