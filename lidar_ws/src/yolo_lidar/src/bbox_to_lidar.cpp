@@ -1,115 +1,141 @@
-// perception_with_bbox_and_lidar.cpp
+// lidar_yolo_fusion_optimized.cpp
 
 #include <rclcpp/rclcpp.hpp>
-#include <std_msgs/msg/string.hpp>
 #include <sensor_msgs/msg/point_cloud2.hpp>
-#include <sensor_msgs/point_cloud2_iterator.hpp>
-#include <sstream>
+#include <geometry_msgs/msg/point.hpp>
+#include <custom_msgs/msg/bounding_box2d_array.hpp>  // YOLO bbox 메시지
+#include <pcl_conversions/pcl_conversions.h>
+#include <pcl/point_cloud.h>
+#include <pcl/point_types.h>
+#include <pcl/filters/extract_indices.h>
+#include <pcl/segmentation/extract_clusters.h>
+#include <pcl/search/kdtree.h>
+#include <Eigen/Dense>
+
+#include <limits>
 #include <vector>
-#include <cmath>
-#include <string>
 
-class PerceptionNode : public rclcpp::Node {
+class LidarYoloFusionNode : public rclcpp::Node {
 public:
-    PerceptionNode() : Node("perception_node") {
-        bbox_sub_ = this->create_subscription<std_msgs::msg::String>(
-            "/bbox", 10, std::bind(&PerceptionNode::bboxCallback, this, std::placeholders::_1));
+  LidarYoloFusionNode() : Node("lidar_yolo_fusion_node") {
+    yolo_sub_ = this->create_subscription<custom_msgs::msg::BoundingBox2DArray>(
+      "/yolo_bboxes", 10, std::bind(&LidarYoloFusionNode::yoloCallback, this, std::placeholders::_1));
 
-        lidar_sub_ = this->create_subscription<sensor_msgs::msg::PointCloud2>(
-            "/points_raw", 10, std::bind(&PerceptionNode::lidarCallback, this, std::placeholders::_1));
+    lidar_sub_ = this->create_subscription<sensor_msgs::msg::PointCloud2>(
+      "/rslidar_points", rclcpp::SensorDataQoS(), std::bind(&LidarYoloFusionNode::lidarCallback, this, std::placeholders::_1));
 
-        obstacle_pub_ = this->create_publisher<std_msgs::msg::String>("/object_info", 10);
+    fused_pub_ = this->create_publisher<geometry_msgs::msg::Point>("/yolo_lidar_fused", 10);
 
-        // 카메라 내부 파라미터
-        fx_ = 640.0;
-        fy_ = 640.0;
-        cx_ = 320.0;
-        cy_ = 320.0;
+    // 카메라 내부행렬 (예시값, 실제값으로 교체)
+    K_ << 600, 0, 320,
+          0, 600, 240,
+          0, 0, 1;
 
-        // 외부 파라미터 (Camera -> LiDAR 변환)
-        R_ = {
-            {-1, 0, 0},
-            {0, 0, 1},
-            {0, 1, 0}
-        };
-        T_ = {0.04, 0.0, -0.06};
-    }
+    // Extrinsics (Lidar to Camera) 초기값
+    R_ = Eigen::Matrix3f::Identity();
+    T_ = Eigen::Vector3f::Zero();
+  }
 
 private:
-    void bboxCallback(const std_msgs::msg::String::SharedPtr msg) {
-        bbox_uv_.clear();
-        std::stringstream ss(msg->data);
-        std::string token;
-        std::vector<float> coords;
+  rclcpp::Subscription<custom_msgs::msg::BoundingBox2DArray>::SharedPtr yolo_sub_;
+  rclcpp::Subscription<sensor_msgs::msg::PointCloud2>::SharedPtr lidar_sub_;
+  rclcpp::Publisher<geometry_msgs::msg::Point>::SharedPtr fused_pub_;
 
-        while (std::getline(ss, token, ',')) {
-            coords.push_back(std::stof(token));
-        }
+  custom_msgs::msg::BoundingBox2DArray last_bboxes_;
+  pcl::PointCloud<pcl::PointXYZI>::Ptr latest_cloud_{new pcl::PointCloud<pcl::PointXYZI>()};
+  std::vector<Eigen::Vector3f> cluster_centers_lidar_; // 라이다 좌표계 클러스터 중심점
 
-        if (coords.size() % 2 != 0) {
-            RCLCPP_WARN(this->get_logger(), "Invalid bbox center input");
-            return;
-        }
+  Eigen::Matrix3f K_;
+  Eigen::Matrix3f R_;
+  Eigen::Vector3f T_;
 
-        for (size_t i = 0; i < coords.size(); i += 2) {
-            bbox_uv_.emplace_back(coords[i], coords[i + 1]);
-        }
+  void yoloCallback(const custom_msgs::msg::BoundingBox2DArray::SharedPtr msg) {
+    last_bboxes_ = *msg;
+    tryFuse();
+  }
+
+  void lidarCallback(const sensor_msgs::msg::PointCloud2::SharedPtr msg) {
+    pcl::fromROSMsg(*msg, *latest_cloud_);
+    cluster_centers_lidar_.clear();
+
+    if (latest_cloud_->empty()) return;
+
+    // 1. 라이다 좌표계에서 클러스터링 수행
+    pcl::search::KdTree<pcl::PointXYZI>::Ptr tree(new pcl::search::KdTree<pcl::PointXYZI>());
+    tree->setInputCloud(latest_cloud_);
+
+    std::vector<pcl::PointIndices> cluster_indices;
+    pcl::EuclideanClusterExtraction<pcl::PointXYZI> ec;
+    ec.setClusterTolerance(0.3);   // 클러스터 간 거리 임계값 (조정 가능)
+    ec.setMinClusterSize(5);
+    ec.setMaxClusterSize(500);
+    ec.setSearchMethod(tree);
+    ec.setInputCloud(latest_cloud_);
+    ec.extract(cluster_indices);
+
+    // 각 클러스터 중심점 계산 (라이다 좌표계)
+    for (const auto& indices : cluster_indices) {
+      float x_sum = 0, y_sum = 0, z_sum = 0;
+      for (auto idx : indices.indices) {
+        const auto& pt = latest_cloud_->points[idx];
+        x_sum += pt.x; y_sum += pt.y; z_sum += pt.z;
+      }
+      float n = static_cast<float>(indices.indices.size());
+      cluster_centers_lidar_.push_back(Eigen::Vector3f(x_sum / n, y_sum / n, z_sum / n));
     }
 
-    void lidarCallback(const sensor_msgs::msg::PointCloud2::SharedPtr msg) {
-        if (bbox_uv_.empty()) return;
+    tryFuse();
+  }
 
-        sensor_msgs::PointCloud2ConstIterator<float> iter_x(*msg, "x");
-        sensor_msgs::PointCloud2ConstIterator<float> iter_y(*msg, "y");
-        sensor_msgs::PointCloud2ConstIterator<float> iter_z(*msg, "z");
+  void tryFuse() {
+    if (last_bboxes_.boxes.empty() || cluster_centers_lidar_.empty()) return;
 
-        for (size_t i = 0; i < msg->width; ++i, ++iter_x, ++iter_y, ++iter_z) {
-            float x = *iter_x;
-            float y = *iter_y;
-            float z = *iter_z;
+    // bbox 당 매칭된 클러스터 중심점이 있을 수 있으므로 순회
+    for (const auto& box : last_bboxes_.boxes) {
+      float u_min = box.x;
+      float u_max = box.x + box.w;
+      float v_min = box.y;
+      float v_max = box.y + box.h;
 
-            // LiDAR → Camera 좌표계로 변환
-            float pt_lidar[3] = {x, y, z};
-            float pt_cam[3];
-            for (int j = 0; j < 3; ++j) {
-                pt_cam[j] = R_[j][0] * pt_lidar[0] + R_[j][1] * pt_lidar[1] + R_[j][2] * pt_lidar[2] + T_[j];
-            }
+      float best_dist = std::numeric_limits<float>::max();
+      Eigen::Vector3f best_center_lidar;
+      bool found = false;
 
-            if (pt_cam[2] <= 0.1) continue;  // 뒤에 있는 점은 무시
+      // 2. 각 클러스터 중심점을 카메라 좌표계로 변환 → 이미지 투영
+      for (const auto& center_lidar : cluster_centers_lidar_) {
+        Eigen::Vector3f pt_cam = R_ * center_lidar + T_;
 
-            float u = fx_ * pt_cam[0] / pt_cam[2] + cx_;
-            float v = fy_ * pt_cam[1] / pt_cam[2] + cy_;
+        if (pt_cam.z() <= 0.1f) continue;
 
-            for (const auto &center : bbox_uv_) {
-                float du = u - center.first;
-                float dv = v - center.second;
-                if (std::sqrt(du * du + dv * dv) < 20.0) {  // 20픽셀 이내
-                    // 장애물 퍼블리시
-                    std::ostringstream oss;
-                    oss << "obstacle," << x << "," << y << "," << std::sqrt(x*x + y*y + z*z);
-                    std_msgs::msg::String output;
-                    output.data = oss.str();
-                    obstacle_pub_->publish(output);
-                    break;  // 하나의 bbox에 하나의 점만 매칭
-                }
-            }
+        Eigen::Vector3f img_pt = K_ * pt_cam;
+        float u = img_pt.x() / img_pt.z();
+        float v = img_pt.y() / img_pt.z();
+
+        // bbox 내부에 중심점이 있는지 확인
+        if (u >= u_min && u <= u_max && v >= v_min && v <= v_max) {
+          float dist = pt_cam.norm();
+          if (dist < best_dist) {
+            best_dist = dist;
+            best_center_lidar = center_lidar;
+            found = true;
+          }
         }
+      }
+
+      if (found) {
+        geometry_msgs::msg::Point p;
+        p.x = best_center_lidar.x();
+        p.y = best_center_lidar.y();
+        p.z = best_center_lidar.z();
+        fused_pub_->publish(p);
+      }
     }
-
-    rclcpp::Subscription<std_msgs::msg::String>::SharedPtr bbox_sub_;
-    rclcpp::Subscription<sensor_msgs::msg::PointCloud2>::SharedPtr lidar_sub_;
-    rclcpp::Publisher<std_msgs::msg::String>::SharedPtr obstacle_pub_;
-
-    std::vector<std::pair<float, float>> bbox_uv_;  // 중심점 (u,v)
-
-    double fx_, fy_, cx_, cy_;
-    std::vector<std::vector<double>> R_;
-    std::vector<double> T_;
+  }
 };
 
-int main(int argc, char **argv) {
-    rclcpp::init(argc, argv);
-    rclcpp::spin(std::make_shared<PerceptionNode>());
-    rclcpp::shutdown();
-    return 0;
+int main(int argc, char** argv) {
+  rclcpp::init(argc, argv);
+  rclcpp::spin(std::make_shared<LidarYoloFusionNode>());
+  rclcpp::shutdown();
+  return 0;
 }
