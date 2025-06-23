@@ -27,13 +27,13 @@ public:
     fused_pub_ = this->create_publisher<geometry_msgs::msg::Point>("/yolo_lidar_fused", 10);
 
     // 카메라 내부행렬 (예시값, 실제값으로 교체)
-    K_ << 600, 0, 320,
-          0, 600, 240,
+    K_ << 703.37906585, 0, 330.37487405,
+          0, 750.72854219, 226.5012125,
           0, 0, 1;
 
     // Extrinsics (Lidar to Camera) 초기값
     R_ = Eigen::Matrix3f::Identity();
-    T_ = Eigen::Vector3f::Zero();
+    T_ = Eigen::Vector3f(0.0f, 0.0f, -0.1f);
   }
 
 private:
