@@ -5,48 +5,38 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
 endif()
 
-# find dependencies
+# Find dependencies
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(custom_msgs REQUIRED)
-find_package(rosidl_default_generators REQUIRED)
+find_package(pcl_conversions REQUIRED)
+find_package(PCL REQUIRED COMPONENTS common io filters segmentation kdtree)
 
-
-if(BUILD_TESTING)
-  find_package(ament_lint_auto REQUIRED)
-  # the following line skips the linter which checks for copyrights
-  # comment the line when a copyright and license is added to all source files
-  set(ament_cmake_copyright_FOUND TRUE)
-  # the following line skips cpplint (only works in a git repo)
-  # comment the line when this package is in a git repo and when
-  # a copyright and license is added to all source files
-  set(ament_cmake_cpplint_FOUND TRUE)
-  ament_lint_auto_find_test_dependencies()
-endif()
-
-rosidl_generate_interfaces(${yolo_lidar}
-  "msg/BoundingBox2D.msg"
-  "msg/BoundingBox2DArray.msg"
-  DEPENDENCIES std_msgs
+include_directories(
+  include
+  ${PCL_INCLUDE_DIRS}
 )
 
-add_executable(perception_node src/bbox_to_lidar.cpp)
+add_executable(bbox_to_lidar src/bbox_to_lidar.cpp)
 
-ament_export_dependencies(rosidl_default_runtime)
-
-ament_target_dependencies(perception_node
+ament_target_dependencies(bbox_to_lidar
   rclcpp
-  std_msgs
   sensor_msgs
+  std_msgs
   custom_msgs
+  pcl_conversions
+)
+
+target_link_libraries(bbox_to_lidar
+  ${PCL_LIBRARIES}
 )
 
 install(TARGETS
-  perception_node
+  bbox_to_lidar
   DESTINATION lib/${PROJECT_NAME}
 )
 
-
 ament_package()
+

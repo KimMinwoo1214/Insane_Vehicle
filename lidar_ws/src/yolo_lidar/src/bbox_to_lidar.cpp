@@ -1,104 +1,144 @@
-#include <rclcpp/rclcpp.hpp>
-#include <sensor_msgs/msg/point_cloud2.hpp>
-#include <geometry_msgs/msg/point.hpp>
-#include <custom_msgs/msg/bounding_box2_d_array.hpp>
+#include "rclcpp/rclcpp.hpp"
+#include "sensor_msgs/msg/point_cloud2.hpp"
+#include "custom_msgs/msg/bounding_box2_d_array.hpp"
+#include "custom_msgs/msg/bounding_box2_d.hpp"
+#include "custom_msgs/msg/object_info_array.hpp"
+#include "custom_msgs/msg/object_info.hpp"
 
-#include <pcl/point_cloud.h>
-#include <pcl/point_types.h>
 #include <pcl_conversions/pcl_conversions.h>
-#include <pcl/common/transforms.h>
-#include <pcl/filters/extract_indices.h>
+#include <pcl/point_types.h>
+#include <pcl/filters/filter.h>
+#include <pcl/common/centroid.h>
+#include <pcl/search/kdtree.h>
 #include <pcl/segmentation/extract_clusters.h>
-
 #include <Eigen/Dense>
 
-class LidarYoloFusionNode : public rclcpp::Node {
+using std::placeholders::_1;
+using PointT = pcl::PointXYZ;
+
+class BBoxToLidarNode : public rclcpp::Node
+{
 public:
-  LidarYoloFusionNode() : Node("lidar_yolo_fusion_node") {
-    using std::placeholders::_1;
+    BBoxToLidarNode()
+    : Node("bbox_to_lidar_node")
+    {
+        this->declare_parameter("fx", 600.0);
+        this->declare_parameter("fy", 600.0);
+        this->declare_parameter("cx", 320.0);
+        this->declare_parameter("cy", 240.0);
 
-    declare_parameter<std::vector<double>>("camera_intrinsics", {703.379, 0, 330.37, 0, 750.72, 226.50, 0, 0, 1});
-    declare_parameter<std::vector<double>>("extrinsic_translation", {0.0, 0.0, -0.1});
+        fx_ = this->get_parameter("fx").as_double();
+        fy_ = this->get_parameter("fy").as_double();
+        cx_ = this->get_parameter("cx").as_double();
+        cy_ = this->get_parameter("cy").as_double();
 
-    auto intrinsics = get_parameter("camera_intrinsics").as_double_array();
-    auto translation = get_parameter("extrinsic_translation").as_double_array();
+        this->declare_parameter("cluster_tolerance", 0.5);
+        this->declare_parameter("min_cluster_size", 5);
+        this->declare_parameter("max_cluster_size", 2500);
 
-    K_ = Eigen::Matrix3f();
-    K_ << intrinsics[0], intrinsics[1], intrinsics[2],
-          intrinsics[3], intrinsics[4], intrinsics[5],
-          intrinsics[6], intrinsics[7], intrinsics[8];
+        cluster_tolerance_ = this->get_parameter("cluster_tolerance").as_double();
+        min_cluster_size_ = this->get_parameter("min_cluster_size").as_int();
+        max_cluster_size_ = this->get_parameter("max_cluster_size").as_int();
 
-    R_ = Eigen::Matrix3f::Identity();
-    T_ = Eigen::Vector3f(translation[0], translation[1], translation[2]);
+        T_lidar_to_cam_ << 
+             0,  0, 1,  0,
+             1,  0, 0,  0,
+             0,  1, 0, -0.14,
+             0,  0, 0,  1;
 
-    lidar_sub_ = create_subscription<sensor_msgs::msg::PointCloud2>(
-        "/rslidar_points", 10, std::bind(&LidarYoloFusionNode::lidarCallback, this, _1));
+        subscription_pc_ = this->create_subscription<sensor_msgs::msg::PointCloud2>(
+            "/rslidar_points", 10, std::bind(&BBoxToLidarNode::pointCloudCallback, this, _1));
+        subscription_bbox_ = this->create_subscription<custom_msgs::msg::BoundingBox2DArray>(
+            "/yolo_bounding_boxes", 10, std::bind(&BBoxToLidarNode::bboxCallback, this, _1));
 
-    bbox_sub_ = create_subscription<custom_msgs::msg::BoundingBox2DArray>(
-        "/yolo_bounding_boxes", 10, std::bind(&LidarYoloFusionNode::yoloCallback, this, _1));
+        publisher_info_ = this->create_publisher<custom_msgs::msg::ObjectInfoArray>(
+            "/object_info", 10);
 
-    fused_pub_ = create_publisher<geometry_msgs::msg::Point>("/fused_cone_position", 10);
-  }
+        RCLCPP_INFO(this->get_logger(), "BBoxToLidarNode (Object Info Mode) initialized.");
+    }
 
 private:
-  void lidarCallback(const sensor_msgs::msg::PointCloud2::SharedPtr msg) {
-    latest_cloud_.reset(new pcl::PointCloud<pcl::PointXYZ>);
-    pcl::fromROSMsg(*msg, *latest_cloud_);
-    tryFuse();
-  }
+    double fx_, fy_, cx_, cy_;
+    double cluster_tolerance_;
+    int min_cluster_size_, max_cluster_size_;
+    Eigen::Matrix4f T_lidar_to_cam_;
 
-  void yoloCallback(const custom_msgs::msg::BoundingBox2DArray::SharedPtr msg) {
-    latest_boxes_ = *msg;
-    tryFuse();
-  }
+    custom_msgs::msg::BoundingBox2DArray::SharedPtr last_bbox_array_;
+    rclcpp::Subscription<sensor_msgs::msg::PointCloud2>::SharedPtr subscription_pc_;
+    rclcpp::Subscription<custom_msgs::msg::BoundingBox2DArray>::SharedPtr subscription_bbox_;
+    rclcpp::Publisher<custom_msgs::msg::ObjectInfoArray>::SharedPtr publisher_info_;
 
-  void tryFuse() {
-    if (!latest_cloud_ || latest_boxes_.boxes.empty()) return;
-
-    for (const auto& box : latest_boxes_.boxes) {
-      float u_min = box.x;
-      float u_max = box.x + box.width;
-      float v_min = box.y;
-      float v_max = box.y + box.height;
-
-      for (const auto& pt : latest_cloud_->points) {
-        Eigen::Vector3f pt_lidar(pt.x, pt.y, pt.z);
-        Eigen::Vector3f pt_cam = R_ * pt_lidar + T_;
-
-        if (pt_cam.z() <= 0.1f || !std::isfinite(pt_cam.z())) continue;
-
-        Eigen::Vector3f pt_img = K_ * pt_cam;
-        float u = pt_img(0) / pt_img(2);
-        float v = pt_img(1) / pt_img(2);
-
-        if (u >= u_min && u <= u_max && v >= v_min && v <= v_max) {
-          geometry_msgs::msg::Point p;
-          p.x = pt.x;
-          p.y = pt.y;
-          p.z = pt.z;
-          fused_pub_->publish(p);
-          break;  // Publish only one point per box
-        }
-      }
+    void bboxCallback(const custom_msgs::msg::BoundingBox2DArray::SharedPtr msg)
+    {
+        last_bbox_array_ = msg;
     }
-  }
 
-  rclcpp::Subscription<sensor_msgs::msg::PointCloud2>::SharedPtr lidar_sub_;
-  rclcpp::Subscription<custom_msgs::msg::BoundingBox2DArray>::SharedPtr bbox_sub_;
-  rclcpp::Publisher<geometry_msgs::msg::Point>::SharedPtr fused_pub_;
+    void pointCloudCallback(const sensor_msgs::msg::PointCloud2::SharedPtr msg)
+    {
+        if (!last_bbox_array_) return;
 
-  pcl::PointCloud<pcl::PointXYZ>::Ptr latest_cloud_;
-  custom_msgs::msg::BoundingBox2DArray latest_boxes_;
+        pcl::PointCloud<PointT>::Ptr cloud(new pcl::PointCloud<PointT>());
+        pcl::fromROSMsg(*msg, *cloud);
 
-  Eigen::Matrix3f K_;
-  Eigen::Matrix3f R_;
-  Eigen::Vector3f T_;
+        pcl::PointCloud<PointT>::Ptr filtered(new pcl::PointCloud<PointT>());
+        std::vector<int> indices;
+        pcl::removeNaNFromPointCloud(*cloud, *filtered, indices);
+
+        pcl::search::KdTree<PointT>::Ptr tree(new pcl::search::KdTree<PointT>());
+        tree->setInputCloud(filtered);
+
+        std::vector<pcl::PointIndices> cluster_indices;
+        pcl::EuclideanClusterExtraction<PointT> ec;
+        ec.setClusterTolerance(cluster_tolerance_);
+        ec.setMinClusterSize(min_cluster_size_);
+        ec.setMaxClusterSize(max_cluster_size_);
+        ec.setSearchMethod(tree);
+        ec.setInputCloud(filtered);
+        ec.extract(cluster_indices);
+        RCLCPP_INFO(this->get_logger(), "Total clusters: %zu", cluster_indices.size());
+        
+        custom_msgs::msg::ObjectInfoArray info_array;
+
+        for (const auto& indices : cluster_indices) {
+            pcl::PointCloud<PointT>::Ptr cluster(new pcl::PointCloud<PointT>());
+            for (int idx : indices.indices)
+                cluster->points.push_back(filtered->points[idx]);
+
+            Eigen::Vector4f centroid;
+            pcl::compute3DCentroid(*cluster, centroid);
+            Eigen::Vector4f pt_cam = T_lidar_to_cam_ * centroid;
+
+            if (pt_cam(2) <= 0) continue;
+
+            float u = fx_ * pt_cam(0) / pt_cam(2) + cx_;
+            float v = fy_ * pt_cam(1) / pt_cam(2) + cy_;
+
+            for (const auto &bbox : last_bbox_array_->boxes) {
+                if (u >= bbox.xmin && u <= bbox.xmax &&
+                    v >= bbox.ymin && v <= bbox.ymax)
+                {
+                    custom_msgs::msg::ObjectInfo info;
+                    info.x = (bbox.xmin + bbox.xmax) / 2.0;
+                    info.y = (bbox.ymin + bbox.ymax) / 2.0;
+                    info.distance = std::sqrt(
+                        centroid[0]*centroid[0] +
+                        centroid[1]*centroid[1] +
+                        centroid[2]*centroid[2]);
+                    info_array.object_infos.push_back(info);
+                    break;
+                }
+            }
+        }
+
+        publisher_info_->publish(info_array);
+    }
 };
 
-int main(int argc, char** argv) {
-  rclcpp::init(argc, argv);
-  rclcpp::spin(std::make_shared<LidarYoloFusionNode>());
-  rclcpp::shutdown();
-  return 0;
+int main(int argc, char *argv[])
+{
+    rclcpp::init(argc, argv);
+    rclcpp::spin(std::make_shared<BBoxToLidarNode>());
+    rclcpp::shutdown();
+    return 0;
 }
 

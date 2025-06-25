@@ -1,3 +1,3 @@
-custom_msgs/BoundingBox2D[] boxes
-builtin_interfaces/Time stamp
+std_msgs/Header header
+BoundingBox2D[] boxes
 

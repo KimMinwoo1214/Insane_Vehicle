@@ -6,15 +6,16 @@ import rclpy
 from rclpy.node import Node
 from ultralytics import YOLO
 from sensor_msgs.msg import Image
-from std_msgs.msg import Int32, Float32MultiArray
 from cv_bridge import CvBridge
+
+from custom_msgs.msg import BoundingBox2D, BoundingBox2DArray
+from std_msgs.msg import Header
 
 class ObjectDetection(Node):
     def __init__(self):
         super().__init__('object_detector')
         
-        self.bbox_pub = self.create_publisher(Float32MultiArray, "/bbox_centers", 10)
-        self.tunnel_pub = self.create_publisher(Int32, "/tunnel_mode", 10)
+        self.bbox_pub = self.create_publisher(BoundingBox2DArray, "/yolo_bounding_boxes", 10)
         self.create_subscription(Image, "/video_frames", self.image_callback, 10)
         
         try:
@@ -24,20 +25,22 @@ class ObjectDetection(Node):
             raise
 
         self.bridge = CvBridge()
-        self.TUNNEL_SIZE_THRESHOLD = 100
 
     def image_callback(self, msg):
         try:
             current_frame = self.bridge.imgmsg_to_cv2(msg, desired_encoding='bgr8')
+
             results = self.model.predict(
                 source=current_frame,
                 conf=0.25,
                 iou=0.45,
                 verbose=False
             )
-            
-            centers = []
-            tunnel_mode = 0
+
+            bbox_array = BoundingBox2DArray()
+            bbox_array.header = Header()
+            bbox_array.header.stamp = self.get_clock().now().to_msg()
+            bbox_array.header.frame_id = "camera_frame"  # ← 필요시 실제 프레임으로 변경
 
             if results and len(results) > 0:
                 for result in results:
@@ -46,25 +49,17 @@ class ObjectDetection(Node):
                         xyxy = box.xyxy.cpu().numpy().flatten()
                         x1, y1, x2, y2 = map(int, xyxy)
 
-                        label = int(box.cls.item()) if hasattr(box.cls, 'item') else int(box.cls)
+                        msg_box = BoundingBox2D()
+                        msg_box.xmin = x1
+                        msg_box.ymin = y1
+                        msg_box.xmax = x2
+                        msg_box.ymax = y2
+                        bbox_array.boxes.append(msg_box)
 
-                        if label in [0, 1]:
-                            center_x = (x1 + x2) / 2
-                            center_y = (y1 + y2) / 2
-                            centers.extend([center_x, center_y])
-                        elif label == 2:
-                            width = x2 - x1
-                            height = y2 - y1
-                            if width > self.TUNNEL_SIZE_THRESHOLD and height > self.TUNNEL_SIZE_THRESHOLD:
-                                tunnel_mode = 1
-            
-            if centers:
-                bbox_msg = Float32MultiArray()
-                bbox_msg.data = centers
-                self.bbox_pub.publish(bbox_msg)
+            if bbox_array.boxes:
+                self.bbox_pub.publish(bbox_array)
 
-            self.tunnel_pub.publish(Int32(data=tunnel_mode))
-
+            # (옵션) 디버깅용 화면 표시
             cv2.imshow("Camera View", current_frame)
             cv2.waitKey(1)
 
@@ -81,3 +76,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+
