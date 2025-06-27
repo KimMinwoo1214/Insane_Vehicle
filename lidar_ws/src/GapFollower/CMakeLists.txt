@@ -1,17 +1,16 @@
-cmake_minimum_required(VERSION 3.8)
-project(GapFollower)
+cmake_minimum_required(VERSION 3.5)
+project(gapfollower)
 
-if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-  add_compile_options(-Wall -Wextra -Wpedantic)
-endif()
+# C++ 표준
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# Find dependencies
+# 종속 패키지
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(pcl_conversions REQUIRED)
-find_package(pcl_ros REQUIRED)
 find_package(PCL REQUIRED)
 
 include_directories(
@@ -19,22 +18,21 @@ include_directories(
   ${PCL_INCLUDE_DIRS}
 )
 
-add_executable(gap_follower_node src/getfollower.cpp)
+add_executable(reactive_follow_gap src/reactive_follow_gap.cpp)
 
-ament_target_dependencies(gap_follower_node
+ament_target_dependencies(reactive_follow_gap
   rclcpp
   sensor_msgs
   std_msgs
   pcl_conversions
-  pcl_ros
 )
 
-target_link_libraries(gap_follower_node ${PCL_LIBRARIES})
+target_link_libraries(reactive_follow_gap
+  ${PCL_LIBRARIES}
+)
 
-install(TARGETS
-  gap_follower_node
+install(TARGETS reactive_follow_gap
   DESTINATION lib/${PROJECT_NAME}
 )
 
 ament_package()
-

@@ -14,17 +14,25 @@ public:
     ReactiveFollowGap() : Node("reactive_follow_gap") {
         declare_parameter("car.width", 0.7);
         declare_parameter("car.wheelbase", 0.735);
-        declare_parameter("car.lidar_height", 0.6);
-        declare_parameter("safety.slice_height", 0.2);
+        declare_parameter("car.max_steering_deg", 22.5);
         declare_parameter("speed.maximum", 150);
+        declare_parameter("filter.z_min", 0.2);
+        declare_parameter("filter.z_max", 1.4);
+        declare_parameter("filter.x_min", 1.0);
+        declare_parameter("filter.x_max", 20.0);
+        declare_parameter("filter.y_limit", 3.0);
         declare_parameter("topics.lidar", "/rslidar_points");
         declare_parameter("topics.pwm_cmd", "/pwm_cmd");
 
         get_parameter("car.width", car_width_);
         get_parameter("car.wheelbase", wheelbase_);
-        get_parameter("car.lidar_height", lidar_height_);
-        get_parameter("safety.slice_height", slice_height_);
+        get_parameter("car.max_steering_deg", max_steering_deg_);
         get_parameter("speed.maximum", max_speed_);
+        get_parameter("filter.z_min", z_min_);
+        get_parameter("filter.z_max", z_max_);
+        get_parameter("filter.x_min", x_min_);
+        get_parameter("filter.x_max", x_max_);
+        get_parameter("filter.y_limit", y_limit_);
         get_parameter("topics.lidar", lidar_topic_);
         get_parameter("topics.pwm_cmd", pwm_topic_);
 
@@ -40,20 +48,24 @@ private:
 
     double car_width_;
     double wheelbase_;
-    double lidar_height_;
-    double slice_height_;
+    double max_steering_deg_;
+    double z_min_, z_max_;
+    double x_min_, x_max_;
+    double y_limit_;
     int max_speed_;
-    std::string lidar_topic_;
-    std::string pwm_topic_;
+    std::string lidar_topic_, pwm_topic_;
 
     std::vector<float> extract2DScan(const sensor_msgs::msg::PointCloud2::SharedPtr cloud_msg) {
         pcl::PointCloud<pcl::PointXYZ> cloud;
         pcl::fromROSMsg(*cloud_msg, cloud);
 
-        std::vector<float> ranges(1080, 30.0); // 초기화 (최대 거리 = 30m)
+        std::vector<float> ranges(1080, 30.0);  // max range = 30m
 
         for (const auto& pt : cloud.points) {
-            if (std::abs(pt.z - lidar_height_) > slice_height_ / 2.0) continue;
+            if (pt.z < z_min_ || pt.z > z_max_) continue;
+            if (pt.x < x_min_ || pt.x > x_max_) continue;
+            if (std::abs(pt.y) > y_limit_) continue;
+
             double range = std::hypot(pt.x, pt.y);
             double angle = std::atan2(pt.y, pt.x);
             int index = static_cast<int>((angle + M_PI) * 1080 / (2 * M_PI));
@@ -72,15 +84,14 @@ private:
         for (auto& r : filtered)
             if (r < 0.1 || r > max_range) r = max_range;
 
-        // 이동 평균 필터
-        int window = 5;
+        int window = 3;
         std::vector<float> smooth(filtered.size(), max_range);
         for (size_t i = 0; i < filtered.size(); ++i) {
             float sum = 0.0;
             int count = 0;
             for (int j = -window / 2; j <= window / 2; ++j) {
                 int idx = i + j;
-                if (idx >= 0 && idx < filtered.size()) {
+                if (idx >= 0 && idx < static_cast<int>(filtered.size())) {
                     sum += filtered[idx];
                     count++;
                 }
@@ -128,7 +139,6 @@ private:
         int best_index = find_max_gap(filtered);
         double angle = -M_PI + best_index * (2 * M_PI / 1080.0);
 
-        // Pure Pursuit 조향각 계산
         double lookahead = filtered[best_index];
         double x = lookahead * std::cos(angle);
         double y = lookahead * std::sin(angle);
@@ -136,8 +146,11 @@ private:
         double steer_rad = std::atan2(2.0 * wheelbase_ * std::sin(la_angle),
                                       std::sqrt((x + wheelbase_) * (x + wheelbase_) + y * y));
 
-        // PWM 변환 및 속도 제어
-        int pwm_angle = static_cast<int>(90 + steer_rad * 180.0 / M_PI);
+        // 제한 각도 클리핑
+        double max_rad = max_steering_deg_ * M_PI / 180.0;
+        steer_rad = std::clamp(steer_rad, -max_rad, max_rad);
+
+        int pwm_angle = static_cast<int>(90 + steer_rad * (90.0 / max_rad));
         int speed_pwm = max_speed_;
 
         std_msgs::msg::String pwm_msg;
