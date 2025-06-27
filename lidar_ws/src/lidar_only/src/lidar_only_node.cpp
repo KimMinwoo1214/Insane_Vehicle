@@ -21,11 +21,11 @@ public:
         // Declare parameters with units
         declare_parameter("cluster_tolerance", 0.1);   // meter
         declare_parameter("min_cluster_size", 15);      // point count
-        declare_parameter("max_cluster_size", 100);   // point count
-        declare_parameter("min_z", -0.3);              // meter
-        declare_parameter("max_z", 0.5);               // meter
+        declare_parameter("max_cluster_size", 250);   // point count
+        declare_parameter("min_z", -0.4);              // meter
+        declare_parameter("max_z", 0.3);               // meter
         declare_parameter("min_range", 0.5);           // meter
-        declare_parameter("max_range", 20.0);          // meter
+        declare_parameter("max_range", 10.0);          // meter
 
         // Get parameters
         get_parameter("cluster_tolerance", cluster_tolerance_);
