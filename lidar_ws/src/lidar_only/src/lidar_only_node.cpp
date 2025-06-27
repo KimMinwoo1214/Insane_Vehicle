@@ -19,11 +19,11 @@ public:
     LidarOnlyNode() : Node("lidar_only_node")
     {
         // Declare parameters with units
-        declare_parameter("cluster_tolerance", 0.5);   // meter
-        declare_parameter("min_cluster_size", 10);      // point count
-        declare_parameter("max_cluster_size", 2500);   // point count
+        declare_parameter("cluster_tolerance", 0.1);   // meter
+        declare_parameter("min_cluster_size", 15);      // point count
+        declare_parameter("max_cluster_size", 100);   // point count
         declare_parameter("min_z", -0.3);              // meter
-        declare_parameter("max_z", 2.0);               // meter
+        declare_parameter("max_z", 0.5);               // meter
         declare_parameter("min_range", 0.5);           // meter
         declare_parameter("max_range", 20.0);          // meter
 
