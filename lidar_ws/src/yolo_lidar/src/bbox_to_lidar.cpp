@@ -41,9 +41,9 @@ public:
         max_cluster_size_ = this->get_parameter("max_cluster_size").as_int();
 
         T_lidar_to_cam_ << 
-             0,  0, 1,  0,
-             1,  0, 0,  0,
-             0,  1, 0, -0.14,
+             0.9047731,  -0.42203779, -0.05718171, -2.72159267,
+             -0.16147892, -0.21570338, -0.96301434, -0.12413885,
+             0.39409415,  0.8805431,  -0.26331282, -1.0815486,
              0,  0, 0,  1;
 
         subscription_pc_ = this->create_subscription<sensor_msgs::msg::PointCloud2>(
