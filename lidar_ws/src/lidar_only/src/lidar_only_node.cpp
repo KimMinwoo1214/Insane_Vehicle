@@ -1,70 +1,86 @@
-#include <rclcpp/rclcpp.hpp>
-#include <sensor_msgs/msg/point_cloud2.hpp>
-#include <custom_msgs/msg/object_info_array.hpp>
-#include <custom_msgs/msg/object_info.hpp>
+#include "rclcpp/rclcpp.hpp"
+#include "sensor_msgs/msg/point_cloud2.hpp"
+#include "custom_msgs/msg/object_info_array.hpp"
+#include "custom_msgs/msg/object_info.hpp"
 
 #include <pcl_conversions/pcl_conversions.h>
 #include <pcl/point_types.h>
 #include <pcl/filters/filter.h>
+#include <pcl/common/centroid.h>
 #include <pcl/search/kdtree.h>
 #include <pcl/segmentation/extract_clusters.h>
-#include <pcl/common/centroid.h>
-
-#include <cmath>
 
 using std::placeholders::_1;
 using PointT = pcl::PointXYZI;
 
-class LidarObstacleDetector : public rclcpp::Node {
+class LidarOnlyNode : public rclcpp::Node
+{
 public:
-    LidarObstacleDetector() : Node("lidar_obstacle_detector") {
-        // Declare hyperparameters
-        min_distance_ = this->declare_parameter("min_distance", 0.5);
-        max_distance_ = this->declare_parameter("max_distance", 30.0);
-        ground_z_threshold_ = this->declare_parameter("ground_z_threshold", -1.5);
-        cluster_tolerance_ = this->declare_parameter("cluster_tolerance", 0.5);
-        min_cluster_size_ = this->declare_parameter("min_cluster_size", 5);
-        max_cluster_size_ = this->declare_parameter("max_cluster_size", 5000);
+    LidarOnlyNode() : Node("lidar_only_node")
+    {
+        // Declare parameters with units
+        declare_parameter("cluster_tolerance", 0.5);   // meter
+        declare_parameter("min_cluster_size", 10);      // point count
+        declare_parameter("max_cluster_size", 2500);   // point count
+        declare_parameter("min_z", -0.3);              // meter
+        declare_parameter("max_z", 2.0);               // meter
+        declare_parameter("min_range", 0.5);           // meter
+        declare_parameter("max_range", 20.0);          // meter
 
-        sub_ = this->create_subscription<sensor_msgs::msg::PointCloud2>(
-            "/rslidar_points", rclcpp::SensorDataQoS(),
-            std::bind(&LidarObstacleDetector::pointcloud_callback, this, _1));
+        // Get parameters
+        get_parameter("cluster_tolerance", cluster_tolerance_);
+        get_parameter("min_cluster_size", min_cluster_size_);
+        get_parameter("max_cluster_size", max_cluster_size_);
+        get_parameter("min_z", min_z_);
+        get_parameter("max_z", max_z_);
+        get_parameter("min_range", min_range_);
+        get_parameter("max_range", max_range_);
 
-        pub_ = this->create_publisher<custom_msgs::msg::ObjectInfoArray>(
+        // Sub & Pub
+        sub_ = create_subscription<sensor_msgs::msg::PointCloud2>(
+            "/rslidar_points", 10, std::bind(&LidarOnlyNode::pointcloud_callback, this, _1));
+
+        pub_info_ = create_publisher<custom_msgs::msg::ObjectInfoArray>(
             "/lidar_only_object_info", 10);
 
-        RCLCPP_INFO(this->get_logger(), "LidarObstacleDetector initialized.");
+        pub_clustered_pc_ = create_publisher<sensor_msgs::msg::PointCloud2>(
+            "/clustered_points", 10);
+
+        RCLCPP_INFO(this->get_logger(), "LidarOnlyNode initialized.");
     }
 
 private:
-    double min_distance_, max_distance_;
-    double ground_z_threshold_;
-    double cluster_tolerance_;
-    int min_cluster_size_, max_cluster_size_;
-
     rclcpp::Subscription<sensor_msgs::msg::PointCloud2>::SharedPtr sub_;
-    rclcpp::Publisher<custom_msgs::msg::ObjectInfoArray>::SharedPtr pub_;
+    rclcpp::Publisher<custom_msgs::msg::ObjectInfoArray>::SharedPtr pub_info_;
+    rclcpp::Publisher<sensor_msgs::msg::PointCloud2>::SharedPtr pub_clustered_pc_;
 
-    void pointcloud_callback(const sensor_msgs::msg::PointCloud2::SharedPtr msg) {
+    // Parameters
+    double cluster_tolerance_;  // meter
+    int min_cluster_size_;      // point count
+    int max_cluster_size_;      // point count
+    double min_z_, max_z_;      // meter
+    double min_range_, max_range_;  // meter
+
+    void pointcloud_callback(const sensor_msgs::msg::PointCloud2::SharedPtr msg)
+    {
         pcl::PointCloud<PointT>::Ptr cloud(new pcl::PointCloud<PointT>());
         pcl::fromROSMsg(*msg, *cloud);
 
+        // Remove NaNs
         pcl::PointCloud<PointT>::Ptr filtered(new pcl::PointCloud<PointT>());
         std::vector<int> indices;
         pcl::removeNaNFromPointCloud(*cloud, *filtered, indices);
 
-        // 지면 제거 및 거리 필터링
+        // Z + range filtering
         pcl::PointCloud<PointT>::Ptr valid(new pcl::PointCloud<PointT>());
-        for (const auto& pt : filtered->points) {
-            double dist = std::sqrt(pt.x * pt.x + pt.y * pt.y);
-            if (pt.z > ground_z_threshold_ && dist >= min_distance_ && dist <= max_distance_) {
+        for (const auto &pt : filtered->points)
+        {
+            float dist = std::sqrt(pt.x * pt.x + pt.y * pt.y + pt.z * pt.z);
+            if (pt.z > min_z_ && pt.z < max_z_ && dist > min_range_ && dist < max_range_)
                 valid->points.push_back(pt);
-            }
         }
 
-        if (valid->empty()) return;
-
-        // 클러스터링
+        // Clustering
         pcl::search::KdTree<PointT>::Ptr tree(new pcl::search::KdTree<PointT>());
         tree->setInputCloud(valid);
 
@@ -77,36 +93,53 @@ private:
         ec.setInputCloud(valid);
         ec.extract(cluster_indices);
 
+        // Output messages
         custom_msgs::msg::ObjectInfoArray info_array;
-        info_array.header = msg->header;
+        pcl::PointCloud<PointT>::Ptr all_clusters(new pcl::PointCloud<PointT>());
 
-        for (const auto& indices : cluster_indices) {
+        int cluster_id = 0;
+        for (const auto &indices : cluster_indices)
+        {
             pcl::PointCloud<PointT>::Ptr cluster(new pcl::PointCloud<PointT>());
-            for (int idx : indices.indices) {
-                cluster->points.push_back(valid->points[idx]);
-            }
-
             Eigen::Vector4f centroid;
+            for (int idx : indices.indices)
+                cluster->points.push_back(valid->points[idx]);
+
             pcl::compute3DCentroid(*cluster, centroid);
-            float x = centroid[0];
-            float y = centroid[1];
-            float z = centroid[2];
-            float distance = std::sqrt(x * x + y * y + z * z);
 
             custom_msgs::msg::ObjectInfo info;
-            info.x = x;
-            info.y = y;
-            info.distance = distance;
+            info.x = centroid[0];
+            info.y = centroid[1];
+            info.distance = centroid.head<3>().norm();
             info_array.object_infos.push_back(info);
+
+            // RGB 색상 부여
+            uint8_t r = (cluster_id * 53) % 256;
+            uint8_t g = (cluster_id * 97) % 256;
+            uint8_t b = (cluster_id * 201) % 256;
+            uint32_t rgb = (r << 16) | (g << 8) | b;
+            float rgb_float = *reinterpret_cast<float *>(&rgb);
+
+            for (auto &pt : cluster->points)
+                pt.intensity = rgb_float;
+
+            *all_clusters += *cluster;
+            cluster_id++;
         }
 
-        pub_->publish(info_array);
+        pub_info_->publish(info_array);
+
+        sensor_msgs::msg::PointCloud2 output;
+        pcl::toROSMsg(*all_clusters, output);
+        output.header = msg->header;
+        pub_clustered_pc_->publish(output);
     }
 };
 
-int main(int argc, char **argv) {
+int main(int argc, char **argv)
+{
     rclcpp::init(argc, argv);
-    rclcpp::spin(std::make_shared<LidarObstacleDetector>());
+    rclcpp::spin(std::make_shared<LidarOnlyNode>());
     rclcpp::shutdown();
     return 0;
 }
