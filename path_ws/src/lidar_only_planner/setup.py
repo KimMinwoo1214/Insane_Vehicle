@@ -18,7 +18,8 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'lidar_only_planner = lidar_only_planner.lidar_only_planner:main'
+            'a_star = lidar_only_planner.a_star:main',
+            'smooth = lidar_only_planner.smooth_curve_planner:main',
         ],
     },
 )
