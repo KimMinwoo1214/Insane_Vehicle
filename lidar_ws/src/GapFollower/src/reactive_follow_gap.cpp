@@ -15,12 +15,12 @@ public:
         declare_parameter("car.width", 0.7);
         declare_parameter("car.wheelbase", 0.735);
         declare_parameter("car.max_steering_deg", 22.5);
-        declare_parameter("speed.maximum", 150);
-        declare_parameter("filter.z_min", 0.2);
-        declare_parameter("filter.z_max", 1.4);
+        declare_parameter("speed.maximum", 300);
+        declare_parameter("filter.z_min", -0.4);
+        declare_parameter("filter.z_max", 0.2);
         declare_parameter("filter.x_min", 1.0);
-        declare_parameter("filter.x_max", 20.0);
-        declare_parameter("filter.y_limit", 3.0);
+        declare_parameter("filter.x_max", 2.0);
+        declare_parameter("filter.y_limit", 1.5);
         declare_parameter("topics.lidar", "/rslidar_points");
         declare_parameter("topics.pwm_cmd", "/pwm_cmd");
 
@@ -150,7 +150,7 @@ private:
         double max_rad = max_steering_deg_ * M_PI / 180.0;
         steer_rad = std::clamp(steer_rad, -max_rad, max_rad);
 
-        int pwm_angle = static_cast<int>(90 + steer_rad * (90.0 / max_rad));
+        int pwm_angle = static_cast<int>(180 - (90 + steer_rad * (90.0 / max_rad)));
         int speed_pwm = max_speed_;
 
         std_msgs::msg::String pwm_msg;
