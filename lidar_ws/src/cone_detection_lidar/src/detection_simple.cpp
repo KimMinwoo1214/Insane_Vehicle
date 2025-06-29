@@ -4,10 +4,8 @@
 #include <string>
 #include <vector>
 #include <cmath>
-#include <map>
 #include <algorithm>    // for std::sort, std::clamp
-#include <utility>      // for std::pair
-#include <cfloat>       // for FLT_MAX
+#include <cfloat>       // for DBL_MAX
 
 // ROS2
 #include "rclcpp/rclcpp.hpp"
@@ -22,54 +20,19 @@
 #include <pcl/point_types.h>
 #include <pcl_conversions/pcl_conversions.h>
 #include <pcl/filters/crop_box.h>
-
-// Utility to initialize center markers
-#include "cone_detection_lidar/marker.hpp"
+#include <pcl/segmentation/extract_clusters.h>
+#include <pcl/search/kdtree.h>
 
 using namespace std::chrono_literals;
 
-// 2D point struct for clustering
-struct Point2D {
-  double x, y;
-  bool core;
-  int cluster_id;
-  Point2D(double _x=0, double _y=0)
-    : x(_x), y(_y), core(false), cluster_id(-1) {}
+struct ClusterInfo {
+  double x, y, radius;
 };
-static double point_distance(const Point2D &a, const Point2D &b) {
-  return std::hypot(a.x - b.x, a.y - b.y);
-}
-static void find_neighbors(std::vector<Point2D> &pts, double eps) {
-  for (auto &p : pts) {
-    int cnt = 0;
-    for (auto &q : pts) if (point_distance(p, q) <= eps) ++cnt;
-    p.core = (cnt >= 2);
-  }
-}
-static int find_clusters(std::vector<Point2D> &pts, double eps) {
-  int cid = 0;
-  const int MAX_ITER = 10;
-  for (int iter = 0; iter < MAX_ITER; ++iter) {
-    for (auto &p : pts) if (p.core && p.cluster_id < 0) { p.cluster_id = cid; break; }
-    for (auto &p : pts) if (p.cluster_id == cid) {
-      for (auto &q : pts) if (q.core && q.cluster_id < 0 && point_distance(p, q) <= eps)
-        q.cluster_id = cid;
-    }
-    ++cid;
-  }
-  for (auto &p : pts) if (!p.core) {
-    for (auto &q : pts) if (q.core && q.cluster_id >= 0 && point_distance(p, q) <= eps) {
-      p.cluster_id = q.cluster_id;
-      break;
-    }
-  }
-  return cid;
-}
 
 class DetectionWithSideAndCenter : public rclcpp::Node {
 public:
   DetectionWithSideAndCenter()
-    : Node("detection_simple")
+    : Node("detection_simple_euclid_size")
   {
     // --- parameters ---
     declare_parameter<std::string>("cloud_in_topic", "/points");
@@ -82,6 +45,9 @@ public:
     declare_parameter<float>("maxY", 40.0f);
     declare_parameter<float>("minZ", -2.0f);
     declare_parameter<float>("maxZ", -0.15f);
+    // Hyperparameters for offset behavior
+    declare_parameter<double>("offset_gain", 1.0);      // 1보다 커질수록 큰 장애물에서 멀리 떨어짐. 1보다 작을수록 순수 중앙선에 가깝게 피팅됨
+    declare_parameter<double>("offset_limit", 0.5);     // offset gain의 영향력 설정 (클수록 효과가 커짐)
     declare_parameter<int>("path_samples", 50);
 
     get_parameter("cloud_in_topic", cloud_in_topic_);
@@ -94,10 +60,11 @@ public:
     get_parameter("maxY", maxY_);
     get_parameter("minZ", minZ_);
     get_parameter("maxZ", maxZ_);
+    get_parameter("offset_gain", offset_gain_);
+    get_parameter("offset_limit", offset_limit_);
     get_parameter("path_samples", samples_);
 
     pub_lidar_ = create_publisher<sensor_msgs::msg::PointCloud2>("clustered_points", 10);
-    pub_cluster_markers_ = create_publisher<visualization_msgs::msg::MarkerArray>("cluster_markers", 10);
     pub_center_markers_ = create_publisher<visualization_msgs::msg::MarkerArray>("center_markers", 10);
     pub_path_ = create_publisher<nav_msgs::msg::Path>("simple_path", 10);
     pub_angle_ = create_publisher<std_msgs::msg::Float64>("steering_angle", 10);
@@ -114,11 +81,11 @@ private:
   double eps_;
   int cp_min_, cp_max_;
   float minX_, maxX_, minY_, maxY_, minZ_, maxZ_;
+  double offset_gain_, offset_limit_;
   int samples_;
 
-  // Publishers & subscription
+  // ROS interfaces
   rclcpp::Publisher<sensor_msgs::msg::PointCloud2>::SharedPtr pub_lidar_;
-  rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr pub_cluster_markers_;
   rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr pub_center_markers_;
   rclcpp::Publisher<nav_msgs::msg::Path>::SharedPtr pub_path_;
   rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr pub_angle_;
@@ -126,85 +93,96 @@ private:
 
   void lidar_cb(const sensor_msgs::msg::PointCloud2::ConstSharedPtr &msg) {
     // 1) Crop & convert
-    auto cloud = std::make_shared<pcl::PointCloud<pcl::PointXYZI>>();
-    pcl::fromROSMsg(*msg, *cloud);
+    auto cloud_i = std::make_shared<pcl::PointCloud<pcl::PointXYZI>>();
+    pcl::fromROSMsg(*msg, *cloud_i);
     pcl::CropBox<pcl::PointCloud<pcl::PointXYZI>::PointType> crop;
-    crop.setInputCloud(cloud);
+    crop.setInputCloud(cloud_i);
     crop.setMin(Eigen::Vector4f(minX_, minY_, minZ_, 1.0f));
     crop.setMax(Eigen::Vector4f(maxX_, maxY_, maxZ_, 1.0f));
-    auto filt = std::make_shared<pcl::PointCloud<pcl::PointXYZI>>();
-    crop.filter(*filt);
+    auto filt_i = std::make_shared<pcl::PointCloud<pcl::PointXYZI>>();
+    crop.filter(*filt_i);
 
-    // Publish filtered cloud
     sensor_msgs::msg::PointCloud2 out;
-    pcl::toROSMsg(*filt, out);
+    pcl::toROSMsg(*filt_i, out);
     out.header = msg->header;
     pub_lidar_->publish(out);
 
-    // 2) DBSCAN clustering
-    std::vector<Point2D> pts;
-    pts.reserve(filt->size());
-    for (auto &p : filt->points) pts.emplace_back(p.x, p.y);
-    find_neighbors(pts, eps_);
-    int ncl = find_clusters(pts, eps_);
+    // 2) Euclidean Cluster Extraction
+    pcl::search::KdTree<pcl::PointXYZI>::Ptr tree(new pcl::search::KdTree<pcl::PointXYZI>);
+    tree->setInputCloud(filt_i);
+    std::vector<pcl::PointIndices> cluster_indices;
+    pcl::EuclideanClusterExtraction<pcl::PointXYZI> ec;
+    ec.setClusterTolerance(eps_);
+    ec.setMinClusterSize(cp_min_);
+    ec.setMaxClusterSize(cp_max_);
+    ec.setSearchMethod(tree);
+    ec.setInputCloud(filt_i);
+    ec.extract(cluster_indices);
 
-    // 3) Compute cluster centers & markers
-    std::vector<std::pair<double, double>> centers;
+    // 3) Compute cluster center & radius
+    std::vector<ClusterInfo> clusters;
     visualization_msgs::msg::MarkerArray cm;
-    std::vector<double> sx(ncl, 0), sy(ncl, 0);
-    std::vector<int> cnt(ncl, 0);
-    for (size_t i = 0; i < pts.size(); ++i) {
-      int cid = pts[i].cluster_id;
-      if (cid < 0) continue;
-      sx[cid] += pts[i].x;
-      sy[cid] += pts[i].y;
-      cnt[cid]++;
-    }
-    for (int cid = 0; cid < ncl; ++cid) {
-      if (cnt[cid] < cp_min_ || cnt[cid] > cp_max_) continue;
-      double cx = sx[cid] / cnt[cid];
-      double cy = sy[cid] / cnt[cid];
-      centers.emplace_back(cx, cy);
+    for (size_t cid = 0; cid < cluster_indices.size(); ++cid) {
+      const auto &indices = cluster_indices[cid];
+      double sx = 0.0, sy = 0.0;
+      for (auto idx : indices.indices) {
+        const auto &pt = filt_i->points[idx]; sx += pt.x; sy += pt.y;
+      }
+      double cx = sx / indices.indices.size();
+      double cy = sy / indices.indices.size();
+      double max_r = 0.0;
+      for (auto idx : indices.indices) {
+        const auto &pt = filt_i->points[idx];
+        double dx = pt.x - cx, dy = pt.y - cy;
+        max_r = std::max(max_r, std::hypot(dx, dy));
+      }
+      clusters.push_back({cx, cy, max_r});
+
+      // visualize center
       visualization_msgs::msg::Marker m;
-      init_center_marker(m, cx, cy, cid);
       m.header = msg->header;
+      m.ns = "center";
+      m.id = cid;
+      m.type = visualization_msgs::msg::Marker::SPHERE;
+      m.action = visualization_msgs::msg::Marker::ADD;
+      m.pose.position.x = cx;
+      m.pose.position.y = cy;
+      m.pose.position.z = 0.0;
+      m.scale.x = 0.2;
+      m.scale.y = 0.2;
+      m.scale.z = 0.2;
+      m.color.r = 1.0;
+      m.color.g = 0.0;
+      m.color.b = 0.0;
       m.color.a = 1.0;
       cm.markers.push_back(m);
     }
     pub_center_markers_->publish(cm);
-    if (centers.size() < 2) return;
+    if (clusters.size() < 2) return;
 
-    // 4) K-NN chaining: find two seeds with smallest x
+    // 4) K-NN chaining to select seeds by smallest x
     int s1 = 0, s2 = 1;
-    if (centers[s2].first < centers[s1].first) std::swap(s1, s2);
-    for (size_t i = 2; i < centers.size(); ++i) {
-      if (centers[i].first < centers[s1].first) {
-        s2 = s1;
-        s1 = i;
-      } else if (centers[i].first < centers[s2].first) {
-        s2 = i;
-      }
+    if (clusters[1].x < clusters[0].x) std::swap(s1, s2);
+    for (size_t i = 2; i < clusters.size(); ++i) {
+      if (clusters[i].x < clusters[s1].x) { s2 = s1; s1 = i; }
+      else if (clusters[i].x < clusters[s2].x) { s2 = i; }
     }
-    auto build_chain = [&](int seed)->std::vector<Eigen::Vector2f> {
-      std::vector<bool> used(centers.size(), false);
-      std::vector<Eigen::Vector2f> chain;
-      int cur = seed;
-      chain.emplace_back(centers[cur].first, centers[cur].second);
-      used[cur] = true;
+    auto build_chain = [&](int seed){
+      std::vector<bool> used(clusters.size(), false);
+      std::vector<ClusterInfo> chain;
+      int cur = seed; used[cur] = true;
+      chain.push_back(clusters[cur]);
       while (true) {
-        double best_d = DBL_MAX;
-        int next = -1;
-        for (size_t j = 0; j < centers.size(); ++j) {
+        double best_d = DBL_MAX; int next = -1;
+        for (size_t j = 0; j < clusters.size(); ++j) {
           if (used[j]) continue;
-          double dx = centers[j].first - centers[cur].first;
+          double dx = clusters[j].x - clusters[cur].x;
           if (dx <= 0) continue;
-          double d = std::hypot(dx, centers[j].second - centers[cur].second);
+          double d = std::hypot(dx, clusters[j].y - clusters[cur].y);
           if (d < best_d) { best_d = d; next = j; }
         }
         if (next < 0) break;
-        used[next] = true;
-        cur = next;
-        chain.emplace_back(centers[cur].first, centers[cur].second);
+        used[next] = true; cur = next; chain.push_back(clusters[cur]);
       }
       return chain;
     };
@@ -213,19 +191,34 @@ private:
     size_t num = std::min(chain1.size(), chain2.size());
     if (num < 2) return;
 
-    // 5) Build path midpoints, prepend origin
+    // 5) Build path midpoints with radius offset and hyperparameters
     nav_msgs::msg::Path path;
     path.header = msg->header;
-    // start at vehicle origin
     geometry_msgs::msg::PoseStamped origin;
     origin.header = path.header;
     origin.pose.position.x = 0.0;
     origin.pose.position.y = 0.0;
     origin.pose.orientation.w = 1.0;
     path.poses.push_back(origin);
-    // midpoints
     for (size_t i = 0; i < num; ++i) {
-      Eigen::Vector2f mid = 0.5f * (chain1[i] + chain2[i]);
+      auto &L = chain1[i], &R = chain2[i];
+      Eigen::Vector2f pL(L.x, L.y), pR(R.x, R.y);
+      Eigen::Vector2f dir = (pR - pL).normalized();
+      double rL = L.radius, rR = R.radius;
+      // Compute base midpoint
+      Eigen::Vector2f base_mid = 0.5f * (pL + pR);
+      // Hyperparameterized offset
+      double raw_offset = (rL - rR) * 0.5;                          // half difference
+      double offset = raw_offset * offset_gain_;                     // apply gain
+      offset = std::clamp(offset, -offset_limit_, offset_limit_);    // clamp to limit
+      /*
+        - offset_gain_ > 1.0 : increases push away from larger cluster
+        - offset_gain_ < 1.0 : decreases push, closer to pure midpoint
+        - offset_limit_ smaller : restricts maximum shift
+        - offset_limit_ larger  : allows larger safe offset
+      */
+      Eigen::Vector2f mid = base_mid + dir * float(offset);
+
       geometry_msgs::msg::PoseStamped ps;
       ps.header = path.header;
       ps.pose.position.x = mid.x();
@@ -237,9 +230,9 @@ private:
 
     // 6) Steering angle based on first two points
     if (path.poses.size() >= 2) {
-      auto &p0 = path.poses[0].pose.position;
-      auto &p1p = path.poses[1].pose.position;
-      double ang = std::atan2(p1p.y - p0.y, p1p.x - p0.x);
+      const auto &p0 = path.poses[0].pose.position;
+      const auto &p1 = path.poses[1].pose.position;
+      double ang = std::atan2(p1.y - p0.y, p1.x - p0.x);
       double deg = ang * 180.0 / M_PI;
       double st = std::clamp(90.0 - deg, 67.5, 112.5);
       std_msgs::msg::Float64 a; a.data = st;
