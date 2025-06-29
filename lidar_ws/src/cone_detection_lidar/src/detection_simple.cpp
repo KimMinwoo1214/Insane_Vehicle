@@ -89,7 +89,7 @@ public:
   {
     // 파라미터 선언
     declare_parameter<std::string>("cloud_in_topic", "/points");
-    declare_parameter<double>("eps", 0.3);
+    declare_parameter<double>("eps", 0.5);
     declare_parameter<int>("cluster_points_min", 2);
     declare_parameter<int>("cluster_points_max", 50);
     declare_parameter<float>("minX", -80.0f);
@@ -168,36 +168,46 @@ private:
       }
     }
 
-    // 원본 포인트 및 마커 퍼블리시
+    // 퍼블리시: 클러스터링 포인트와 마커
     sensor_msgs::msg::PointCloud2 out_pc;
     pcl::toROSMsg(*filt, out_pc);
     out_pc.header = msg->header;
     pub_lidar_->publish(out_pc);
     pub_marker_->publish(marr);
 
-    // 간단 경로: y<0, y>0 가장 가까운 점 중점 및 원점 연결
+    // --- 여기부터 수정된 부분: y 양/음 그룹에서 x 최소값으로 선택 ---
     std::pair<double,double> neg_pt, pos_pt;
     bool has_neg = false, has_pos = false;
-    double min_dn = std::numeric_limits<double>::max();
-    double min_dp = std::numeric_limits<double>::max();
+    double min_x_neg = std::numeric_limits<double>::max();
+    double min_x_pos = std::numeric_limits<double>::max();
+
     for (auto &pt : centers) {
       double x = pt.first;
       double y = pt.second;
-      double d = std::hypot(x, y);
-      if (y < 0.0 && d < min_dn) { min_dn = d; neg_pt = pt; has_neg = true; }
-      if (y > 0.0 && d < min_dp) { min_dp = d; pos_pt = pt; has_pos = true; }
+      // y < 0 그룹에서 x 최소
+      if (y < 0.0 && x < min_x_neg) {
+        min_x_neg = x;
+        neg_pt     = pt;
+        has_neg    = true;
+      }
+      // y > 0 그룹에서 x 최소
+      if (y > 0.0 && x < min_x_pos) {
+        min_x_pos = x;
+        pos_pt     = pt;
+        has_pos    = true;
+      }
     }
 
     if (has_neg && has_pos) {
       double cx2 = 0.5 * (neg_pt.first + pos_pt.first);
       double cy2 = 0.5 * (neg_pt.second + pos_pt.second);
 
-      // Path 생성
+      // 경로(Path) 생성
       nav_msgs::msg::Path simple_path;
       simple_path.header.frame_id = msg->header.frame_id;
-      simple_path.header.stamp = now();
+      simple_path.header.stamp    = now();
 
-      // 원점
+      // 시작 원점
       geometry_msgs::msg::PoseStamped ps0;
       ps0.header = simple_path.header;
       ps0.pose.position.x = 0.0;
@@ -205,7 +215,7 @@ private:
       ps0.pose.orientation.w = 1.0;
       simple_path.poses.push_back(ps0);
 
-      // 중점
+      // 선택된 중간점
       geometry_msgs::msg::PoseStamped ps1;
       ps1.header = simple_path.header;
       ps1.pose.position.x = cx2;
@@ -215,33 +225,33 @@ private:
 
       pub_simple_path_->publish(simple_path);
 
-      // 스티어링 앵글 계산 (중심 = 90도)
+      // 스티어링 앵글 계산
       double angle_rad = std::atan2(cy2, cx2);
       double angle_deg = angle_rad * 180.0 / M_PI;
       double steering = 90.0 - angle_deg;
-      // 허용 범위로 클램프
       steering = std::clamp(steering, 67.5, 112.5);
 
       std_msgs::msg::Float64 ang;
       ang.data = steering;
       pub_angle_->publish(ang);
+
     } else {
       RCLCPP_WARN(get_logger(), "유효한 간단 경로를 생성할 수 없습니다.");
     }
   }
 
-  // 퍼블리셔 및 서브스크립션
-  rclcpp::Publisher<sensor_msgs::msg::PointCloud2>::SharedPtr pub_lidar_;
+  // 퍼블리셔·서브스크립션 멤버
+  rclcpp::Publisher<sensor_msgs::msg::PointCloud2>::SharedPtr    pub_lidar_;
   rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr pub_marker_;
-  rclcpp::Publisher<nav_msgs::msg::Path>::SharedPtr pub_simple_path_;
-  rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr pub_angle_;
+  rclcpp::Publisher<nav_msgs::msg::Path>::SharedPtr              pub_simple_path_;
+  rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr           pub_angle_;
   rclcpp::Subscription<sensor_msgs::msg::PointCloud2>::SharedPtr sub_lidar_;
 
   // 파라미터
   std::string cloud_in_topic_;
   double eps_;
-  int cp_min_, cp_max_;
-  float minX_, maxX_, minY_, maxY_, minZ_, maxZ_;
+  int    cp_min_, cp_max_;
+  float  minX_, maxX_, minY_, maxY_, minZ_, maxZ_;
 };
 
 int main(int argc, char *argv[]) {
