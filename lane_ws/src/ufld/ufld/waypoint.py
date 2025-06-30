@@ -1,185 +1,332 @@
-import cv2
-import numpy as np
-import tensorrt as trt
-import pycuda.driver as cuda
-import pycuda.autoinit
-import torch
-import argparse
-import os
 import sys
-import datetime
-import rclpy
-from rclpy.node import Node
-from sensor_msgs.msg import Image
-from cv_bridge import CvBridge
-from std_msgs.msg import String  # Or appropriate message type for lane_info_pub
-
-sys.path.append(os.path.join(os.path.dirname(__file__), "../"))
-from utils.config import Config
-
-class UFLDv2(Node):
-    def __init__(self, engine_path, config_path, ori_size):
-        super().__init__('ufldv2_node')  # Initialize ROS Node
-
-        # Initialize CvBridge and publisher
-        self.bridge = CvBridge()
-        self.lane_info_pub = self.create_publisher(String, 'lane_info', 10)
-        self.create_subscription(Image, "/video_frames", self.image_callback, 10)
-
-        
-        self.logger = trt.Logger(trt.Logger.ERROR)
-        with open(engine_path, "rb") as f, trt.Runtime(self.logger) as runtime:
-            self.engine = runtime.deserialize_cuda_engine(f.read())
-        self.trt_context = self.engine.create_execution_context()
-
-        self.inputs = []
-        self.outputs = []
-        self.allocations = []
-        for i in range(self.engine.num_io_tensors):
-            is_input = self.engine.get_tensor_mode(self.engine.get_tensor_name(i)) == trt.TensorIOMode.INPUT
-            name = self.engine.get_tensor_name(i)
-            dtype = self.engine.get_tensor_dtype(name)
-            shape = self.engine.get_tensor_shape(name)
-            if is_input:
-                self.batch_size = shape[0]
-            size = np.dtype(trt.nptype(dtype)).itemsize
-            for s in shape:
-                size *= s
-            allocation = cuda.mem_alloc(size)
-            binding = {
-                'index': i,
-                'name': name,
-                'dtype': np.dtype(trt.nptype(dtype)),
-                'shape': list(shape),
-                'allocation': allocation,
-            }
-            self.allocations.append(allocation)
-            if is_input:
-                self.inputs.append(binding)
-            else:
-                self.outputs.append(binding)
-
-        cfg = Config.fromfile(config_path)
-        self.ori_img_w, self.ori_img_h = ori_size
-        self.cut_height = int(cfg.train_height * (1 - cfg.crop_ratio))
-        self.input_width = cfg.train_width
-        self.input_height = cfg.train_height
-        self.num_row = cfg.num_row
-        self.num_col = cfg.num_col
-        self.row_anchor = np.linspace(0.42, 1, self.num_row)
-        self.col_anchor = np.linspace(0, 1, self.num_col)
-
-    def image_callback(self, msg):
-        """ 카메라 이미지 수신 후 lane detection 처리 """
-        self.get_logger().info('Receiving video frame')
-
-        try:
-            # ROS Image 메시지를 OpenCV 이미지로 변환 (BGR 형식)
-            current_frame = self.bridge.imgmsg_to_cv2(msg, desired_encoding='bgr8')
-            current_frame = cv2.resize(current_frame, (1600, 800))
-
-            # Convert to HSV color space
-            hsv = cv2.cvtColor(current_frame, cv2.COLOR_BGR2HSV)
-
-            # Define color ranges for white and yellow
-
-            # current_frame = cv2.GaussianBlur(current_frame, (5, 5), 0)
-            # 수신 프레임 저장
-            self.img_bgr = current_frame.copy()
-
-            # Forward pass through the network
-            self.forward(current_frame)
-
-        except Exception as e:
-            self.get_logger().error(f'Error processing image: {str(e)}')
-
-    def pred2coords(self, pred):
-        batch_size, num_grid_row, num_cls_row, num_lane_row = pred['loc_row'].shape
-        batch_size, num_grid_col, num_cls_col, num_lane_col = pred['loc_col'].shape
-
-        max_indices_row = pred['loc_row'].argmax(1)
-        # n , num_cls, num_lanes
-        valid_row = pred['exist_row'].argmax(1)
-        # n, num_cls, num_lanes
-
-        max_indices_col = pred['loc_col'].argmax(1)
-        # n , num_cls, num_lanes
-        valid_col = pred['exist_col'].argmax(1)
-        # n, num_cls, num_lanes
-
-        pred['loc_row'] = pred['loc_row']
-        pred['loc_col'] = pred['loc_col']
-
-        coords = []
+import os
+import shutil
+import json
+from PyQt5.QtWidgets import (
+    QApplication, QWidget, QLabel, QPushButton, QFileDialog,
+    QVBoxLayout, QHBoxLayout, QListWidget, QMessageBox, QCheckBox,
+    QTextEdit, QDialog, QColorDialog, QDialogButtonBox
+)
+from PyQt5.QtGui import QPixmap, QPainter, QPen, QColor
+from PyQt5.QtCore import Qt, QPointF
+import random
 
 
-        row_lane_idx = [3, 4, 5, 6]
-        col_lane_idx = [2, 7]
+COLORS = [Qt.red, Qt.blue, Qt.green, Qt.cyan, Qt.yellow]
 
-        for i in row_lane_idx:
-            tmp = []
-            if valid_row[0, :, i].sum() > num_cls_row / 2:
-                for k in range(valid_row.shape[1]):
-                    if valid_row[0, k, i]:
-                        all_ind = torch.tensor(list(range(max(0, max_indices_row[0, k, i] - self.input_width),
-                                                          min(num_grid_row - 1,
-                                                              max_indices_row[0, k, i] + self.input_width) + 1)))
+class SettingsDialog(QDialog):
+    def __init__(self, parent):
+        super().__init__(parent)
+        self.setWindowTitle("설정")
+        self.resize(300, 200)
+        layout = QVBoxLayout()
+        self.auto_delete_checkbox = QCheckBox("다음 시 자동 저장 및 원본 삭제")
+        layout.addWidget(self.auto_delete_checkbox)
+        self.color_buttons = []
+        for i in range(2):
+            btn = QPushButton(f"차선 {i+1} 색상 변경")
+            btn.clicked.connect(lambda _, idx=i: self.change_color(idx))
+            layout.addWidget(btn)
+            self.color_buttons.append(btn)
+        self.buttons = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
+        self.buttons.accepted.connect(self.accept)
+        self.buttons.rejected.connect(self.reject)
+        layout.addWidget(self.buttons)
+        self.setLayout(layout)
 
-                        out_tmp = (pred['loc_row'][0, all_ind, k, i].softmax(0) * all_ind.float()).sum() + 0.5
-                        out_tmp = out_tmp / (num_grid_row - 1) * self.ori_img_w
-                        tmp.append((int(out_tmp), int(self.row_anchor[k] * self.ori_img_h)))
-                coords.append(tmp)
+    def change_color(self, idx):
+        color = QColorDialog.getColor()
+        if color.isValid():
+            COLORS[idx] = color
 
-        for i in col_lane_idx:
-            tmp = []
-            if valid_col[0, :, i].sum() > num_cls_col / 4:
-                for k in range(valid_col.shape[1]):
-                    if valid_col[0, k, i]:
-                        all_ind = torch.tensor(list(range(max(0, max_indices_col[0, k, i] - self.input_width),
-                                                          min(num_grid_col - 1,
-                                                              max_indices_col[0, k, i] + self.input_width) + 1)))
-                        out_tmp = (pred['loc_col'][0, all_ind, k, i].softmax(0) * all_ind.float()).sum() + 0.5
-                        out_tmp = out_tmp / (num_grid_col - 1) * self.ori_img_h
-                        tmp.append((int(self.col_anchor[k] * self.ori_img_w), int(out_tmp)))
-                coords.append(tmp)
-        return coords
+class LabelTool(QWidget):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("CurveLane Labeling Tool")
+        self.resize(1200, 800)
 
-    def forward(self, img):
-        im0 = img.copy()
-        img = img[self.cut_height:, :, :]
-        img = cv2.resize(img, (self.input_width, self.input_height), cv2.INTER_CUBIC)
-        img = img.astype(np.float16) / 255.0
-        img = np.transpose(np.float16(img[:, :, :, np.newaxis]), (3, 2, 0, 1))
-        img = np.ascontiguousarray(img)
-        cuda.memcpy_htod(self.inputs[0]['allocation'], img)
-        self.trt_context.execute_v2(self.allocations)
-        preds = {}
-        for out in self.outputs:
-            output = np.zeros(out['shape'], out['dtype'])
-            cuda.memcpy_dtoh(output, out['allocation'])
-            preds[out['name']] = torch.tensor(output)
-        coords = self.pred2coords(preds)
-        for lane in coords:
-            for coord in lane:
-                cv2.circle(im0, coord, 2, (0, 255, 0), -1)
-        cv2.imshow("result", im0)
-        cv2.waitKey(1)
+        self.image_paths = []
+        self.current_index = 0
+        self.lanes = [[]]
+        self.current_lane_idx = 0
+        self.undo_stack = [[]]
+        self.redo_stack = [[]]
+        self.auto_track_enabled = False
+        self.last_auto_point = None
+        self.auto_delete = False
 
-def main():
-    config_path = '/home/parkm04/Desktop/Ultra-Fast-Lane-Detection-v2/configs/curvelanes_res18.py'
-    engine_path = '/home/parkm04/Desktop/Ultra-Fast-Lane-Detection-v2/0629lane.engine'
-    ori_size = (1600, 800)
-    
-    try:
-        rclpy.init()
-        detector = UFLDv2(engine_path, config_path, ori_size)
-        rclpy.spin(detector)
-    except KeyboardInterrupt:
-        pass
-    finally:
-        if 'detector' in locals():
-            detector.destroy_node()
-        rclpy.shutdown()
+        self.saved_dir = "Processed"
+        os.makedirs(self.saved_dir, exist_ok=True)
+        self.init_ui()
 
-if __name__ == '__main__':
-    main()
+    def init_ui(self):
+        main_layout = QHBoxLayout()
+        side_layout = QVBoxLayout()
+
+        self.list_widget = QListWidget()
+        side_layout.addWidget(self.list_widget)
+
+        btn_layout = QHBoxLayout()
+        self.btn_load = QPushButton("폴더 불러오기")
+        self.btn_prev = QPushButton("이전")
+        self.btn_next = QPushButton("다음")
+        self.btn_save = QPushButton("저장")
+        self.btn_reset = QPushButton("초기화")
+        self.btn_switch_lane = QPushButton("다음 차선")
+        self.btn_settings = QPushButton("설정")
+        self.btn_make = QPushButton("데이터셋 제작")
+
+        for btn in [
+            self.btn_load, self.btn_prev, self.btn_next,
+            self.btn_save, self.btn_reset, self.btn_switch_lane,
+            self.btn_settings, self.btn_make
+        ]:
+            btn_layout.addWidget(btn)
+
+        side_layout.addLayout(btn_layout)
+
+        self.log_box = QTextEdit()
+        self.log_box.setReadOnly(True)
+        side_layout.addWidget(self.log_box)
+
+        self.image_label = QLabel()
+        self.image_label.setAlignment(Qt.AlignCenter)
+        self.image_label.setMouseTracking(True)
+        self.setMouseTracking(True)
+
+        main_layout.addLayout(side_layout, 1)
+        main_layout.addWidget(self.image_label, 3)
+
+        self.setLayout(main_layout)
+
+        self.btn_load.clicked.connect(self.load_images)
+        self.btn_prev.clicked.connect(self.show_prev)
+        self.btn_next.clicked.connect(self.show_next)
+        self.btn_save.clicked.connect(self.save_labels)
+        self.btn_reset.clicked.connect(self.reset_points)
+        self.btn_switch_lane.clicked.connect(self.switch_lane)
+        self.btn_settings.clicked.connect(self.show_settings)
+        self.image_label.mousePressEvent = self.image_clicked
+        self.btn_make.clicked.connect(self.make_dataset)
+
+    def make_dataset(self):
+        self.train_dir = "Curvelanes/train/"
+        self.train_img_dir = "Curvelanes/train/images"
+        self.train_label_dir = "Curvelanes/train/labels"
+        self.valid_dir = "Curvelanes/valid/"
+        self.valid_img_dir = "Curvelanes/valid/images"
+        self.valid_label_dir = "Curvelanes/valid/labels"
+        self.test_img_dir = "Curvelanes/test/images"
+        os.makedirs(self.train_img_dir, exist_ok=True)
+        os.makedirs(self.train_label_dir, exist_ok=True)
+        os.makedirs(self.valid_img_dir, exist_ok=True)
+        os.makedirs(self.valid_label_dir, exist_ok=True)
+        os.makedirs(self.test_img_dir, exist_ok=True)
+
+        unsort_list = os.listdir(self.saved_dir)
+        unsort_list = list(filter(lambda f: f.endswith(".lines.json"), unsort_list))
+        new_list = []
+
+        for i in unsort_list:
+            unsort_list.remove(i)
+            new_list.append(i.replace(".lines.json", ""))
+            self.log(i.replace(".lines.json", ""))
+
+        train_count = round(len(new_list)/10*7)
+        valid_count = round(len(new_list)/10*2)
+        random.shuffle(new_list)
+        train_set = new_list[:train_count]
+        valid_set = new_list[train_count:train_count + valid_count]
+        test_set = new_list[train_count + valid_count:]
+        with open(f"{self.train_dir}train.txt", "w") as f:
+            for i in train_set:
+                shutil.copy(os.path.join(self.saved_dir, f"{i}.lines.json"), os.path.join(self.train_label_dir, f"{i}.lines.json"))
+                shutil.copy(os.path.join(self.saved_dir, f"{i}.jpg"),os.path.join(self.train_img_dir, f"{i}.jpg"))
+                f.write(f"images/{i}.jpg\n")
+
+        with open(f"{self.valid_dir}valid.txt", "w") as f:
+            for i in valid_set:
+                shutil.copy(os.path.join(self.saved_dir, f"{i}.lines.json"),
+                            os.path.join(self.valid_label_dir, f"{i}.lines.json"))
+                shutil.copy(os.path.join(self.saved_dir, f"{i}.jpg"), os.path.join(self.valid_img_dir, f"{i}.jpg"))
+                f.write(f"images/{i}.jpg\n")
+
+        for i in test_set:
+            shutil.copy(os.path.join(self.saved_dir, f"{i}.jpg"),os.path.join(self.test_img_dir, f"{i}.jpg"))
+
+    def show_settings(self):
+        dialog = SettingsDialog(self)
+        dialog.auto_delete_checkbox.setChecked(self.auto_delete)
+        if dialog.exec_():
+            self.auto_delete = dialog.auto_delete_checkbox.isChecked()
+
+    def log(self, message):
+        self.log_box.append(message)
+
+    def keyPressEvent(self, event):
+        if event.modifiers() == Qt.ControlModifier and event.key() == Qt.Key_Z:
+            self.revert_last_point()
+        elif event.modifiers() == (Qt.ControlModifier | Qt.ShiftModifier) and event.key() == Qt.Key_Z:
+            self.redo_last_point()
+
+
+    def mouseMoveEvent(self, event):
+        if not self.auto_track_enabled or not self.image_paths:
+            return
+        label_size = self.image_label.size()
+        pixmap = QPixmap(self.image_paths[self.current_index])
+        scaled_pixmap = pixmap.scaled(label_size, Qt.KeepAspectRatio, Qt.SmoothTransformation)
+        x_offset = (label_size.width() - scaled_pixmap.width()) // 2
+        y_offset = (label_size.height() - scaled_pixmap.height()) // 2
+        x = event.pos().x() - x_offset
+        y = event.pos().y() - y_offset
+        if 0 <= x < scaled_pixmap.width() and 0 <= y < scaled_pixmap.height():
+            x_ratio = pixmap.width() / scaled_pixmap.width()
+            y_ratio = pixmap.height() / scaled_pixmap.height()
+            real_x = x * x_ratio
+            real_y = y * y_ratio
+            point = QPointF(real_x, real_y)
+            last = self.last_auto_point
+            if last is None or ((point.x() - last.x())**2 + (point.y() - last.y())**2)**0.5 > 10:
+                self.lanes[self.current_lane_idx].append(point)
+                self.undo_stack[self.current_lane_idx].append(point)
+                self.redo_stack[self.current_lane_idx].clear()
+                self.last_auto_point = point
+                self.show_image()
+
+    def load_images(self):
+        folder = QFileDialog.getExistingDirectory(self, "이미지 폴더 선택")
+        if folder:
+            self.image_paths = [
+                os.path.join(folder, f)
+                for f in sorted(os.listdir(folder))
+                if f.lower().endswith(('.jpg', '.png', '.jpeg'))
+            ]
+            if not self.image_paths:
+                QMessageBox.warning(self, "경고", "이미지가 없습니다.")
+                return
+            self.current_index = 0
+            self.reset_all()
+            self.show_image()
+
+    def reset_all(self):
+        self.lanes = [[]]
+        self.undo_stack = [[]]
+        self.redo_stack = [[]]
+        self.current_lane_idx = 0
+        self.last_auto_point = None
+
+    def show_image(self):
+        if not self.image_paths:
+            return
+        path = self.image_paths[self.current_index]
+        original_pixmap = QPixmap(path)
+        pixmap = QPixmap(original_pixmap)
+        painter = QPainter(pixmap)
+        for lane_idx, lane in enumerate(self.lanes):
+            pen = QPen(COLORS[lane_idx % len(COLORS)], 10)
+            painter.setPen(pen)
+            for point in lane:
+                painter.drawPoint(int(point.x()), int(point.y()))
+        painter.end()
+        self.image_label.setPixmap(pixmap.scaled(
+            self.image_label.size(), Qt.KeepAspectRatio, Qt.SmoothTransformation))
+        self.list_widget.clear()
+        for i, point in enumerate(self.lanes[self.current_lane_idx]):
+            self.list_widget.addItem(f"[{self.current_lane_idx}] {i+1}: {point.x():.1f}, {point.y():.1f}")
+
+    def show_prev(self):
+        if self.current_index > 0:
+            self.current_index -= 1
+            self.reset_all()
+            self.show_image()
+
+    def show_next(self):
+        if self.auto_delete:
+            self.save_labels()
+            image_path = self.image_paths[self.current_index]
+            if os.path.exists(image_path):
+                os.remove(image_path)
+        if self.current_index < len(self.image_paths) - 1:
+            self.current_index += 1
+            self.reset_all()
+            self.show_image()
+
+    def image_clicked(self, event):
+        if not self.image_paths:
+            return
+        label_size = self.image_label.size()
+        pixmap = QPixmap(self.image_paths[self.current_index])
+        scaled_pixmap = pixmap.scaled(label_size, Qt.KeepAspectRatio, Qt.SmoothTransformation)
+        x_offset = (label_size.width() - scaled_pixmap.width()) // 2
+        y_offset = (label_size.height() - scaled_pixmap.height()) // 2
+        x = event.pos().x() - x_offset
+        y = event.pos().y() - y_offset
+        if 0 <= x < scaled_pixmap.width() and 0 <= y < scaled_pixmap.height():
+            x_ratio = pixmap.width() / scaled_pixmap.width()
+            y_ratio = pixmap.height() / scaled_pixmap.height()
+            real_x = x * x_ratio
+            real_y = y * y_ratio
+            point = QPointF(real_x, real_y)
+            self.lanes[self.current_lane_idx].append(point)
+            self.undo_stack[self.current_lane_idx].append(point)
+            self.redo_stack[self.current_lane_idx].clear()
+            self.show_image()
+
+    def switch_lane(self):
+        self.current_lane_idx += 1
+        while len(self.lanes) <= self.current_lane_idx:
+            self.lanes.append([])
+            self.undo_stack.append([])
+            self.redo_stack.append([])
+        self.last_auto_point = None
+        self.show_image()
+
+    def reset_points(self):
+        self.reset_all()
+        self.show_image()
+
+    def revert_last_point(self):
+        if self.lanes and self.lanes[self.current_lane_idx]:
+            point = self.lanes[self.current_lane_idx].pop()
+            self.redo_stack[self.current_lane_idx].append(point)
+            self.show_image()
+
+    def redo_last_point(self):
+        if self.redo_stack[self.current_lane_idx]:
+            point = self.redo_stack[self.current_lane_idx].pop()
+            self.lanes[self.current_lane_idx].append(point)
+            self.show_image()
+
+    def save_labels(self):
+        if not self.image_paths:
+            return
+        image_path = self.image_paths[self.current_index]
+        filename = os.path.basename(image_path)
+        shutil.copy(image_path, os.path.join(self.saved_dir, filename))
+        json_path = os.path.join(self.saved_dir, filename.rsplit('.', 1)[0] + "lines.json")
+        label_data = {
+            "Lines": [
+                [{"x": f"{p.x():.1f}", "y": f"{p.y():.1f}"} for p in lane]
+                for lane in self.lanes if lane
+            ]
+        }
+        with open(json_path, "w") as f:
+            json.dump(label_data, f, indent=4)
+        original_pixmap = QPixmap(image_path)
+        pixmap = QPixmap(original_pixmap)
+        painter = QPainter(pixmap)
+        for lane_idx, lane in enumerate(self.lanes):
+            pen = QPen(COLORS[lane_idx % len(COLORS)], 10)
+            painter.setPen(pen)
+            for point in lane:
+                painter.drawPoint(int(point.x()), int(point.y()))
+        painter.end()
+        pixmap.save(os.path.join(self.saved_dir, filename))
+        self.log(f"저장 완료: {filename}")
+
+if __name__ == "__main__":
+    app = QApplication(sys.argv)
+    tool = LabelTool()
+    tool.show()
+    sys.exit(app.exec_())
