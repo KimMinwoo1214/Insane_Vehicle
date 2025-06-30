@@ -128,7 +128,6 @@ class LabelTool(QWidget):
         for i in unsort_list:
             unsort_list.remove(i)
             new_list.append(i.replace(".lines.json", ""))
-            self.log(i.replace(".lines.json", ""))
 
         train_count = round(len(new_list)/10*7)
         valid_count = round(len(new_list)/10*2)
@@ -151,6 +150,7 @@ class LabelTool(QWidget):
 
         for i in test_set:
             shutil.copy(os.path.join(self.saved_dir, f"{i}.jpg"),os.path.join(self.test_img_dir, f"{i}.jpg"))
+        self.log(f"train set: {train_count}개 vaild set: {valid_count}개 test set: {len(new_list)-train_count-valid_count}개 분배완료")
 
     def show_settings(self):
         dialog = SettingsDialog(self)
@@ -239,7 +239,6 @@ class LabelTool(QWidget):
             self.current_index -= 1
             self.reset_all()
             self.show_image()
-        self.setWindowTitle(f"{os.path.basename(self.image_paths[self.current_index])}")
 
     def show_next(self):
         if self.auto_delete:
