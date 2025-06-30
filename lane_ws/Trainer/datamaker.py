@@ -9,6 +9,8 @@ from PyQt5.QtWidgets import (
 )
 from PyQt5.QtGui import QPixmap, QPainter, QPen, QColor
 from PyQt5.QtCore import Qt, QPointF
+import random
+
 
 COLORS = [Qt.red, Qt.blue, Qt.green, Qt.cyan, Qt.yellow]
 
@@ -53,13 +55,8 @@ class LabelTool(QWidget):
         self.last_auto_point = None
         self.auto_delete = False
 
-        self.annotated_dir = "annotated_images"
-        self.label_dir = "labels"
-        self.image_dir = "images"
-        os.makedirs(self.annotated_dir, exist_ok=True)
-        os.makedirs(self.label_dir, exist_ok=True)
-        os.makedirs(self.image_dir, exist_ok=True)
-
+        self.saved_dir = "Processed"
+        os.makedirs(self.saved_dir, exist_ok=True)
         self.init_ui()
 
     def init_ui(self):
@@ -76,14 +73,13 @@ class LabelTool(QWidget):
         self.btn_save = QPushButton("저장")
         self.btn_reset = QPushButton("초기화")
         self.btn_switch_lane = QPushButton("다음 차선")
-        self.btn_revert = QPushButton("되돌리기 (Undo)")
-        self.btn_redo = QPushButton("다시 실행 (Redo)")
         self.btn_settings = QPushButton("설정")
+        self.btn_make = QPushButton("데이터셋 제작")
 
         for btn in [
             self.btn_load, self.btn_prev, self.btn_next,
             self.btn_save, self.btn_reset, self.btn_switch_lane,
-            self.btn_revert, self.btn_redo, self.btn_settings
+            self.btn_settings, self.btn_make
         ]:
             btn_layout.addWidget(btn)
 
@@ -109,10 +105,54 @@ class LabelTool(QWidget):
         self.btn_save.clicked.connect(self.save_labels)
         self.btn_reset.clicked.connect(self.reset_points)
         self.btn_switch_lane.clicked.connect(self.switch_lane)
-        self.btn_revert.clicked.connect(self.revert_last_point)
-        self.btn_redo.clicked.connect(self.redo_last_point)
         self.btn_settings.clicked.connect(self.show_settings)
         self.image_label.mousePressEvent = self.image_clicked
+        self.btn_make.clicked.connect(self.make_dataset)
+
+    def make_dataset(self):
+        self.train_dir = "Curvelanes/train/"
+        self.train_img_dir = "Curvelanes/train/images"
+        self.train_label_dir = "Curvelanes/train/labels"
+        self.valid_dir = "Curvelanes/valid/"
+        self.valid_img_dir = "Curvelanes/valid/images"
+        self.valid_label_dir = "Curvelanes/valid/labels"
+        self.test_img_dir = "Curvelanes/test/images"
+        os.makedirs(self.train_img_dir, exist_ok=True)
+        os.makedirs(self.train_label_dir, exist_ok=True)
+        os.makedirs(self.valid_img_dir, exist_ok=True)
+        os.makedirs(self.valid_label_dir, exist_ok=True)
+        os.makedirs(self.test_img_dir, exist_ok=True)
+
+        unsort_list = os.listdir(self.saved_dir)
+        unsort_list = list(filter(lambda f: f.endswith(".lines.json"), unsort_list))
+        new_list = []
+
+        for i in unsort_list:
+            unsort_list.remove(i)
+            new_list.append(i.replace(".lines.json", ""))
+            self.log(i.replace(".lines.json", ""))
+
+        train_count = round(len(new_list)/10*7)
+        valid_count = round(len(new_list)/10*2)
+        random.shuffle(new_list)
+        train_set = new_list[:train_count]
+        valid_set = new_list[train_count:train_count + valid_count]
+        test_set = new_list[train_count + valid_count:]
+        with open(f"{self.train_dir}train.txt", "w") as f:
+            for i in train_set:
+                shutil.copy(os.path.join(self.saved_dir, f"{i}.lines.json"), os.path.join(self.train_label_dir, f"{i}.lines.json"))
+                shutil.copy(os.path.join(self.saved_dir, f"{i}.jpg"),os.path.join(self.train_img_dir, f"{i}.jpg"))
+                f.write(f"images/{i}.jpg\n")
+
+        with open(f"{self.valid_dir}valid.txt", "w") as f:
+            for i in valid_set:
+                shutil.copy(os.path.join(self.saved_dir, f"{i}.lines.json"),
+                            os.path.join(self.valid_label_dir, f"{i}.lines.json"))
+                shutil.copy(os.path.join(self.saved_dir, f"{i}.jpg"), os.path.join(self.valid_img_dir, f"{i}.jpg"))
+                f.write(f"images/{i}.jpg\n")
+
+        for i in test_set:
+            shutil.copy(os.path.join(self.saved_dir, f"{i}.jpg"),os.path.join(self.test_img_dir, f"{i}.jpg"))
 
     def show_settings(self):
         dialog = SettingsDialog(self)
@@ -263,8 +303,8 @@ class LabelTool(QWidget):
             return
         image_path = self.image_paths[self.current_index]
         filename = os.path.basename(image_path)
-        shutil.copy(image_path, os.path.join(self.image_dir, filename))
-        json_path = os.path.join(self.label_dir, filename.rsplit('.', 1)[0] + "lines.json")
+        shutil.copy(image_path, os.path.join(self.saved_dir, filename))
+        json_path = os.path.join(self.saved_dir, filename.rsplit('.', 1)[0] + "lines.json")
         label_data = {
             "Lines": [
                 [{"x": f"{p.x():.1f}", "y": f"{p.y():.1f}"} for p in lane]
@@ -282,7 +322,7 @@ class LabelTool(QWidget):
             for point in lane:
                 painter.drawPoint(int(point.x()), int(point.y()))
         painter.end()
-        pixmap.save(os.path.join(self.annotated_dir, filename))
+        pixmap.save(os.path.join(self.saved_dir, filename))
         self.log(f"저장 완료: {filename}")
 
 if __name__ == "__main__":
