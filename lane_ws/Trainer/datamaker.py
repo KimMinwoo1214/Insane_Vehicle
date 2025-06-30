@@ -239,6 +239,7 @@ class LabelTool(QWidget):
             self.current_index -= 1
             self.reset_all()
             self.show_image()
+        self.setWindowTitle(f"{os.path.basename(self.image_paths[self.current_index])}")
 
     def show_next(self):
         if self.auto_delete:
