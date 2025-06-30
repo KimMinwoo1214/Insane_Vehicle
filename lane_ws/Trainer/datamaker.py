@@ -42,8 +42,7 @@ class SettingsDialog(QDialog):
 class LabelTool(QWidget):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("CurveLane Labeling Tool")
-        self.resize(1200, 800)
+        self.setWindowTitle("Dataset Maker")
 
         self.image_paths = []
         self.current_index = 0
@@ -65,7 +64,6 @@ class LabelTool(QWidget):
 
         self.list_widget = QListWidget()
         side_layout.addWidget(self.list_widget)
-
         btn_layout = QHBoxLayout()
         self.btn_load = QPushButton("폴더 불러오기")
         self.btn_prev = QPushButton("이전")
@@ -208,6 +206,7 @@ class LabelTool(QWidget):
             self.current_index = 0
             self.reset_all()
             self.show_image()
+            self.setWindowTitle(f"{os.path.basename(self.image_paths[self.current_index])}")
 
     def reset_all(self):
         self.lanes = [[]]
@@ -251,6 +250,7 @@ class LabelTool(QWidget):
             self.current_index += 1
             self.reset_all()
             self.show_image()
+        self.setWindowTitle(f"{os.path.basename(self.image_paths[self.current_index])}")
 
     def image_clicked(self, event):
         if not self.image_paths:
