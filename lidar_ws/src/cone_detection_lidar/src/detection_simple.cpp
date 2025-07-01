@@ -67,7 +67,7 @@ public:
     pub_clustered_ = create_publisher<sensor_msgs::msg::PointCloud2>("clustered_points", 10);
     pub_centers_   = create_publisher<visualization_msgs::msg::MarkerArray>("center_markers",  10);
     pub_path_      = create_publisher<nav_msgs::msg::Path>("simple_path",       10);
-    pub_angle_     = create_publisher<std_msgs::msg::Float64>("steering_angle",   10);
+    pub_angle_     = create_publisher<std_msgs::msg::Float64>("cone_steering_angle",   10);
 
     sub_lidar_ = create_subscription<sensor_msgs::msg::PointCloud2>(
       cloud_in_topic_, 10,
