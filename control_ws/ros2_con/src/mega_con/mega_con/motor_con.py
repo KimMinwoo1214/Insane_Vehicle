@@ -8,10 +8,10 @@ import serial
 class ArduinoCommander(Node):
     def __init__(self):
         super().__init__('arduino_commander')
-        # teleop_commands 토픽 구독
+        # control_cmd 토픽 구독
         self.subscription = self.create_subscription(
             String,
-            'teleop_commands',
+            'control_cmd',
             self.teleop_callback,
             10
         )
@@ -20,14 +20,14 @@ class ArduinoCommander(Node):
         # 아두이노와의 시리얼 연결 설정
         try:
             self.ser = serial.Serial('/dev/ttyACM0', 9600, timeout=1)
-            self.get_logger().info("아두이노 시리얼 포트 열림: /dev/ttyUSB0")
+            self.get_logger().info("아두이노 시리얼 포트 열림: /dev/ttyACM0")
         except Exception as e:
             self.get_logger().error(f"아두이노 시리얼 연결 실패: {e}")
             self.ser = None
 
-    def teleop_callback(self, msg):
-        # 메시지 예: "steering,throttle" (예 "90,50")
-        command_str = msg.data.strip() + "\n"  # 아두이노에서 줄바꿈을 기준으로 읽음
+    def teleop_callback(self, msg: String):
+        # 메시지 예: "steering,throttle"
+        command_str = msg.data.strip() + "\n"
         self.get_logger().info(f"수신된 명령: {command_str.strip()}")
 
         if self.ser and self.ser.is_open:
@@ -38,6 +38,7 @@ class ArduinoCommander(Node):
                 self.get_logger().error(f"명령 전송 중 오류: {e}")
         else:
             self.get_logger().error("시리얼 포트가 열려있지 않습니다.")
+
 
 def main(args=None):
     rclpy.init(args=args)
@@ -52,4 +53,3 @@ def main(args=None):
 
 if __name__ == '__main__':
     main()
-

@@ -62,7 +62,7 @@ class ControlCmdPublisher(Node):
                 angle = self.lane_angle
         else:
             # 둘 다 없으면 초기값 유지
-            self.publish_command(1350, 340)
+            self.publish_command(1350, 0)
             return
 
         # steering_angle (67.5~112.5) 를 PWM (800~1900) 으로 선형 매핑
@@ -82,7 +82,7 @@ class ControlCmdPublisher(Node):
         if angle < min_angle or angle > max_angle:
             throttle_pwm = 310
         else:
-            throttle_pwm = 340
+            throttle_pwm = 330
 
         self.publish_command(steering_pwm, throttle_pwm)
 
