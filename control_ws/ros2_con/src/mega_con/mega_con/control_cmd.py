@@ -9,13 +9,21 @@ class ControlCmdPublisher(Node):
         super().__init__('control_cmd_publisher')
         # control_cmd 토픽 퍼블리셔 생성
         self.publisher = self.create_publisher(String, 'control_cmd', 10)
-        # steering_angle 토픽 구독
-        self.subscription = self.create_subscription(
+
+        # cone_steering_angle, lane_steering_angle 토픽 구독
+        self.subscription_cone = self.create_subscription(
             Float32,
-            'steering_angle',
+            'cone_steering_angle',
             self.angle_callback,
             10
         )
+        self.subscription_lane = self.create_subscription(
+            Float32,
+            'lane_steering_angle',
+            self.angle_callback,
+            10
+        )
+
         # 초기 명령값 전송
         self.get_logger().info('ControlCmdPublisher 노드 시작, 초기 값 전송 중...')
         self.publish_command(1350, 340)
@@ -34,6 +42,7 @@ class ControlCmdPublisher(Node):
             intercept = min_pwm - slope * min_angle
             steering_pwm = slope * angle + intercept
         steering_pwm = int(round(steering_pwm))
+
         # throttle 고정 (최대값)
         throttle_pwm = 340
         self.publish_command(steering_pwm, throttle_pwm)
