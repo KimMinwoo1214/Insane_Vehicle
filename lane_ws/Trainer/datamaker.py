@@ -304,7 +304,7 @@ class LabelTool(QWidget):
         image_path = self.image_paths[self.current_index]
         filename = os.path.basename(image_path)
         shutil.copy(image_path, os.path.join(self.saved_dir, filename))
-        json_path = os.path.join(self.saved_dir, filename.rsplit('.', 1)[0] + "lines.json")
+        json_path = os.path.join(self.saved_dir, filename.rsplit('.', 1)[0] + ".lines.json")
         label_data = {
             "Lines": [
                 [{"x": f"{p.x():.1f}", "y": f"{p.y():.1f}"} for p in lane]
