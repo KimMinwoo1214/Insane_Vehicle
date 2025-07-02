@@ -27,7 +27,7 @@ public:
     declare_parameter<float>("roi_max_x",  1.5f);
     declare_parameter<float>("roi_min_y", -0.4f);
     declare_parameter<float>("roi_max_y",  0.4f);
-    declare_parameter<double>("min_dist", 0.8);
+    declare_parameter<double>("min_dist", 1.0);
 
     get_parameter("cloud_topic", cloud_topic_);
     get_parameter("emergency_topic", emergency_topic_);
@@ -75,10 +75,10 @@ private:
     pub_emergency_->publish(out);
 
     if (closest < DBL_MAX) {
-      RCLCPP_INFO_THROTTLE(this->get_logger(), *this->get_clock(), 1000,
+      RCLCPP_INFO_THROTTLE(this->get_logger(), *this->get_clock(), 10,
         "Closest: %.2f m  -> Emergency: %d", closest, out.data);
     } else {
-      RCLCPP_INFO_THROTTLE(this->get_logger(), *this->get_clock(), 1000,
+      RCLCPP_INFO_THROTTLE(this->get_logger(), *this->get_clock(), 10,
         "Closest: N/A (no ROI points) -> Emergency: %d", out.data);
     }
   }

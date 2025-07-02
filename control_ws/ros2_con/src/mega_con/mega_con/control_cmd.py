@@ -39,13 +39,11 @@ class ControlCmdPublisher(Node):
 
         # 초기 명령
         self.get_logger().info('ControlCmdPublisher 시작')
-        self.publish_command(self.last_steering_pwm, 380)
+        self.publish_command(self.last_steering_pwm, 350)
 
     def emergency_callback(self, msg: Int32):
         if msg.data == 1:
-            self.emergency_flag = True
-            # 즉시 정지
-            self.publish_command(self.last_steering_pwm, 0)
+            self.emergency_flag = True	
         else:
             self.emergency_flag = False
 
@@ -85,11 +83,11 @@ class ControlCmdPublisher(Node):
         self.last_steering_pwm = sp
 
         # emergency 플래그가 켜져 있으면 throttle=0
-        if self.emergency_flag:
-            tp = 0
+        if self.emergency_flag == 1:
+            tp = 50
         else:
             # 정상 구간: angle 범위 벗어나면 310, 아니면 330
-            tp = 310 if (angle < min_a or angle > max_a) else 330
+            tp = 310 if (angle < min_a or angle > max_a) else 350
 
         self.publish_command(sp, tp)
 
