@@ -22,7 +22,7 @@ class TeleopKeyboard(Node):
     def __init__(self):
         super().__init__('teleop_keyboard')
         # 토픽 이름을 cmd_vel 로 변경
-        self.publisher = self.create_publisher(String, 'cmd_vel', 10)
+        self.publisher = self.create_publisher(String, 'control_cmd', 10)
         self.throttle = 0
         self.steering = CENTER_STEERING
         

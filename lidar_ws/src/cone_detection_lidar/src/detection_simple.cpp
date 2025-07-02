@@ -11,7 +11,7 @@
 #include "rclcpp/rclcpp.hpp"
 #include "sensor_msgs/msg/point_cloud2.hpp"
 #include "visualization_msgs/msg/marker_array.hpp"
-#include "std_msgs/msg/float64.hpp"
+#include "std_msgs/msg/float32.hpp"
 #include "nav_msgs/msg/path.hpp"
 #include "geometry_msgs/msg/pose_stamped.hpp"
 
@@ -44,8 +44,8 @@ public:
     declare_parameter<int>("cluster_points_max", 50000);
     declare_parameter<float>("minX", -80.0f);
     declare_parameter<float>("maxX",  80.0f);
-    declare_parameter<float>("minY", -25.0f);
-    declare_parameter<float>("maxY",  25.0f);
+    declare_parameter<float>("minY", -100.0f);
+    declare_parameter<float>("maxY",  100.0f);
     declare_parameter<float>("minZ", -1.0f);
     declare_parameter<float>("maxZ",  2.0f);
     declare_parameter<double>("gap_threshold", 0.3);
@@ -67,7 +67,7 @@ public:
     pub_clustered_ = create_publisher<sensor_msgs::msg::PointCloud2>("clustered_points", 10);
     pub_centers_   = create_publisher<visualization_msgs::msg::MarkerArray>("center_markers",  10);
     pub_path_      = create_publisher<nav_msgs::msg::Path>("simple_path",       10);
-    pub_angle_     = create_publisher<std_msgs::msg::Float64>("cone_steering_angle",   10);
+    pub_angle_     = create_publisher<std_msgs::msg::Float32>("cone_steering_angle",   10);
 
     sub_lidar_ = create_subscription<sensor_msgs::msg::PointCloud2>(
       cloud_in_topic_, 10,
@@ -85,7 +85,7 @@ private:
   rclcpp::Publisher<sensor_msgs::msg::PointCloud2>::SharedPtr pub_cropped_, pub_clustered_;
   rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr pub_centers_;
   rclcpp::Publisher<nav_msgs::msg::Path>::SharedPtr pub_path_;
-  rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr pub_angle_;
+  rclcpp::Publisher<std_msgs::msg::Float32>::SharedPtr pub_angle_;
 
   void lidar_cb(const sensor_msgs::msg::PointCloud2::ConstSharedPtr &msg) {
     // 1) Crop box and downsample
@@ -211,7 +211,7 @@ private:
       auto &side = (!left.empty() ? left : right);
       // pick two by smallest |y|
       std::sort(side.begin(), side.end(), [](auto &a, auto &b){ return std::abs(a.y()) < std::abs(b.y()); });
-      if (side.size() >= 2) mid = 0.5f * (side[0] + side[1]);
+      if (side.size() >= 3) mid = 0.5f * (side[0] + side[1]);
       else mid = side[0];
     }
     geometry_msgs::msg::PoseStamped ps; ps.header = path.header;
@@ -225,7 +225,7 @@ private:
       auto &p1 = path.poses[1].pose.position;
       double ang = std::atan2(p1.y - p0.y, p1.x - p0.x);
       double deg = ang * 180.0 / M_PI;
-      std_msgs::msg::Float64 a; a.data = std::clamp(90.0 - deg, 67.5, 112.5);
+      std_msgs::msg::Float32 a; a.data = std::clamp(90.0 - deg, 67.5, 112.5);
       pub_angle_->publish(a);
     }
   }

@@ -2,35 +2,52 @@
 
 import rclpy
 from rclpy.node import Node
-from std_msgs.msg import Float32, String
+from std_msgs.msg import Float32, Int32, String
 
 class ControlCmdPublisher(Node):
     def __init__(self):
         super().__init__('control_cmd_publisher')
-        # control_cmd 토픽 퍼블리셔 생성
-        self.publisher = self.create_publisher(String, 'control_cmd', 10)
 
-        # 최근 각도 저장용
+        # 파라미터 선언
+        self.declare_parameter('emergency_topic', '/emergency')
+        self.declare_parameter('cone_angle_topic', 'cone_steering_angle')
+        self.declare_parameter('lane_angle_topic', 'lane_steering_angle')
+        self.declare_parameter('control_cmd_topic', 'control_cmd')
+
+        # 파라미터 취득
+        self.emergency_topic = self.get_parameter('emergency_topic').value
+        cone_topic            = self.get_parameter('cone_angle_topic').value
+        lane_topic            = self.get_parameter('lane_angle_topic').value
+        control_topic         = self.get_parameter('control_cmd_topic').value
+
+        # 퍼블리셔 (control_cmd)
+        self.pub_cmd = self.create_publisher(String, control_topic, 10)
+
+        # 스티어링 값 저장
         self.cone_angle = None
         self.lane_angle = None
+        self.last_steering_pwm = 1400  # 초기 스티어링 값
 
-        # cone_steering_angle, lane_steering_angle 토픽 구독
-        self.create_subscription(
-            Float32,
-            'cone_steering_angle',
-            self.cone_callback,
-            10
-        )
-        self.create_subscription(
-            Float32,
-            'lane_steering_angle',
-            self.lane_callback,
-            10
-        )
+        # 구독: steering
+        self.create_subscription(Float32, cone_topic, self.cone_callback, 10)
+        self.create_subscription(Float32, lane_topic, self.lane_callback, 10)
 
-        # 초기 명령값 전송
-        self.get_logger().info('ControlCmdPublisher 노드 시작, 초기 값 전송 중...')
-        self.publish_command(1350, 340)
+        # 구독: emergency
+        self.emergency_flag = False
+        self.create_subscription(Int32, self.emergency_topic,
+                                 self.emergency_callback, 10)
+
+        # 초기 명령
+        self.get_logger().info('ControlCmdPublisher 시작')
+        self.publish_command(self.last_steering_pwm, 380)
+
+    def emergency_callback(self, msg: Int32):
+        if msg.data == 1:
+            self.emergency_flag = True
+            # 즉시 정지
+            self.publish_command(self.last_steering_pwm, 0)
+        else:
+            self.emergency_flag = False
 
     def cone_callback(self, msg: Float32):
         self.cone_angle = msg.data
@@ -41,58 +58,47 @@ class ControlCmdPublisher(Node):
         self.process_and_publish()
 
     def process_and_publish(self):
-        # steer angle 결정: 값 0인 경우 다른 값 사용, 둘 다 있으면 cone 우선
+        # 스티어링 각도 결정 (cone 우선)
         angle = None
-        if self.cone_angle is not None and self.lane_angle is not None:
-            if self.cone_angle == 0 and self.lane_angle != 0:
-                angle = self.lane_angle
-            elif self.lane_angle == 0 and self.cone_angle != 0:
-                angle = self.cone_angle
+        if self.cone_angle is not None or self.lane_angle is not None:
+            if self.cone_angle is not None and self.lane_angle is not None:
+                angle = (self.lane_angle
+                         if self.cone_angle == 0 else self.cone_angle)
             else:
-                angle = self.cone_angle
-        elif self.cone_angle is not None:
-            if self.cone_angle == 0 and self.lane_angle is not None:
-                angle = self.lane_angle
-            else:
-                angle = self.cone_angle
-        elif self.lane_angle is not None:
-            if self.lane_angle == 0 and self.cone_angle is not None:
-                angle = self.cone_angle
-            else:
-                angle = self.lane_angle
+                angle = self.cone_angle or self.lane_angle
         else:
-            # 둘 다 없으면 초기값 유지
-            self.publish_command(1350, 0)
+            # 둘 다 없으면 초기값
+            self.publish_command(self.last_steering_pwm, 0)
             return
 
-        # steering_angle (67.5~112.5) 를 PWM (800~1900) 으로 선형 매핑
-        min_angle, max_angle = 67.5, 112.5
-        min_pwm, max_pwm = 800, 1900
-        if angle <= min_angle:
-            steering_pwm = min_pwm
-        elif angle >= max_angle:
-            steering_pwm = max_pwm
+        # steering → PWM 매핑
+        min_a, max_a = 67.5, 112.5
+        min_p, max_p = 800, 1900
+        if angle <= min_a:
+            sp = min_p
+        elif angle >= max_a:
+            sp = max_p
         else:
-            slope = (max_pwm - min_pwm) / (max_angle - min_angle)
-            intercept = min_pwm - slope * min_angle
-            steering_pwm = slope * angle + intercept
-        steering_pwm = int(round(steering_pwm))
+            slope = (max_p - min_p) / (max_a - min_a)
+            sp = slope * angle + (min_p - slope * min_a)
+        sp = int(round(sp))
+        self.last_steering_pwm = sp
 
-        # throttle 설정: angle 범위 벗어나면 310, 그렇지 않으면 340
-        if angle < min_angle or angle > max_angle:
-            throttle_pwm = 310
+        # emergency 플래그가 켜져 있으면 throttle=0
+        if self.emergency_flag:
+            tp = 0
         else:
-            throttle_pwm = 330
+            # 정상 구간: angle 범위 벗어나면 310, 아니면 330
+            tp = 310 if (angle < min_a or angle > max_a) else 330
 
-        self.publish_command(steering_pwm, throttle_pwm)
+        self.publish_command(sp, tp)
 
     def publish_command(self, steering: int, throttle: int):
-        cmd_str = f"{steering},{throttle}"  # "steering,throttle"
-        msg = String()
-        msg.data = cmd_str
-        self.publisher.publish(msg)
-        self.get_logger().info(f"publishing: '{cmd_str}' on 'control_cmd'")
-
+        cmd = f"{steering},{throttle}"
+        m = String()
+        m.data = cmd
+        self.pub_cmd.publish(m)
+        self.get_logger().info(f"publishing: '{cmd}'")
 
 def main(args=None):
     rclpy.init(args=args)
@@ -100,10 +106,11 @@ def main(args=None):
     try:
         rclpy.spin(node)
     except KeyboardInterrupt:
-        node.get_logger().info('ControlCmdPublisher 노드 종료')
+        pass
     finally:
         node.destroy_node()
         rclpy.shutdown()
 
 if __name__ == '__main__':
     main()
+
