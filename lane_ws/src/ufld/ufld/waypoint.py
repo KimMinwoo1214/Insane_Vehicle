@@ -12,10 +12,15 @@ import rclpy
 from rclpy.node import Node
 from sensor_msgs.msg import Image
 from cv_bridge import CvBridge
-from std_msgs.msg import String  # Or appropriate message type for lane_info_pub
-
+from std_msgs.msg import String, Float64
+from std_msgs.msg import Float32MultiArray
 sys.path.append(os.path.join(os.path.dirname(__file__), "../"))
 from utils.config import Config
+import math
+
+MAX_PIXEL = 420
+MIN_PIXEL = 520
+
 
 class UFLDv2(Node):
     def __init__(self, engine_path, config_path, ori_size):
@@ -23,8 +28,8 @@ class UFLDv2(Node):
 
         # Initialize CvBridge and publisher
         self.bridge = CvBridge()
-        self.lane_center = self.create_publisher(String, 'lane_info', 10)
-        self.lane_angle = self.create_subscription(Float, 'lane_angle', 10)
+        self.lane_angle = self.create_publisher(Float64, 'lane_steering_angle', 10)
+        self.lane_show = self.create_publisher(Image, 'lane_show', 10)
         self.create_subscription(Image, "/video_frames", self.image_callback, 10)
 
 
@@ -77,7 +82,7 @@ class UFLDv2(Node):
         try:
             # ROS Image 메시지를 OpenCV 이미지로 변환 (BGR 형식)
             current_frame = self.bridge.imgmsg_to_cv2(msg, desired_encoding='bgr8')
-            current_frame = cv2.resize(current_frame, (1600, 800))
+            current_frame = cv2.resize(current_frame, (640, 480))
 
             # Convert to HSV color space
             hsv = cv2.cvtColor(current_frame, cv2.COLOR_BGR2HSV)
@@ -160,19 +165,47 @@ class UFLDv2(Node):
             cuda.memcpy_dtoh(output, out['allocation'])
             preds[out['name']] = torch.tensor(output)
         coords = self.pred2coords(preds)
-        self.lane_center.publish(coords)
-        print(coords[3])
-        print(coords[4])
+        return_coords = []
+        if len(coords) == 2:
+            target = min(len(coords[0]), len(coords[1]))
+            cord1 = coords[0][target]
+            cord2 = coords[1][target]
+            print(math.dist(cord1 , cord2))
+            if math.dist(cord1 , cord2) > 140:
+                min = (cord1 + cord2) / 2
+
+        if len(coords) == 1 or len(return_coords) == 1:
+            if len(return_coords) != 1:
+                return_coords = coords[0]
+            tangent = []
+            for i in range(1, len(return_coords)):
+                if return_coords[i][1] >= MAX_PIXEL and return_coords[i][1] <= MIN_PIXEL:
+                    tangent.append(math.atan2((return_coords[i][1] - return_coords[i - 1][1]), (return_coords[i][0] - return_coords[i - 1][0])))
+
+            average = 0
+            for i in tangent:
+                average += i
+            if len(tangent) != 0:
+                average = average / len(tangent)
+                deg = 90 - average
+                deg = np.clip(deg, 67.5, 112.5)
+            elif len(tangent) ==0:
+                deg = 0.0
+            msg = Float64()
+            msg.data = float(deg)
+            self.lane_angle.publish(msg)
+
         for lane in coords:
             for coord in lane:
                 cv2.circle(im0, coord, 2, (0, 255, 0), -1)
-        cv2.imshow("result", im0)
-        cv2.waitKey(1)
+
+        img_msg = self.bridge.cv2_to_imgmsg(im0, encoding="bgr8")
+        self.lane_show.publish(img_msg)
 
 def main():
     config_path = '/home/parkm04/Desktop/Ultra-Fast-Lane-Detection-v2/configs/curvelanes_res18.py'
     engine_path = '/home/parkm04/Desktop/Ultra-Fast-Lane-Detection-v2/0629lane.engine'
-    ori_size = (1600, 800)
+    ori_size = (640, 480)
 
     try:
         rclpy.init()

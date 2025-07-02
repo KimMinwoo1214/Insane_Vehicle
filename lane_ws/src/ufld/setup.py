@@ -20,7 +20,10 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'waypoint = ufld.waypoint:main'
+            'waypoint = ufld.waypoint:main',
+            'sub = ufld.sub:main',
+            'record = ufld.recording:main'
+
         ],
     },
 )

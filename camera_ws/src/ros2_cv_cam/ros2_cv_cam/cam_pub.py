@@ -23,7 +23,9 @@ class ImagePublisher(Node):
         self.timer = self.create_timer(timer_period, self.timer_callback)
         
         # 웹캠 캡처 객체 생성 (예: 인덱스 2의 카메라 사용)
-        self.cap = cv2.VideoCapture(2)
+        self.cap = cv2.VideoCapture(10)
+        self.cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
+        self.cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
         
         # ROS와 OpenCV 이미지 변환용 CvBridge 객체 생성
         self.br = CvBridge()

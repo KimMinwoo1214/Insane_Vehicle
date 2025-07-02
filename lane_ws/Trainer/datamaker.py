@@ -123,6 +123,7 @@ class LabelTool(QWidget):
 
         unsort_list = os.listdir(self.saved_dir)
         unsort_list = list(filter(lambda f: f.endswith(".lines.json"), unsort_list))
+        print(len(unsort_list))
         new_list = []
 
         for i in unsort_list:
@@ -304,7 +305,7 @@ class LabelTool(QWidget):
         image_path = self.image_paths[self.current_index]
         filename = os.path.basename(image_path)
         shutil.copy(image_path, os.path.join(self.saved_dir, filename))
-        json_path = os.path.join(self.saved_dir, filename.rsplit('.', 1)[0] + "lines.json")
+        json_path = os.path.join(self.saved_dir, filename.rsplit('.', 1)[0] + ".lines.json")
         label_data = {
             "Lines": [
                 [{"x": f"{p.x():.1f}", "y": f"{p.y():.1f}"} for p in lane]
@@ -322,7 +323,7 @@ class LabelTool(QWidget):
             for point in lane:
                 painter.drawPoint(int(point.x()), int(point.y()))
         painter.end()
-        pixmap.save(os.path.join(self.saved_dir, filename))
+        original_pixmap.save(os.path.join(self.saved_dir, filename))
         self.log(f"저장 완료: {filename}")
 
 if __name__ == "__main__":
