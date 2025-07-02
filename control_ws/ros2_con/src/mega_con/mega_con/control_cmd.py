@@ -23,10 +23,11 @@ class ControlCmdPublisher(Node):
         # 퍼블리셔 (control_cmd)
         self.pub_cmd = self.create_publisher(String, control_topic, 10)
 
-        # 스티어링 값 저장
+        # 스티어링·스로틀 값 저장
         self.cone_angle = None
         self.lane_angle = None
         self.last_steering_pwm = 1400  # 초기 스티어링 값
+        self.last_throttle = 350       # 초기 스로틀 값
 
         # 구독: steering
         self.create_subscription(Float32, cone_topic, self.cone_callback, 10)
@@ -37,15 +38,16 @@ class ControlCmdPublisher(Node):
         self.create_subscription(Int32, self.emergency_topic,
                                  self.emergency_callback, 10)
 
-        # 초기 명령
+        # 초기 명령 발행
         self.get_logger().info('ControlCmdPublisher 시작')
-        self.publish_command(self.last_steering_pwm, 350)
+        self.publish_command(self.last_steering_pwm, self.last_throttle)
 
     def emergency_callback(self, msg: Int32):
-        if msg.data == 1:
-            self.emergency_flag = True	
-        else:
-            self.emergency_flag = False
+        # msg.data == 1 이면 비상, 0 이면 해제
+        self.emergency_flag = (msg.data == 1)
+        self.get_logger().info(f"[EMERGENCY] flag = {self.emergency_flag}")
+        # 상태 변화 시 즉시 명령 재발행
+        self.process_and_publish()
 
     def cone_callback(self, msg: Float32):
         self.cone_angle = msg.data
@@ -60,13 +62,14 @@ class ControlCmdPublisher(Node):
         angle = None
         if self.cone_angle is not None or self.lane_angle is not None:
             if self.cone_angle is not None and self.lane_angle is not None:
-                angle = (self.lane_angle
-                         if self.cone_angle == 0 else self.cone_angle)
+                angle = (self.lane_angle if self.cone_angle == 0 else self.cone_angle)
             else:
                 angle = self.cone_angle or self.lane_angle
-        else:
-            # 둘 다 없으면 초기값
-            self.publish_command(self.last_steering_pwm, 0)
+
+        # angle이 없으면 이전 값 재사용
+        if angle is None:
+            tp = 0 if self.emergency_flag else self.last_throttle
+            self.publish_command(self.last_steering_pwm, tp)
             return
 
         # steering → PWM 매핑
@@ -82,13 +85,13 @@ class ControlCmdPublisher(Node):
         sp = int(round(sp))
         self.last_steering_pwm = sp
 
-        # emergency 플래그가 켜져 있으면 throttle=0
-        if self.emergency_flag == 1:
-            tp = 50
+        # emergency 플래그에 따른 throttle 결정
+        if self.emergency_flag:
+            tp = 0
         else:
-            # 정상 구간: angle 범위 벗어나면 310, 아니면 330
             tp = 310 if (angle < min_a or angle > max_a) else 350
 
+        self.last_throttle = tp
         self.publish_command(sp, tp)
 
     def publish_command(self, steering: int, throttle: int):
@@ -111,4 +114,3 @@ def main(args=None):
 
 if __name__ == '__main__':
     main()
-
