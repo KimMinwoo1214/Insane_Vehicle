@@ -22,8 +22,6 @@ class SettingsDialog(QDialog):
         self.setWindowTitle("설정")
         self.resize(300, 200)
         layout = QVBoxLayout()
-        self.auto_delete_checkbox = QCheckBox("다음 시 자동 저장 및 원본 삭제")
-        layout.addWidget(self.auto_delete_checkbox)
         self.color_buttons = []
         for i in range(2):
             btn = QPushButton(f"차선 {i+1} 색상 변경")
@@ -46,6 +44,7 @@ class LabelTool(QWidget):
         super().__init__()
         self.setWindowTitle("Dataset Maker")
 
+
         self.shift_points = []
         self.last_boundary_count = 0       # 마지막 경계점 개수
         self.boundary_group_active = False # 그룹 undo 플래그
@@ -57,7 +56,7 @@ class LabelTool(QWidget):
         self.redo_stack = [[]]
         self.auto_track_enabled = False
         self.last_auto_point = None
-        self.auto_delete = False
+        self.auto_delete = True
 
         self.saved_dir = "Processed"
         os.makedirs(self.saved_dir, exist_ok=True)
@@ -158,9 +157,8 @@ class LabelTool(QWidget):
 
     def show_settings(self):
         dialog = SettingsDialog(self)
-        dialog.auto_delete_checkbox.setChecked(self.auto_delete)
         if dialog.exec_():
-            self.auto_delete = dialog.auto_delete_checkbox.isChecked()
+            self.auto_delete = True
 
     def log(self, message):
         self.log_box.append(message)
@@ -237,7 +235,7 @@ class LabelTool(QWidget):
 
         for pt in self.shift_points:
            painter.setPen(QPen(Qt.black, 1))
-           painter.setBrush(QBrush(Qt.red))
+           painter.setBrush(QBrush(Qt.magenta))
            painter.drawEllipse(int(pt.x())-2, int(pt.y())-2, 4, 4)
 
         painter.end()
