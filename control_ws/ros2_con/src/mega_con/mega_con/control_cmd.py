@@ -13,92 +13,91 @@ class ControlCmdPublisher(Node):
         self.declare_parameter('cone_angle_topic', 'cone_steering_angle')
         self.declare_parameter('lane_angle_topic', 'lane_steering_angle')
         self.declare_parameter('control_cmd_topic', 'control_cmd')
+        self.declare_parameter('publish_rate', 2.0)  # Hz로 명령 전송 주기
 
         # 파라미터 취득
-        self.emergency_topic = self.get_parameter('emergency_topic').value
-        cone_topic            = self.get_parameter('cone_angle_topic').value
-        lane_topic            = self.get_parameter('lane_angle_topic').value
-        control_topic         = self.get_parameter('control_cmd_topic').value
+        self.emergency_topic   = self.get_parameter('emergency_topic').value
+        cone_topic             = self.get_parameter('cone_angle_topic').value
+        lane_topic             = self.get_parameter('lane_angle_topic').value
+        control_topic          = self.get_parameter('control_cmd_topic').value
+        rate_hz                = self.get_parameter('publish_rate').value
 
         # 퍼블리셔 (control_cmd)
         self.pub_cmd = self.create_publisher(String, control_topic, 10)
 
-        # 스티어링·스로틀 값 저장
+        # 최신 명령 저장용 변수
+        self._last_steering = 1400  # 초기 스티어링 PWM
+        self._last_throttle = 350   # 초기 스로틀 PWM
+        self.emergency_flag = False
         self.cone_angle = None
         self.lane_angle = None
-        self.last_steering_pwm = 1400  # 초기 스티어링 값
-        self.last_throttle = 350       # 초기 스로틀 값
 
-        # 구독: steering
-        self.create_subscription(Float32, cone_topic, self.cone_callback, 10)
-        self.create_subscription(Float32, lane_topic, self.lane_callback, 10)
+        # 구독: steering 토픽 (값이 들어올 때마다 저장만)
+        self.create_subscription(Float32, cone_topic, self._cone_cb, 10)
+        self.create_subscription(Float32, lane_topic, self._lane_cb, 10)
 
-        # 구독: emergency
-        self.emergency_flag = False
-        self.create_subscription(Int32, self.emergency_topic,
-                                 self.emergency_callback, 10)
+        # 구독: emergency 토픽 (플래그 갱신)
+        self.create_subscription(Int32, self.emergency_topic, self._emergency_cb, 10)
 
-        # 초기 명령 발행
-        self.get_logger().info('ControlCmdPublisher 시작')
-        self.publish_command(self.last_steering_pwm, self.last_throttle)
+        # 주기 발행 타이머 (1/rate_hz 초마다)
+        self.create_timer(1.0 / rate_hz, self._timer_publish)
 
-    def emergency_callback(self, msg: Int32):
-        # msg.data == 1 이면 비상, 0 이면 해제
+        self.get_logger().info(f'ControlCmdPublisher 시작 (publish_rate={rate_hz}Hz)')
+
+    def _emergency_cb(self, msg: Int32):
+        # 1: 비상, 0: 해제
+        prev = self.emergency_flag
         self.emergency_flag = (msg.data == 1)
-        self.get_logger().info(f"[EMERGENCY] flag = {self.emergency_flag}")
-        # 상태 변화 시 즉시 명령 재발행
-        self.process_and_publish()
+        if self.emergency_flag != prev:
+            self.get_logger().info(f"[EMERGENCY] flag -> {self.emergency_flag}")
 
-    def cone_callback(self, msg: Float32):
+    def _cone_cb(self, msg: Float32):
         self.cone_angle = msg.data
-        self.process_and_publish()
 
-    def lane_callback(self, msg: Float32):
+    def _lane_cb(self, msg: Float32):
         self.lane_angle = msg.data
-        self.process_and_publish()
 
-    def process_and_publish(self):
-        # 스티어링 각도 결정 (cone 우선)
+    def _compute_command(self):
+        # 1) 스티어링 각도 결정 (cone 우선)
         angle = None
         if self.cone_angle is not None or self.lane_angle is not None:
             if self.cone_angle is not None and self.lane_angle is not None:
-                angle = (self.lane_angle if self.cone_angle == 0 else self.cone_angle)
+                # cone_angle==0 이면 lane 적용
+                angle = self.lane_angle if self.cone_angle == 0 else self.cone_angle
             else:
                 angle = self.cone_angle or self.lane_angle
 
-        # angle이 없으면 이전 값 재사용
-        if angle is None:
-            tp = 0 if self.emergency_flag else self.last_throttle
-            self.publish_command(self.last_steering_pwm, tp)
-            return
+        # 2) steering → PWM 매핑
+        if angle is not None:
+            min_a, max_a = 67.5, 112.5
+            min_p, max_p = 800, 1900
+            if angle <= min_a:
+                sp = min_p
+            elif angle >= max_a:
+                sp = max_p
+            else:
+                slope = (max_p - min_p) / (max_a - min_a)
+                sp = int(round(slope * angle + (min_p - slope * min_a)))
+            self._last_steering = sp
 
-        # steering → PWM 매핑
-        min_a, max_a = 67.5, 112.5
-        min_p, max_p = 800, 1900
-        if angle <= min_a:
-            sp = min_p
-        elif angle >= max_a:
-            sp = max_p
-        else:
-            slope = (max_p - min_p) / (max_a - min_a)
-            sp = slope * angle + (min_p - slope * min_a)
-        sp = int(round(sp))
-        self.last_steering_pwm = sp
-
-        # emergency 플래그에 따른 throttle 결정
+        # 3) throttle 결정
         if self.emergency_flag:
             tp = 0
         else:
-            tp = 310 if (angle < min_a or angle > max_a) else 350
+            # angle이 None이면 이전 tp 유지
+            if angle is None:
+                tp = self._last_throttle
+            else:
+                tp = 310 if (angle < min_a or angle > max_a) else 350
+        self._last_throttle = tp
 
-        self.last_throttle = tp
-        self.publish_command(sp, tp)
-
-    def publish_command(self, steering: int, throttle: int):
-        cmd = f"{steering},{throttle}"
-        m = String()
-        m.data = cmd
-        self.pub_cmd.publish(m)
+    def _timer_publish(self):
+        # 최신 센서/플래그 기준으로 명령 계산 후 발행
+        self._compute_command()
+        cmd = f"{self._last_steering},{self._last_throttle}"
+        msg = String()
+        msg.data = cmd
+        self.pub_cmd.publish(msg)
         self.get_logger().info(f"publishing: '{cmd}'")
 
 def main(args=None):
