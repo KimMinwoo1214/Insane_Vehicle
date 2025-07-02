@@ -6,11 +6,13 @@ Adafruit_MCP4725 dac1;  // 주소 0x60 사용
 Adafruit_MCP4725 dac2;  // 주소 0x61 사용
 
 void setup() {
-  Serial.begin(9600);
+  Serial.begin(500000);
   while (!Serial); // 시리얼 모니터가 연결될 때까지 대기
   Serial.println("두 개의 Voltage 값을 입력하세요 (0~4095, 공백으로 구분):");
   
   Wire.begin();  // I2C 시작
+  Wire.setClock(400000);  // 400 kHz로 올려서 응답 속도 및 안정성 향상
+
 
   // 각 DAC 초기화 (각자의 주소 지정)
   dac1.begin(0x60);

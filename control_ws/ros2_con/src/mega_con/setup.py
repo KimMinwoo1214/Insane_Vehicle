@@ -26,6 +26,7 @@ setup(
             'con = mega_con.motor_con:main',
             'joy_con = mega_con.joy_con:main',
             'gps_con = mega_con.gps_con:main',
+            'control_cmd = mega_con.control_cmd:main',
         ],
     },
 )
