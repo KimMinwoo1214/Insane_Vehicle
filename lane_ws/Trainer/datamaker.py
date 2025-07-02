@@ -7,10 +7,12 @@ from PyQt5.QtWidgets import (
     QVBoxLayout, QHBoxLayout, QListWidget, QMessageBox, QCheckBox,
     QTextEdit, QDialog, QColorDialog, QDialogButtonBox
 )
-from PyQt5.QtGui import QPixmap, QPainter, QPen, QColor
+from PyQt5.QtGui import QPixmap, QPainter, QPen, QColor, QImage
 from PyQt5.QtCore import Qt, QPointF
 import random
-
+import numpy as np
+import math
+import cv2
 
 COLORS = [Qt.red, Qt.blue, Qt.green, Qt.cyan, Qt.yellow]
 
@@ -44,6 +46,7 @@ class LabelTool(QWidget):
         super().__init__()
         self.setWindowTitle("Dataset Maker")
 
+        self.shift_points = []
         self.image_paths = []
         self.current_index = 0
         self.lanes = [[]]
@@ -270,11 +273,59 @@ class LabelTool(QWidget):
             real_x = x * x_ratio
             real_y = y * y_ratio
             point = QPointF(real_x, real_y)
+            if event.modifiers() & Qt.ShiftModifier:
+                self.shift_points.append(point)
+                if len(self.shift_points) == 2:
+                    p1, p2 = self.shift_points
+                    self.shift_points.clear()
+                    self.detect_and_record_boundary(p1, p2)
+                return
+
             self.lanes[self.current_lane_idx].append(point)
             self.undo_stack[self.current_lane_idx].append(point)
             self.redo_stack[self.current_lane_idx].clear()
             self.show_image()
+    def detect_and_record_boundary(self, p1, p2):
+        # 1) QPixmap→QImage→numpy BGR
+        pix = QPixmap(self.image_paths[self.current_index])
+        img = pix.toImage().convertToFormat(QImage.Format_RGB888)
+        w, h = img.width(), img.height()
+        ptr = img.bits()
+        ptr.setsize(img.byteCount())
+        arr = np.frombuffer(ptr, np.uint8).reshape(h, w, 3)
 
+        # 2) 선 위 밝기값 샘플링
+        dx, dy = p2.x()-p1.x(), p2.y()-p1.y()
+        length = math.hypot(dx, dy)
+        N = int(length)
+        xs = np.linspace(p1.x(), p2.x(), N)
+        ys = np.linspace(p1.y(), p2.y(), N)
+        vals = np.array([arr[int(y), int(x)].mean() for x,y in zip(xs, ys)], dtype=np.float32).reshape(-1,1)
+
+        # 3) K-means 클러스터링 (2개)
+        crit = (cv2.TERM_CRITERIA_EPS+cv2.TERM_CRITERIA_MAX_ITER, 10, 1.0)
+        _, labels, _ = cv2.kmeans(vals, 2, None, crit, 10, cv2.KMEANS_RANDOM_CENTERS)
+        labels = labels.flatten()
+
+        # 4) 경계 인덱스 찾기
+        diffs = np.where(labels[:-1] != labels[1:])[0]
+        if diffs.size == 0:
+            self.log("경계선을 찾지 못했습니다.")
+            return
+        # bx,by = xs[diffs[0]], ys[diffs[0]]  # 필요시 사용
+
+        # 5) 0.5 픽셀 간격으로 선 전체에 점 기록
+        count = int(length/0.5)
+        for i in range(count+1):
+            t = i*0.5/length
+            x = p1.x() + t*dx
+            y = p1.y() + t*dy
+            new_pt = QPointF(x, y)
+            self.lanes[self.current_lane_idx].append(new_pt)
+            self.undo_stack[self.current_lane_idx].append(new_pt)
+
+        self.log(f"경계점 간 0.5 간격으로 {count+1}개 점 기록")
+        self.show_image()
     def switch_lane(self):
         self.current_lane_idx += 1
         while len(self.lanes) <= self.current_lane_idx:
