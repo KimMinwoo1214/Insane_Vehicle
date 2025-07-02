@@ -24,9 +24,9 @@ public:
     declare_parameter<std::string>("cloud_topic", "/clustered_points");
     declare_parameter<std::string>("emergency_topic", "/emergency");
     declare_parameter<float>("roi_min_x", -0.0f);
-    declare_parameter<float>("roi_max_x",  1.5f);
-    declare_parameter<float>("roi_min_y", -0.4f);
-    declare_parameter<float>("roi_max_y",  0.4f);
+    declare_parameter<float>("roi_max_x",  3.0f);
+    declare_parameter<float>("roi_min_y", -0.8f);
+    declare_parameter<float>("roi_max_y",  0.8f);
     declare_parameter<double>("min_dist", 1.0);
 
     get_parameter("cloud_topic", cloud_topic_);
