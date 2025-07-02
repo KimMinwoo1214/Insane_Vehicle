@@ -45,14 +45,12 @@ class ImageSubscriber(Node):
         # Display image
         cv2.imshow("cam_pub", current_frame)
         now = datetime.datetime.now()
-        key = cv2.waitKey(1) & 0xFF
-        if key == 13:  # Enter 키
-            timestamp = now.strftime("%m%d%H%M%S%f")[:-3]
-            path = '/home/parkm04/PycharmProjects/Insane_Vehicle/lane_ws/Trainer/captures'
-            cv2.imwrite(os.path.join(path ,f'capture-{timestamp}.jpg'), current_frame)
-            print(f"이미지 저장: capture-{timestamp}.jpg")
-
         cv2.waitKey(1)
+        timestamp = now.strftime("%m%d%H%M%S%f")[:-3]
+        path = '/home/parkm04/PycharmProjects/Insane_Vehicle/lane_ws/Trainer/captures'
+        cv2.imwrite(os.path.join(path ,f'capture-{timestamp}.jpg'), current_frame)
+        print(f"이미지 저장: capture-{timestamp}.jpg")
+
 
 
 def main(args=None):

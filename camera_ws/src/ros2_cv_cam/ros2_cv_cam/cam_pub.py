@@ -6,7 +6,7 @@ from rclpy.node import Node  # Handles the creation of nodes
 from sensor_msgs.msg import Image  # Image 메시지 타입
 from cv_bridge import CvBridge, CvBridgeError  # ROS와 OpenCV 이미지 변환 패키지
 import cv2  # OpenCV 라이브러리
-
+import numpy as np
 class ImagePublisher(Node):
     """
     ImagePublisher 클래스: ROS2 노드로, 내장 웹캠에서 영상을 캡처하여 'video_frames' 토픽으로 퍼블리시합니다.
@@ -26,7 +26,7 @@ class ImagePublisher(Node):
         self.cap = cv2.VideoCapture(10)
         self.cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
         self.cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
-        
+
         # ROS와 OpenCV 이미지 변환용 CvBridge 객체 생성
         self.br = CvBridge()
 
@@ -36,6 +36,10 @@ class ImagePublisher(Node):
         """
         ret, frame = self.cap.read()
         if ret:
+            K = np.array([1522.28481534418, 0, 882.646441745481], [0, 1540.51574785800, 634.639638270451], [0, 0, 1],
+                         dtype=np.float64)
+            dist = np.array([[-0.4176, 0.1633, 0.0, 0.0, 0.0]], dtype=np.float64)
+            frame = cv2.undistort(frame, K, dist)
             # OpenCV 이미지(frame)가 이미 BGR 형식이므로 encoding을 "bgr8"로 명시하여 ROS 이미지 메시지로 변환
             img_msg = self.br.cv2_to_imgmsg(frame, encoding="bgr8")
             self.publisher_.publish(img_msg)

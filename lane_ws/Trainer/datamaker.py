@@ -127,9 +127,7 @@ class LabelTool(QWidget):
         new_list = []
 
         for i in unsort_list:
-            unsort_list.remove(i)
             new_list.append(i.replace(".lines.json", ""))
-
         train_count = round(len(new_list)/10*7)
         valid_count = round(len(new_list)/10*2)
         random.shuffle(new_list)
@@ -224,7 +222,10 @@ class LabelTool(QWidget):
         pixmap = QPixmap(original_pixmap)
         painter = QPainter(pixmap)
         for lane_idx, lane in enumerate(self.lanes):
-            pen = QPen(COLORS[lane_idx % len(COLORS)], 10)
+            base_color = COLORS[lane_idx % len(COLORS)]
+            color = QColor(base_color)  # QColor(Qt.red) 등
+            color.setAlpha(128)  # 0(완전투명) ~ 255(불투명)
+            pen = QPen(color, 4)
             painter.setPen(pen)
             for point in lane:
                 painter.drawPoint(int(point.x()), int(point.y()))
@@ -318,7 +319,7 @@ class LabelTool(QWidget):
         pixmap = QPixmap(original_pixmap)
         painter = QPainter(pixmap)
         for lane_idx, lane in enumerate(self.lanes):
-            pen = QPen(COLORS[lane_idx % len(COLORS)], 10)
+            pen = QPen(COLORS[lane_idx % len(COLORS)], 2)
             painter.setPen(pen)
             for point in lane:
                 painter.drawPoint(int(point.x()), int(point.y()))
