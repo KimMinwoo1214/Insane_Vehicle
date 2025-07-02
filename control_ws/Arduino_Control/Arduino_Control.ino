@@ -10,7 +10,7 @@ uint16_t lastVoltage1 = 0;
 uint16_t lastVoltage2 = 0;
 
 void setup() {
-  Serial.begin(115200);
+  Serial.begin(2000000);
   while (!Serial);  // 시리얼 모니터 연결될 때까지 대기
 
   Serial.println("두 개의 Voltage 값을 입력하세요 (0~4095, 쉼표로 구분):");
@@ -69,4 +69,3 @@ void loop() {
   // === Non-blocking ===
   // 필요하다면 millis()로 주기 작업 추가 가능
 }
-
