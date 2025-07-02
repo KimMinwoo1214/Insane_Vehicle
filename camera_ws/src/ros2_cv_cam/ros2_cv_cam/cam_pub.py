@@ -36,7 +36,7 @@ class ImagePublisher(Node):
         """
         ret, frame = self.cap.read()
         if ret:
-            K = np.array([1522.28481534418, 0, 882.646441745481], [0, 1540.51574785800, 634.639638270451], [0, 0, 1],
+            K = np.array([[1522.28481534418, 0, 882.646441745481], [0, 1540.51574785800, 634.639638270451], [0, 0, 1]],
                          dtype=np.float64)
             dist = np.array([[-0.4176, 0.1633, 0.0, 0.0, 0.0]], dtype=np.float64)
             frame = cv2.undistort(frame, K, dist)
