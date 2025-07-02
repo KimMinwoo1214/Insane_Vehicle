@@ -6,7 +6,7 @@ Adafruit_MCP4725 dac1;  // 주소 0x60 사용
 Adafruit_MCP4725 dac2;  // 주소 0x61 사용
 
 void setup() {
-  Serial.begin(9600);
+  Serial.begin(115200);
   while (!Serial); // 시리얼 모니터가 연결될 때까지 대기
   Serial.println("두 개의 Voltage 값을 입력하세요 (0~4095, 공백으로 구분):");
   
