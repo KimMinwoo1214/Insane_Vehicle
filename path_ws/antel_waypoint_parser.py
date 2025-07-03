@@ -64,7 +64,7 @@ class GPSBasedLocalPath(Node):
                 self.get_logger().warn("Waiting for GPS fix...")
                 return
             local_path = self.build_local_path_from_position(self.utm_x, self.utm_y)
-            local_path.header.frame_id = 'map'
+            local_path.header.frame_id = 'camera'
         else:
             local_path = self.build_relative_path()
             local_path.header.frame_id = 'base_link'
