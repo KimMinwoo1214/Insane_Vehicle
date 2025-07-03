@@ -329,9 +329,9 @@ class LabelTool(QWidget):
                 return
 
             # 4) 0.5 픽셀 간격으로 점 기록
-            count = int(length/0.5)
+            count = int(length/3)
             for i in range(count+1):
-                t = (i*0.5) / length
+                t = (i*3) / length
                 x = p1.x() + t*dx
                 y = p1.y() + t*dy
                 pt = QPointF(x, y)
@@ -340,7 +340,7 @@ class LabelTool(QWidget):
 
             self.last_boundary_count = count+1
             self.boundary_group_active = True
-            self.log(f"경계점 간 0.5픽셀 간격 {count+1}개 점 기록 완료")
+            self.log(f"경계점 간 3픽셀 간격 {count+1}개 점 기록 완료")
             self.show_image()
 
         except Exception as e:
