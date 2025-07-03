@@ -13,7 +13,7 @@ class ControlCmdPublisher(Node):
         self.declare_parameter('cone_angle_topic', 'cone_steering_angle')
         self.declare_parameter('lane_angle_topic', 'lane_steering_angle')
         self.declare_parameter('control_cmd_topic', 'control_cmd')
-        self.declare_parameter('publish_rate', 2.0)  # Hz로 명령 전송 주기
+        self.declare_parameter('publish_rate', 10.0)  # Hz로 명령 전송 주기
 
         # 파라미터 취득
         self.emergency_topic = self.get_parameter('emergency_topic').value
@@ -29,7 +29,7 @@ class ControlCmdPublisher(Node):
         self._last_steering = 1400            # 초기 스티어링 PWM
         self._last_throttle = 350             # 초기 스로틀 PWM
         self._last_sent_cmd = None            # 마지막으로 전송한 cmd 문자열
-        self._last_sent_raw_angle = None      # 마지막으로 전송했을 때의 원본 각도
+        self._last_sent_raw_angle = None      # 마지막 전송 시 원본 각도
         self.emergency_flag = False
         self.cone_angle = None
         self.lane_angle = None
@@ -67,9 +67,9 @@ class ControlCmdPublisher(Node):
             else:
                 angle = self.cone_angle or self.lane_angle
 
-        # 2) 5도 단위 양자화 적용
+        # 2) 1도 단위 양자화 적용
         if angle is not None:
-            angle = round(angle / 5) * 5
+            angle = round(angle)
 
             # 3) steering -> PWM 매핑
             min_a, max_a = 67.5, 112.5
@@ -106,8 +106,8 @@ class ControlCmdPublisher(Node):
         # 발행 여부 결정
         send = False
         if raw_angle is not None:
-            # 원본 각도 변화량 비교
-            if self._last_sent_raw_angle is None or abs(raw_angle - self._last_sent_raw_angle) >= 5.0:
+            # 원본 각도 변화량 비교 (1도 이상 변화 시 전송)
+            if self._last_sent_raw_angle is None or abs(raw_angle - self._last_sent_raw_angle) >= 1.0:
                 send = True
                 self._last_sent_raw_angle = raw_angle
         else:
@@ -120,10 +120,12 @@ class ControlCmdPublisher(Node):
             msg = String()
             msg.data = cmd
             self.pub_cmd.publish(msg)
-            self.get_logger().info(f"publishing: '{cmd}' (raw Δ={'N/A' if self._last_sent_raw_angle is None else raw_angle - self._last_sent_raw_angle:.1f}°)")
+            self.get_logger().info(
+                f"publishing: '{cmd}' (raw Δ={'N/A' if self._last_sent_raw_angle is None else raw_angle - self._last_sent_raw_angle:.1f}°)"
+            )
             self._last_sent_cmd = cmd
         else:
-            self.get_logger().debug("Δ각도 < 5°이거나 명령 변화 없어 전송 생략")
+            self.get_logger().debug("Δ각도 < 1°이거나 명령 변화 없어 전송 생략")
 
 
 def main(args=None):
