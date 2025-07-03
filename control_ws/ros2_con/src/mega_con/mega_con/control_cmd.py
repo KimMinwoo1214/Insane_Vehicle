@@ -26,8 +26,8 @@ class ControlCmdPublisher(Node):
         self.pub_cmd = self.create_publisher(String, control_topic, 10)
 
         # 상태 저장용 변수
-        self._last_steering = 1400            # 초기 스티어링 PWM
-        self._last_throttle = 350             # 초기 스로틀 PWM
+        self._last_steering = 2100            # 초기 스티어링 PWM
+        self._last_throttle = 550             # 초기 스로틀 PWM
         self._last_sent_cmd = None            # 마지막으로 전송한 cmd 문자열
         self._last_sent_raw_angle = None      # 마지막 전송 시 원본 각도
         self.emergency_flag = False
@@ -73,7 +73,7 @@ class ControlCmdPublisher(Node):
 
             # 3) steering -> PWM 매핑
             min_a, max_a = 67.5, 112.5
-            min_p, max_p = 800, 1900
+            min_p, max_p = 1350, 2800
             if angle <= min_a:
                 sp = min_p
             elif angle >= max_a:
@@ -90,7 +90,7 @@ class ControlCmdPublisher(Node):
             if angle is None:
                 tp = self._last_throttle
             else:
-                tp = 310 if (angle < min_a or angle > max_a) else 350
+                tp = 500 if (angle < min_a or angle > max_a) else 550
         self._last_throttle = tp
 
     def _timer_publish(self):
