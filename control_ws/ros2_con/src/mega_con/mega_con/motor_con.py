@@ -40,7 +40,7 @@ class ArduinoCommander(Node):
 
     def _open_serial(self):
         try:
-            # Non-blocking 모드로 timeout=0 추천
+            # Non-blocking 모드로 timeout=0
             self.ser = serial.Serial(self.port, self.baud, timeout=0)
             self.get_logger().info(f"[SERIAL] Connected at {self.port}@{self.baud}")
         except Exception as e:
@@ -49,19 +49,22 @@ class ArduinoCommander(Node):
 
     def teleop_callback(self, msg: String):
         cmd = msg.data.strip() + "\n"
-
-        # === 큐 비우고 최신 명령만 유지 ===
-        while not self.cmd_queue.empty():
-            try:
-                self.cmd_queue.get_nowait()
-            except queue.Empty:
-                break
-
         try:
+            # 큐가 비어 있으면 바로 넣기
             self.cmd_queue.put_nowait(cmd)
             self.get_logger().debug(f"[CALLBACK] Cmd queued: {cmd.strip()}")
         except queue.Full:
-            self.get_logger().warn("[CALLBACK] Cmd queue full, dropping")
+            # 큐가 가득 차 있으면 오래된 명령 제거 후 새로 넣기
+            try:
+                dropped = self.cmd_queue.get_nowait()
+                self.get_logger().debug(f"[CALLBACK] Dropped old cmd: {dropped.strip()}")
+            except queue.Empty:
+                pass
+            try:
+                self.cmd_queue.put_nowait(cmd)
+                self.get_logger().debug(f"[CALLBACK] Cmd queued after drop: {cmd.strip()}")
+            except queue.Full:
+                self.get_logger().warn("[CALLBACK] Unable to queue new cmd")
 
     def _serial_worker(self):
         while self.running and rclpy.ok():
@@ -106,6 +109,7 @@ class ArduinoCommander(Node):
         self.worker.join(timeout=2.0)
         self.get_logger().info("[SHUTDOWN] ArduinoCommander stopped")
 
+
 def main(args=None):
     rclpy.init(args=args)
     node = ArduinoCommander()
@@ -128,4 +132,3 @@ def main(args=None):
 
 if __name__ == '__main__':
     main()
-
