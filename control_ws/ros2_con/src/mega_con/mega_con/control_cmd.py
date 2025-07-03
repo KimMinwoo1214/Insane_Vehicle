@@ -106,8 +106,8 @@ class ControlCmdPublisher(Node):
         # 발행 여부 결정
         send = False
         if raw_angle is not None:
-            # 원본 각도 변화량 비교 (1도 이상 변화 시 전송)
-            if self._last_sent_raw_angle is None or abs(raw_angle - self._last_sent_raw_angle) >= 1.0:
+            # 원본 각도 변화량 비교 (2도 이상 변화 시 전송)
+            if self._last_sent_raw_angle is None or abs(raw_angle - self._last_sent_raw_angle) >= 2.0:
                 send = True
                 self._last_sent_raw_angle = raw_angle
         else:
