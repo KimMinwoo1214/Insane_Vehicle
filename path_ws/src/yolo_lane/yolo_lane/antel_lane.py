@@ -2,7 +2,7 @@ import rclpy
 from rclpy.node import Node
 from rclpy.qos import QoSProfile, QoSReliabilityPolicy, QoSHistoryPolicy, QoSDurabilityPolicy
 from std_msgs.msg import Float32
-from interfaces_pkg.msg import DetectionArray
+from geometry_msgs.msg import PolygonStamped
 import numpy as np
 import cv2
 
@@ -22,23 +22,32 @@ class SimpleLaneAngleEstimator(Node):
             durability=QoSDurabilityPolicy.VOLATILE,
             depth=1
         )
-        self.sub = self.create_subscription(DetectionArray, '/yolo_polygon', self.callback, qos)
+
+        # PolygonStamped 구독자로 변경!
+        self.sub = self.create_subscription(
+            PolygonStamped,
+            '/yolo_polygon',
+            self.callback,
+            qos
+        )
         self.pub = self.create_publisher(Float32, '/lane_steering_angle', qos)
 
     def callback(self, msg):
-        if len(msg.detections) == 0:
+        # PolygonStamped는 하나의 polygon을 포함
+        if len(msg.polygon.points) < 3:
             return
 
-        h = msg.detections[0].mask.height
-        w = msg.detections[0].mask.width
+        # 폴리곤 points → NumPy array
+        pts = np.array([[p.x, p.y] for p in msg.polygon.points], dtype=np.int32)
+
+        # 이미지 사이즈 임의 지정 (예: 640x480)
+        w, h = 640, 480
         edge_img = np.zeros((h, w), dtype=np.uint8)
 
-        for det in msg.detections:
-            if det.class_name == 'lane':
-                pts = np.array([[int(p.x), int(p.y)] for p in det.mask.data])
-                if len(pts) >= 3:
-                    cv2.polylines(edge_img, [pts], isClosed=True, color=255, thickness=1)
+        # 폴리라인 그리기
+        cv2.polylines(edge_img, [pts], isClosed=True, color=255, thickness=2)
 
+        # Dominant gradient 계산
         gradient = self.compute_dominant_gradient(edge_img, w, h)
 
         if gradient is not None:
@@ -49,7 +58,7 @@ class SimpleLaneAngleEstimator(Node):
             self.pub.publish(msg_out)
             self.get_logger().info(f"Steering angle: {angle:.2f}°")
 
-            # 시각화 선택
+            # 시각화
             cv2.imshow("Lane edge", edge_img)
             cv2.waitKey(1)
 
@@ -67,7 +76,7 @@ class SimpleLaneAngleEstimator(Node):
         for line in lines:
             rho, theta = line[0]
 
-            # 이미지 경계 근처에 있는 직선만 필터링
+            # 이미지 경계 근처에 있는 직선 제거
             is_near_border = (
                 abs(rho) < self.border_margin_px or
                 abs(rho - w) < self.border_margin_px or
@@ -78,7 +87,7 @@ class SimpleLaneAngleEstimator(Node):
             is_vertical = abs(theta - np.pi / 2) < margin_rad
 
             if (is_horizontal or is_vertical) and is_near_border:
-                continue  # 경계 수직/수평선 제거
+                continue
 
             angle_deg = np.rad2deg(np.arctan2(np.sin(theta), np.cos(theta)))
             valid_angles.append(angle_deg)
@@ -104,3 +113,4 @@ def main(args=None):
 
 if __name__ == '__main__':
     main()
+
