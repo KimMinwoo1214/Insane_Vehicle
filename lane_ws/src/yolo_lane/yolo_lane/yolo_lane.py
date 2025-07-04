@@ -31,9 +31,15 @@ class YOLOSegNode(Node):
         try:
             # ROS 이미지 → OpenCV 이미지로 변환
             img = self.bridge.imgmsg_to_cv2(msg, desired_encoding='bgr8')
+            img = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)  # YOLO는 RGB 형식 사용
+            white_lower = np.array([0, 0, 200], dtype=np.uint8)
+            white_upper = np.array([180, 30, 255], dtype=np.uint8)
+            mask = cv2.inRange(hsv, white_lower, white_upper)
+            img = cv2.bitwise_and(img, img, mask=mask)
 
             # YOLO 세그멘테이션 추론
             results = self.model(img)[0]
+
 
             # polygon 추출 및 퍼블리시
             if results.masks is not None and results.masks.xy is not None:
