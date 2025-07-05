@@ -6,6 +6,7 @@ from geometry_msgs.msg import PolygonStamped, Point32
 from std_msgs.msg import Header
 from cv_bridge import CvBridge
 import cv2
+import numpy as np
 
 class YOLOSegNode(Node):
     def __init__(self):
@@ -13,7 +14,7 @@ class YOLOSegNode(Node):
         self.bridge = CvBridge()
 
         # YOLOv8/11 세그멘테이션 모델 로드
-        self.model = YOLO("train1/weights/best.pt")  # 경로 수정 가능
+        self.model = YOLO("/home/parkm04/Desktop/IEVEmodel/yolov11/runs/detect/train4/weights/best.pt")  # 경로 수정 가능
 
         # 구독: 이미지 입력
         self.subscription = self.create_subscription(
@@ -31,7 +32,7 @@ class YOLOSegNode(Node):
         try:
             # ROS 이미지 → OpenCV 이미지로 변환
             img = self.bridge.imgmsg_to_cv2(msg, desired_encoding='bgr8')
-            img = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)  # YOLO는 RGB 형식 사용
+            hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)  # YOLO는 RGB 형식 사용
             white_lower = np.array([0, 0, 200], dtype=np.uint8)
             white_upper = np.array([180, 30, 255], dtype=np.uint8)
             mask = cv2.inRange(hsv, white_lower, white_upper)
