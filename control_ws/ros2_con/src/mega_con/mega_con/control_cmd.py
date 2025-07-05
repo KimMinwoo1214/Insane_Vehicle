@@ -3,6 +3,7 @@
 import rclpy
 from rclpy.node import Node
 from std_msgs.msg import Float32, Int32, String
+import time  # 시간 체크용
 
 class ControlCmdPublisher(Node):
     def __init__(self):
@@ -14,6 +15,7 @@ class ControlCmdPublisher(Node):
         self.declare_parameter('lane_angle_topic', 'lane_steering_angle')
         self.declare_parameter('control_cmd_topic', 'control_cmd')
         self.declare_parameter('publish_rate', 10.0)  # Hz로 명령 전송 주기
+        self.declare_parameter('cone_angle_timeout', 0.3)  # ⭐ 콘 앵글 유효 시간
 
         # 파라미터 취득
         self.emergency_topic = self.get_parameter('emergency_topic').value
@@ -21,6 +23,7 @@ class ControlCmdPublisher(Node):
         lane_topic = self.get_parameter('lane_angle_topic').value
         control_topic = self.get_parameter('control_cmd_topic').value
         rate_hz = self.get_parameter('publish_rate').value
+        self.cone_angle_timeout = self.get_parameter('cone_angle_timeout').value
 
         # 퍼블리셔 (control_cmd)
         self.pub_cmd = self.create_publisher(String, control_topic, 10)
@@ -34,6 +37,7 @@ class ControlCmdPublisher(Node):
         self.emergency_flag = False
         self.cone_angle = None
         self.lane_angle = None
+        self.cone_angle_time = None  # ⭐ 마지막 콘 앵글 수신 시각
 
         # 구독: steering 토픽
         self.create_subscription(Float32, cone_topic, self._cone_cb, 10)
@@ -45,7 +49,7 @@ class ControlCmdPublisher(Node):
         # 주기 발행 타이머
         self.create_timer(1.0 / rate_hz, self._timer_publish)
 
-        self.get_logger().info(f'ControlCmdPublisher 시작 (publish_rate={rate_hz}Hz)')
+        self.get_logger().info(f'ControlCmdPublisher 시작 (publish_rate={rate_hz}Hz, cone_timeout={self.cone_angle_timeout}s)')
 
     def _emergency_cb(self, msg: Int32):
         prev = self.emergency_flag
@@ -55,25 +59,26 @@ class ControlCmdPublisher(Node):
 
     def _cone_cb(self, msg: Float32):
         self.cone_angle = msg.data
+        self.cone_angle_time = time.time()  # ⭐ 마지막 수신 시각 기록
 
     def _lane_cb(self, msg: Float32):
         self.lane_angle = msg.data
 
     def _compute_command(self):
+        now = time.time()
         angle = None
-        if self.cone_angle is not None or self.lane_angle is not None:
-            if self.cone_angle is not None and self.lane_angle is not None:
-                if self.cone_angle == 0:
-                    angle = self.lane_angle
-                    self._last_mode = "Lane"
-                else:
-                    angle = self.cone_angle
-                    self._last_mode = "Cone"
-            else:
-                angle = self.cone_angle or self.lane_angle
-                self._last_mode = "Cone" if self.cone_angle is not None else "Lane"
+        use_cone = False
+
+        if self.cone_angle is not None and self.cone_angle_time is not None:
+            if (now - self.cone_angle_time) < self.cone_angle_timeout:
+                use_cone = True
+
+        if use_cone:
+            angle = self.cone_angle
+            self._last_mode = "Cone"
         else:
-            self._last_mode = "Unknown"
+            angle = self.lane_angle
+            self._last_mode = "Lane"
 
         if angle is not None:
             angle = round(angle)
@@ -100,11 +105,16 @@ class ControlCmdPublisher(Node):
 
     def _timer_publish(self):
         raw_angle = None
-        if self.cone_angle is not None or self.lane_angle is not None:
-            if self.cone_angle == 0 and self.lane_angle is not None:
-                raw_angle = self.lane_angle
-            else:
-                raw_angle = self.cone_angle or self.lane_angle
+        now = time.time()
+        use_cone = False
+        if self.cone_angle is not None and self.cone_angle_time is not None:
+            if (now - self.cone_angle_time) < self.cone_angle_timeout:
+                use_cone = True
+
+        if use_cone:
+            raw_angle = self.cone_angle
+        else:
+            raw_angle = self.lane_angle
 
         self._compute_command()
         cmd = f"{self._last_steering},{self._last_throttle}"
@@ -132,7 +142,7 @@ class ControlCmdPublisher(Node):
             )
             self._last_sent_cmd = cmd
         else:
-            self.get_logger().debug("Δ각도 < 1°이거나 명령 변화 없어 전송 생략")
+            self.get_logger().debug("Δ각도 < 2°이거나 명령 변화 없어 전송 생략")
 
 
 def main(args=None):
@@ -148,3 +158,4 @@ def main(args=None):
 
 if __name__ == '__main__':
     main()
+
