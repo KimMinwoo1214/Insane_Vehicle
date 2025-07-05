@@ -19,6 +19,7 @@ setup(
     entry_points={
         'console_scripts': [
             'yolo_lane = yolo_lane.yolo_lane:main',
+            'kmw_lane = yolo_nale.kmw_lane:main',
         ],
     },
 )
