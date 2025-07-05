@@ -3,21 +3,23 @@ from rclpy.node import Node
 from rclpy.qos import QoSProfile, QoSReliabilityPolicy, QoSHistoryPolicy, QoSDurabilityPolicy
 from std_msgs.msg import Float32
 from geometry_msgs.msg import PolygonStamped
+from sensor_msgs.msg import Image
+from cv_bridge import CvBridge
 import numpy as np
 import cv2
-from sklearn.cluster import KMeans
-from sklearn.neighbors import NearestNeighbors
 
 
-class SimpleLaneAngleEstimator(Node):
+class LanePlanner(Node):
     def __init__(self):
-        super().__init__('simple_lane_angle_node')
+        super().__init__('lane_planner_node')
 
-        # ===== 하이퍼파라미터 =====
-        self.angle_margin_deg = 2.0     # 허용 오차 각도 (degree)
-        self.border_margin_px = 10      # 이미지 경계에서 이내의 직선은 제거
+        # ===== Parameters =====
+        self.img_width = 640
+        self.img_height = 480
+        self.latest_img = None
+        self.bridge = CvBridge()
 
-        # ===== ROS 설정 =====
+        # ===== ROS QoS =====
         qos = QoSProfile(
             reliability=QoSReliabilityPolicy.RELIABLE,
             history=QoSHistoryPolicy.KEEP_LAST,
@@ -25,113 +27,139 @@ class SimpleLaneAngleEstimator(Node):
             depth=1
         )
 
-        # PolygonStamped 구독자로 변경!
-        self.sub = self.create_subscription(
+        self.sub_polygon = self.create_subscription(
             PolygonStamped,
             '/yolo_polygon',
-            self.callback,
+            self.polygon_callback,
             qos
         )
-        self.pub = self.create_publisher(Float32, '/lane_steering_angle', qos)
+        self.sub_img = self.create_subscription(
+            Image,
+            '/video_frames',
+            self.image_callback,
+            qos
+        )
+        self.pub_angle = self.create_publisher(Float32, '/lane_steering_angle', qos)
 
-    def callback(self, msg):
-        # PolygonStamped는 하나의 polygon을 포함
-        if len(msg.polygon.points) < 3:
+    def image_callback(self, msg):
+        try:
+            self.latest_img = self.bridge.imgmsg_to_cv2(msg, "bgr8")
+        except Exception as e:
+            self.get_logger().error(f"Failed to convert image: {e}")
+
+    def polygon_callback(self, msg):
+        if self.latest_img is None:
+            self.get_logger().warn("⚠️ No image received yet, skip.")
             return
 
-        # 폴리곤 points → NumPy array
+        if len(msg.polygon.points) < 3:
+            self.get_logger().warn("⚠️ Polygon too small, skip.")
+            return
+
         pts = np.array([[p.x, p.y] for p in msg.polygon.points], dtype=np.int32)
 
+        # Create image for visualization
+        overlay_img = self.latest_img.copy()
+        cv2.polylines(overlay_img, [pts], isClosed=True, color=(255, 255, 0), thickness=2)
 
-        if len(pts) > 4:  # 충분한 점이 있을 때만 클러스터링 수행
-            # K-means로 주요 클러스터 찾기
-            n_clusters = min(2, len(pts) // 2)  # 최대 2개 클러스터
-            kmeans = KMeans(n_clusters=n_clusters, random_state=42, n_init=10)
-            cluster_labels = kmeans.fit_predict(pts)
+        # Draw left lane line (assuming pts[0] and pts[1] define it)
+        if len(pts) >= 2:
+            cv2.line(overlay_img, tuple(pts[0]), tuple(pts[1]), (0, 255, 255), 2) # Cyan
 
-            # 각 클러스터의 크기 확인
-            unique_labels, counts = np.unique(cluster_labels, return_counts=True)
-            main_cluster = unique_labels[np.argmax(counts)]  # 가장 큰 클러스터
+        # Draw right lane line (assuming pts[3] and pts[2] define it)
+        if len(pts) >= 4:
+            cv2.line(overlay_img, tuple(pts[3]), tuple(pts[2]), (255, 0, 255), 2) # Magenta
 
-            # 주요 클러스터의 점들만 선택
-            main_cluster_pts = pts[cluster_labels == main_cluster]
+        # Define the middle line for intersection
+        middle_line = ((self.img_width // 2, self.img_height), (self.img_width // 2, 0))
+        cv2.line(overlay_img, middle_line[0], middle_line[1], (128, 128, 128), 1)
 
-            # KNN으로 outlier 제거
-            if len(main_cluster_pts) > 3:
-                knn = NearestNeighbors(n_neighbors=min(3, len(main_cluster_pts)-1))
-                knn.fit(main_cluster_pts)
-                distances, _ = knn.kneighbors(main_cluster_pts)
-                avg_distances = np.mean(distances, axis=1)
+        last_intersection, intersected_segment = self.find_last_intersection_and_tangent(pts, middle_line)
 
-                # 평균 거리의 1.5 IQR 범위 내의 점들만 유지
-                q75, q25 = np.percentile(avg_distances, [75, 25])
-                iqr = q75 - q25
-                threshold = q75 + 1.5 * iqr
+        if last_intersection and intersected_segment:
+            # Draw intersection and segment
+            cv2.circle(overlay_img, (int(last_intersection[0]), int(last_intersection[1])), 5, (0, 0, 255), -1)
+            cv2.line(overlay_img, intersected_segment[0], intersected_segment[1], (0, 255, 0), 2)
 
-                valid_mask = avg_distances <= threshold
-                pts = main_cluster_pts[valid_mask]# K-means를 사용하여 이상점 제
+            # Calculate steering angle
+            tangent_angle = self.calculate_tangent_angle(intersected_segment)
 
-        # 이미지 사이즈 임의 지정 (예: 640x480)
-        w, h = 640, 480
-        edge_img = np.zeros((h, w), dtype=np.uint8)
+            # Publish the angle
+            angle_msg = Float32()
+            angle_msg.data = float(tangent_angle)
+            self.pub_angle.publish(angle_msg)
+            self.get_logger().info(f"✅ Angle: {tangent_angle:.2f}, Publishing...")
 
-        # 폴리라인 그리기
-        cv2.polylines(edge_img, [pts], isClosed=True, color=255, thickness=2)
-
-        # Dominant gradient 계산
-        gradient = self.compute_dominant_gradient(edge_img, w, h)
-
-        if gradient is not None:
-            angle = (gradient + 90)  # -90 ~ 90 → 0 ~ 180
-            angle = np.clip(angle, 0, 180)
-            msg_out = Float32()
-            msg_out.data = float(angle)
-            self.pub.publish(msg_out)
-            self.get_logger().info(f"Steering angle: {angle:.2f}°")
-
-            # 시각화
-            cv2.imshow("Lane edge", edge_img)
-            cv2.waitKey(1)
-
-    def compute_dominant_gradient(self, image, w, h):
-        if image.dtype != np.uint8:
-            image = cv2.normalize(image, None, 0, 255, cv2.NORM_MINMAX).astype('uint8')
-
-        lines = cv2.HoughLines(image, 1, np.pi / 180, 80)
-        if lines is None:
-            return None
-
-        margin_rad = np.deg2rad(self.angle_margin_deg)
-        valid_angles = []
-
-        for line in lines:
-            rho, theta = line[0]
-
-            # 이미지 경계 근처에 있는 직선 제거
-            is_near_border = (
-                abs(rho) < self.border_margin_px or
-                abs(rho - w) < self.border_margin_px or
-                abs(rho - h) < self.border_margin_px
+            # Draw the final angle
+            start_point = (self.img_width // 2, self.img_height)
+            length = 50
+            # Angle is in degrees, 0 is straight. Convert to radians for drawing.
+            angle_rad = np.deg2rad(tangent_angle + 90) # Add 90 to align with image coordinates
+            end_point = (
+                int(start_point[0] + length * np.cos(angle_rad)),
+                int(start_point[1] - length * np.sin(angle_rad))
             )
+            cv2.line(overlay_img, start_point, end_point, (0, 0, 255), 3)
+        else:
+            self.get_logger().warn("⚠️ No valid intersections found.")
 
-            is_horizontal = abs(theta - 0) < margin_rad or abs(theta - np.pi) < margin_rad
-            is_vertical = abs(theta - np.pi / 2) < margin_rad
+        cv2.imshow("Lane Planner", overlay_img)
+        cv2.waitKey(1)
 
-            if (is_horizontal or is_vertical) and is_near_border:
-                continue
+    def find_last_intersection_and_tangent(self, polygon_pts, line):
+        intersections = []
+        for i in range(len(polygon_pts)):
+            p1 = polygon_pts[i]
+            p2 = polygon_pts[(i + 1) % len(polygon_pts)]
+            intersection_point = self.line_intersection((p1, p2), line)
+            if intersection_point:
+                intersections.append({'point': intersection_point, 'segment': (p1, p2)})
 
-            angle_deg = np.rad2deg(np.arctan2(np.sin(theta), np.cos(theta)))
-            valid_angles.append(angle_deg)
+        if not intersections:
+            return None, None
 
-        if len(valid_angles) == 0:
-            return None
+        # Find the intersection with the highest y-value (furthest away)
+        last_intersection_data = max(intersections, key=lambda item: item['point'][1])
 
-        return np.median(valid_angles)
+        return last_intersection_data['point'], last_intersection_data['segment']
+
+    def line_intersection(self, line1, line2):
+        p1, p2 = line1
+        p3, p4 = line2
+
+        x1, y1 = p1.astype(float)
+        x2, y2 = p2.astype(float)
+        x3, y3 = p3
+        x4, y4 = p4
+
+        den = (x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4)
+        if abs(den) < 1e-6:
+            return None  # Parallel
+
+        t_num = (x1 - x3) * (y3 - y4) - (y1 - y3) * (x3 - x4)
+        u_num = -((x1 - x2) * (y1 - y3) - (y1 - y2) * (x1 - x3))
+
+        t = t_num / den
+        u = u_num / den
+
+        if 0 <= t <= 1 and 0 <= u <= 1:
+            ix = x1 + t * (x2 - x1)
+            iy = y1 + t * (y2 - y1)
+            return (ix, iy)
+        return None
+
+    def calculate_tangent_angle(self, segment):
+        p1, p2 = segment
+        # Calculate the angle relative to the positive y-axis (upwards)
+        # This will give 0 for a vertical line, positive for leaning right, negative for leaning left
+        angle_rad = np.arctan2(p2[0] - p1[0], -(p2[1] - p1[1]))
+        angle_deg = np.rad2deg(angle_rad)
+        return angle_deg
 
 
 def main(args=None):
     rclpy.init(args=args)
-    node = SimpleLaneAngleEstimator()
+    node = LanePlanner()
     try:
         rclpy.spin(node)
     except KeyboardInterrupt:
