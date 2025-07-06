@@ -17,10 +17,10 @@ class SimpleLaneAngleEstimator(Node):
         self.slice_step = 10
         self.slice_bin = 10
         self.min_points_per_bin = 1
-        self.polyfit_degree = 2               # 2차로 고정 (안정적)
-        self.y_for_angle = 300                # polyfit용 y 기준
-        self.angle_mode = 'polyfit'           # 'polyfit' or 'vector'
-        self.y_target_ratio = 0.2             # vector용 상단 비율
+        self.polyfit_degree = 2
+        self.y_for_angle = 300
+        self.angle_mode = 'polyfit'  # 또는 'vector'
+        self.y_target_ratio = 0.2
 
         self.approx_epsilon = 5.0
         self.img_w = 640
@@ -45,7 +45,8 @@ class SimpleLaneAngleEstimator(Node):
 
     def callback(self, msg):
         if len(msg.polygon.points) < 3:
-            self.get_logger().info("📭 Polygon point 부족")
+            self.get_logger().info("📭 Polygon point 부족 → steering=0")
+            self.pub.publish(Float32(data=0.0))  # 🔧
             return
 
         pts = np.array([[p.x, p.y] for p in msg.polygon.points], dtype=np.int32)
@@ -59,11 +60,11 @@ class SimpleLaneAngleEstimator(Node):
 
         contours, _ = cv2.findContours(edge_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
         if len(contours) == 0:
-            self.get_logger().info("📭 Contour point 없음")
+            self.get_logger().info("📭 Contour point 없음 → steering=0")
+            self.pub.publish(Float32(data=0.0))  # 🔧
             return
         contour_pts = contours[0].reshape(-1, 2)
 
-        # ===== slicing =====
         y_min, y_max = np.min(contour_pts[:, 1]), np.max(contour_pts[:, 1])
         y_slices = np.arange(y_min, y_max, self.slice_step)
 
@@ -80,7 +81,8 @@ class SimpleLaneAngleEstimator(Node):
             centerline_pts.append([center_x, y])
 
         if len(centerline_pts) < 5:
-            self.get_logger().info("📭 slicing 결과 유효 중점 부족")
+            self.get_logger().info("📭 slicing 결과 유효 중점 부족 → steering=0")
+            self.pub.publish(Float32(data=0.0))  # 🔧
             return
 
         centerline_pts = np.array(centerline_pts)
@@ -92,18 +94,18 @@ class SimpleLaneAngleEstimator(Node):
             angle = self._calc_angle_vector(centerline_pts)
         else:
             self.get_logger().warn(f"⚠️ 지원하지 않는 mode: {self.angle_mode}")
+            self.pub.publish(Float32(data=0.0))  # 🔧
             return
 
         if angle is None:
-            self.get_logger().info("📭 조향각 계산 실패")
+            self.get_logger().info("📭 조향각 계산 실패 → steering=0")
+            self.pub.publish(Float32(data=0.0))  # 🔧
             return
 
         self.pub.publish(Float32(data=angle))
         self.get_logger().info(f"✅ Steering angle ({self.angle_mode}): {angle:.2f}°")
 
         # ===== 시각화 =====
-        y_fit = centerline_pts[:, 1]
-        x_fit = centerline_pts[:, 0]
         edge_color = cv2.cvtColor(edge_mask, cv2.COLOR_GRAY2BGR)
         for x, y in centerline_pts:
             cv2.circle(edge_color, (int(x), int(y)), 2, (0, 255, 0), -1)
