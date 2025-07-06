@@ -29,8 +29,8 @@ class ControlCmdPublisher(Node):
         self.pub_cmd = self.create_publisher(String, control_topic, 10)
 
         # 상태 저장용 변수
-        self._last_steering = 1400
-        self._last_throttle = 350
+        self._last_steering = 2100
+        self._last_throttle = 540
         self._last_sent_cmd = None
         self._last_sent_raw_angle = None
         self._last_mode = "Unknown"
@@ -85,7 +85,7 @@ class ControlCmdPublisher(Node):
             angle = round(angle)
 
             min_a, max_a = 67.5, 112.5
-            min_p, max_p = 800, 1900
+            min_p, max_p = 1350, 2800
             if angle <= min_a:
                 sp = min_p
             elif angle >= max_a:
@@ -101,7 +101,7 @@ class ControlCmdPublisher(Node):
             if angle is None:
                 tp = self._last_throttle
             else:
-                tp = 310 if (angle < 67.5 or angle > 112.5) else 350
+                tp = 500 if (angle < 67.5 or angle > 112.5) else 540
         self._last_throttle = tp
 
     def _timer_publish(self):
