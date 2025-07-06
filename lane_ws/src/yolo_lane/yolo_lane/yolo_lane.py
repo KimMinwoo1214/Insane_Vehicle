@@ -27,11 +27,6 @@ class YOLOSegNode(Node):
     def callback(self, msg):
         try:
             img = self.bridge.imgmsg_to_cv2(msg, desired_encoding='bgr8')
-            hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
-            white_lower = np.array([0, 0, 200], dtype=np.uint8)
-            white_upper = np.array([180, 30, 255], dtype=np.uint8)
-            mask = cv2.inRange(hsv, white_lower, white_upper)
-            img = cv2.bitwise_and(img, img, mask=mask)
 
             results = self.model(img)[0]
 
