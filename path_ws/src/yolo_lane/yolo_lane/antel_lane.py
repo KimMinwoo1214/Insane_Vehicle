@@ -2,7 +2,6 @@
 
 import rclpy
 from rclpy.node import Node
-from rclpy.qos import QoSProfile, QoSReliabilityPolicy, QoSHistoryPolicy, QoSDurabilityPolicy
 from std_msgs.msg import Float32
 from geometry_msgs.msg import PolygonStamped
 import numpy as np
@@ -19,110 +18,105 @@ class SimpleLaneAngleEstimator(Node):
         self.min_points_per_bin = 2
         self.polyfit_degree = 2
         self.approx_epsilon = 10.0
-        self.y_target_ratio = 0.8         # 상단으로부터의 위치 (0.8 = 80% = 밑 1/5 지점)
-
-        self.angle_mode = 'vector'        # 'polyfit' or 'vector'
+        self.y_target_ratio = 0.8          # 상단으로부터의 위치 (0.8 = 80% = 밑 1/5 지점)
+        self.angle_mode = 'vector'         # 'vector' 또는 'polyfit'
 
         self.img_w = 640
         self.img_h = 480
 
-        qos = QoSProfile(
-            reliability=QoSReliabilityPolicy.RELIABLE,
-            history=QoSHistoryPolicy.KEEP_LAST,
-            durability=QoSDurabilityPolicy.VOLATILE,
-            depth=1
-        )
-
-        self.sub = self.create_subscription(
+        # ✅ QoS: 기본 설정 사용
+        self.create_subscription(
             PolygonStamped,
             '/yolo_polygon',
             self.callback,
-            qos
+            10
         )
-        self.pub = self.create_publisher(Float32, '/lane_steering_angle', qos)
+
+        self.pub = self.create_publisher(Float32, '/lane_steering_angle', 10)
 
         self.get_logger().info(f"✅ LaneAngleEstimator 시작 (mode: {self.angle_mode})")
 
     def callback(self, msg):
-        if len(msg.polygon.points) < 3:
-            self.get_logger().info("📭 Polygon point 부족")
-            return
+        try:
+            if len(msg.polygon.points) < 3:
+                self.get_logger().info("📭 Polygon point 부족")
+                return
 
-        pts = np.array([[p.x, p.y] for p in msg.polygon.points], dtype=np.int32)
+            pts = np.array([[p.x, p.y] for p in msg.polygon.points], dtype=np.int32)
 
-        # ===== 다각형 단순화 및 edge mask 생성 =====
-        contour = pts.reshape((-1, 1, 2))
-        approx = cv2.approxPolyDP(contour, self.approx_epsilon, True)
-        approx_pts = approx.reshape(-1, 2)
+            contour = pts.reshape((-1, 1, 2))
+            approx = cv2.approxPolyDP(contour, self.approx_epsilon, True)
+            approx_pts = approx.reshape(-1, 2)
 
-        edge_mask = np.zeros((self.img_h, self.img_w), dtype=np.uint8)
-        cv2.polylines(edge_mask, [approx_pts], isClosed=True, color=255, thickness=2)
+            edge_mask = np.zeros((self.img_h, self.img_w), dtype=np.uint8)
+            cv2.polylines(edge_mask, [approx_pts], isClosed=True, color=255, thickness=2)
 
-        kernel = np.ones((3, 3), np.uint8)
-        edge_mask = cv2.morphologyEx(edge_mask, cv2.MORPH_OPEN, kernel)
+            kernel = np.ones((3, 3), np.uint8)
+            edge_mask = cv2.morphologyEx(edge_mask, cv2.MORPH_OPEN, kernel)
 
-        # ===== 외곽선 추출: 면적 큰 것만 사용 =====
-        contours, _ = cv2.findContours(edge_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
-        if len(contours) == 0:
-            self.get_logger().info("📭 Contour 없음")
-            return
+            contours, _ = cv2.findContours(edge_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
+            if len(contours) == 0:
+                self.get_logger().info("📭 Contour 없음")
+                return
 
-        contours = sorted(contours, key=cv2.contourArea, reverse=True)
-        contour_pts = contours[0].reshape(-1, 2)
+            contours = sorted(contours, key=cv2.contourArea, reverse=True)
+            contour_pts = contours[0].reshape(-1, 2)
 
-        # ===== 슬라이싱하여 중심점 추출 =====
-        y_min, y_max = np.min(contour_pts[:, 1]), np.max(contour_pts[:, 1])
-        y_slices = np.arange(y_min, y_max, self.slice_step)
+            y_min, y_max = np.min(contour_pts[:, 1]), np.max(contour_pts[:, 1])
+            y_slices = np.arange(y_min, y_max, self.slice_step)
 
-        centerline_pts = []
-        prev_x = None
-        for y in y_slices:
-            bin_mask = (contour_pts[:, 1] >= y - self.slice_bin / 2) & (contour_pts[:, 1] < y + self.slice_bin / 2)
-            bin_pts = contour_pts[bin_mask]
+            centerline_pts = []
+            prev_x = None
+            for y in y_slices:
+                bin_mask = (contour_pts[:, 1] >= y - self.slice_bin / 2) & (contour_pts[:, 1] < y + self.slice_bin / 2)
+                bin_pts = contour_pts[bin_mask]
 
-            if len(bin_pts) < self.min_points_per_bin:
-                continue
+                if len(bin_pts) < self.min_points_per_bin:
+                    continue
 
-            xs = bin_pts[:, 0]
-            center_x = (np.min(xs) + np.max(xs)) / 2.0
+                xs = bin_pts[:, 0]
+                center_x = (np.min(xs) + np.max(xs)) / 2.0
 
-            if prev_x is not None and abs(center_x - prev_x) > 50:
-                continue
+                if prev_x is not None and abs(center_x - prev_x) > 50:
+                    continue
 
-            centerline_pts.append([center_x, y])
-            prev_x = center_x
+                centerline_pts.append([center_x, y])
+                prev_x = center_x
 
-        if len(centerline_pts) < 5:
-            self.get_logger().info("📭 중심점 부족")
-            return
+            if len(centerline_pts) < 5:
+                self.get_logger().info("📭 중심점 부족")
+                return
 
-        centerline_pts = np.array(centerline_pts)
+            centerline_pts = np.array(centerline_pts)
 
-        # ===== 조향각 계산 =====
-        if self.angle_mode == 'polyfit':
-            angle = self._calc_angle_polyfit(centerline_pts)
-        elif self.angle_mode == 'vector':
-            angle = self._calc_angle_vector(centerline_pts)
-        else:
-            self.get_logger().warn(f"⚠️ 지원하지 않는 angle_mode: {self.angle_mode}")
-            return
+            # ===== 각도 계산 방식 선택 =====
+            if self.angle_mode == 'polyfit':
+                angle = self._calc_angle_polyfit(centerline_pts)
+            elif self.angle_mode == 'vector':
+                angle = self._calc_angle_vector(centerline_pts)
+            else:
+                self.get_logger().warn(f"⚠️ 지원하지 않는 angle_mode: {self.angle_mode}")
+                return
 
-        if angle is None:
-            self.get_logger().info("📭 유효한 조향각 계산 실패")
-            return
+            if angle is None:
+                self.get_logger().info("📭 유효한 조향각 계산 실패")
+                return
 
-        self.pub.publish(Float32(data=angle))
-        self.get_logger().info(f"✅ Steering angle ({self.angle_mode}): {angle:.2f}°")
+            self.pub.publish(Float32(data=angle))
+            self.get_logger().info(f"✅ Steering angle ({self.angle_mode}): {angle:.2f}°")
 
-        # ===== 시각화 =====
-        edge_color = cv2.cvtColor(edge_mask, cv2.COLOR_GRAY2BGR)
-        for x, y in centerline_pts:
-            cv2.circle(edge_color, (int(x), int(y)), 2, (0, 255, 0), -1)
-        cv2.putText(edge_color, f"{angle:.2f} deg", (10, 30),
-                    cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 255), 2)
+            # ===== 시각화 =====
+            edge_color = cv2.cvtColor(edge_mask, cv2.COLOR_GRAY2BGR)
+            for x, y in centerline_pts:
+                cv2.circle(edge_color, (int(x), int(y)), 2, (0, 255, 0), -1)
+            cv2.putText(edge_color, f"{angle:.2f} deg", (10, 30),
+                        cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 255), 2)
 
-        cv2.imshow("Lane Centerline + Angle", edge_color)
-        cv2.waitKey(1)
+            cv2.imshow("Lane Centerline + Angle", edge_color)
+            cv2.waitKey(1)
+
+        except Exception as e:
+            self.get_logger().error(f"[Callback Error] {e}")
 
     def _calc_angle_polyfit(self, pts):
         try:
@@ -148,7 +142,7 @@ class SimpleLaneAngleEstimator(Node):
 
     def _calc_angle_vector(self, pts):
         bottom = pts[np.argmax(pts[:, 1])]
-        upper_thresh = self.img_h * (1.0 - self.y_target_ratio)  # 상단 1/5 정도
+        upper_thresh = self.img_h * (1.0 - self.y_target_ratio)
         valid = pts[pts[:, 1] < upper_thresh]
 
         if len(valid) < 2:
@@ -157,7 +151,7 @@ class SimpleLaneAngleEstimator(Node):
         angles = []
         for pt in valid:
             dx = pt[0] - bottom[0]
-            dy = bottom[1] - pt[1]  # y는 아래로 증가하므로
+            dy = bottom[1] - pt[1]
             if dy == 0:
                 continue
             angle_rad = np.arctan2(dx, dy)
