@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import rclpy
 from rclpy.node import Node
 from rclpy.qos import QoSProfile, QoSReliabilityPolicy, QoSHistoryPolicy, QoSDurabilityPolicy
@@ -12,10 +14,17 @@ class SimpleLaneAngleEstimator(Node):
         super().__init__('simple_lane_angle_node')
 
         # ===== 하이퍼파라미터 =====
-        self.angle_margin_deg = 2.0     # 허용 오차 각도 (degree)
-        self.border_margin_px = 10      # 이미지 경계에서 이내의 직선은 제거
+        self.slice_step = 10         # y 슬라이스 간격(px)
+        self.slice_bin = 10          # bin 폭(px)
+        self.min_points_per_bin = 1  # 슬라이스 최소 점 개수 (vertex sparse할 때는 1로)
+        self.polyfit_degree = 3      # 다항식 차수
+        self.y_for_angle = 300       # steering angle 계산할 y위치(px)
 
-        # ===== ROS 설정 =====
+        self.approx_epsilon = 5.0    # contour 단순화 허용 오차(px)
+
+        self.img_w = 640
+        self.img_h = 480
+
         qos = QoSProfile(
             reliability=QoSReliabilityPolicy.RELIABLE,
             history=QoSHistoryPolicy.KEEP_LAST,
@@ -23,7 +32,6 @@ class SimpleLaneAngleEstimator(Node):
             depth=1
         )
 
-        # PolygonStamped 구독자로 변경!
         self.sub = self.create_subscription(
             PolygonStamped,
             '/yolo_polygon',
@@ -32,71 +40,87 @@ class SimpleLaneAngleEstimator(Node):
         )
         self.pub = self.create_publisher(Float32, '/lane_steering_angle', qos)
 
+        self.get_logger().info("✅ SimpleLaneAngleEstimator: contour 기반 slicing 버전 시작!")
+
     def callback(self, msg):
-        # PolygonStamped는 하나의 polygon을 포함
         if len(msg.polygon.points) < 3:
+            self.get_logger().info("📭 Polygon point 부족")
             return
 
-        # 폴리곤 points → NumPy array
+        # ===== Polygon → NumPy =====
         pts = np.array([[p.x, p.y] for p in msg.polygon.points], dtype=np.int32)
 
-        # 이미지 사이즈 임의 지정 (예: 640x480)
-        w, h = 640, 480
-        edge_img = np.zeros((h, w), dtype=np.uint8)
+        # ===== 외곽선 단순화 =====
+        contour = pts.reshape((-1, 1, 2))  # (N,1,2)
+        approx = cv2.approxPolyDP(contour, self.approx_epsilon, True)
+        approx_pts = approx.reshape(-1, 2)
 
-        # 폴리라인 그리기
-        cv2.polylines(edge_img, [pts], isClosed=True, color=255, thickness=2)
+        # ===== Edge mask =====
+        edge_mask = np.zeros((self.img_h, self.img_w), dtype=np.uint8)
+        cv2.polylines(edge_mask, [approx_pts], isClosed=True, color=255, thickness=2)
 
-        # Dominant gradient 계산
-        gradient = self.compute_dominant_gradient(edge_img, w, h)
+        # ===== Contour point 추출 =====
+        contours, _ = cv2.findContours(edge_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
+        if len(contours) == 0:
+            self.get_logger().info("📭 Contour point 없음")
+            return
+        contour_pts = contours[0].reshape(-1, 2)  # (N,2)
 
-        if gradient is not None:
-            angle = (gradient + 90)  # -90 ~ 90 → 0 ~ 180
-            angle = np.clip(angle, 0, 180)
-            msg_out = Float32()
-            msg_out.data = float(angle)
-            self.pub.publish(msg_out)
-            self.get_logger().info(f"Steering angle: {angle:.2f}°")
+        # ===== Edge 시각화 =====
+        cv2.imshow("Polygon Edge (approx)", edge_mask)
 
-            # 시각화
-            cv2.imshow("Lane edge", edge_img)
-            cv2.waitKey(1)
+        # ===== slicing =====
+        y_min, y_max = np.min(contour_pts[:, 1]), np.max(contour_pts[:, 1])
+        y_slices = np.arange(y_min, y_max, self.slice_step)
 
-    def compute_dominant_gradient(self, image, w, h):
-        if image.dtype != np.uint8:
-            image = cv2.normalize(image, None, 0, 255, cv2.NORM_MINMAX).astype('uint8')
+        centerline_pts = []
+        for y in y_slices:
+            bin_mask = (contour_pts[:, 1] >= y - self.slice_bin / 2) & (contour_pts[:, 1] < y + self.slice_bin / 2)
+            bin_pts = contour_pts[bin_mask]
 
-        lines = cv2.HoughLines(image, 1, np.pi / 180, 80)
-        if lines is None:
-            return None
-
-        margin_rad = np.deg2rad(self.angle_margin_deg)
-        valid_angles = []
-
-        for line in lines:
-            rho, theta = line[0]
-
-            # 이미지 경계 근처에 있는 직선 제거
-            is_near_border = (
-                abs(rho) < self.border_margin_px or
-                abs(rho - w) < self.border_margin_px or
-                abs(rho - h) < self.border_margin_px
-            )
-
-            is_horizontal = abs(theta - 0) < margin_rad or abs(theta - np.pi) < margin_rad
-            is_vertical = abs(theta - np.pi / 2) < margin_rad
-
-            if (is_horizontal or is_vertical) and is_near_border:
+            if len(bin_pts) < self.min_points_per_bin:
                 continue
 
-            angle_deg = np.rad2deg(np.arctan2(np.sin(theta), np.cos(theta)))
-            valid_angles.append(angle_deg)
+            xs = bin_pts[:, 0]
+            left_x = np.min(xs)
+            right_x = np.max(xs)
+            center_x = (left_x + right_x) / 2.0
+            centerline_pts.append([center_x, y])
 
-        if len(valid_angles) == 0:
-            return None
+        if len(centerline_pts) < 5:
+            self.get_logger().info("📭 slicing 결과 유효 중점 부족")
+            return
 
-        return np.median(valid_angles)
+        centerline_pts = np.array(centerline_pts)
 
+        # ===== 다항식 피팅 =====
+        fit = np.polyfit(centerline_pts[:, 1], centerline_pts[:, 0], self.polyfit_degree)
+        poly = np.poly1d(fit)
+
+        # ===== 시각화 =====
+        y_fit = np.linspace(y_min, y_max, 100)
+        x_fit = poly(y_fit)
+        edge_color = cv2.cvtColor(edge_mask, cv2.COLOR_GRAY2BGR)
+        for x, y in centerline_pts:
+            cv2.circle(edge_color, (int(x), int(y)), 2, (0, 255, 0), -1)  # slicing 중점 (초록)
+        for i in range(len(y_fit) - 1):
+            pt1 = (int(x_fit[i]), int(y_fit[i]))
+            pt2 = (int(x_fit[i + 1]), int(y_fit[i + 1]))
+            cv2.line(edge_color, pt1, pt2, (0, 0, 255), 1)  # polyfit 곡선 (빨강)
+
+        cv2.imshow("Centerline Polyfit (contour)", edge_color)
+        cv2.waitKey(1)
+
+        # ===== steering angle =====
+        dy = 1.0
+        y0 = self.y_for_angle
+        dx = (poly(y0 + dy) - poly(y0 - dy)) / (2 * dy)
+        angle_rad = np.arctan(dx)
+        angle_deg = np.rad2deg(angle_rad)
+        steering_angle = 90.0 + angle_deg  # 90° = 직진
+
+        self.pub.publish(Float32(data=steering_angle))
+        self.get_logger().info(f"✅ Steering angle: {steering_angle:.2f}°")
 
 def main(args=None):
     rclpy.init(args=args)
@@ -105,11 +129,9 @@ def main(args=None):
         rclpy.spin(node)
     except KeyboardInterrupt:
         pass
-    finally:
-        node.destroy_node()
-        rclpy.shutdown()
-        cv2.destroyAllWindows()
-
+    node.destroy_node()
+    rclpy.shutdown()
+    cv2.destroyAllWindows()
 
 if __name__ == '__main__':
     main()
