@@ -15,7 +15,7 @@ class ArduinoCommander(Node):
 
         # === 파라미터 ===
         self.declare_parameter('control_cmd_topic', '/control_cmd')
-        self.declare_parameter('serial_port', '/dev/ttyACM0')
+        self.declare_parameter('serial_port', '/dev/ttyUSB0')
         self.declare_parameter('baudrate', 2000000)
 
         topic      = self.get_parameter('control_cmd_topic').value
