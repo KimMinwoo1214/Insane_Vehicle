@@ -71,7 +71,8 @@ class ControlCmdPublisher(Node):
 
         if self.cone_angle is not None and self.cone_angle_time is not None:
             if (now - self.cone_angle_time) < self.cone_angle_timeout:
-                use_cone = True
+                if self.lane_angle == 0:
+                    use_cone = True
 
         if use_cone:
             angle = self.cone_angle

@@ -58,7 +58,7 @@ class ArduinoCommander(Node):
             try:
                 dropped = self.cmd_queue.get_nowait()
                 self.get_logger().debug(f"[CALLBACK] Dropped old cmd: {dropped.strip()}")
-            except queue.Empty:
+            except queue.Empty:     
                 pass
             try:
                 self.cmd_queue.put_nowait(cmd)
