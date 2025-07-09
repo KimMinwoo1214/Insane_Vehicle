@@ -23,7 +23,7 @@ class SimpleLaneAngleEstimator(Node):
         # ROI 범위 (픽셀 단위, 퍼셉션 노드와 동일하게 맞춤)
         self.img_w = 640
         self.img_h = 480
-        self.roi_ymin = 640
+        self.roi_ymin = 0
         self.roi_ymax = 480
 
         # 하단 ROI 중 몇 퍼센트를 사용할지 (예: 하단 30% → 0.7)

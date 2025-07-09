@@ -23,7 +23,7 @@ class YOLOLaneEngineNode(Node):
             PolygonStamped, '/yolo_lane_polygon', 10)
 
         # ROI 하단 필터링 경계 설정
-        self.roi_ymin = 640
+        self.roi_ymin = 0
         self.roi_ymax = 480
 
         self.get_logger().info("✅ YOLO Lane Engine 노드 시작됨")
