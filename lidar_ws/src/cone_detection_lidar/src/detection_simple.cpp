@@ -207,22 +207,22 @@ private:
     path.poses.push_back(ori);
     Eigen::Vector2f mid;
     if (!left.empty() && !right.empty()) {
-      // ✅ 바꾼 부분: 진행 방향(Y축) 기준으로 가장 가까운 거 선택
+      // 진행 방향(X축) 기준으로 가장 가까운 거 선택
       Eigen::Vector2f bestL; double minL = DBL_MAX;
       for (auto &c : left) {
-        double d = std::abs(c.y());
+        double d = std::abs(c.x());
         if (d < minL) { minL = d; bestL = c; }
       }
       Eigen::Vector2f bestR; double minR = DBL_MAX;
       for (auto &c : right) {
-        double d = std::abs(c.y());
+        double d = std::abs(c.x());
         if (d < minR) { minR = d; bestR = c; }
       }
       mid = 0.5f * (bestL + bestR);
     } else {
       auto &side = (!left.empty() ? left : right);
       std::sort(side.begin(), side.end(), [](auto &a, auto &b){
-        return std::abs(a.y()) < std::abs(b.y());
+        return std::abs(a.x()) < std::abs(b.x());
       });
       if (side.size() >= 3) mid = 0.5f * (side[0] + side[1]);
       else mid = side[0];
