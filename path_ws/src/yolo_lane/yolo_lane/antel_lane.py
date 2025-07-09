@@ -19,6 +19,7 @@ class SimpleLaneAngleEstimator(Node):
         self.min_points_per_bin = 2
         self.num_bottom_slices = 3   # 하단 몇 슬라이스로 tangent 평균낼지
         self.approx_epsilon = 10.0
+        self.x_jump_threshold = 100   # 튐 필터 기준 픽셀
 
         self.img_w = 640
         self.img_h = 480
@@ -38,7 +39,7 @@ class SimpleLaneAngleEstimator(Node):
         )
         self.pub = self.create_publisher(Float32, '/lane_steering_angle', qos)
 
-        self.get_logger().info("✅ SimpleLaneAngleEstimator 시작됨 (하단 N슬라이스 tangent 평균 모드)")
+        self.get_logger().info("✅ SimpleLaneAngleEstimator 시작됨 (아래→위 slicing + fallback 튐 필터)")
 
     def callback(self, msg):
         if len(msg.polygon.points) < 3:
@@ -67,12 +68,13 @@ class SimpleLaneAngleEstimator(Node):
         contours = sorted(contours, key=cv2.contourArea, reverse=True)
         contour_pts = contours[0].reshape(-1, 2)
 
-        # ===== 슬라이싱하여 중심점 추출 =====
+        # ===== 슬라이싱하여 중심점 추출 (Y 큰 아래부터 위로) =====
         y_min, y_max = np.min(contour_pts[:, 1]), np.max(contour_pts[:, 1])
-        y_slices = np.arange(y_min, y_max, self.slice_step)
+        y_slices = np.arange(y_min, y_max, self.slice_step)[::-1]  # 아래부터 위로
 
         centerline_pts = []
-        prev_x = None
+        prev_valid_x = None
+
         for y in y_slices:
             bin_mask = (contour_pts[:, 1] >= y - self.slice_bin / 2) & (contour_pts[:, 1] < y + self.slice_bin / 2)
             bin_pts = contour_pts[bin_mask]
@@ -83,12 +85,13 @@ class SimpleLaneAngleEstimator(Node):
             xs = bin_pts[:, 0]
             center_x = (np.min(xs) + np.max(xs)) / 2.0
 
-            # 연속성 필터
-            if prev_x is not None and abs(center_x - prev_x) > 50:
+            # ===== 튐 필터 (아래 기준점 fallback) =====
+            fallback_x = prev_valid_x if prev_valid_x is not None else center_x
+            if abs(center_x - fallback_x) > self.x_jump_threshold:
                 continue
 
             centerline_pts.append([center_x, y])
-            prev_x = center_x
+            prev_valid_x = center_x
 
         if len(centerline_pts) < self.num_bottom_slices + 1:
             self.get_logger().info("📭 중심점 부족")
@@ -116,7 +119,7 @@ class SimpleLaneAngleEstimator(Node):
         self.pub.publish(Float32(data=steering_angle))
         self.get_logger().info(f"✅ Steering angle: {steering_angle:.2f}° (하단 N슬라이스 tangent 평균)")
 
-        # ===== 시각화 (붙여준 버전 스타일) =====
+        # ===== 시각화 =====
         edge_color = cv2.cvtColor(edge_mask, cv2.COLOR_GRAY2BGR)
         for x, y in centerline_pts:
             cv2.circle(edge_color, (int(x), int(y)), 2, (0, 255, 0), -1)
