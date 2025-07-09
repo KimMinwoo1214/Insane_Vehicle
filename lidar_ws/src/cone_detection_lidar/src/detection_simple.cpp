@@ -73,6 +73,11 @@ public:
       cloud_in_topic_, 10,
       std::bind(&DetectionWithSideAndCenter::lidar_cb, this, std::placeholders::_1)
     );
+
+    // ✅ 추가: watchdog timer 설정
+    last_cb_time_ = this->now();
+    watchdog_timer_ = create_wall_timer(
+      100ms, std::bind(&DetectionWithSideAndCenter::watchdog_check, this));
   }
 
 private:
@@ -87,8 +92,13 @@ private:
   rclcpp::Publisher<nav_msgs::msg::Path>::SharedPtr pub_path_;
   rclcpp::Publisher<std_msgs::msg::Float32>::SharedPtr pub_angle_;
 
+  rclcpp::Time last_cb_time_;  // ✅ watchdog용 마지막 callback 시각
+  rclcpp::TimerBase::SharedPtr watchdog_timer_; // ✅ watchdog 타이머
+
   void lidar_cb(const sensor_msgs::msg::PointCloud2::ConstSharedPtr &msg) {
-    // 1) Crop box and downsample
+    last_cb_time_ = this->now();  // ✅ callback 들어오면 갱신
+
+    // --- 1) Crop box and downsample ---
     auto cloud = std::make_shared<pcl::PointCloud<pcl::PointXYZI>>();
     pcl::fromROSMsg(*msg, *cloud);
     pcl::CropBox<pcl::PointCloud<pcl::PointXYZI>::PointType> crop;
@@ -109,7 +119,7 @@ private:
     out1.header = msg->header;
     pub_cropped_->publish(out1);
 
-    // 2) Euclidean clustering
+    // --- 2) Euclidean clustering ---
     pcl::search::KdTree<pcl::PointXYZI>::Ptr tree(new pcl::search::KdTree<pcl::PointXYZI>);
     tree->setInputCloud(ds);
     pcl::EuclideanClusterExtraction<pcl::PointXYZI> ec;
@@ -121,7 +131,7 @@ private:
     std::vector<pcl::PointIndices> clusters;
     ec.extract(clusters);
 
-    // 3) PCA + gap splitting for center detection
+    // --- 3) PCA + gap splitting for center detection ---
     auto cloud_rgb = std::make_shared<pcl::PointCloud<pcl::PointXYZRGB>>();
     cloud_rgb->header   = ds->header;
     cloud_rgb->is_dense = ds->is_dense;
@@ -130,11 +140,10 @@ private:
 
     int cid = 0;
     for (auto &c : clusters) {
-      // collect 2D points
       std::vector<Eigen::Vector2f> pts;
       pts.reserve(c.indices.size());
       for (int idx : c.indices) pts.emplace_back(ds->points[idx].x, ds->points[idx].y);
-      // PCA axis
+
       Eigen::Vector2f mean = Eigen::Vector2f::Zero();
       for (auto &p : pts) mean += p;
       mean /= float(pts.size());
@@ -145,12 +154,12 @@ private:
       }
       Eigen::SelfAdjointEigenSolver<Eigen::Matrix2f> es(cov);
       Eigen::Vector2f axis = es.eigenvectors().col(1).normalized();
-      // project and sort
+
       std::vector<std::pair<float,int>> proj;
       proj.reserve(pts.size());
       for (int i = 0; i < pts.size(); ++i) proj.emplace_back(axis.dot(pts[i] - mean), i);
       std::sort(proj.begin(), proj.end(), [](auto &a, auto &b){ return a.first < b.first; });
-      // gap split
+
       std::vector<std::vector<int>> subs;
       std::vector<int> cur = { proj[0].second };
       for (int i = 0; i + 1 < proj.size(); ++i) {
@@ -161,18 +170,18 @@ private:
         cur.push_back(proj[i+1].second);
       }
       subs.push_back(cur);
-      // compute sub-centers
+
       for (auto &sub : subs) {
         Eigen::Vector2f sc = Eigen::Vector2f::Zero();
         for (int i : sub) sc += pts[i];
         sc /= float(sub.size());
         centers.push_back(sc);
-        // marker
+
         visualization_msgs::msg::Marker m;
         init_center_marker(m, sc.x(), sc.y(), cid);
         m.header = msg->header; m.color.a = 1.0;
         markers.markers.push_back(m);
-        // color points
+
         uint8_t r = (cid*37)%255, g=(cid*91)%255, b=(cid*53)%255;
         for (int i : sub) {
           auto &pt = pts[i];
@@ -188,20 +197,26 @@ private:
     out2.header = msg->header;
     pub_clustered_->publish(out2);
 
-    // 4) Path generation: pick closest clusters per side
-    if (centers.empty()) return;
+    // --- 4) Path generation ---
+    if (centers.empty()) {
+      std_msgs::msg::Float32 fallback;
+      fallback.data = 0.0;
+      pub_angle_->publish(fallback);
+      RCLCPP_WARN(this->get_logger(), "⚠️ No clusters found — fallback steering angle 0° published.");
+      return;
+    }
+
     std::vector<Eigen::Vector2f> left, right;
     for (auto &c : centers) {
       if (c.y() >= 0) left.push_back(c);
       else            right.push_back(c);
     }
-    // origin
+
     nav_msgs::msg::Path path; path.header = msg->header;
     geometry_msgs::msg::PoseStamped ori; ori.header = path.header; ori.pose.orientation.w = 1.0;
     path.poses.push_back(ori);
     Eigen::Vector2f mid;
     if (!left.empty() && !right.empty()) {
-      // closest on each side
       Eigen::Vector2f bestL; double minL = DBL_MAX;
       for (auto &c : left) { double d = c.norm(); if (d < minL) { minL = d; bestL = c; }}
       Eigen::Vector2f bestR; double minR = DBL_MAX;
@@ -209,7 +224,6 @@ private:
       mid = 0.5f * (bestL + bestR);
     } else {
       auto &side = (!left.empty() ? left : right);
-      // pick two by smallest |y|
       std::sort(side.begin(), side.end(), [](auto &a, auto &b){ return std::abs(a.y()) < std::abs(b.y()); });
       if (side.size() >= 3) mid = 0.5f * (side[0] + side[1]);
       else mid = side[0];
@@ -219,7 +233,6 @@ private:
     path.poses.push_back(ps);
     pub_path_->publish(path);
 
-    // 5) Steering angle
     if (path.poses.size() >= 2) {
       auto &p0 = path.poses[0].pose.position;
       auto &p1 = path.poses[1].pose.position;
@@ -227,6 +240,16 @@ private:
       double deg = ang * 180.0 / M_PI;
       std_msgs::msg::Float32 a; a.data = std::clamp(90.0 - deg, 67.5, 112.5);
       pub_angle_->publish(a);
+    }
+  }
+
+  void watchdog_check() {
+    auto now = this->now();
+    if ((now - last_cb_time_).seconds() > 0.5) {
+      std_msgs::msg::Float32 fallback;
+      fallback.data = 0.0;
+      pub_angle_->publish(fallback);
+      RCLCPP_WARN(this->get_logger(), "⚠️ LiDAR timeout — fallback steering angle 0° published.");
     }
   }
 };
