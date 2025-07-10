@@ -22,12 +22,14 @@ class ControlCmdPublisher(Node):
         self.declare_parameter('emergency_topic', '/emergency')
         self.declare_parameter('cone_angle_topic', '/cone_steering_angle')
         self.declare_parameter('lane_angle_topic', '/lane_steering_angle')
+        self.declare_parameter('gps_angle_topic', '/gps_steering_angle')
         self.declare_parameter('control_cmd_topic', '/control_cmd')
         self.declare_parameter('publish_rate', 10.0)
 
         self.emergency_topic = self.get_parameter('emergency_topic').value
         cone_topic    = self.get_parameter('cone_angle_topic').value
         lane_topic    = self.get_parameter('lane_angle_topic').value
+        gps_topic     = self.get_parameter('gps_angle_topic').value
         control_topic = self.get_parameter('control_cmd_topic').value
         rate_hz       = self.get_parameter('publish_rate').value
 
@@ -35,6 +37,7 @@ class ControlCmdPublisher(Node):
         self.pub_cmd = self.create_publisher(String, control_topic, 10)
         self.create_subscription(Float32, cone_topic, self._cone_cb, 10)
         self.create_subscription(Float32, lane_topic, self._lane_cb, 10)
+        self.create_subscription(Float32, gps_topic, self._gps_cb, 10)
         self.create_subscription(Int32,   self.emergency_topic, self._emergency_cb, 10)
         self.create_subscription(Joy,     'joy', self._joy_cb, 10)
 
@@ -46,6 +49,7 @@ class ControlCmdPublisher(Node):
         self._last_mode         = "Unknown"
 
         self.emergency_flag = False
+        self.gps_angle = None
         self.cone_angle     = None
         self.lane_angle     = None
 
@@ -74,14 +78,16 @@ class ControlCmdPublisher(Node):
     def _lane_cb(self, msg: Float32):
         self.lane_angle = msg.data
 
+    def _gps_cb(self, msg: Float32):
+        self.gps_angle = msg.data
+
     def _joy_cb(self, msg: Joy):
         buttons = list(msg.buttons)
-        n = len(buttons)
-        idx5, idx4 = n-5, n-4
-        idx3, idx2 = n-3, n-2
+        idx1 = 8
+        idx2 = 9
 
         # combo1: 끝에서 5번째 & 4번째 동시 누름
-        if buttons[idx5] == 1 and buttons[idx4] == 1:
+        if buttons[idx1] == 1:
             self.combo1_count += 1
         else:
             self.combo1_count = 0
@@ -95,7 +101,7 @@ class ControlCmdPublisher(Node):
             self.get_logger().info(f"[COMBO1 x{self.COMBO_THRESHOLD}] STOP & JOYSTICK ON → '{cmd}'")
 
         # combo2: 끝에서 3번째 & 2번째 동시 누름
-        if buttons[idx3] == 1 and buttons[idx2] == 1:
+        if buttons[idx2] == 1:
             self.combo2_count += 1
         else:
             self.combo2_count = 0
@@ -143,7 +149,10 @@ class ControlCmdPublisher(Node):
 
         # 2) 자동(cone/lane) 제어 기존 로직
         angle = None
-        if self.cone_angle is not None or self.lane_angle is not None:
+        if self.gps_angle != -1:
+            angle = self.gps_angle
+            self._last_mode = "GPS"
+        elif self.cone_angle is not None or self.lane_angle is not None:
             if self.cone_angle is not None and self.lane_angle is not None:
                 if self.cone_angle == 0:
                     angle = self.lane_angle
@@ -182,7 +191,9 @@ class ControlCmdPublisher(Node):
     def _timer_publish(self):
         # raw_angle 판단
         raw_angle = None
-        if self.cone_angle is not None or self.lane_angle is not None:
+        if self.gps_angle != -1:
+            raw_angle = self.gps_angle
+        elif self.cone_angle is not None or self.lane_angle is not None:
             if self.cone_angle == 0 and self.lane_angle is not None:
                 raw_angle = self.lane_angle
             else:

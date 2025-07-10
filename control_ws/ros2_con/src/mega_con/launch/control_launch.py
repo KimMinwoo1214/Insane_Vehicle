@@ -12,6 +12,13 @@ def generate_launch_description():
             output='screen'
         ),
 
+        Node(
+            package='joy',
+            executable='joy_node',
+            name='joy_node',
+            output='screen'
+        ),
+
         # SerialBridge (아두이노와 시리얼 통신) 실행
         # 조이스틱을 통한 ROS2 명령 생성 노드 실행
         Node(
