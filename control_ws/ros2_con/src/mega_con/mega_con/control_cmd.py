@@ -2,49 +2,64 @@
 
 import rclpy
 from rclpy.node import Node
+from sensor_msgs.msg import Joy
 from std_msgs.msg import Float32, Int32, String
+
+# 데드존 함수
+DEADZONE = 0.1
+def apply_deadzone(value: float) -> float:
+    if abs(value) < DEADZONE:
+        return 0.0
+    sign = 1.0 if value > 0 else -1.0
+    scaled = (abs(value) - DEADZONE) / (1.0 - DEADZONE)
+    return sign * scaled
 
 class ControlCmdPublisher(Node):
     def __init__(self):
         super().__init__('control_cmd_publisher')
 
-        # 파라미터 선언
+        # 파라미터 선언 및 취득
         self.declare_parameter('emergency_topic', '/emergency')
         self.declare_parameter('cone_angle_topic', '/cone_steering_angle')
         self.declare_parameter('lane_angle_topic', '/lane_steering_angle')
         self.declare_parameter('control_cmd_topic', '/control_cmd')
-        self.declare_parameter('publish_rate', 10.0)  # Hz로 명령 전송 주기
+        self.declare_parameter('publish_rate', 10.0)
 
-        # 파라미터 취득
         self.emergency_topic = self.get_parameter('emergency_topic').value
-        cone_topic = self.get_parameter('cone_angle_topic').value
-        lane_topic = self.get_parameter('lane_angle_topic').value
+        cone_topic    = self.get_parameter('cone_angle_topic').value
+        lane_topic    = self.get_parameter('lane_angle_topic').value
         control_topic = self.get_parameter('control_cmd_topic').value
-        rate_hz = self.get_parameter('publish_rate').value
+        rate_hz       = self.get_parameter('publish_rate').value
 
-        # 퍼블리셔 (control_cmd)
+        # 퍼블리셔 & 구독
         self.pub_cmd = self.create_publisher(String, control_topic, 10)
-
-        # 상태 저장용 변수
-        self._last_steering = 2100
-        self._last_throttle = 550
-        self._last_sent_cmd = None
-        self._last_sent_raw_angle = None
-        self._last_mode = "Unknown"
-        self.emergency_flag = False
-        self.cone_angle = 0
-        self.lane_angle = None
-
-        # 구독: steering 토픽
         self.create_subscription(Float32, cone_topic, self._cone_cb, 10)
         self.create_subscription(Float32, lane_topic, self._lane_cb, 10)
+        self.create_subscription(Int32,   self.emergency_topic, self._emergency_cb, 10)
+        self.create_subscription(Joy,     'joy', self._joy_cb, 10)
 
-        # 구독: emergency 토픽
-        self.create_subscription(Int32, self.emergency_topic, self._emergency_cb, 10)
+        # 내부 상태 변수
+        self._last_steering     = 2100
+        self._last_throttle     = 550
+        self._last_sent_cmd     = None
+        self._last_sent_raw_ang = None
+        self._last_mode         = "Unknown"
 
-        # 주기 발행 타이머
+        self.emergency_flag = False
+        self.cone_angle     = None
+        self.lane_angle     = None
+
+        # 조이스틱 제어 관련
+        self.joy_axes = [0.0, 0.0]   # [steer, throttle]
+        self.joy_mode = False        # False=자동, True=조이스틱 직접
+
+        # 버튼 연속 감지용 카운터
+        self.combo1_count = 0  # (-5, -4) 동시에 눌림 카운트
+        self.combo2_count = 0  # (-3, -2) 동시에 눌림 카운트
+        self.COMBO_THRESHOLD = 10  # 연속 콜백 수
+
+        # 주기 타이머
         self.create_timer(1.0 / rate_hz, self._timer_publish)
-
         self.get_logger().info(f'ControlCmdPublisher 시작 (publish_rate={rate_hz}Hz)')
 
     def _emergency_cb(self, msg: Int32):
@@ -59,7 +74,74 @@ class ControlCmdPublisher(Node):
     def _lane_cb(self, msg: Float32):
         self.lane_angle = msg.data
 
+    def _joy_cb(self, msg: Joy):
+        buttons = list(msg.buttons)
+        n = len(buttons)
+        idx5, idx4 = n-5, n-4
+        idx3, idx2 = n-3, n-2
+
+        # combo1: 끝에서 5번째 & 4번째 동시 누름
+        if buttons[idx5] == 1 and buttons[idx4] == 1:
+            self.combo1_count += 1
+        else:
+            self.combo1_count = 0
+
+        if self.combo1_count == self.COMBO_THRESHOLD:
+            # throttle 즉시 0, joystick mode on
+            self._last_throttle = 0
+            self.joy_mode = True
+            cmd = f"{self._last_steering},{self._last_throttle}"
+            self.pub_cmd.publish(String(data=cmd))
+            self.get_logger().info(f"[COMBO1 x{self.COMBO_THRESHOLD}] STOP & JOYSTICK ON → '{cmd}'")
+
+        # combo2: 끝에서 3번째 & 2번째 동시 누름
+        if buttons[idx3] == 1 and buttons[idx2] == 1:
+            self.combo2_count += 1
+        else:
+            self.combo2_count = 0
+
+        if self.combo2_count == self.COMBO_THRESHOLD:
+            # auto mode 복귀
+            self.joy_mode = False
+            self.get_logger().info(f"[COMBO2 x{self.COMBO_THRESHOLD}] AUTO MODE ON")
+
+        # 데드존 적용 후 축 값 저장
+        raw_steer    = msg.axes[0]
+        raw_throttle = msg.axes[1]
+        steer   = apply_deadzone(raw_steer)
+        throttle= apply_deadzone(raw_throttle)
+        self.joy_axes = [steer, throttle]
+
     def _compute_command(self):
+        # 1) joystick 직접 제어 모드
+        if self.joy_mode:
+            steer_axis    = self.joy_axes[0]
+            throttle_axis = self.joy_axes[1]
+
+            # steer 계산 (+1→min_a, -1→max_a)
+            min_a, max_a = 67.5, 112.5
+            angle = ((-steer_axis + 1) / 2) * (max_a - min_a) + min_a
+            angle = round(angle)
+            min_p, max_p = 1350, 2800
+            if angle <= min_a:
+                sp = min_p
+            elif angle >= max_a:
+                sp = max_p
+            else:
+                slope = (max_p - min_p) / (max_a - min_a)
+                sp = int(round(slope * angle + (min_p - slope * min_a)))
+            self._last_steering = sp
+
+            # throttle 계산 (>0→axis*550, ≤0→0)
+            if throttle_axis > 0:
+                self._last_throttle = int(round(throttle_axis * 550))
+            else:
+                self._last_throttle = 0
+
+            self._last_mode = "Joystick"
+            return
+
+        # 2) 자동(cone/lane) 제어 기존 로직
         angle = None
         if self.cone_angle is not None or self.lane_angle is not None:
             if self.cone_angle is not None and self.lane_angle is not None:
@@ -77,7 +159,6 @@ class ControlCmdPublisher(Node):
 
         if angle is not None:
             angle = round(angle)
-
             min_a, max_a = 67.5, 112.5
             min_p, max_p = 1350, 2800
             if angle <= min_a:
@@ -99,6 +180,7 @@ class ControlCmdPublisher(Node):
         self._last_throttle = tp
 
     def _timer_publish(self):
+        # raw_angle 판단
         raw_angle = None
         if self.cone_angle is not None or self.lane_angle is not None:
             if self.cone_angle == 0 and self.lane_angle is not None:
@@ -109,31 +191,22 @@ class ControlCmdPublisher(Node):
         self._compute_command()
         cmd = f"{self._last_steering},{self._last_throttle}"
 
+        # 퍼블리시 조건
         send = False
-        if raw_angle is not None:
-            if self._last_sent_raw_angle is None or abs(raw_angle - self._last_sent_raw_angle) >= 0.2:
+        if raw_angle is not None and not self.joy_mode:
+            if self._last_sent_raw_ang is None or abs(raw_angle - self._last_sent_raw_ang) >= 0.2:
                 send = True
-                self._last_sent_raw_angle = raw_angle
+                self._last_sent_raw_ang = raw_angle
         else:
             if cmd != self._last_sent_cmd:
                 send = True
 
         if send:
-            msg = String()
-            msg.data = cmd
-            self.pub_cmd.publish(msg)
-            delta_str = (
-                "N/A"
-                if self._last_sent_raw_angle is None
-                else f"{raw_angle - self._last_sent_raw_angle:.1f}"
-            )
-            self.get_logger().info(
-                f"publishing: '{cmd}' [mode={self._last_mode}] (raw Δ={delta_str}°)"
-            )
+            self.pub_cmd.publish(String(data=cmd))
+            self.get_logger().info(f"publishing: '{cmd}' [mode={self._last_mode}]")
             self._last_sent_cmd = cmd
         else:
-            self.get_logger().debug("Δ각도 < 1°이거나 명령 변화 없어 전송 생략")
-
+            self.get_logger().debug("변화 없음, 전송 생략")
 
 def main(args=None):
     rclpy.init(args=args)
@@ -148,3 +221,4 @@ def main(args=None):
 
 if __name__ == '__main__':
     main()
+

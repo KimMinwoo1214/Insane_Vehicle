@@ -8,18 +8,17 @@ from geometry_msgs.msg import PolygonStamped
 import numpy as np
 import cv2
 
-class HybridLaneAngleEstimator(Node):
+class EfficientHybridAngleEstimator(Node):
     def __init__(self):
-        super().__init__('hybrid_lane_angle_node')
+        super().__init__('efficient_hybrid_angle_node')
 
         # ===== 하이퍼파라미터 =====
         self.img_w = 640
         self.img_h = 480
-        self.roi_ymin = 300
-        self.roi_ymax = 400
-        self.slice_step = 10
-        self.reference_point = np.array([320.0, 480.0])
-        self.alpha = 0.0501  # 중심 유지에 대한 가중치
+        self.slice_interval = 10
+        self.num_slices = 9
+        self.minx = 150
+        self.maxx = 490
 
         self.visualize = True
 
@@ -38,78 +37,83 @@ class HybridLaneAngleEstimator(Node):
         )
         self.pub = self.create_publisher(Float32, '/lane_steering_angle', qos)
 
-        self.get_logger().info("✅ Hybrid 조향각 노드 시작됨")
+        self.get_logger().info("✅ Efficient Hybrid Angle Estimator 시작됨")
 
     def callback(self, msg):
-        if len(msg.polygon.points) < 2:
+        if len(msg.polygon.points) < 3:
             self.pub.publish(Float32(data=0.0))
             return
 
         pts = np.array([[p.x, p.y] for p in msg.polygon.points], dtype=np.float32)
-        roi_pts = pts[(pts[:, 1] >= self.roi_ymin) & (pts[:, 1] <= self.roi_ymax)]
-        if roi_pts.shape[0] < 2:
+
+        # === 기준 y 리스트 만들기 (하단 slice 기준)
+        y_base = self.img_h - self.slice_interval * self.num_slices
+        y_slices = [y_base + i * self.slice_interval for i in range(self.num_slices)]
+
+        # === 각 슬라이스에 속하는 점 누적 (한 번의 루프)
+        bins = {y: [] for y in y_slices}
+        half = self.slice_interval / 2
+        for pt in pts:
+            y = pt[1]
+            for y_target in y_slices:
+                if abs(y - y_target) < half:
+                    bins[y_target].append(pt)
+                    break
+
+        # === 각 슬라이스별 평균점 계산
+        ref_pts = []
+        for y in y_slices:
+            bin_pts = bins[y]
+            if len(bin_pts) >= 2:
+                mean_pt = np.mean(bin_pts, axis=0)
+                ref_pts.append(mean_pt)
+
+        if len(ref_pts) < 2:
             self.pub.publish(Float32(data=0.0))
             return
 
-        # y 기준 간격 필터링
-        sorted_pts = roi_pts[np.argsort(roi_pts[:, 1])]
-        filtered_pts = []
-        last_y = -1000
-        for pt in sorted_pts:
-            if abs(pt[1] - last_y) >= self.slice_step:
-                filtered_pts.append(pt)
-                last_y = pt[1]
-        filtered_pts = np.array(filtered_pts)
+        ref_pts = np.array(ref_pts)
 
-        if len(filtered_pts) < 2:
+        # === 최하단 기준점 (가장 y 큰 ref_pt)
+        base_pt = ref_pts[-1]
+
+        # === 각도 계산
+        angles = []
+        for pt in ref_pts[:-1]:
+            dx = pt[0] - base_pt[0]
+            dy = base_pt[1] - pt[1]
+            if dy == 0:
+                continue
+            angle_rad = np.arctan2(dx, dy)
+            angles.append(90.0 + np.rad2deg(angle_rad))
+
+        if len(angles) == 0:
             self.pub.publish(Float32(data=0.0))
             return
 
-        # === 중심 기준 기울기 (reference point 기준) ===
-        angles_center = []
-        ref = self.reference_point
-        for pt in filtered_pts:
-            dx = pt[0] - ref[0]
-            dy = ref[1] - pt[1]
-            if dy == 0:
-                continue
-            angle_rad = np.arctan2(dx, dy)
-            angles_center.append(90.0 + np.rad2deg(angle_rad))
+        final_angle = np.mean(angles)
 
-        angle_centered = np.mean(angles_center) if len(angles_center) > 0 else 90.0
+        # === 좌우 보정
+        if base_pt[0] < self.minx:
+            final_angle -= 10.0
+            self.get_logger().info("🔄 최하단 기준점 좌측 → 좌측으로 보정 (-10°)")
+        elif base_pt[0] > self.maxx:
+            final_angle += 10.0
+            self.get_logger().info("🔄 최하단 기준점 우측 → 우측으로 보정 (+10°)")
 
-        # === 최하단 기준 기울기 ===
-        bottom = filtered_pts[np.argmax(filtered_pts[:, 1])]
-        angles_bottom = []
-        for pt in filtered_pts:
-            if np.allclose(pt, bottom):
-                continue
-            dx = pt[0] - bottom[0]
-            dy = bottom[1] - pt[1]
-            if dy == 0:
-                continue
-            angle_rad = np.arctan2(dx, dy)
-            angles_bottom.append(90.0 + np.rad2deg(angle_rad))
-
-        angle_bottom = np.mean(angles_bottom) if len(angles_bottom) > 0 else 90.0
-
-        # === 하이브리드 조합 ===
-        final_angle = (1 - self.alpha) * angle_bottom + self.alpha * angle_centered
         self.pub.publish(Float32(data=final_angle))
-        self.get_logger().info(f"✅ Hybrid angle: center={angle_centered:.2f}°, bottom={angle_bottom:.2f}° → final={final_angle:.2f}°")
+        self.get_logger().info(f"✅ 조향각 계산 완료: {final_angle:.2f}°")
 
         # === 시각화 ===
         if self.visualize:
             vis_img = np.zeros((self.img_h, self.img_w, 3), dtype=np.uint8)
-            for pt in filtered_pts:
-                cv2.circle(vis_img, (int(pt[0]), int(pt[1])), 2, (0, 255, 0), -1)
-                cv2.line(vis_img, (int(ref[0]), int(ref[1])), (int(pt[0]), int(pt[1])), (100, 100, 255), 1)
-                cv2.line(vis_img, (int(bottom[0]), int(bottom[1])), (int(pt[0]), int(pt[1])), (255, 100, 100), 1)
-            cv2.circle(vis_img, (int(ref[0]), int(ref[1])), 4, (255, 255, 255), -1)
-            cv2.circle(vis_img, (int(bottom[0]), int(bottom[1])), 4, (100, 255, 255), -1)
+            for pt in ref_pts:
+                cv2.circle(vis_img, (int(pt[0]), int(pt[1])), 3, (0, 255, 0), -1)
+                cv2.line(vis_img, tuple(base_pt.astype(int)), tuple(pt.astype(int)), (0, 255, 255), 1)
+            cv2.circle(vis_img, tuple(base_pt.astype(int)), 5, (0, 0, 255), -1)
             cv2.putText(vis_img, f"{final_angle:.2f} deg", (10, 30),
                         cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2)
-            cv2.imshow("Hybrid Steering Angle", vis_img)
+            cv2.imshow("Efficient Hybrid Angle", vis_img)
             cv2.waitKey(1)
 
     def destroy_node(self):
@@ -118,7 +122,7 @@ class HybridLaneAngleEstimator(Node):
 
 def main(args=None):
     rclpy.init(args=args)
-    node = HybridLaneAngleEstimator()
+    node = EfficientHybridAngleEstimator()
     try:
         rclpy.spin(node)
     except KeyboardInterrupt:
