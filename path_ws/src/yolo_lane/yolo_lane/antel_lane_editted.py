@@ -35,7 +35,7 @@ class HybridTargetSliceAngleEstimator(Node):
 
         self.sub = self.create_subscription(
             PolygonStamped,
-            '/yolo_lane_polygon',
+            '/yolo_polygon',
             self.callback,
             qos
         )
