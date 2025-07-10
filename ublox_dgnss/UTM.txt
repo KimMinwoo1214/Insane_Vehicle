@@ -1,0 +1,4844 @@
+data: 'Easting: 249960.17945504092, Northing: 3688378.4223996983, Zone: 52S'
+---
+data: 'Easting: 249960.17945504092, Northing: 3688378.4223996983, Zone: 52S'
+---
+data: 'Easting: 249960.17945504092, Northing: 3688378.4223996983, Zone: 52S'
+---
+data: 'Easting: 249960.17945504092, Northing: 3688378.4223996983, Zone: 52S'
+---
+data: 'Easting: 249960.17945504092, Northing: 3688378.4223996983, Zone: 52S'
+---
+data: 'Easting: 249960.17945504092, Northing: 3688378.4223996983, Zone: 52S'
+---
+data: 'Easting: 249960.17945504092, Northing: 3688378.4223996983, Zone: 52S'
+---
+data: 'Easting: 249960.17945504092, Northing: 3688378.4223996983, Zone: 52S'
+---
+data: 'Easting: 249960.17945504092, Northing: 3688378.4223996983, Zone: 52S'
+---
+data: 'Easting: 249960.17945504092, Northing: 3688378.4223996983, Zone: 52S'
+---
+data: 'Easting: 249960.17014169498, Northing: 3688378.4226395767, Zone: 52S'
+---
+data: 'Easting: 249960.17945504092, Northing: 3688378.4223996983, Zone: 52S'
+---
+data: 'Easting: 249960.17014169498, Northing: 3688378.4226395767, Zone: 52S'
+---
+data: 'Easting: 249960.17945504092, Northing: 3688378.4223996983, Zone: 52S'
+---
+data: 'Easting: 249960.17014169498, Northing: 3688378.4226395767, Zone: 52S'
+---
+data: 'Easting: 249960.17014169498, Northing: 3688378.4226395767, Zone: 52S'
+---
+data: 'Easting: 249960.17014169498, Northing: 3688378.4226395767, Zone: 52S'
+---
+data: 'Easting: 249960.17014169498, Northing: 3688378.4226395767, Zone: 52S'
+---
+data: 'Easting: 249960.17014169498, Northing: 3688378.4226395767, Zone: 52S'
+---
+data: 'Easting: 249960.17014169498, Northing: 3688378.4226395767, Zone: 52S'
+---
+data: 'Easting: 249960.17014169498, Northing: 3688378.4226395767, Zone: 52S'
+---
+data: 'Easting: 249960.17945504092, Northing: 3688378.4223996983, Zone: 52S'
+---
+data: 'Easting: 249960.17945504092, Northing: 3688378.4223996983, Zone: 52S'
+---
+data: 'Easting: 249960.1704273693, Northing: 3688378.4337310023, Zone: 52S'
+---
+data: 'Easting: 249960.1797407151, Northing: 3688378.4334911252, Zone: 52S'
+---
+data: 'Easting: 249960.1797407151, Northing: 3688378.4334911252, Zone: 52S'
+---
+data: 'Easting: 249960.18962540707, Northing: 3688378.4554341, Zone: 52S'
+---
+data: 'Easting: 249960.19922442225, Northing: 3688378.466285648, Zone: 52S'
+---
+data: 'Easting: 249960.20910911637, Northing: 3688378.488228621, Zone: 52S'
+---
+data: 'Easting: 249960.2187081341, Northing: 3688378.4990801704, Zone: 52S'
+---
+data: 'Easting: 249960.22859282576, Northing: 3688378.5210231445, Zone: 52S'
+---
+data: 'Easting: 249960.24779086086, Northing: 3688378.5427262415, Zone: 52S'
+---
+data: 'Easting: 249960.26698889586, Northing: 3688378.564429338, Zone: 52S'
+---
+data: 'Easting: 249960.28647260476, Northing: 3688378.5972238607, Zone: 52S'
+---
+data: 'Easting: 249960.3059563161, Northing: 3688378.630018384, Zone: 52S'
+---
+data: 'Easting: 249960.32544002484, Northing: 3688378.6628129054, Zone: 52S'
+---
+data: 'Easting: 249960.34549508174, Northing: 3688378.717790282, Zone: 52S'
+---
+data: 'Easting: 249960.3652644642, Northing: 3688378.7616762295, Zone: 52S'
+---
+data: 'Easting: 249960.39434718975, Northing: 3688378.8053223016, Zone: 52S'
+---
+data: 'Easting: 249960.41411657422, Northing: 3688378.8492082497, Zone: 52S'
+---
+data: 'Easting: 249960.43445730186, Northing: 3688378.9152770494, Zone: 52S'
+---
+data: 'Easting: 249960.46382570302, Northing: 3688378.970014546, Zone: 52S'
+---
+data: 'Easting: 249960.50222177032, Northing: 3688379.013420741, Zone: 52S'
+---
+data: 'Easting: 249960.52256249945, Northing: 3688379.0794895426, Zone: 52S'
+---
+data: 'Easting: 249960.56152991627, Northing: 3688379.145078588, Zone: 52S'
+---
+data: 'Easting: 249960.59089831376, Northing: 3688379.1998160854, Zone: 52S'
+---
+data: 'Easting: 249960.63917906996, Northing: 3688379.265165256, Zone: 52S'
+---
+data: 'Easting: 249960.67786081153, Northing: 3688379.3196628755, Zone: 52S'
+---
+data: 'Easting: 249960.70722920785, Northing: 3688379.374400373, Zone: 52S'
+---
+data: 'Easting: 249960.74648229612, Northing: 3688379.4510808466, Zone: 52S'
+---
+data: 'Easting: 249960.785164034, Northing: 3688379.505578468, Zone: 52S'
+---
+data: 'Easting: 249960.82384577158, Northing: 3688379.56007609, Zone: 52S'
+---
+data: 'Easting: 249960.85321416653, Northing: 3688379.614813588, Zone: 52S'
+---
+data: 'Easting: 249960.89218157923, Northing: 3688379.6804026356, Zone: 52S'
+---
+data: 'Easting: 249960.93086331556, Northing: 3688379.7349002566, Zone: 52S'
+---
+data: 'Easting: 249960.96954505148, Northing: 3688379.789397878, Zone: 52S'
+---
+data: 'Easting: 249960.99948479424, Northing: 3688379.8663182287, Zone: 52S'
+---
+data: 'Easting: 249961.03788085593, Northing: 3688379.909724425, Zone: 52S'
+---
+data: 'Easting: 249961.06753492216, Northing: 3688379.9755533496, Zone: 52S'
+---
+data: 'Easting: 249961.0969033169, Northing: 3688380.0302908476, Zone: 52S'
+---
+data: 'Easting: 249961.12598603577, Northing: 3688380.073936923, Zone: 52S'
+---
+data: 'Easting: 249961.16466776936, Northing: 3688380.128434545, Zone: 52S'
+---
+data: 'Easting: 249961.1850084925, Northing: 3688380.1945033455, Zone: 52S'
+---
+data: 'Easting: 249961.22340455218, Northing: 3688380.237909542, Zone: 52S'
+---
+data: 'Easting: 249961.24345960384, Northing: 3688380.292886919, Zone: 52S'
+---
+data: 'Easting: 249961.27311366762, Northing: 3688380.358715843, Zone: 52S'
+---
+data: 'Easting: 249961.3030534043, Northing: 3688380.4356361954, Zone: 52S'
+---
+data: 'Easting: 249961.31408078456, Northing: 3688380.501944872, Zone: 52S'
+---
+data: 'Easting: 249961.38298792669, Northing: 3688380.644454273, Zone: 52S'
+---
+data: 'Easting: 249961.42224100293, Northing: 3688380.721134748, Zone: 52S'
+---
+data: 'Easting: 249961.45218073987, Northing: 3688380.7980550984, Zone: 52S'
+---
+data: 'Easting: 249961.48183480115, Northing: 3688380.8638840253, Zone: 52S'
+---
+data: 'Easting: 249961.5213735488, Northing: 3688380.9516559257, Zone: 52S'
+---
+data: 'Easting: 249961.56062662535, Northing: 3688381.0283364006, Zone: 52S'
+---
+data: 'Easting: 249961.60016537193, Northing: 3688381.116108303, Zone: 52S'
+---
+data: 'Easting: 249961.63970411773, Northing: 3688381.203880205, Zone: 52S'
+---
+data: 'Easting: 249961.68827053314, Northing: 3688381.280320803, Zone: 52S'
+---
+data: 'Easting: 249961.7278092776, Northing: 3688381.3680927046, Zone: 52S'
+---
+data: 'Easting: 249961.77666136192, Northing: 3688381.455624731, Zone: 52S'
+---
+data: 'Easting: 249961.82494210254, Northing: 3688381.520973905, Zone: 52S'
+---
+data: 'Easting: 249961.88282185313, Northing: 3688381.597174629, Zone: 52S'
+---
+data: 'Easting: 249961.92207492472, Northing: 3688381.6738551063, Zone: 52S'
+---
+data: 'Easting: 249961.97035566092, Northing: 3688381.739204281, Zone: 52S'
+---
+data: 'Easting: 249962.00960872893, Northing: 3688381.8158847573, Zone: 52S'
+---
+data: 'Easting: 249962.05817513872, Northing: 3688381.8923253585, Zone: 52S'
+---
+data: 'Easting: 249962.08811486562, Northing: 3688381.9692457127, Zone: 52S'
+---
+data: 'Easting: 249962.12708225957, Northing: 3688382.0348347635, Zone: 52S'
+---
+data: 'Easting: 249962.1477086481, Northing: 3688382.111994991, Zone: 52S'
+---
+data: 'Easting: 249962.1776483736, Northing: 3688382.1889153444, Zone: 52S'
+---
+data: 'Easting: 249962.21633009403, Northing: 3688382.2434129715, Zone: 52S'
+---
+data: 'Easting: 249962.25558315843, Northing: 3688382.3200934497, Zone: 52S'
+---
+data: 'Easting: 249962.2762095455, Northing: 3688382.3972536772, Zone: 52S'
+---
+data: 'Easting: 249962.29626458552, Northing: 3688382.4522310565, Zone: 52S'
+---
+data: 'Easting: 249962.32563296493, Northing: 3688382.5069685574, Zone: 52S'
+---
+data: 'Easting: 249962.37391369476, Northing: 3688382.5723177334, Zone: 52S'
+---
+data: 'Easting: 249962.39425440854, Northing: 3688382.6383865364, Zone: 52S'
+---
+data: 'Easting: 249962.43322179813, Northing: 3688382.70397559, Zone: 52S'
+---
+data: 'Easting: 249962.46287584808, Northing: 3688382.7698045173, Zone: 52S'
+---
+data: 'Easting: 249962.49252989763, Northing: 3688382.8356334455, Zone: 52S'
+---
+data: 'Easting: 249962.52246961888, Northing: 3688382.9125538007, Zone: 52S'
+---
+data: 'Easting: 249962.5614370091, Northing: 3688382.9781428524, Zone: 52S'
+---
+data: 'Easting: 249962.59080538555, Northing: 3688383.0328803565, Zone: 52S'
+---
+data: 'Easting: 249962.62074510797, Northing: 3688383.109800711, Zone: 52S'
+---
+data: 'Easting: 249962.64137148645, Northing: 3688383.186960941, Zone: 52S'
+---
+data: 'Easting: 249962.66171219756, Northing: 3688383.253029743, Zone: 52S'
+---
+data: 'Easting: 249962.7006795832, Northing: 3688383.3186187968, Zone: 52S'
+---
+data: 'Easting: 249962.71227829633, Northing: 3688383.407110327, Zone: 52S'
+---
+data: 'Easting: 249962.7422180169, Northing: 3688383.484030681, Zone: 52S'
+---
+data: 'Easting: 249962.7718720629, Northing: 3688383.5498596113, Zone: 52S'
+---
+data: 'Easting: 249962.81112511866, Northing: 3688383.626540089, Zone: 52S'
+---
+data: 'Easting: 249962.8317514972, Northing: 3688383.7037003194, Zone: 52S'
+---
+data: 'Easting: 249962.8707188826, Northing: 3688383.7692893734, Zone: 52S'
+---
+data: 'Easting: 249962.90065859875, Northing: 3688383.8462097286, Zone: 52S'
+---
+data: 'Easting: 249962.92099930474, Northing: 3688383.9122785325, Zone: 52S'
+---
+data: 'Easting: 249962.9509390201, Northing: 3688383.9891988887, Zone: 52S'
+---
+data: 'Easting: 249962.97156539714, Northing: 3688384.066359119, Zone: 52S'
+---
+data: 'Easting: 249962.98287843855, Northing: 3688384.1437592236, Zone: 52S'
+---
+data: 'Easting: 249963.01281815296, Northing: 3688384.2206795784, Zone: 52S'
+---
+data: 'Easting: 249963.0334445291, Northing: 3688384.2978398087, Zone: 52S'
+---
+data: 'Easting: 249963.05435657673, Northing: 3688384.3860914647, Zone: 52S'
+---
+data: 'Easting: 249963.07469728097, Northing: 3688384.452160269, Zone: 52S'
+---
+data: 'Easting: 249963.09560932798, Northing: 3688384.5404119254, Zone: 52S'
+---
+data: 'Easting: 249963.11623570553, Northing: 3688384.6175721567, Zone: 52S'
+---
+data: 'Easting: 249963.136576409, Northing: 3688384.6836409606, Zone: 52S'
+---
+data: 'Easting: 249963.16651612095, Northing: 3688384.760561315, Zone: 52S'
+---
+data: 'Easting: 249963.1781148295, Northing: 3688384.849052847, Zone: 52S'
+---
+data: 'Easting: 249963.19874120373, Northing: 3688384.9262130773, Zone: 52S'
+---
+data: 'Easting: 249963.21033991443, Northing: 3688385.0147046084, Zone: 52S'
+---
+data: 'Easting: 249963.23125195949, Northing: 3688385.1029562643, Zone: 52S'
+---
+data: 'Easting: 249963.251878333, Northing: 3688385.1801164947, Zone: 52S'
+---
+data: 'Easting: 249963.27279037746, Northing: 3688385.268368151, Zone: 52S'
+---
+data: 'Easting: 249963.28410341372, Northing: 3688385.345768257, Zone: 52S'
+---
+data: 'Easting: 249963.30501545776, Northing: 3688385.4340199125, Zone: 52S'
+---
+data: 'Easting: 249963.32564183016, Northing: 3688385.5111801433, Zone: 52S'
+---
+data: 'Easting: 249963.34626820235, Northing: 3688385.5883403746, Zone: 52S'
+---
+data: 'Easting: 249963.36718024794, Northing: 3688385.6765920306, Zone: 52S'
+---
+data: 'Easting: 249963.38780661946, Northing: 3688385.7537522614, Zone: 52S'
+---
+data: 'Easting: 249963.40843299078, Northing: 3688385.8309124927, Zone: 52S'
+---
+data: 'Easting: 249963.42905936186, Northing: 3688385.908072723, Zone: 52S'
+---
+data: 'Easting: 249963.4499714039, Northing: 3688385.9963243795, Zone: 52S'
+---
+data: 'Easting: 249963.47059777452, Northing: 3688386.073484611, Zone: 52S'
+---
+data: 'Easting: 249963.49122414712, Northing: 3688386.150644842, Zone: 52S'
+---
+data: 'Easting: 249963.5022515102, Northing: 3688386.2169535216, Zone: 52S'
+---
+data: 'Easting: 249963.53219121572, Northing: 3688386.2938738777, Zone: 52S'
+---
+data: 'Easting: 249963.54350424957, Northing: 3688386.3712739837, Zone: 52S'
+---
+data: 'Easting: 249963.56413061894, Northing: 3688386.4484342136, Zone: 52S'
+---
+data: 'Easting: 249963.58504266146, Northing: 3688386.536685871, Zone: 52S'
+---
+data: 'Easting: 249963.60566903028, Northing: 3688386.6138461027, Zone: 52S'
+---
+data: 'Easting: 249963.61669639233, Northing: 3688386.6801547823, Zone: 52S'
+---
+data: 'Easting: 249963.64663609597, Northing: 3688386.7570751393, Zone: 52S'
+---
+data: 'Easting: 249963.667548135, Northing: 3688386.8453267943, Zone: 52S'
+---
+data: 'Easting: 249963.6878888317, Northing: 3688386.9113956015, Zone: 52S'
+---
+data: 'Easting: 249963.6808608651, Northing: 3688387.0003668806, Zone: 52S'
+---
+data: 'Easting: 249963.6735472277, Northing: 3688387.0782467355, Zone: 52S'
+---
+data: 'Easting: 249963.70348693233, Northing: 3688387.155167093, Zone: 52S'
+---
+data: 'Easting: 249963.71451429353, Northing: 3688387.2214757726, Zone: 52S'
+---
+data: 'Easting: 249963.7258273233, Northing: 3688387.2988758786, Zone: 52S'
+---
+data: 'Easting: 249963.73685468666, Northing: 3688387.365184559, Zone: 52S'
+---
+data: 'Easting: 249963.74788204752, Northing: 3688387.43149324, Zone: 52S'
+---
+data: 'Easting: 249963.75919507936, Northing: 3688387.508893344, Zone: 52S'
+---
+data: 'Easting: 249963.77022243998, Northing: 3688387.5752020245, Zone: 52S'
+---
+data: 'Easting: 249963.77193646616, Northing: 3688387.6417505783, Zone: 52S'
+---
+data: 'Easting: 249963.79227716106, Northing: 3688387.7078193836, Zone: 52S'
+---
+data: 'Easting: 249963.80359019237, Northing: 3688387.7852194905, Zone: 52S'
+---
+data: 'Easting: 249963.80530421855, Northing: 3688387.8517680443, Zone: 52S'
+---
+data: 'Easting: 249963.81633157874, Northing: 3688387.9180767247, Zone: 52S'
+---
+data: 'Easting: 249963.8180456048, Northing: 3688387.98462528, Zone: 52S'
+---
+data: 'Easting: 249963.82935863594, Northing: 3688388.062025386, Zone: 52S'
+---
+data: 'Easting: 249963.83107266203, Northing: 3688388.12857394, Zone: 52S'
+---
+data: 'Easting: 249963.84210002425, Northing: 3688388.19488262, Zone: 52S'
+---
+data: 'Easting: 249963.86244071566, Northing: 3688388.2609514263, Zone: 52S'
+---
+data: 'Easting: 249963.8641547415, Northing: 3688388.3274999806, Zone: 52S'
+---
+data: 'Easting: 249963.86586876755, Northing: 3688388.3940485353, Zone: 52S'
+---
+data: 'Easting: 249963.87661045854, Northing: 3688388.4492657897, Zone: 52S'
+---
+data: 'Easting: 249963.8969511515, Northing: 3688388.5153345945, Zone: 52S'
+---
+data: 'Easting: 249963.90769283997, Northing: 3688388.57055185, Zone: 52S'
+---
+data: 'Easting: 249963.9094068658, Northing: 3688388.637100405, Zone: 52S'
+---
+data: 'Easting: 249963.92014855394, Northing: 3688388.6923176586, Zone: 52S'
+---
+data: 'Easting: 249963.93089024216, Northing: 3688388.747534913, Zone: 52S'
+---
+data: 'Easting: 249963.9515166054, Northing: 3688388.824695145, Zone: 52S'
+---
+data: 'Easting: 249963.95294496018, Northing: 3688388.8801522735, Zone: 52S'
+---
+data: 'Easting: 249963.96397231892, Northing: 3688388.946460954, Zone: 52S'
+---
+data: 'Easting: 249963.98431301324, Northing: 3688389.0125297587, Zone: 52S'
+---
+data: 'Easting: 249963.9860270387, Northing: 3688389.0790783144, Zone: 52S'
+---
+data: 'Easting: 249963.9877410643, Northing: 3688389.1456268686, Zone: 52S'
+---
+data: 'Easting: 249963.99905409128, Northing: 3688389.223026974, Zone: 52S'
+---
+data: 'Easting: 249964.01008145203, Northing: 3688389.289335655, Zone: 52S'
+---
+data: 'Easting: 249964.02139448127, Northing: 3688389.3667357615, Zone: 52S'
+---
+data: 'Easting: 249964.02367984861, Northing: 3688389.4554671664, Zone: 52S'
+---
+data: 'Easting: 249964.025679545, Northing: 3688389.5331071466, Zone: 52S'
+---
+data: 'Easting: 249964.03699257408, Northing: 3688389.610507253, Zone: 52S'
+---
+data: 'Easting: 249964.02996460904, Northing: 3688389.699478535, Zone: 52S'
+---
+data: 'Easting: 249964.03253564742, Northing: 3688389.799301366, Zone: 52S'
+---
+data: 'Easting: 249964.04442001827, Northing: 3688389.8988843244, Zone: 52S'
+---
+data: 'Easting: 249964.0469910568, Northing: 3688389.9987071548, Zone: 52S'
+---
+data: 'Easting: 249964.0405344343, Northing: 3688390.109861289, Zone: 52S'
+---
+data: 'Easting: 249964.0527044759, Northing: 3688390.2205356713, Zone: 52S'
+---
+data: 'Easting: 249964.0462478537, Northing: 3688390.3316898043, Zone: 52S'
+---
+data: 'Easting: 249964.04939023455, Northing: 3688390.4536954877, Zone: 52S'
+---
+data: 'Easting: 249964.0525326154, Northing: 3688390.575701172, Zone: 52S'
+---
+data: 'Easting: 249964.0553893254, Northing: 3688390.6866154294, Zone: 52S'
+---
+data: 'Easting: 249964.0399050415, Northing: 3688390.8091008617, Zone: 52S'
+---
+data: 'Easting: 249964.0340197651, Northing: 3688390.9424378444, Zone: 52S'
+---
+data: 'Easting: 249964.02813448667, Northing: 3688391.075774828, Zone: 52S'
+---
+data: 'Easting: 249964.02196353523, Northing: 3688391.198020388, Zone: 52S'
+---
+data: 'Easting: 249964.01579258643, Northing: 3688391.3202659455, Zone: 52S'
+---
+data: 'Easting: 249964.01922063984, Northing: 3688391.4533630554, Zone: 52S'
+---
+data: 'Easting: 249964.0130496916, Northing: 3688391.575608613, Zone: 52S'
+---
+data: 'Easting: 249964.0065930726, Northing: 3688391.6867627455, Zone: 52S'
+---
+data: 'Easting: 249964.00973545527, Northing: 3688391.80876843, Zone: 52S'
+---
+data: 'Easting: 249964.01287783816, Northing: 3688391.9307741136, Zone: 52S'
+---
+data: 'Easting: 249964.0154488788, Northing: 3688392.030596945, Zone: 52S'
+---
+data: 'Easting: 249964.01859126188, Northing: 3688392.15260263, Zone: 52S'
+---
+data: 'Easting: 249964.03076130385, Northing: 3688392.263277014, Zone: 52S'
+---
+data: 'Easting: 249964.0336180157, Northing: 3688392.374191272, Zone: 52S'
+---
+data: 'Easting: 249964.0455023863, Northing: 3688392.4737742296, Zone: 52S'
+---
+data: 'Easting: 249964.04807342708, Northing: 3688392.5735970614, Zone: 52S'
+---
+data: 'Easting: 249964.0599577974, Northing: 3688392.67318002, Zone: 52S'
+---
+data: 'Easting: 249964.0811554996, Northing: 3688392.772523103, Zone: 52S'
+---
+data: 'Easting: 249964.0930398672, Northing: 3688392.872106061, Zone: 52S'
+---
+data: 'Easting: 249964.0953252366, Northing: 3688392.960837467, Zone: 52S'
+---
+data: 'Easting: 249964.08858295047, Northing: 3688393.060900174, Zone: 52S'
+---
+data: 'Easting: 249964.08155499093, Northing: 3688393.149871455, Zone: 52S'
+---
+data: 'Easting: 249964.09315368978, Northing: 3688393.2383629866, Zone: 52S'
+---
+data: 'Easting: 249964.09572473067, Northing: 3688393.338185819, Zone: 52S'
+---
+data: 'Easting: 249964.09829577172, Northing: 3688393.4380086516, Zone: 52S'
+---
+data: 'Easting: 249964.10086681283, Northing: 3688393.537831484, Zone: 52S'
+---
+data: 'Easting: 249964.11275118016, Northing: 3688393.6374144414, Zone: 52S'
+---
+data: 'Easting: 249964.10600889506, Northing: 3688393.737477149, Zone: 52S'
+---
+data: 'Easting: 249964.08995327709, Northing: 3688393.8377797296, Zone: 52S'
+---
+data: 'Easting: 249964.09252431852, Northing: 3688393.937602563, Zone: 52S'
+---
+data: 'Easting: 249964.0950953601, Northing: 3688394.037425395, Zone: 52S'
+---
+data: 'Easting: 249964.08863874496, Northing: 3688394.1485795286, Zone: 52S'
+---
+data: 'Easting: 249964.08189645867, Northing: 3688394.2486422355, Zone: 52S'
+---
+data: 'Easting: 249964.08475317195, Northing: 3688394.3595564943, Zone: 52S'
+---
+data: 'Easting: 249964.07858222877, Northing: 3688394.4818020524, Zone: 52S'
+---
+data: 'Easting: 249964.06281228695, Northing: 3688394.593196059, Zone: 52S'
+---
+data: 'Easting: 249964.02870135935, Northing: 3688394.716161242, Zone: 52S'
+---
+data: 'Easting: 249964.00361809123, Northing: 3688394.8277951246, Zone: 52S'
+---
+data: 'Easting: 249963.97910616675, Northing: 3688394.961611858, Zone: 52S'
+---
+data: 'Easting: 249963.96362189893, Northing: 3688395.0840972927, Zone: 52S'
+---
+data: 'Easting: 249963.93910997608, Northing: 3688395.2179140267, Zone: 52S'
+---
+data: 'Easting: 249963.92362570955, Northing: 3688395.3403994613, Zone: 52S'
+---
+data: 'Easting: 249963.90842711274, Northing: 3688395.4739763206, Zone: 52S'
+---
+data: 'Easting: 249963.89351419063, Northing: 3688395.6186446063, Zone: 52S'
+---
+data: 'Easting: 249963.86871659927, Northing: 3688395.741369915, Zone: 52S'
+---
+data: 'Easting: 249963.85380367868, Northing: 3688395.8860382014, Zone: 52S'
+---
+data: 'Easting: 249963.83860508457, Northing: 3688396.019615062, Zone: 52S'
+---
+data: 'Easting: 249963.804779841, Northing: 3688396.153671671, Zone: 52S'
+---
+data: 'Easting: 249963.77066892665, Northing: 3688396.276636856, Zone: 52S'
+---
+data: 'Easting: 249963.7365580109, Northing: 3688396.399602041, Zone: 52S'
+---
+data: 'Easting: 249963.72107375044, Northing: 3688396.522087475, Zone: 52S'
+---
+data: 'Easting: 249963.6779351852, Northing: 3688396.656383961, Zone: 52S'
+---
+data: 'Easting: 249963.64382427497, Northing: 3688396.779349146, Zone: 52S'
+---
+data: 'Easting: 249963.62834001676, Northing: 3688396.901834581, Zone: 52S'
+---
+data: 'Easting: 249963.58463010826, Northing: 3688397.013948216, Zone: 52S'
+---
+data: 'Easting: 249963.54120587555, Northing: 3688397.137153278, Zone: 52S'
+---
+data: 'Easting: 249963.52543594743, Northing: 3688397.2485472863, Zone: 52S'
+---
+data: 'Easting: 249963.48201171446, Northing: 3688397.3717523473, Zone: 52S'
+---
+data: 'Easting: 249963.44761513773, Northing: 3688397.4836261095, Zone: 52S'
+---
+data: 'Easting: 249963.44115853653, Northing: 3688397.594780243, Zone: 52S'
+---
+data: 'Easting: 249963.42538861092, Northing: 3688397.706174252, Zone: 52S'
+---
+data: 'Easting: 249963.40001968623, Northing: 3688397.8067167103, Zone: 52S'
+---
+data: 'Easting: 249963.38424976167, Northing: 3688397.918110721, Zone: 52S'
+---
+data: 'Easting: 249963.36819416512, Northing: 3688398.0184133057, Zone: 52S'
+---
+data: 'Easting: 249963.3145995965, Northing: 3688398.1085839667, Zone: 52S'
+---
+data: 'Easting: 249963.29854400118, Northing: 3688398.208886549, Zone: 52S'
+---
+data: 'Easting: 249963.27288940945, Northing: 3688398.298337585, Zone: 52S'
+---
+data: 'Easting: 249963.2379214941, Northing: 3688398.388028493, Zone: 52S'
+---
+data: 'Easting: 249963.21226690122, Northing: 3688398.4774795277, Zone: 52S'
+---
+data: 'Easting: 249963.19592563514, Northing: 3688398.5666906866, Zone: 52S'
+---
+data: 'Easting: 249963.17055671845, Northing: 3688398.6672331463, Zone: 52S'
+---
+data: 'Easting: 249963.1353031329, Northing: 3688398.7458326314, Zone: 52S'
+---
+data: 'Easting: 249963.10062089138, Northing: 3688398.846614968, Zone: 52S'
+---
+data: 'Easting: 249963.07525197667, Northing: 3688398.9471574277, Zone: 52S'
+---
+data: 'Easting: 249963.03125641562, Northing: 3688399.0481796414, Zone: 52S'
+---
+data: 'Easting: 249962.99657417665, Northing: 3688399.1489619766, Zone: 52S'
+---
+data: 'Easting: 249962.96189194082, Northing: 3688399.249744315, Zone: 52S'
+---
+data: 'Easting: 249962.936523029, Northing: 3688399.3502867753, Zone: 52S'
+---
+data: 'Easting: 249962.89281314242, Northing: 3688399.4624004154, Zone: 52S'
+---
+data: 'Easting: 249962.86772990538, Northing: 3688399.5740343034, Zone: 52S'
+---
+data: 'Easting: 249962.83333334618, Northing: 3688399.6859080656, Zone: 52S'
+---
+data: 'Easting: 249962.79893678555, Northing: 3688399.7977818307, Zone: 52S'
+---
+data: 'Easting: 249962.75551257876, Northing: 3688399.9209868964, Zone: 52S'
+---
+data: 'Easting: 249962.712088371, Northing: 3688400.0441919644, Zone: 52S'
+---
+data: 'Easting: 249962.67797748928, Northing: 3688400.167157154, Zone: 52S'
+---
+data: 'Easting: 249962.64386660853, Northing: 3688400.290122344, Zone: 52S'
+---
+data: 'Easting: 249962.60072807796, Northing: 3688400.4244188373, Zone: 52S'
+---
+data: 'Easting: 249962.55730387737, Northing: 3688400.5476239054, Zone: 52S'
+---
+data: 'Easting: 249962.52347867374, Northing: 3688400.6816805224, Zone: 52S'
+---
+data: 'Easting: 249962.47102682525, Northing: 3688400.816216892, Zone: 52S'
+---
+data: 'Easting: 249962.41857498072, Northing: 3688400.9507532637, Zone: 52S'
+---
+data: 'Easting: 249962.3664088094, Northing: 3688401.0963810626, Zone: 52S'
+---
+data: 'Easting: 249962.30464364687, Northing: 3688401.2311573094, Zone: 52S'
+---
+data: 'Easting: 249962.24316415784, Northing: 3688401.377024985, Zone: 52S'
+---
+data: 'Easting: 249962.1907123179, Northing: 3688401.511561357, Zone: 52S'
+---
+data: 'Easting: 249962.1196338398, Northing: 3688401.6465774835, Zone: 52S'
+---
+data: 'Easting: 249962.0488410359, Northing: 3688401.7926850365, Zone: 52S'
+---
+data: 'Easting: 249961.99638920382, Northing: 3688401.927221411, Zone: 52S'
+---
+data: 'Easting: 249961.92559640415, Northing: 3688402.0733289644, Zone: 52S'
+---
+data: 'Easting: 249961.86383125273, Northing: 3688402.2081052177, Zone: 52S'
+---
+data: 'Easting: 249961.80235178032, Northing: 3688402.3539728965, Zone: 52S'
+---
+data: 'Easting: 249961.75949894811, Northing: 3688402.4993608207, Zone: 52S'
+---
+data: 'Easting: 249961.70704712474, Northing: 3688402.633897197, Zone: 52S'
+---
+data: 'Easting: 249961.65516665054, Northing: 3688402.790616426, Zone: 52S'
+---
+data: 'Easting: 249961.60271483066, Northing: 3688402.9251528024, Zone: 52S'
+---
+data: 'Easting: 249961.56917532446, Northing: 3688403.070300851, Zone: 52S'
+---
+data: 'Easting: 249961.5167235077, Northing: 3688403.204837228, Zone: 52S'
+---
+data: 'Easting: 249961.43633173173, Northing: 3688403.34009324, Zone: 52S'
+---
+data: 'Easting: 249961.3649676045, Northing: 3688403.464017947, Zone: 52S'
+---
+data: 'Easting: 249961.32154343458, Northing: 3688403.587223023, Zone: 52S'
+---
+data: 'Easting: 249961.25977830557, Northing: 3688403.72199928, Zone: 52S'
+---
+data: 'Easting: 249961.1974418249, Northing: 3688403.834592685, Zone: 52S'
+---
+data: 'Easting: 249961.13510534578, Northing: 3688403.9471860914, Zone: 52S'
+---
+data: 'Easting: 249961.0730545463, Northing: 3688404.0708709243, Zone: 52S'
+---
+data: 'Easting: 249961.01043239457, Northing: 3688404.1723729046, Zone: 52S'
+---
+data: 'Easting: 249960.9387826016, Northing: 3688404.2852061903, Zone: 52S'
+---
+data: 'Easting: 249960.89507276812, Northing: 3688404.397319842, Zone: 52S'
+---
+data: 'Easting: 249960.82256595022, Northing: 3688404.4768788517, Zone: 52S'
+---
+data: 'Easting: 249960.7602294801, Northing: 3688404.5894722603, Zone: 52S'
+---
+data: 'Easting: 249960.7066349798, Northing: 3688404.67964294, Zone: 52S'
+---
+data: 'Easting: 249960.65304047824, Northing: 3688404.769813619, Zone: 52S'
+---
+data: 'Easting: 249960.60001733276, Northing: 3688404.882167151, Zone: 52S'
+---
+data: 'Easting: 249960.55545047735, Northing: 3688404.961006527, Zone: 52S'
+---
+data: 'Easting: 249960.50214165542, Northing: 3688405.062268634, Zone: 52S'
+---
+data: 'Easting: 249960.4485471604, Northing: 3688405.1524393135, Zone: 52S'
+---
+data: 'Easting: 249960.40426598192, Northing: 3688405.2423701165, Zone: 52S'
+---
+data: 'Easting: 249960.35067148897, Northing: 3688405.332540798, Zone: 52S'
+---
+data: 'Easting: 249960.29707699484, Northing: 3688405.4227114785, Zone: 52S'
+---
+data: 'Easting: 249960.2431968272, Northing: 3688405.5017907354, Zone: 52S'
+---
+data: 'Easting: 249960.1893166582, Northing: 3688405.5808699927, Zone: 52S'
+---
+data: 'Easting: 249960.12640885208, Northing: 3688405.6712805545, Zone: 52S'
+---
+data: 'Easting: 249960.072528685, Northing: 3688405.750359811, Zone: 52S'
+---
+data: 'Easting: 249960.00962087882, Northing: 3688405.840770374, Zone: 52S'
+---
+data: 'Easting: 249959.95574071613, Northing: 3688405.9198496314, Zone: 52S'
+---
+data: 'Easting: 249959.8928329146, Northing: 3688406.0102601955, Zone: 52S'
+---
+data: 'Easting: 249959.83021078934, Northing: 3688406.1117621856, Zone: 52S'
+---
+data: 'Easting: 249959.76730298795, Northing: 3688406.2021727515, Zone: 52S'
+---
+data: 'Easting: 249959.71399418436, Northing: 3688406.3034348623, Zone: 52S'
+---
+data: 'Easting: 249959.6510863856, Northing: 3688406.3938454282, Zone: 52S'
+---
+data: 'Easting: 249959.58874994557, Northing: 3688406.5064388462, Zone: 52S'
+---
+data: 'Easting: 249959.5354411435, Northing: 3688406.6077009593, Zone: 52S'
+---
+data: 'Easting: 249959.48213234494, Northing: 3688406.7089630743, Zone: 52S'
+---
+data: 'Easting: 249959.42008158477, Northing: 3688406.83264792, Zone: 52S'
+---
+data: 'Easting: 249959.36705846447, Northing: 3688406.9450014597, Zone: 52S'
+---
+data: 'Easting: 249959.30472203184, Northing: 3688407.0575948805, Zone: 52S'
+---
+data: 'Easting: 249959.2423855984, Northing: 3688407.1701883017, Zone: 52S'
+---
+data: 'Easting: 249959.08977279146, Northing: 3688407.396094787, Zone: 52S'
+---
+data: 'Easting: 249959.00909541023, Northing: 3688407.5202593966, Zone: 52S'
+---
+data: 'Easting: 249958.91910471563, Northing: 3688407.6446638866, Zone: 52S'
+---
+data: 'Easting: 249958.81951502946, Northing: 3688407.758216832, Zone: 52S'
+---
+data: 'Easting: 249958.73883765735, Northing: 3688407.882381444, Zone: 52S'
+---
+data: 'Easting: 249958.65844596396, Northing: 3688408.0176374847, Zone: 52S'
+---
+data: 'Easting: 249958.56845527884, Northing: 3688408.1420419784, Zone: 52S'
+---
+data: 'Easting: 249958.47846459626, Northing: 3688408.2664464745, Zone: 52S'
+---
+data: 'Easting: 249958.37916060115, Northing: 3688408.3910908513, Zone: 52S'
+---
+data: 'Easting: 249958.28916992346, Northing: 3688408.5154953497, Zone: 52S'
+---
+data: 'Easting: 249958.18083829846, Northing: 3688408.6514710365, Zone: 52S'
+---
+data: 'Easting: 249958.08124863423, Northing: 3688408.765023991, Zone: 52S'
+---
+data: 'Easting: 249957.9726313354, Northing: 3688408.8899082537, Zone: 52S'
+---
+data: 'Easting: 249957.87304167374, Northing: 3688409.00346121, Zone: 52S'
+---
+data: 'Easting: 249957.7737376922, Northing: 3688409.1281055957, Zone: 52S'
+---
+data: 'Easting: 249957.66483472142, Northing: 3688409.2418984375, Zone: 52S'
+---
+data: 'Easting: 249957.5649593893, Northing: 3688409.3443599716, Zone: 52S'
+---
+data: 'Easting: 249957.46536973742, Northing: 3688409.457912933, Zone: 52S'
+---
+data: 'Easting: 249957.36549440734, Northing: 3688409.56037447, Zone: 52S'
+---
+data: 'Easting: 249957.26590475993, Northing: 3688409.673927434, Zone: 52S'
+---
+data: 'Easting: 249957.15671612063, Northing: 3688409.7766288556, Zone: 52S'
+---
+data: 'Easting: 249957.06643979158, Northing: 3688409.889941939, Zone: 52S'
+---
+data: 'Easting: 249956.96685015134, Northing: 3688410.0034949086, Zone: 52S'
+---
+data: 'Easting: 249956.86697483223, Northing: 3688410.1059564496, Zone: 52S'
+---
+data: 'Easting: 249956.77612714726, Northing: 3688410.197086685, Zone: 52S'
+---
+data: 'Easting: 249956.68556514537, Northing: 3688410.2993083475, Zone: 52S'
+---
+data: 'Easting: 249956.60431645846, Northing: 3688410.401290128, Zone: 52S'
+---
+data: 'Easting: 249956.5230677755, Northing: 3688410.5032719085, Zone: 52S'
+---
+data: 'Easting: 249956.43222009766, Northing: 3688410.594402149, Zone: 52S'
+---
+data: 'Easting: 249956.34108673962, Northing: 3688410.6744409613, Zone: 52S'
+---
+data: 'Easting: 249956.25926669818, Northing: 3688410.7542398926, Zone: 52S'
+---
+data: 'Easting: 249956.1774466558, Northing: 3688410.834038824, Zone: 52S'
+---
+data: 'Easting: 249956.08631330216, Northing: 3688410.9140776414, Zone: 52S'
+---
+data: 'Easting: 249956.00449326247, Northing: 3688410.993876574, Zone: 52S'
+---
+data: 'Easting: 249955.93198653893, Northing: 3688411.0734356255, Zone: 52S'
+---
+data: 'Easting: 249955.85016650188, Northing: 3688411.1532345596, Zone: 52S'
+---
+data: 'Easting: 249955.76806078374, Northing: 3688411.2219420704, Zone: 52S'
+---
+data: 'Easting: 249955.70486737363, Northing: 3688411.301261239, Zone: 52S'
+---
+data: 'Easting: 249955.61373403072, Northing: 3688411.3813000605, Zone: 52S'
+---
+data: 'Easting: 249955.5412273111, Northing: 3688411.4608591152, Zone: 52S'
+---
+data: 'Easting: 249955.45969296337, Northing: 3688411.55174948, Zone: 52S'
+---
+data: 'Easting: 249955.3775872513, Northing: 3688411.6204569926, Zone: 52S'
+---
+data: 'Easting: 249955.27656923377, Northing: 3688411.6785528497, Zone: 52S'
+---
+data: 'Easting: 249955.1854358956, Northing: 3688411.7585916743, Zone: 52S'
+---
+data: 'Easting: 249955.1033301872, Northing: 3688411.8272991898, Zone: 52S'
+---
+data: 'Easting: 249955.00259785904, Northing: 3688411.8964864737, Zone: 52S'
+---
+data: 'Easting: 249954.90215121364, Northing: 3688411.976765187, Zone: 52S'
+---
+data: 'Easting: 249954.81101788118, Northing: 3688412.0568040167, Zone: 52S'
+---
+data: 'Easting: 249954.71057123886, Northing: 3688412.1370827314, Zone: 52S'
+---
+data: 'Easting: 249954.61012459826, Northing: 3688412.217361448, Zone: 52S'
+---
+data: 'Easting: 249954.5099636432, Northing: 3688412.30873159, Zone: 52S'
+---
+data: 'Easting: 249954.40048937887, Northing: 3688412.4003416207, Zone: 52S'
+---
+data: 'Easting: 249954.29072943248, Northing: 3688412.480860226, Zone: 52S'
+---
+data: 'Easting: 249954.1905684831, Northing: 3688412.5722303726, Zone: 52S'
+---
+data: 'Easting: 249954.09040753572, Northing: 3688412.66360052, Zone: 52S'
+---
+data: 'Easting: 249953.98064759473, Northing: 3688412.744119128, Zone: 52S'
+---
+data: 'Easting: 249953.8711733402, Northing: 3688412.8357291655, Zone: 52S'
+---
+data: 'Easting: 249953.75181440715, Northing: 3688412.9053962356, Zone: 52S'
+---
+data: 'Easting: 249953.632741161, Northing: 3688412.9861547337, Zone: 52S'
+---
+data: 'Easting: 249953.5235525976, Northing: 3688413.0888562007, Zone: 52S'
+---
+data: 'Easting: 249953.40447935532, Northing: 3688413.169614702, Zone: 52S'
+---
+data: 'Easting: 249953.28540611512, Northing: 3688413.2503732047, Zone: 52S'
+---
+data: 'Easting: 249953.16633287675, Northing: 3688413.3311317097, Zone: 52S'
+---
+data: 'Easting: 249953.04725964018, Northing: 3688413.4118902152, Zone: 52S'
+---
+data: 'Easting: 249952.9281864058, Northing: 3688413.492648724, Zone: 52S'
+---
+data: 'Easting: 249952.79979986063, Northing: 3688413.573647118, Zone: 52S'
+---
+data: 'Easting: 249952.68072663006, Northing: 3688413.6544056297, Zone: 52S'
+---
+data: 'Easting: 249952.56165340132, Northing: 3688413.735164141, Zone: 52S'
+---
+data: 'Easting: 249952.4335525512, Northing: 3688413.827253969, Zone: 52S'
+---
+data: 'Easting: 249952.31447932657, Northing: 3688413.908012486, Zone: 52S'
+---
+data: 'Easting: 249952.18580710737, Northing: 3688413.9779194635, Zone: 52S'
+---
+data: 'Easting: 249952.06673388658, Northing: 3688414.0586779816, Zone: 52S'
+---
+data: 'Easting: 249951.94737497804, Northing: 3688414.1283450755, Zone: 52S'
+---
+data: 'Easting: 249951.81898845374, Northing: 3688414.2093434855, Zone: 52S'
+---
+data: 'Easting: 249951.70922854816, Northing: 3688414.289862122, Zone: 52S'
+---
+data: 'Easting: 249951.589869645, Northing: 3688414.3595292214, Zone: 52S'
+---
+data: 'Easting: 249951.4614831241, Northing: 3688414.4405276356, Zone: 52S'
+---
+data: 'Easting: 249951.34240991465, Northing: 3688414.5212861663, Zone: 52S'
+---
+data: 'Easting: 249951.22333670701, Northing: 3688414.602044695, Zone: 52S'
+---
+data: 'Easting: 249951.1042635014, Northing: 3688414.6828032276, Zone: 52S'
+---
+data: 'Easting: 249950.98490460945, Northing: 3688414.7524703345, Zone: 52S'
+---
+data: 'Easting: 249950.87514471417, Northing: 3688414.8329889798, Zone: 52S'
+---
+data: 'Easting: 249950.75521445076, Northing: 3688414.880473238, Zone: 52S'
+---
+data: 'Easting: 249950.63556987478, Northing: 3688414.939048922, Zone: 52S'
+---
+data: 'Easting: 249950.525238609, Northing: 3688414.997384719, Zone: 52S'
+---
+data: 'Easting: 249950.40587972227, Northing: 3688415.067051833, Zone: 52S'
+---
+data: 'Easting: 249950.2862351505, Northing: 3688415.1256275238, Zone: 52S'
+---
+data: 'Easting: 249950.16659057993, Northing: 3688415.184203215, Zone: 52S'
+---
+data: 'Easting: 249950.04694601079, Northing: 3688415.242778907, Zone: 52S'
+---
+data: 'Easting: 249949.92701575358, Northing: 3688415.2902631746, Zone: 52S'
+---
+data: 'Easting: 249949.81668449548, Northing: 3688415.3485989803, Zone: 52S'
+---
+data: 'Easting: 249949.6973256201, Northing: 3688415.4182661036, Zone: 52S'
+---
+data: 'Easting: 249949.5683677478, Northing: 3688415.477081693, Zone: 52S'
+---
+data: 'Easting: 249949.4577508038, Northing: 3688415.524326077, Zone: 52S'
+---
+data: 'Easting: 249949.3290786221, Northing: 3688415.5942330947, Zone: 52S'
+---
+data: 'Easting: 249949.21874737073, Northing: 3688415.6525689084, Zone: 52S'
+---
+data: 'Easting: 249949.09910281247, Northing: 3688415.711144614, Zone: 52S'
+---
+data: 'Easting: 249948.97974394605, Northing: 3688415.780811745, Zone: 52S'
+---
+data: 'Easting: 249948.85050039153, Northing: 3688415.8285359177, Zone: 52S'
+---
+data: 'Easting: 249948.72097114718, Northing: 3688415.8651686646, Zone: 52S'
+---
+data: 'Easting: 249948.601326594, Northing: 3688415.923744376, Zone: 52S'
+---
+data: 'Easting: 249948.47208304045, Northing: 3688415.9714685534, Zone: 52S'
+---
+data: 'Easting: 249948.34255380146, Northing: 3688416.008101304, Zone: 52S'
+---
+data: 'Easting: 249948.22233786646, Northing: 3688416.044494168, Zone: 52S'
+---
+data: 'Easting: 249948.10183624292, Northing: 3688416.0697956053, Zone: 52S'
+---
+data: 'Easting: 249947.97202131205, Northing: 3688416.095336936, Zone: 52S'
+---
+data: 'Easting: 249947.8616900735, Northing: 3688416.1536727655, Zone: 52S'
+---
+data: 'Easting: 249947.731875144, Northing: 3688416.1792141004, Zone: 52S'
+---
+data: 'Easting: 249947.62097252317, Northing: 3688416.2153670783, Zone: 52S'
+---
+data: 'Easting: 249947.50075659517, Northing: 3688416.2517599505, Zone: 52S'
+---
+data: 'Easting: 249947.39013966834, Northing: 3688416.299004359, Zone: 52S'
+---
+data: 'Easting: 249947.27923704998, Northing: 3688416.335157342, Zone: 52S'
+---
+data: 'Easting: 249947.17764774003, Northing: 3688416.371070434, Zone: 52S'
+---
+data: 'Easting: 249947.06674512295, Northing: 3688416.4072234207, Zone: 52S'
+---
+data: 'Easting: 249946.9654415074, Northing: 3688416.454227942, Zone: 52S'
+---
+data: 'Easting: 249946.85425319878, Northing: 3688416.4792895024, Zone: 52S'
+---
+data: 'Easting: 249946.7619771992, Northing: 3688416.514962707, Zone: 52S'
+---
+data: 'Easting: 249946.66067358607, Northing: 3688416.5619672313, Zone: 52S'
+---
+data: 'Easting: 249946.55908428034, Northing: 3688416.597880331, Zone: 52S'
+---
+data: 'Easting: 249946.45749497524, Northing: 3688416.6337934304, Zone: 52S'
+---
+data: 'Easting: 249946.33756474953, Northing: 3688416.681277745, Zone: 52S'
+---
+data: 'Easting: 249946.23568975204, Northing: 3688416.7060994194, Zone: 52S'
+---
+data: 'Easting: 249946.11490244593, Northing: 3688416.7203094577, Zone: 52S'
+---
+data: 'Easting: 249946.00371414179, Northing: 3688416.745371029, Zone: 52S'
+---
+data: 'Easting: 249945.88378391915, Northing: 3688416.7928553484, Zone: 52S'
+---
+data: 'Easting: 249945.75396900135, Northing: 3688416.81839671, Zone: 52S'
+---
+data: 'Easting: 249945.62443977862, Northing: 3688416.855029498, Zone: 52S'
+---
+data: 'Easting: 249945.4946248596, Northing: 3688416.880570863, Zone: 52S'
+---
+data: 'Easting: 249945.36509563858, Northing: 3688416.9172036564, Zone: 52S'
+---
+data: 'Easting: 249945.23556641815, Northing: 3688416.9538364504, Zone: 52S'
+---
+data: 'Easting: 249945.0967238914, Northing: 3688416.9907091437, Zone: 52S'
+---
+data: 'Easting: 249944.96690897743, Northing: 3688417.016250514, Zone: 52S'
+---
+data: 'Easting: 249944.82806644993, Northing: 3688417.053123209, Zone: 52S'
+---
+data: 'Easting: 249944.6892239256, Northing: 3688417.0899959058, Zone: 52S'
+---
+data: 'Easting: 249944.5596947095, Northing: 3688417.126628711, Zone: 52S'
+---
+data: 'Easting: 249944.42085218462, Northing: 3688417.1635014117, Zone: 52S'
+---
+data: 'Easting: 249944.2817239667, Northing: 3688417.1892826874, Zone: 52S'
+---
+data: 'Easting: 249944.14259574958, Northing: 3688417.215063965, Zone: 52S'
+---
+data: 'Easting: 249944.01278083998, Northing: 3688417.2406053497, Zone: 52S'
+---
+data: 'Easting: 249943.8646250112, Northing: 3688417.277717954, Zone: 52S'
+---
+data: 'Easting: 249943.72521109894, Northing: 3688417.292407811, Zone: 52S'
+---
+data: 'Easting: 249943.58608288408, Northing: 3688417.3181890976, Zone: 52S'
+---
+data: 'Easting: 249943.4376413626, Northing: 3688417.3442102806, Zone: 52S'
+---
+data: 'Easting: 249943.29822744912, Northing: 3688417.3589001456, Zone: 52S'
+---
+data: 'Easting: 249943.1497859287, Northing: 3688417.384921333, Zone: 52S'
+---
+data: 'Easting: 249943.01065771593, Northing: 3688417.410702627, Zone: 52S'
+---
+data: 'Easting: 249942.87152950378, Northing: 3688417.4364839233, Zone: 52S'
+---
+data: 'Easting: 249942.7228022848, Northing: 3688417.451413692, Zone: 52S'
+---
+data: 'Easting: 249942.58395977184, Northing: 3688417.4882864193, Zone: 52S'
+---
+data: 'Easting: 249942.44511725724, Northing: 3688417.52515915, Zone: 52S'
+---
+data: 'Easting: 249942.30627474605, Northing: 3688417.5620318814, Zone: 52S'
+---
+data: 'Easting: 249942.1581189289, Northing: 3688417.599144512, Zone: 52S'
+---
+data: 'Easting: 249942.0192764194, Northing: 3688417.6360172476, Zone: 52S'
+---
+data: 'Easting: 249941.8804339109, Northing: 3688417.6728899865, Zone: 52S'
+---
+data: 'Easting: 249941.7418771001, Northing: 3688417.720854153, Zone: 52S'
+---
+data: 'Easting: 249941.61234790043, Northing: 3688417.757486999, Zone: 52S'
+---
+data: 'Easting: 249941.47379109412, Northing: 3688417.8054511696, Zone: 52S'
+---
+data: 'Easting: 249941.32534958076, Northing: 3688417.8314723866, Zone: 52S'
+---
+data: 'Easting: 249941.18536427774, Northing: 3688417.823979427, Zone: 52S'
+---
+data: 'Easting: 249941.04623607418, Northing: 3688417.84976075, Zone: 52S'
+---
+data: 'Easting: 249940.9071078712, Northing: 3688417.8755420754, Zone: 52S'
+---
+data: 'Easting: 249940.77672157256, Northing: 3688417.87890065, Zone: 52S'
+---
+data: 'Easting: 249940.6469066771, Northing: 3688417.904442081, Zone: 52S'
+---
+data: 'Easting: 249940.51709178224, Northing: 3688417.929983514, Zone: 52S'
+---
+data: 'Easting: 249940.37767788037, Northing: 3688417.944673421, Zone: 52S'
+---
+data: 'Easting: 249940.25660489133, Northing: 3688417.9477921035, Zone: 52S'
+---
+data: 'Easting: 249940.13581760082, Northing: 3688417.9620022154, Zone: 52S'
+---
+data: 'Easting: 249940.0243436195, Northing: 3688417.9759724303, Zone: 52S'
+---
+data: 'Easting: 249939.9131553398, Northing: 3688418.001034073, Zone: 52S'
+---
+data: 'Easting: 249939.7923680549, Northing: 3688418.015244189, Zone: 52S'
+---
+data: 'Easting: 249939.68089407435, Northing: 3688418.0292144073, Zone: 52S'
+---
+data: 'Easting: 249939.5694200941, Northing: 3688418.0431846264, Zone: 52S'
+---
+data: 'Easting: 249939.46754512005, Northing: 3688418.0680063763, Zone: 52S'
+---
+data: 'Easting: 249939.3650987475, Northing: 3688418.070645272, Zone: 52S'
+---
+data: 'Easting: 249939.2629380744, Northing: 3688418.0843755957, Zone: 52S'
+---
+data: 'Easting: 249939.17009070818, Northing: 3688418.0978660206, Zone: 52S'
+---
+data: 'Easting: 249939.07724334215, Northing: 3688418.1113564465, Zone: 52S'
+---
+data: 'Easting: 249938.98411027394, Northing: 3688418.113755446, Zone: 52S'
+---
+data: 'Easting: 249938.89154861055, Northing: 3688418.1383373016, Zone: 52S'
+---
+data: 'Easting: 249938.81704215799, Northing: 3688418.1402565027, Zone: 52S'
+---
+data: 'Easting: 249938.72419479256, Northing: 3688418.1537469313, Zone: 52S'
+---
+data: 'Easting: 249938.6496883377, Northing: 3688418.155666134, Zone: 52S'
+---
+data: 'Easting: 249938.5754675856, Northing: 3688418.1686767647, Zone: 52S'
+---
+data: 'Easting: 249938.5102744397, Northing: 3688418.170356067, Zone: 52S'
+---
+data: 'Easting: 249938.4357679848, Northing: 3688418.1722752713, Zone: 52S'
+---
+data: 'Easting: 249938.37057483892, Northing: 3688418.173954575, Zone: 52S'
+---
+data: 'Easting: 249938.31469499716, Northing: 3688418.175393979, Zone: 52S'
+---
+data: 'Easting: 249938.24047424545, Northing: 3688418.1884046122, Zone: 52S'
+---
+data: 'Easting: 249938.18459440605, Northing: 3688418.189844016, Zone: 52S'
+---
+data: 'Easting: 249938.12871456434, Northing: 3688418.1912834216, Zone: 52S'
+---
+data: 'Easting: 249938.08214803142, Northing: 3688418.192482926, Zone: 52S'
+---
+data: 'Easting: 249938.02626819216, Northing: 3688418.193922331, Zone: 52S'
+---
+data: 'Easting: 249937.97067405382, Northing: 3688418.2064531627, Zone: 52S'
+---
+data: 'Easting: 249937.9241075212, Northing: 3688418.207652668, Zone: 52S'
+---
+data: 'Easting: 249937.87754098597, Northing: 3688418.2088521738, Zone: 52S'
+---
+data: 'Easting: 249937.8216611443, Northing: 3688418.2102915808, Zone: 52S'
+---
+data: 'Easting: 249937.77509461142, Northing: 3688418.2114910865, Zone: 52S'
+---
+data: 'Easting: 249937.73784138515, Northing: 3688418.2124506906, Zone: 52S'
+---
+data: 'Easting: 249937.68224724728, Northing: 3688418.2249815264, Zone: 52S'
+---
+data: 'Easting: 249937.63568071453, Northing: 3688418.2261810326, Zone: 52S'
+---
+data: 'Easting: 249937.57980087513, Northing: 3688418.2276204405, Zone: 52S'
+---
+data: 'Easting: 249937.51460772692, Northing: 3688418.22929975, Zone: 52S'
+---
+data: 'Easting: 249937.45872788518, Northing: 3688418.2307391586, Zone: 52S'
+---
+data: 'Easting: 249937.39353473927, Northing: 3688418.23241847, Zone: 52S'
+---
+data: 'Easting: 249937.31902828434, Northing: 3688418.2343376824, Zone: 52S'
+---
+data: 'Easting: 249937.24452183183, Northing: 3688418.2362568956, Zone: 52S'
+---
+data: 'Easting: 249937.1796143879, Northing: 3688418.249027636, Zone: 52S'
+---
+data: 'Easting: 249937.11384983058, Northing: 3688418.228524092, Zone: 52S'
+---
+data: 'Easting: 249937.03031577356, Northing: 3688418.2417746373, Zone: 52S'
+---
+data: 'Easting: 249936.955809321, Northing: 3688418.2436938523, Zone: 52S'
+---
+data: 'Easting: 249936.8719895594, Northing: 3688418.24585297, Zone: 52S'
+---
+data: 'Easting: 249936.7974831044, Northing: 3688418.247772187, Zone: 52S'
+---
+data: 'Easting: 249936.73228995828, Northing: 3688418.2494515018, Zone: 52S'
+---
+data: 'Easting: 249936.64847019664, Northing: 3688418.2516106223, Zone: 52S'
+---
+data: 'Easting: 249936.58356275325, Northing: 3688418.2643813654, Zone: 52S'
+---
+data: 'Easting: 249936.52739720856, Northing: 3688418.2547293524, Zone: 52S'
+---
+data: 'Easting: 249936.46220406002, Northing: 3688418.2564086695, Zone: 52S'
+---
+data: 'Easting: 249936.40603851524, Northing: 3688418.2467566556, Zone: 52S'
+---
+data: 'Easting: 249936.35044437856, Northing: 3688418.259287499, Zone: 52S'
+---
+data: 'Easting: 249936.33153205988, Northing: 3688418.248675877, Zone: 52S'
+---
+data: 'Easting: 249936.32221875334, Northing: 3688418.24891578, Zone: 52S'
+---
+data: 'Easting: 249936.3129054467, Northing: 3688418.2491556816, Zone: 52S'
+---
+data: 'Easting: 249936.3129054467, Northing: 3688418.2491556816, Zone: 52S'
+---
+data: 'Easting: 249936.3129054467, Northing: 3688418.2491556816, Zone: 52S'
+---
+data: 'Easting: 249936.3129054467, Northing: 3688418.2491556816, Zone: 52S'
+---
+data: 'Easting: 249936.3129054467, Northing: 3688418.2491556816, Zone: 52S'
+---
+data: 'Easting: 249936.32221875334, Northing: 3688418.24891578, Zone: 52S'
+---
+data: 'Easting: 249936.32221875334, Northing: 3688418.24891578, Zone: 52S'
+---
+data: 'Easting: 249936.32221875334, Northing: 3688418.24891578, Zone: 52S'
+---
+data: 'Easting: 249936.3129054467, Northing: 3688418.2491556816, Zone: 52S'
+---
+data: 'Easting: 249936.3129054467, Northing: 3688418.2491556816, Zone: 52S'
+---
+data: 'Easting: 249936.3129054467, Northing: 3688418.2491556816, Zone: 52S'
+---
+data: 'Easting: 249936.3129054467, Northing: 3688418.2491556816, Zone: 52S'
+---
+data: 'Easting: 249936.3129054467, Northing: 3688418.2491556816, Zone: 52S'
+---
+data: 'Easting: 249936.31319115215, Northing: 3688418.260247109, Zone: 52S'
+---
+data: 'Easting: 249936.3129054467, Northing: 3688418.2491556816, Zone: 52S'
+---
+data: 'Easting: 249936.31319115215, Northing: 3688418.260247109, Zone: 52S'
+---
+data: 'Easting: 249936.31319115215, Northing: 3688418.260247109, Zone: 52S'
+---
+data: 'Easting: 249936.3129054467, Northing: 3688418.2491556816, Zone: 52S'
+---
+data: 'Easting: 249936.3129054467, Northing: 3688418.2491556816, Zone: 52S'
+---
+data: 'Easting: 249936.3129054467, Northing: 3688418.2491556816, Zone: 52S'
+---
+data: 'Easting: 249936.3038778456, Northing: 3688418.2604870126, Zone: 52S'
+---
+data: 'Easting: 249936.28525123236, Northing: 3688418.2609668174, Zone: 52S'
+---
+data: 'Easting: 249936.2666246192, Northing: 3688418.261446622, Zone: 52S'
+---
+data: 'Easting: 249936.23868469696, Northing: 3688418.2621663306, Zone: 52S'
+---
+data: 'Easting: 249936.21103048272, Northing: 3688418.2739774664, Zone: 52S'
+---
+data: 'Easting: 249936.18309056293, Northing: 3688418.274697174, Zone: 52S'
+---
+data: 'Easting: 249936.14583733413, Northing: 3688418.275656785, Zone: 52S'
+---
+data: 'Easting: 249936.10858410783, Northing: 3688418.276616397, Zone: 52S'
+---
+data: 'Easting: 249936.0623032782, Northing: 3688418.2889073365, Zone: 52S'
+---
+data: 'Easting: 249936.0250500518, Northing: 3688418.2898669476, Zone: 52S'
+---
+data: 'Easting: 249935.97876922466, Northing: 3688418.3021578905, Zone: 52S'
+---
+data: 'Easting: 249935.92288938284, Northing: 3688418.3035973087, Zone: 52S'
+---
+data: 'Easting: 249935.8766085558, Northing: 3688418.31588825, Zone: 52S'
+---
+data: 'Easting: 249935.82101442234, Northing: 3688418.328419095, Zone: 52S'
+---
+data: 'Easting: 249935.7651345807, Northing: 3688418.3298585135, Zone: 52S'
+---
+data: 'Easting: 249935.70954044725, Northing: 3688418.34238936, Zone: 52S'
+---
+data: 'Easting: 249935.7002271384, Northing: 3688418.342629263, Zone: 52S'
+---
+data: 'Easting: 249935.69091383187, Northing: 3688418.3428691663, Zone: 52S'
+---
+data: 'Easting: 249935.67228721877, Northing: 3688418.3433489734, Zone: 52S'
+---
+data: 'Easting: 249935.68188623138, Northing: 3688418.3542004973, Zone: 52S'
+---
+data: 'Easting: 249935.6816005253, Northing: 3688418.343109069, Zone: 52S'
+---
+data: 'Easting: 249935.67228721877, Northing: 3688418.3433489734, Zone: 52S'
+---
+data: 'Easting: 249935.67257292484, Northing: 3688418.3544404, Zone: 52S'
+---
+data: 'Easting: 249935.67257292484, Northing: 3688418.3544404, Zone: 52S'
+---
+data: 'Easting: 249935.6632596183, Northing: 3688418.354680303, Zone: 52S'
+---
+data: 'Easting: 249935.65394631182, Northing: 3688418.354920206, Zone: 52S'
+---
+data: 'Easting: 249935.63531969875, Northing: 3688418.355400013, Zone: 52S'
+---
+data: 'Easting: 249935.61669308323, Northing: 3688418.3558798195, Zone: 52S'
+---
+data: 'Easting: 249935.59806647254, Northing: 3688418.356359626, Zone: 52S'
+---
+data: 'Easting: 249935.56081324394, Northing: 3688418.3573192395, Zone: 52S'
+---
+data: 'Easting: 249935.5328733243, Northing: 3688418.358038949, Zone: 52S'
+---
+data: 'Easting: 249935.49562009575, Northing: 3688418.3589985617, Zone: 52S'
+---
+data: 'Easting: 249935.4580811632, Northing: 3688418.3488667486, Zone: 52S'
+---
+data: 'Easting: 249935.42082793696, Northing: 3688418.3498263624, Zone: 52S'
+---
+data: 'Easting: 249935.37454711052, Northing: 3688418.362117307, Zone: 52S'
+---
+data: 'Easting: 249935.3279805754, Northing: 3688418.3633168247, Zone: 52S'
+---
+data: 'Easting: 249935.2814140403, Northing: 3688418.3645163425, Zone: 52S'
+---
+data: 'Easting: 249935.21622089436, Northing: 3688418.366195668, Zone: 52S'
+---
+data: 'Easting: 249935.1696543591, Northing: 3688418.367395186, Zone: 52S'
+---
+data: 'Easting: 249935.10417550642, Northing: 3688418.357983085, Zone: 52S'
+---
+data: 'Easting: 249935.0389823604, Northing: 3688418.359662411, Zone: 52S'
+---
+data: 'Easting: 249934.973789212, Northing: 3688418.361341739, Zone: 52S'
+---
+data: 'Easting: 249934.89899704992, Northing: 3688418.352169543, Zone: 52S'
+---
+data: 'Easting: 249934.824776302, Northing: 3688418.3651802014, Zone: 52S'
+---
+data: 'Easting: 249934.7499841421, Northing: 3688418.3560080067, Zone: 52S'
+---
+data: 'Easting: 249934.66616438032, Northing: 3688418.3581671435, Zone: 52S'
+---
+data: 'Easting: 249934.5913722178, Northing: 3688418.3489949508, Zone: 52S'
+---
+data: 'Easting: 249934.49823914925, Northing: 3688418.3513939935, Zone: 52S'
+---
+data: 'Easting: 249934.4144193897, Northing: 3688418.3535531326, Zone: 52S'
+---
+data: 'Easting: 249934.32071490577, Northing: 3688418.333769322, Zone: 52S'
+---
+data: 'Easting: 249934.22758183698, Northing: 3688418.336168368, Zone: 52S'
+---
+data: 'Easting: 249934.13416306028, Northing: 3688418.327475988, Zone: 52S'
+---
+data: 'Easting: 249934.04074428324, Northing: 3688418.3187836073, Zone: 52S'
+---
+data: 'Easting: 249933.93801219924, Northing: 3688418.3103311323, Zone: 52S'
+---
+data: 'Easting: 249933.84402200786, Northing: 3688418.2794559, Zone: 52S'
+---
+data: 'Easting: 249933.73140519965, Northing: 3688418.2490604776, Zone: 52S'
+---
+data: 'Easting: 249933.61964551618, Northing: 3688418.2519393396, Zone: 52S'
+---
+data: 'Easting: 249933.51662771983, Northing: 3688418.232395442, Zone: 52S'
+---
+data: 'Easting: 249933.40429661857, Northing: 3688418.213091451, Zone: 52S'
+---
+data: 'Easting: 249933.30127882597, Northing: 3688418.193547556, Zone: 52S'
+---
+data: 'Easting: 249933.1878048878, Northing: 3688418.1298778593, Zone: 52S'
+---
+data: 'Easting: 249933.0746166571, Northing: 3688418.0772995898, Zone: 52S'
+---
+data: 'Easting: 249932.95297224342, Northing: 3688418.0582355093, Zone: 52S'
+---
+data: 'Easting: 249932.82172881745, Northing: 3688418.02831991, Zone: 52S'
+---
+data: 'Easting: 249932.69951298332, Northing: 3688417.9870729796, Zone: 52S'
+---
+data: 'Easting: 249932.55895624592, Northing: 3688417.9573972877, Zone: 52S'
+---
+data: 'Easting: 249932.42742710488, Northing: 3688417.9163902653, Zone: 52S'
+---
+data: 'Easting: 249932.28687036526, Northing: 3688417.886714578, Zone: 52S'
+---
+data: 'Easting: 249932.13700031504, Northing: 3688417.8572787996, Zone: 52S'
+---
+data: 'Easting: 249931.99615786312, Northing: 3688417.8165116897, Zone: 52S'
+---
+data: 'Easting: 249931.85560111798, Northing: 3688417.786836009, Zone: 52S'
+---
+data: 'Easting: 249931.70515964544, Northing: 3688417.7352173827, Zone: 52S'
+---
+data: 'Easting: 249931.54511915307, Northing: 3688417.672747239, Zone: 52S'
+---
+data: 'Easting: 249931.4226175994, Northing: 3688417.620408896, Zone: 52S'
+---
+data: 'Easting: 249931.27217612148, Northing: 3688417.5687902747, Zone: 52S'
+---
+data: 'Easting: 249931.11299275453, Northing: 3688417.539594419, Zone: 52S'
+---
+data: 'Easting: 249930.9811778888, Northing: 3688417.487495989, Zone: 52S'
+---
+data: 'Easting: 249930.840335423, Northing: 3688417.4467288945, Zone: 52S'
+---
+data: 'Easting: 249930.7088062684, Northing: 3688417.405721895, Zone: 52S'
+---
+data: 'Easting: 249930.57699139594, Northing: 3688417.3536234703, Zone: 52S'
+---
+data: 'Easting: 249930.44574794828, Northing: 3688417.3237079, Zone: 52S'
+---
+data: 'Easting: 249930.332273979, Northing: 3688417.2600382343, Zone: 52S'
+---
+data: 'Easting: 249930.20977241255, Northing: 3688417.2076999047, Zone: 52S'
+---
+data: 'Easting: 249930.09686986514, Northing: 3688417.166213097, Zone: 52S'
+---
+data: 'Easting: 249929.98339589138, Northing: 3688417.102543435, Zone: 52S'
+---
+data: 'Easting: 249929.8798066497, Northing: 3688417.060816719, Zone: 52S'
+---
+data: 'Easting: 249929.77593169428, Northing: 3688417.007998578, Zone: 52S'
+---
+data: 'Easting: 249929.6720567376, Northing: 3688416.955180438, Zone: 52S'
+---
+data: 'Easting: 249929.57778080102, Northing: 3688416.9132138174, Zone: 52S'
+---
+data: 'Easting: 249929.47419155532, Northing: 3688416.8714871076, Zone: 52S'
+---
+data: 'Easting: 249929.38894321208, Northing: 3688416.818189152, Zone: 52S'
+---
+data: 'Easting: 249929.29466727513, Northing: 3688416.7762225354, Zone: 52S'
+---
+data: 'Easting: 249929.19107802646, Northing: 3688416.7344958265, Zone: 52S'
+---
+data: 'Easting: 249929.09651637194, Northing: 3688416.681437783, Zone: 52S'
+---
+data: 'Easting: 249929.0028118571, Northing: 3688416.6616540225, Zone: 52S'
+---
+data: 'Easting: 249928.90853591435, Northing: 3688416.6196874077, Zone: 52S'
+---
+data: 'Easting: 249928.82385899322, Northing: 3688416.5885723126, Zone: 52S'
+---
+data: 'Easting: 249928.72986876505, Northing: 3688416.5576971257, Zone: 52S'
+---
+data: 'Easting: 249928.63587853409, Northing: 3688416.526821942, Zone: 52S'
+---
+data: 'Easting: 249928.5325749936, Northing: 3688416.496186668, Zone: 52S'
+---
+data: 'Easting: 249928.43858476108, Northing: 3688416.4653114863, Zone: 52S'
+---
+data: 'Easting: 249928.32596791032, Northing: 3688416.4349161247, Zone: 52S'
+---
+data: 'Easting: 249928.2226643677, Northing: 3688416.404280855, Zone: 52S'
+---
+data: 'Easting: 249928.1193608244, Northing: 3688416.373645585, Zone: 52S'
+---
+data: 'Easting: 249928.01577156546, Northing: 3688416.331918889, Zone: 52S'
+---
+data: 'Easting: 249927.9118965908, Northing: 3688416.279100767, Zone: 52S'
+---
+data: 'Easting: 249927.7989940209, Northing: 3688416.237613984, Zone: 52S'
+---
+data: 'Easting: 249927.69540475906, Northing: 3688416.1958872923, Zone: 52S'
+---
+data: 'Easting: 249927.58221647187, Northing: 3688416.143309083, Zone: 52S'
+---
+data: 'Easting: 249927.46931389868, Northing: 3688416.1018223045, Zone: 52S'
+---
+data: 'Easting: 249927.3561256091, Northing: 3688416.049244099, Zone: 52S'
+---
+data: 'Easting: 249927.2243106995, Northing: 3688415.9971457156, Zone: 52S'
+---
+data: 'Easting: 249927.11140812293, Northing: 3688415.955658941, Zone: 52S'
+---
+data: 'Easting: 249926.9979341136, Northing: 3688415.8919893117, Zone: 52S'
+---
+data: 'Easting: 249926.86583348375, Northing: 3688415.8287995066, Zone: 52S'
+---
+data: 'Easting: 249926.74304616157, Northing: 3688415.765369792, Zone: 52S'
+---
+data: 'Easting: 249926.60163221616, Northing: 3688415.7024199017, Zone: 52S'
+---
+data: 'Easting: 249926.46953158328, Northing: 3688415.6392301014, Zone: 52S'
+---
+data: 'Easting: 249926.32783191744, Northing: 3688415.5651887883, Zone: 52S'
+---
+data: 'Easting: 249926.17681894187, Northing: 3688415.491387388, Zone: 52S'
+---
+data: 'Easting: 249926.04443258367, Northing: 3688415.4171061674, Zone: 52S'
+---
+data: 'Easting: 249925.9030186281, Northing: 3688415.354156286, Zone: 52S'
+---
+data: 'Easting: 249925.76160467288, Northing: 3688415.291206407, Zone: 52S'
+---
+data: 'Easting: 249925.6199049985, Northing: 3688415.2171651023, Zone: 52S'
+---
+data: 'Easting: 249925.45986441633, Northing: 3688415.154695054, Zone: 52S'
+---
+data: 'Easting: 249925.30913714477, Northing: 3688415.0919850944, Zone: 52S'
+---
+data: 'Easting: 249925.16772318128, Northing: 3688415.0290352246, Zone: 52S'
+---
+data: 'Easting: 249925.01699590322, Northing: 3688414.9663252705, Zone: 52S'
+---
+data: 'Easting: 249924.8758676539, Northing: 3688414.91446683, Zone: 52S'
+---
+data: 'Easting: 249924.734739403, Northing: 3688414.8626083946, Zone: 52S'
+---
+data: 'Easting: 249924.6029244611, Northing: 3688414.8105100463, Zone: 52S'
+---
+data: 'Easting: 249924.47110951526, Northing: 3688414.758411702, Zone: 52S'
+---
+data: 'Easting: 249924.33900885156, Northing: 3688414.695221928, Zone: 52S'
+---
+data: 'Easting: 249924.21650721552, Northing: 3688414.64288367, Zone: 52S'
+---
+data: 'Easting: 249924.09371985917, Northing: 3688414.579453987, Zone: 52S'
+---
+data: 'Easting: 249923.96190490937, Northing: 3688414.5273556476, Zone: 52S'
+---
+data: 'Easting: 249923.83911754965, Northing: 3688414.463925967, Zone: 52S'
+---
+data: 'Easting: 249923.73495681034, Northing: 3688414.40001646, Zone: 52S'
+---
+data: 'Easting: 249923.621197039, Northing: 3688414.325255439, Zone: 52S'
+---
+data: 'Easting: 249923.51732201636, Northing: 3688414.2724373615, Zone: 52S'
+---
+data: 'Easting: 249923.40413368124, Northing: 3688414.2198591996, Zone: 52S'
+---
+data: 'Easting: 249923.31859955878, Northing: 3688414.1554698655, Zone: 52S'
+---
+data: 'Easting: 249923.21472453244, Northing: 3688414.102651792, Zone: 52S'
+---
+data: 'Easting: 249923.11987709632, Northing: 3688414.038502376, Zone: 52S'
+---
+data: 'Easting: 249923.05268387552, Northing: 3688413.9625417874, Zone: 52S'
+---
+data: 'Easting: 249922.9671497484, Northing: 3688413.8981524566, Zone: 52S'
+---
+data: 'Easting: 249922.87258802884, Northing: 3688413.8450944703, Zone: 52S'
+---
+data: 'Easting: 249922.79636721124, Northing: 3688413.7804652266, Zone: 52S'
+---
+data: 'Easting: 249922.72043211537, Northing: 3688413.726927411, Zone: 52S'
+---
+data: 'Easting: 249922.64449701618, Northing: 3688413.6733895955, Zone: 52S'
+---
+data: 'Easting: 249922.57816094885, Northing: 3688413.6307032937, Zone: 52S'
+---
+data: 'Easting: 249922.5019401299, Northing: 3688413.566074051, Zone: 52S'
+---
+data: 'Easting: 249922.43531834023, Northing: 3688413.512296322, Zone: 52S'
+---
+data: 'Easting: 249922.36869655224, Northing: 3688413.4585185926, Zone: 52S'
+---
+data: 'Easting: 249922.30207476113, Northing: 3688413.4047408644, Zone: 52S'
+---
+data: 'Easting: 249922.23516724835, Northing: 3688413.3398717083, Zone: 52S'
+---
+data: 'Easting: 249922.16825973694, Northing: 3688413.275002553, Zone: 52S'
+---
+data: 'Easting: 249922.1016379458, Northing: 3688413.2212248268, Zone: 52S'
+---
+data: 'Easting: 249922.01638952695, Northing: 3688413.167926931, Zone: 52S'
+---
+data: 'Easting: 249921.9494820106, Northing: 3688413.1030577775, Zone: 52S'
+---
+data: 'Easting: 249921.8639478684, Northing: 3688413.0386684574, Zone: 52S'
+---
+data: 'Easting: 249921.78772704003, Northing: 3688412.974039219, Zone: 52S'
+---
+data: 'Easting: 249921.7112204866, Northing: 3688412.8983185547, Zone: 52S'
+---
+data: 'Easting: 249921.62568634105, Northing: 3688412.833929236, Zone: 52S'
+---
+data: 'Easting: 249921.5491797854, Northing: 3688412.758208573, Zone: 52S'
+---
+data: 'Easting: 249921.4723875091, Northing: 3688412.671396484, Zone: 52S'
+---
+data: 'Easting: 249921.37725432517, Northing: 3688412.596155655, Zone: 52S'
+---
+data: 'Easting: 249921.29143445267, Northing: 3688412.5206749104, Zone: 52S'
+---
+data: 'Easting: 249921.20532885692, Northing: 3688412.4341027387, Zone: 52S'
+---
+data: 'Easting: 249921.11922325948, Northing: 3688412.347530569, Zone: 52S'
+---
+data: 'Easting: 249921.02351862745, Northing: 3688412.250106887, Zone: 52S'
+---
+data: 'Easting: 249920.91850067783, Northing: 3688412.152923125, Zone: 52S'
+---
+data: 'Easting: 249920.82308176206, Northing: 3688412.066590873, Zone: 52S'
+---
+data: 'Easting: 249920.72709139943, Northing: 3688411.9580757683, Zone: 52S'
+---
+data: 'Easting: 249920.6220734437, Northing: 3688411.8608920057, Zone: 52S'
+---
+data: 'Easting: 249920.5356821135, Northing: 3688411.7632284127, Zone: 52S'
+---
+data: 'Easting: 249920.44900506095, Northing: 3688411.6544733923, Zone: 52S'
+---
+data: 'Easting: 249920.3620422812, Northing: 3688411.534626943, Zone: 52S'
+---
+data: 'Easting: 249920.24799672645, Northing: 3688411.448774531, Zone: 52S'
+---
+data: 'Easting: 249920.17063297992, Northing: 3688411.3397795954, Zone: 52S'
+---
+data: 'Easting: 249920.07492832647, Northing: 3688411.242355923, Zone: 52S'
+---
+data: 'Easting: 249919.96059704234, Northing: 3688411.145412086, Zone: 52S'
+---
+data: 'Easting: 249919.8646066638, Northing: 3688411.0368969883, Zone: 52S'
+---
+data: 'Easting: 249919.76890200438, Northing: 3688410.9394733193, Zone: 52S'
+---
+data: 'Easting: 249919.67319734304, Northing: 3688410.8420496504, Zone: 52S'
+---
+data: 'Easting: 249919.57720695608, Northing: 3688410.7335345526, Zone: 52S'
+---
+data: 'Easting: 249919.48150229082, Northing: 3688410.636110887, Zone: 52S'
+---
+data: 'Easting: 249919.38579762375, Northing: 3688410.5386872203, Zone: 52S'
+---
+data: 'Easting: 249919.28980723312, Northing: 3688410.430172127, Zone: 52S'
+---
+data: 'Easting: 249919.19410256203, Northing: 3688410.332748462, Zone: 52S'
+---
+data: 'Easting: 249919.09839788926, Northing: 3688410.235324799, Zone: 52S'
+---
+data: 'Easting: 249919.00240749007, Northing: 3688410.126809708, Zone: 52S'
+---
+data: 'Easting: 249918.90670281334, Northing: 3688410.029386044, Zone: 52S'
+---
+data: 'Easting: 249918.80139909458, Northing: 3688409.921110872, Zone: 52S'
+---
+data: 'Easting: 249918.68706778248, Northing: 3688409.8241670523, Zone: 52S'
+---
+data: 'Easting: 249918.59136309964, Northing: 3688409.7267433912, Zone: 52S'
+---
+data: 'Easting: 249918.48634510147, Northing: 3688409.629559653, Zone: 52S'
+---
+data: 'Easting: 249918.38132709634, Northing: 3688409.5323759126, Zone: 52S'
+---
+data: 'Easting: 249918.2949357262, Northing: 3688409.434712337, Zone: 52S'
+---
+data: 'Easting: 249918.217571943, Northing: 3688409.325717415, Zone: 52S'
+---
+data: 'Easting: 249918.14020816042, Northing: 3688409.2167224926, Zone: 52S'
+---
+data: 'Easting: 249918.0541025082, Northing: 3688409.1301503456, Zone: 52S'
+---
+data: 'Easting: 249917.9767387201, Northing: 3688409.0211554253, Zone: 52S'
+---
+data: 'Easting: 249917.9089739748, Northing: 3688408.9230120126, Zone: 52S'
+---
+data: 'Easting: 249917.84120922594, Northing: 3688408.8248686, Zone: 52S'
+---
+data: 'Easting: 249917.7641311588, Northing: 3688408.726965109, Zone: 52S'
+---
+data: 'Easting: 249917.69665213287, Northing: 3688408.639913125, Zone: 52S'
+---
+data: 'Easting: 249917.62888738234, Northing: 3688408.5417697146, Zone: 52S'
+---
+data: 'Easting: 249917.57043594535, Northing: 3688408.443386384, Zone: 52S'
+---
+data: 'Easting: 249917.5119845096, Northing: 3688408.3450030545, Zone: 52S'
+---
+data: 'Easting: 249917.45381879626, Northing: 3688408.2577111516, Zone: 52S'
+---
+data: 'Easting: 249917.38662549306, Northing: 3688408.1817505984, Zone: 52S'
+---
+data: 'Easting: 249917.32845977772, Northing: 3688408.094458697, Zone: 52S'
+---
+data: 'Easting: 249917.27960738132, Northing: 3688408.006926874, Zone: 52S'
+---
+data: 'Easting: 249917.23104070796, Northing: 3688407.930486482, Zone: 52S'
+---
+data: 'Easting: 249917.18247403626, Northing: 3688407.8540460886, Zone: 52S'
+---
+data: 'Easting: 249917.14322068158, Northing: 3688407.777365775, Zone: 52S'
+---
+data: 'Easting: 249917.09493973246, Northing: 3688407.7120168097, Zone: 52S'
+---
+data: 'Easting: 249917.04665878508, Northing: 3688407.6466678455, Zone: 52S'
+---
+data: 'Easting: 249916.99866356116, Northing: 3688407.5924103092, Zone: 52S'
+---
+data: 'Easting: 249916.95969593056, Northing: 3688407.5268214257, Zone: 52S'
+---
+data: 'Easting: 249916.91198643448, Northing: 3688407.483655316, Zone: 52S'
+---
+data: 'Easting: 249916.88261784526, Northing: 3688407.428917938, Zone: 52S'
+---
+data: 'Easting: 249916.84393593986, Northing: 3688407.3744204803, Zone: 52S'
+---
+data: 'Easting: 249916.80525403415, Northing: 3688407.3199230246, Zone: 52S'
+---
+data: 'Easting: 249916.76714357885, Northing: 3688407.287608424, Zone: 52S'
+---
+data: 'Easting: 249916.72846167246, Northing: 3688407.233110968, Zone: 52S'
+---
+data: 'Easting: 249916.69937881056, Northing: 3688407.189465019, Zone: 52S'
+---
+data: 'Easting: 249916.67058167295, Northing: 3688407.1569104977, Zone: 52S'
+---
+data: 'Easting: 249916.6318997653, Northing: 3688407.102413042, Zone: 52S'
+---
+data: 'Easting: 249916.59350358436, Northing: 3688407.0590070137, Zone: 52S'
+---
+data: 'Easting: 249916.56499217273, Northing: 3688407.037543921, Zone: 52S'
+---
+data: 'Easting: 249916.52659599122, Northing: 3688406.994137893, Zone: 52S'
+---
+data: 'Easting: 249916.49751312772, Northing: 3688406.9504919443, Zone: 52S'
+---
+data: 'Easting: 249916.4687159912, Northing: 3688406.9179374236, Zone: 52S'
+---
+data: 'Easting: 249916.43963312492, Northing: 3688406.8742914763, Zone: 52S'
+---
+data: 'Easting: 249916.4015226691, Northing: 3688406.8419768754, Zone: 52S'
+---
+data: 'Easting: 249916.34392839443, Northing: 3688406.7768678353, Zone: 52S'
+---
+data: 'Easting: 249916.30553220844, Northing: 3688406.733461809, Zone: 52S'
+---
+data: 'Easting: 249916.2767350705, Northing: 3688406.7009072886, Zone: 52S'
+---
+data: 'Easting: 249916.23833888644, Northing: 3688406.657501261, Zone: 52S'
+---
+data: 'Easting: 249916.20022842905, Northing: 3688406.625186663, Zone: 52S'
+---
+data: 'Easting: 249916.1711455609, Northing: 3688406.5815407154, Zone: 52S'
+---
+data: 'Easting: 249916.14206269477, Northing: 3688406.5378947677, Zone: 52S'
+---
+data: 'Easting: 249916.12200742017, Northing: 3688406.482917471, Zone: 52S'
+---
+data: 'Easting: 249916.0929245513, Northing: 3688406.439271524, Zone: 52S'
+---
+data: 'Easting: 249916.0632702297, Northing: 3688406.3734427206, Zone: 52S'
+---
+data: 'Easting: 249916.02458831598, Northing: 3688406.318945267, Zone: 52S'
+---
+data: 'Easting: 249915.97659308015, Northing: 3688406.2646877347, Zone: 52S'
+---
+data: 'Easting: 249915.94693875752, Northing: 3688406.198858932, Zone: 52S'
+---
+data: 'Easting: 249915.89865779548, Northing: 3688406.133509972, Zone: 52S'
+---
+data: 'Easting: 249915.86871774195, Northing: 3688406.056589741, Zone: 52S'
+---
+data: 'Easting: 249915.8478052847, Northing: 3688405.9683381617, Zone: 52S'
+---
+data: 'Easting: 249915.81786523043, Northing: 3688405.891417931, Zone: 52S'
+---
+data: 'Easting: 249915.79695277015, Northing: 3688405.8031663517, Zone: 52S'
+---
+data: 'Easting: 249915.76672698974, Northing: 3688405.7151546925, Zone: 52S'
+---
+data: 'Easting: 249915.73650120656, Northing: 3688405.6271430347, Zone: 52S'
+---
+data: 'Easting: 249915.6876487852, Northing: 3688405.5396112213, Zone: 52S'
+---
+data: 'Easting: 249915.64839541106, Northing: 3688405.4629309126, Zone: 52S'
+---
+data: 'Easting: 249915.60857058052, Northing: 3688405.364067748, Zone: 52S'
+---
+data: 'Easting: 249915.57777333952, Northing: 3688405.2538732355, Zone: 52S'
+---
+data: 'Easting: 249915.55657514848, Northing: 3688405.154530227, Zone: 52S'
+---
+data: 'Easting: 249915.55400359808, Northing: 3688405.0547073768, Zone: 52S'
+---
+data: 'Easting: 249915.54154727148, Northing: 3688404.9329415923, Zone: 52S'
+---
+data: 'Easting: 249915.53868999326, Northing: 3688404.8220273145, Zone: 52S'
+---
+data: 'Easting: 249915.51720607362, Northing: 3688404.711592879, Zone: 52S'
+---
+data: 'Easting: 249915.48612310243, Northing: 3688404.590306937, Zone: 52S'
+---
+data: 'Easting: 249915.47366677746, Northing: 3688404.4685411537, Zone: 52S'
+---
+data: 'Easting: 249915.45218285418, Northing: 3688404.358106719, Zone: 52S'
+---
+data: 'Easting: 249915.43012747742, Northing: 3688404.2254894287, Zone: 52S'
+---
+data: 'Easting: 249915.45463870693, Northing: 3688404.091672529, Zone: 52S'
+---
+data: 'Easting: 249915.4608090246, Northing: 3688403.969426901, Zone: 52S'
+---
+data: 'Easting: 249915.44806696678, Northing: 3688403.8365696874, Zone: 52S'
+---
+data: 'Easting: 249915.42572586169, Northing: 3688403.6928609707, Zone: 52S'
+---
+data: 'Easting: 249915.42201139987, Northing: 3688403.548672408, Zone: 52S'
+---
+data: 'Easting: 249915.41829693827, Northing: 3688403.4044838455, Zone: 52S'
+---
+data: 'Easting: 249915.41458247672, Northing: 3688403.260295285, Zone: 52S'
+---
+data: 'Easting: 249915.40126896513, Northing: 3688403.1052552164, Zone: 52S'
+---
+data: 'Easting: 249915.39698304824, Northing: 3688402.9388837977, Zone: 52S'
+---
+data: 'Easting: 249915.40201045407, Northing: 3688402.772272459, Zone: 52S'
+---
+data: 'Easting: 249915.37938361964, Northing: 3688402.6174723133, Zone: 52S'
+---
+data: 'Easting: 249915.34744346194, Northing: 3688402.4629120897, Zone: 52S'
+---
+data: 'Easting: 249915.315503301, Northing: 3688402.308351866, Zone: 52S'
+---
+data: 'Easting: 249915.2925907372, Northing: 3688402.142460292, Zone: 52S'
+---
+data: 'Easting: 249915.25105152608, Northing: 3688401.9770485624, Zone: 52S'
+---
+data: 'Easting: 249915.20048471566, Northing: 3688401.8229681817, Zone: 52S'
+---
+data: 'Easting: 249915.1589455022, Northing: 3688401.657556452, Zone: 52S'
+---
+data: 'Easting: 249915.0993510957, Northing: 3688401.514807422, Zone: 52S'
+---
+data: 'Easting: 249915.04878428133, Northing: 3688401.3607270443, Zone: 52S'
+---
+data: 'Easting: 249914.998503196, Northing: 3688401.217738091, Zone: 52S'
+---
+data: 'Easting: 249914.92959545844, Northing: 3688401.075228984, Zone: 52S'
+---
+data: 'Easting: 249914.860687719, Northing: 3688400.932719878, Zone: 52S'
+---
+data: 'Easting: 249914.7824666555, Northing: 3688400.790450693, Zone: 52S'
+---
+data: 'Easting: 249914.70481704432, Northing: 3688400.6703643654, Zone: 52S'
+---
+data: 'Easting: 249914.6265959744, Northing: 3688400.5280951825, Zone: 52S'
+---
+data: 'Easting: 249914.53031971178, Northing: 3688400.4084887, Zone: 52S'
+---
+data: 'Easting: 249914.44335676968, Northing: 3688400.2886422966, Zone: 52S'
+---
+data: 'Easting: 249914.36513569334, Northing: 3688400.1463731173, Zone: 52S'
+---
+data: 'Easting: 249914.27788701822, Northing: 3688400.0154352854, Zone: 52S'
+---
+data: 'Easting: 249914.18161074675, Northing: 3688399.8958288073, Zone: 52S'
+---
+data: 'Easting: 249914.09436206718, Northing: 3688399.764890978, Zone: 52S'
+---
+data: 'Easting: 249913.9978000597, Northing: 3688399.6341930735, Zone: 52S'
+---
+data: 'Easting: 249913.89249618215, Northing: 3688399.525917947, Zone: 52S'
+---
+data: 'Easting: 249913.80581895658, Northing: 3688399.417162976, Zone: 52S'
+---
+data: 'Easting: 249913.6999436136, Northing: 3688399.286704998, Zone: 52S'
+---
+data: 'Easting: 249913.59435399962, Northing: 3688399.1673384476, Zone: 52S'
+---
+data: 'Easting: 249913.49836344147, Northing: 3688399.058823402, Zone: 52S'
+---
+data: 'Easting: 249913.42916993969, Northing: 3688398.9052228765, Zone: 52S'
+---
+data: 'Easting: 249913.37860309146, Northing: 3688398.7511425037, Zone: 52S'
+---
+data: 'Easting: 249913.31872291275, Northing: 3688398.597302053, Zone: 52S'
+---
+data: 'Easting: 249913.2777551186, Northing: 3688398.4540731865, Zone: 52S'
+---
+data: 'Easting: 249913.21787493923, Northing: 3688398.3002327383, Zone: 52S'
+---
+data: 'Easting: 249913.1489671586, Northing: 3688398.157723641, Zone: 52S'
+---
+data: 'Easting: 249913.09840030328, Northing: 3688398.0036432687, Zone: 52S'
+---
+data: 'Easting: 249913.03852011688, Northing: 3688397.8498028223, Zone: 52S'
+---
+data: 'Easting: 249912.97892565868, Northing: 3688397.707053803, Zone: 52S'
+---
+data: 'Easting: 249912.94669972462, Northing: 3688397.541402156, Zone: 52S'
+---
+data: 'Easting: 249912.92407284793, Northing: 3688397.3866020134, Zone: 52S'
+---
+data: 'Easting: 249912.8918469101, Northing: 3688397.2209503683, Zone: 52S'
+---
+data: 'Easting: 249912.8319667192, Northing: 3688397.067109921, Zone: 52S'
+---
+data: 'Easting: 249912.79974078175, Northing: 3688396.901458276, Zone: 52S'
+---
+data: 'Easting: 249912.74917391408, Northing: 3688396.747377905, Zone: 52S'
+---
+data: 'Easting: 249912.689579449, Northing: 3688396.604628888, Zone: 52S'
+---
+data: 'Easting: 249912.6390125808, Northing: 3688396.450548517, Zone: 52S'
+---
+data: 'Easting: 249912.57913238008, Northing: 3688396.2967080735, Zone: 52S'
+---
+data: 'Easting: 249912.52856550674, Northing: 3688396.142627702, Zone: 52S'
+---
+data: 'Easting: 249912.46868530515, Northing: 3688395.988787258, Zone: 52S'
+---
+data: 'Easting: 249912.4364593598, Northing: 3688395.823135614, Zone: 52S'
+---
+data: 'Easting: 249912.39520581462, Northing: 3688395.66881532, Zone: 52S'
+---
+data: 'Easting: 249912.353952266, Northing: 3688395.5144950273, Zone: 52S'
+---
+data: 'Easting: 249912.31269871857, Northing: 3688395.360174736, Zone: 52S'
+---
+data: 'Easting: 249912.28047276748, Northing: 3688395.1945230896, Zone: 52S'
+---
+data: 'Easting: 249912.24853254846, Northing: 3688395.0399628733, Zone: 52S'
+---
+data: 'Easting: 249912.20727899828, Northing: 3688394.88564258, Zone: 52S'
+---
+data: 'Easting: 249912.18436637754, Northing: 3688394.7197510116, Zone: 52S'
+---
+data: 'Easting: 249912.16145375388, Northing: 3688394.5538594434, Zone: 52S'
+---
+data: 'Easting: 249912.12922780126, Northing: 3688394.3882077984, Zone: 52S'
+---
+data: 'Easting: 249912.11562850996, Northing: 3688394.2220763057, Zone: 52S'
+---
+data: 'Easting: 249912.0932873488, Northing: 3688394.0783675937, Zone: 52S'
+---
+data: 'Easting: 249912.079688057, Northing: 3688393.9122360996, Zone: 52S'
+---
+data: 'Easting: 249912.05706116432, Northing: 3688393.75743596, Zone: 52S'
+---
+data: 'Easting: 249912.03414854046, Northing: 3688393.59154439, Zone: 52S'
+---
+data: 'Easting: 249912.0112359138, Northing: 3688393.425652822, Zone: 52S'
+---
+data: 'Easting: 249911.997922354, Northing: 3688393.2706127567, Zone: 52S'
+---
+data: 'Easting: 249911.97529545735, Northing: 3688393.1158126164, Zone: 52S'
+---
+data: 'Easting: 249911.9433552302, Northing: 3688392.9612523997, Zone: 52S'
+---
+data: 'Easting: 249911.92044260405, Northing: 3688392.7953608315, Zone: 52S'
+---
+data: 'Easting: 249911.86987571034, Northing: 3688392.6412804653, Zone: 52S'
+---
+data: 'Easting: 249911.82862214578, Northing: 3688392.4869601736, Zone: 52S'
+---
+data: 'Easting: 249911.80599524826, Northing: 3688392.3321600333, Zone: 52S'
+---
+data: 'Easting: 249911.77405501733, Northing: 3688392.1775998166, Zone: 52S'
+---
+data: 'Easting: 249911.7604557187, Northing: 3688392.011468325, Zone: 52S'
+---
+data: 'Easting: 249911.7471421531, Northing: 3688391.8564282604, Zone: 52S'
+---
+data: 'Easting: 249911.7152019205, Northing: 3688391.701868045, Zone: 52S'
+---
+data: 'Easting: 249911.71063022624, Northing: 3688391.5244052, Zone: 52S'
+---
+data: 'Easting: 249911.706629994, Northing: 3688391.3691252093, Zone: 52S'
+---
+data: 'Easting: 249911.6840030939, Northing: 3688391.2143250685, Zone: 52S'
+---
+data: 'Easting: 249911.6797171307, Northing: 3688391.047953652, Zone: 52S'
+---
+data: 'Easting: 249911.68503023288, Northing: 3688390.892433739, Zone: 52S'
+---
+data: 'Easting: 249911.68103000094, Northing: 3688390.7371537485, Zone: 52S'
+---
+data: 'Easting: 249911.66743070394, Northing: 3688390.571022256, Zone: 52S'
+---
+data: 'Easting: 249911.66343047222, Northing: 3688390.415742267, Zone: 52S'
+---
+data: 'Easting: 249911.64983117493, Northing: 3688390.249610775, Zone: 52S'
+---
+data: 'Easting: 249911.64583094354, Northing: 3688390.0943307863, Zone: 52S'
+---
+data: 'Easting: 249911.61389070645, Northing: 3688389.93977057, Zone: 52S'
+---
+data: 'Easting: 249911.60057713953, Northing: 3688389.784730506, Zone: 52S'
+---
+data: 'Easting: 249911.57766450365, Northing: 3688389.618838939, Zone: 52S'
+---
+data: 'Easting: 249911.5553233314, Northing: 3688389.475130228, Zone: 52S'
+---
+data: 'Easting: 249911.5326964278, Northing: 3688389.320330089, Zone: 52S'
+---
+data: 'Easting: 249911.50047045696, Northing: 3688389.154678444, Zone: 52S'
+---
+data: 'Easting: 249911.46853021625, Northing: 3688389.000118229, Zone: 52S'
+---
+data: 'Easting: 249911.4456175777, Northing: 3688388.8342266614, Zone: 52S'
+---
+data: 'Easting: 249911.4043639992, Northing: 3688388.679906372, Zone: 52S'
+---
+data: 'Easting: 249911.37213802524, Northing: 3688388.5142547297, Zone: 52S'
+---
+data: 'Easting: 249911.3308844424, Northing: 3688388.3599344394, Zone: 52S'
+---
+data: 'Easting: 249911.2803175239, Northing: 3688388.205854075, Zone: 52S'
+---
+data: 'Easting: 249911.24837727813, Northing: 3688388.051293861, Zone: 52S'
+---
+data: 'Easting: 249911.197810355, Northing: 3688387.897213497, Zone: 52S'
+---
+data: 'Easting: 249911.0969622405, Northing: 3688387.600144196, Zone: 52S'
+---
+data: 'Easting: 249911.04639531323, Northing: 3688387.4460638324, Zone: 52S'
+---
+data: 'Easting: 249910.98651504927, Northing: 3688387.2922233944, Zone: 52S'
+---
+data: 'Easting: 249910.93623385057, Northing: 3688387.149234458, Zone: 52S'
+---
+data: 'Easting: 249910.86732597684, Northing: 3688387.0067253727, Zone: 52S'
+---
+data: 'Easting: 249910.79841809892, Northing: 3688386.864216289, Zone: 52S'
+---
+data: 'Easting: 249910.7295102191, Northing: 3688386.721707205, Zone: 52S'
+---
+data: 'Easting: 249910.66991567833, Northing: 3688386.578958196, Zone: 52S'
+---
+data: 'Easting: 249910.5818096545, Northing: 3688386.414746107, Zone: 52S'
+---
+data: 'Easting: 249910.5126160373, Northing: 3688386.261145596, Zone: 52S'
+---
+data: 'Easting: 249910.4341090815, Northing: 3688386.1077850126, Zone: 52S'
+---
+data: 'Easting: 249910.34628878196, Northing: 3688385.9546643533, Zone: 52S'
+---
+data: 'Easting: 249910.26835328553, Northing: 3688385.823486625, Zone: 52S'
+---
+data: 'Easting: 249910.18984632057, Northing: 3688385.670126042, Zone: 52S'
+---
+data: 'Easting: 249910.1025974781, Northing: 3688385.5391882416, Zone: 52S'
+---
+data: 'Easting: 249910.02437624082, Northing: 3688385.3969190866, Zone: 52S'
+---
+data: 'Easting: 249909.94672646848, Northing: 3688385.276832789, Zone: 52S'
+---
+data: 'Easting: 249909.84085093986, Northing: 3688385.146374842, Zone: 52S'
+---
+data: 'Easting: 249909.7349754084, Northing: 3688385.015916896, Zone: 52S'
+---
+data: 'Easting: 249909.541851018, Northing: 3688384.7545211543, Zone: 52S'
+---
+data: 'Easting: 249909.43654694426, Northing: 3688384.6462460663, Zone: 52S'
+---
+data: 'Easting: 249909.32192952765, Northing: 3688384.5382109066, Zone: 52S'
+---
+data: 'Easting: 249909.22536732611, Northing: 3688384.4075130387, Zone: 52S'
+---
+data: 'Easting: 249909.10143656138, Northing: 3688384.2997178077, Zone: 52S'
+---
+data: 'Easting: 249908.9772200629, Northing: 3688384.18083115, Zone: 52S'
+---
+data: 'Easting: 249908.85386076174, Northing: 3688384.095218777, Zone: 52S'
+---
+data: 'Easting: 249908.7206166502, Northing: 3688383.9876634777, Zone: 52S'
+---
+data: 'Easting: 249908.5969716104, Northing: 3688383.89095968, Zone: 52S'
+---
+data: 'Easting: 249908.48292564342, Northing: 3688383.805107384, Zone: 52S'
+---
+data: 'Easting: 249908.34093965022, Northing: 3688383.719974873, Zone: 52S'
+---
+data: 'Easting: 249908.18992604472, Northing: 3688383.646173719, Zone: 52S'
+---
+data: 'Easting: 249908.03948390775, Northing: 3688383.5945554213, Zone: 52S'
+---
+data: 'Easting: 249907.8983551083, Northing: 3688383.5426972006, Zone: 52S'
+---
+data: 'Easting: 249907.73859962626, Northing: 3688383.491318835, Zone: 52S'
+---
+data: 'Easting: 249907.59775656054, Northing: 3688383.450552044, Zone: 52S'
+---
+data: 'Easting: 249907.44731441443, Northing: 3688383.3989337576, Zone: 52S'
+---
+data: 'Easting: 249907.30675708083, Northing: 3688383.3692583977, Zone: 52S'
+---
+data: 'Easting: 249907.17522735277, Northing: 3688383.328251685, Zone: 52S'
+---
+data: 'Easting: 249907.0250709399, Northing: 3688383.287724832, Zone: 52S'
+---
+data: 'Easting: 249906.8752002612, Northing: 3688383.2582894093, Zone: 52S'
+---
+data: 'Easting: 249906.7160162369, Northing: 3688383.2290939167, Zone: 52S'
+---
+data: 'Easting: 249906.57517316198, Northing: 3688383.1883271406, Zone: 52S'
+---
+data: 'Easting: 249906.40667579338, Northing: 3688383.1593715823, Zone: 52S'
+---
+data: 'Easting: 249906.25623363737, Northing: 3688383.107753312, Zone: 52S'
+---
+data: 'Easting: 249906.09704960804, Northing: 3688383.0785578303, Zone: 52S'
+---
+data: 'Easting: 249905.94632171225, Northing: 3688383.0158481374, Zone: 52S'
+---
+data: 'Easting: 249905.80576436676, Northing: 3688382.9861728004, Zone: 52S'
+---
+data: 'Easting: 249905.65503646494, Northing: 3688382.9234631103, Zone: 52S'
+---
+data: 'Easting: 249905.52293524804, Northing: 3688382.8602735633, Zone: 52S'
+---
+data: 'Easting: 249905.39054829205, Northing: 3688382.785992591, Zone: 52S'
+---
+data: 'Easting: 249905.2497052036, Northing: 3688382.7452258333, Zone: 52S'
+---
+data: 'Easting: 249905.0995487714, Northing: 3688382.7046990087, Zone: 52S'
+---
+data: 'Easting: 249904.96716180735, Northing: 3688382.6304180403, Zone: 52S'
+---
+data: 'Easting: 249904.8254615009, Northing: 3688382.5563770053, Zone: 52S'
+---
+data: 'Easting: 249904.67530506346, Northing: 3688382.515850187, Zone: 52S'
+---
+data: 'Easting: 249904.53360475288, Northing: 3688382.4418091555, Zone: 52S'
+---
+data: 'Easting: 249904.39219017592, Northing: 3688382.3788595544, Zone: 52S'
+---
+data: 'Easting: 249904.25077559944, Northing: 3688382.315909955, Zone: 52S'
+---
+data: 'Easting: 249904.10936102088, Northing: 3688382.252960358, Zone: 52S'
+---
+data: 'Easting: 249903.96794643812, Northing: 3688382.190010761, Zone: 52S'
+---
+data: 'Easting: 249903.82681759467, Northing: 3688382.138152596, Zone: 52S'
+---
+data: 'Easting: 249903.67637540642, Northing: 3688382.086534365, Zone: 52S'
+---
+data: 'Easting: 249903.5448456421, Northing: 3688382.0455276985, Zone: 52S'
+---
+data: 'Easting: 249903.38480436555, Northing: 3688381.983057975, Zone: 52S'
+---
+data: 'Easting: 249903.24338977574, Northing: 3688381.92010839, Zone: 52S'
+---
+data: 'Easting: 249903.09294758042, Northing: 3688381.8684901674, Zone: 52S'
+---
+data: 'Easting: 249902.94221964097, Northing: 3688381.8057805183, Zone: 52S'
+---
+data: 'Easting: 249902.707385867, Northing: 3688381.734138838, Zone: 52S'
+---
+data: 'Easting: 249902.5569436652, Northing: 3688381.6825206215, Zone: 52S'
+---
+data: 'Easting: 249902.40650145942, Northing: 3688381.6309024096, Zone: 52S'
+---
+data: 'Easting: 249902.25605925417, Northing: 3688381.5792841995, Zone: 52S'
+---
+data: 'Easting: 249902.11464464772, Northing: 3688381.516334629, Zone: 52S'
+---
+data: 'Easting: 249901.9732300418, Northing: 3688381.453385062, Zone: 52S'
+---
+data: 'Easting: 249901.83238691612, Northing: 3688381.4126183526, Zone: 52S'
+---
+data: 'Easting: 249901.68194470395, Northing: 3688381.36100015, Zone: 52S'
+---
+data: 'Easting: 249901.55012917562, Northing: 3688381.3089020825, Zone: 52S'
+---
+data: 'Easting: 249901.42819847786, Northing: 3688381.27874694, Zone: 52S'
+---
+data: 'Easting: 249901.2969544304, Northing: 3688381.248831731, Zone: 52S'
+---
+data: 'Easting: 249901.16571038432, Northing: 3688381.218916525, Zone: 52S'
+---
+data: 'Easting: 249901.04349393953, Northing: 3688381.1776699573, Zone: 52S'
+---
+data: 'Easting: 249900.9218489779, Northing: 3688381.1586062484, Zone: 52S'
+---
+data: 'Easting: 249900.80020401566, Northing: 3688381.1395425405, Zone: 52S'
+---
+data: 'Easting: 249900.68787239713, Northing: 3688381.120238899, Zone: 52S'
+---
+data: 'Easting: 249900.5478864853, Northing: 3688381.1127464916, Zone: 52S'
+---
+data: 'Easting: 249900.44486821242, Northing: 3688381.0932029183, Zone: 52S'
+---
+data: 'Easting: 249900.33282233527, Northing: 3688381.084990711, Zone: 52S'
+---
+data: 'Easting: 249900.23968888939, Northing: 3688381.087390061, Zone: 52S'
+---
+data: 'Easting: 249900.15558304483, Northing: 3688381.078458048, Zone: 52S'
+---
+data: 'Easting: 249900.06216385556, Northing: 3688381.0697659724, Zone: 52S'
+---
+data: 'Easting: 249899.97891524035, Northing: 3688381.0941082463, Zone: 52S'
+---
+data: 'Easting: 249899.86715510563, Northing: 3688381.0969874705, Zone: 52S'
+---
+data: 'Easting: 249899.77459314896, Northing: 3688381.1215696814, Zone: 52S'
+---
+data: 'Easting: 249899.6910587911, Northing: 3688381.1348205283, Zone: 52S'
+---
+data: 'Easting: 249899.60752443332, Northing: 3688381.148071379, Zone: 52S'
+---
+data: 'Easting: 249899.53358916382, Northing: 3688381.1721737213, Zone: 52S'
+---
+data: 'Easting: 249899.45993964103, Northing: 3688381.2073674914, Zone: 52S'
+---
+data: 'Easting: 249899.37640528404, Northing: 3688381.220618342, Zone: 52S'
+---
+data: 'Easting: 249899.30247001554, Northing: 3688381.244720687, Zone: 52S'
+---
+data: 'Easting: 249899.2288204915, Northing: 3688381.2799144574, Zone: 52S'
+---
+data: 'Easting: 249899.17351191456, Northing: 3688381.303536931, Zone: 52S'
+---
+data: 'Easting: 249899.0995766472, Northing: 3688381.327639278, Zone: 52S'
+---
+data: 'Easting: 249899.0442680708, Northing: 3688381.351261751, Zone: 52S'
+---
+data: 'Easting: 249898.99855858315, Northing: 3688381.3857357167, Zone: 52S'
+---
+data: 'Easting: 249898.92462331668, Northing: 3688381.409838064, Zone: 52S'
+---
+data: 'Easting: 249898.8879414293, Northing: 3688381.432980666, Zone: 52S'
+---
+data: 'Easting: 249898.83263285152, Northing: 3688381.456603141, Zone: 52S'
+---
+data: 'Easting: 249898.77761002106, Northing: 3688381.491317044, Zone: 52S'
+---
+data: 'Easting: 249898.7412138766, Northing: 3688381.525551074, Zone: 52S'
+---
+data: 'Easting: 249898.69550439093, Northing: 3688381.5600250405, Zone: 52S'
+---
+data: 'Easting: 249898.64979490312, Northing: 3688381.5944990097, Zone: 52S'
+---
+data: 'Easting: 249898.6040854179, Northing: 3688381.628972977, Zone: 52S'
+---
+data: 'Easting: 249898.55809018816, Northing: 3688381.6523555163, Zone: 52S'
+---
+data: 'Easting: 249898.50306735735, Northing: 3688381.6870694235, Zone: 52S'
+---
+data: 'Easting: 249898.4483302745, Northing: 3688381.732874756, Zone: 52S'
+---
+data: 'Easting: 249898.40233504307, Northing: 3688381.756257297, Zone: 52S'
+---
+data: 'Easting: 249898.34731221347, Northing: 3688381.7909712014, Zone: 52S'
+---
+data: 'Easting: 249898.2829760428, Northing: 3688381.8259250456, Zone: 52S'
+---
+data: 'Easting: 249898.2189256155, Northing: 3688381.8719703183, Zone: 52S'
+---
+data: 'Easting: 249898.16418853478, Northing: 3688381.9177756524, Zone: 52S'
+---
+data: 'Easting: 249898.0998523632, Northing: 3688381.952729498, Zone: 52S'
+---
+data: 'Easting: 249898.04482953562, Northing: 3688381.987443406, Zone: 52S'
+---
+data: 'Easting: 249897.9900924565, Northing: 3688382.033248743, Zone: 52S'
+---
+data: 'Easting: 249897.91672868832, Northing: 3688382.079533954, Zone: 52S'
+---
+data: 'Easting: 249897.8619916103, Northing: 3688382.125339291, Zone: 52S'
+---
+data: 'Easting: 249897.8069687845, Northing: 3688382.1600532, Zone: 52S'
+---
+data: 'Easting: 249897.74291836395, Northing: 3688382.2060984755, Zone: 52S'
+---
+data: 'Easting: 249897.68818128493, Northing: 3688382.251903816, Zone: 52S'
+---
+data: 'Easting: 249897.61481752226, Northing: 3688382.298189028, Zone: 52S'
+---
+data: 'Easting: 249897.5696795339, Northing: 3688382.354845857, Zone: 52S'
+---
+data: 'Easting: 249897.50562911574, Northing: 3688382.4008911345, Zone: 52S'
+---
+data: 'Easting: 249897.43226535257, Northing: 3688382.4471763507, Zone: 52S'
+---
+data: 'Easting: 249897.3682149332, Northing: 3688382.493221629, Zone: 52S'
+---
+data: 'Easting: 249897.32307694957, Northing: 3688382.54987846, Zone: 52S'
+---
+data: 'Easting: 249897.24068559188, Northing: 3688382.6074950434, Zone: 52S'
+---
+data: 'Easting: 249897.16789332472, Northing: 3688382.6759631163, Zone: 52S'
+---
+data: 'Easting: 249897.10412865726, Northing: 3688382.733099825, Zone: 52S'
+---
+data: 'Easting: 249897.03076489837, Northing: 3688382.7793850447, Zone: 52S'
+---
+data: 'Easting: 249896.94894503805, Northing: 3688382.8591844873, Zone: 52S'
+---
+data: 'Easting: 249896.8755812833, Northing: 3688382.9054697063, Zone: 52S'
+---
+data: 'Easting: 249896.77427749845, Northing: 3688382.952474743, Zone: 52S'
+---
+data: 'Easting: 249896.67325946188, Northing: 3688383.010571209, Zone: 52S'
+---
+data: 'Easting: 249896.59058236438, Northing: 3688383.057096369, Zone: 52S'
+---
+data: 'Easting: 249896.4988776748, Northing: 3688383.1149528986, Zone: 52S'
+---
+data: 'Easting: 249896.39757389147, Northing: 3688383.161957938, Zone: 52S'
+---
+data: 'Easting: 249896.2965558591, Northing: 3688383.220054408, Zone: 52S'
+---
+data: 'Easting: 249896.20513691806, Northing: 3688383.2890023687, Zone: 52S'
+---
+data: 'Easting: 249896.113146485, Northing: 3688383.335767473, Zone: 52S'
+---
+data: 'Easting: 249896.0214417983, Northing: 3688383.393624007, Zone: 52S'
+---
+data: 'Easting: 249895.92013802228, Northing: 3688383.4406290525, Zone: 52S'
+---
+data: 'Easting: 249895.82843333765, Northing: 3688383.4984855885, Zone: 52S'
+---
+data: 'Easting: 249895.7271295635, Northing: 3688383.5454906365, Zone: 52S'
+---
+data: 'Easting: 249895.62611153876, Northing: 3688383.6035871124, Zone: 52S'
+---
+data: 'Easting: 249895.5341211111, Northing: 3688383.6503522233, Zone: 52S'
+---
+data: 'Easting: 249895.43281733745, Northing: 3688383.697357274, Zone: 52S'
+---
+data: 'Easting: 249895.3408269114, Northing: 3688383.7441223864, Zone: 52S'
+---
+data: 'Easting: 249895.22992405086, Northing: 3688383.780275951, Zone: 52S'
+---
+data: 'Easting: 249895.11959268924, Northing: 3688383.838612374, Zone: 52S'
+---
+data: 'Easting: 249895.01828892156, Northing: 3688383.8856174294, Zone: 52S'
+---
+data: 'Easting: 249894.90710031433, Northing: 3688383.91067957, Zone: 52S'
+---
+data: 'Easting: 249894.7961974569, Northing: 3688383.94683314, Zone: 52S'
+---
+data: 'Easting: 249894.7044927832, Northing: 3688384.0046896883, Zone: 52S'
+---
+data: 'Easting: 249894.60290326926, Northing: 3688384.040603319, Zone: 52S'
+---
+data: 'Easting: 249894.4920004144, Northing: 3688384.0767568937, Zone: 52S'
+---
+data: 'Easting: 249894.39069665177, Northing: 3688384.1237619547, Zone: 52S'
+---
+data: 'Easting: 249894.28939289018, Northing: 3688384.170767019, Zone: 52S'
+---
+data: 'Easting: 249894.1784900375, Northing: 3688384.206920597, Zone: 52S'
+---
+data: 'Easting: 249894.07718627763, Northing: 3688384.253925663, Zone: 52S'
+---
+data: 'Easting: 249893.9750252673, Northing: 3688384.267656444, Zone: 52S'
+---
+data: 'Easting: 249893.8635509157, Northing: 3688384.2816271675, Zone: 52S'
+---
+data: 'Easting: 249893.78087384094, Northing: 3688384.3281523543, Zone: 52S'
+---
+data: 'Easting: 249893.6789985848, Northing: 3688384.3529745676, Zone: 52S'
+---
+data: 'Easting: 249893.58643666824, Northing: 3688384.3775568414, Zone: 52S'
+---
+data: 'Easting: 249893.4845614106, Northing: 3688384.4023790564, Zone: 52S'
+---
+data: 'Easting: 249893.40131283633, Northing: 3688384.42672139, Zone: 52S'
+---
+data: 'Easting: 249893.2997233307, Northing: 3688384.4626350356, Zone: 52S'
+---
+data: 'Easting: 249893.2068756646, Northing: 3688384.476125885, Zone: 52S'
+---
+data: 'Easting: 249893.1044289056, Northing: 3688384.478765247, Zone: 52S'
+---
+data: 'Easting: 249893.01100973907, Northing: 3688384.470073239, Zone: 52S'
+---
+data: 'Easting: 249892.90827722594, Northing: 3688384.461621177, Zone: 52S'
+---
+data: 'Easting: 249892.82474290382, Northing: 3688384.4748720857, Zone: 52S'
+---
+data: 'Easting: 249892.73218099002, Northing: 3688384.4994543684, Zone: 52S'
+---
+data: 'Easting: 249892.630019983, Northing: 3688384.5131851644, Zone: 52S'
+---
+data: 'Easting: 249892.53660081353, Northing: 3688384.504493161, Zone: 52S'
+---
+data: 'Easting: 249892.44346739605, Northing: 3688384.5068925885, Zone: 52S'
+---
+data: 'Easting: 249892.35004822613, Northing: 3688384.4982005875, Zone: 52S'
+---
+data: 'Easting: 249892.2470299621, Northing: 3688384.4786571045, Zone: 52S'
+---
+data: 'Easting: 249892.16263838304, Northing: 3688384.458633733, Zone: 52S'
+---
+data: 'Easting: 249892.05030677633, Northing: 3688384.4393301927, Zone: 52S'
+---
+data: 'Easting: 249891.95631609965, Northing: 3688384.4084553393, Zone: 52S'
+---
+data: 'Easting: 249891.85329783356, Northing: 3688384.3889118573, Zone: 52S'
+---
+data: 'Easting: 249891.7598786616, Northing: 3688384.380219863, Zone: 52S'
+---
+data: 'Easting: 249891.6574319007, Northing: 3688384.3828592408, Zone: 52S'
+---
+data: 'Easting: 249891.56344122192, Northing: 3688384.3519843905, Zone: 52S'
+---
+data: 'Easting: 249891.47030780473, Northing: 3688384.354383827, Zone: 52S'
+---
+data: 'Easting: 249891.36757528767, Northing: 3688384.34593178, Zone: 52S'
+---
+data: 'Easting: 249891.26455702155, Northing: 3688384.326388306, Zone: 52S'
+---
+data: 'Easting: 249891.18045118972, Northing: 3688384.317456372, Zone: 52S'
+---
+data: 'Easting: 249891.04977864865, Northing: 3688384.30972416, Zone: 52S'
+---
+data: 'Easting: 249890.96567281647, Northing: 3688384.300792228, Zone: 52S'
+---
+data: 'Easting: 249890.8539127124, Northing: 3688384.303671559, Zone: 52S'
+---
+data: 'Easting: 249890.76049353793, Northing: 3688384.294979573, Zone: 52S'
+---
+data: 'Easting: 249890.66678860894, Northing: 3688384.2751961607, Zone: 52S'
+---
+data: 'Easting: 249890.564056092, Northing: 3688384.2667441214, Zone: 52S'
+---
+data: 'Easting: 249890.46132357712, Northing: 3688384.258292084, Zone: 52S'
+---
+data: 'Easting: 249890.36790439906, Northing: 3688384.2496001013, Zone: 52S'
+---
+data: 'Easting: 249890.27419946858, Northing: 3688384.2298166915, Zone: 52S'
+---
+data: 'Easting: 249890.17146695283, Northing: 3688384.221364657, Zone: 52S'
+---
+data: 'Easting: 249890.0591353375, Northing: 3688384.2020611404, Zone: 52S'
+---
+data: 'Easting: 249889.9564028187, Northing: 3688384.1936091078, Zone: 52S'
+---
+data: 'Easting: 249889.86298364162, Northing: 3688384.1849171314, Zone: 52S'
+---
+data: 'Easting: 249889.75122353554, Northing: 3688384.187796475, Zone: 52S'
+---
+data: 'Easting: 249889.6388919188, Northing: 3688384.1684929607, Zone: 52S'
+---
+data: 'Easting: 249889.54518698537, Northing: 3688384.148709559, Zone: 52S'
+---
+data: 'Easting: 249889.43342687865, Northing: 3688384.1515889065, Zone: 52S'
+---
+data: 'Easting: 249889.3120676741, Northing: 3688384.1436167713, Zone: 52S'
+---
+data: 'Easting: 249889.20002181132, Northing: 3688384.135404692, Zone: 52S'
+---
+data: 'Easting: 249889.08769019213, Northing: 3688384.116101185, Zone: 52S'
+---
+data: 'Easting: 249888.95701764445, Northing: 3688384.1083690003, Zone: 52S'
+---
+data: 'Easting: 249888.8353726822, Northing: 3688384.0893054437, Zone: 52S'
+---
+data: 'Easting: 249888.71401347342, Northing: 3688384.081333316, Zone: 52S'
+---
+data: 'Easting: 249888.58334092688, Northing: 3688384.0736011374, Zone: 52S'
+---
+data: 'Easting: 249888.44335503303, Northing: 3688384.0661089057, Zone: 52S'
+---
+data: 'Easting: 249888.31296824024, Northing: 3688384.0694681588, Zone: 52S'
+---
+data: 'Easting: 249888.17269658876, Northing: 3688384.0508845043, Zone: 52S'
+---
+data: 'Easting: 249888.03242493895, Northing: 3688384.0323008504, Zone: 52S'
+---
+data: 'Easting: 249887.88312570364, Northing: 3688384.0250485735, Zone: 52S'
+---
+data: 'Easting: 249887.7343979829, Northing: 3688384.039979157, Zone: 52S'
+---
+data: 'Easting: 249887.58567026013, Northing: 3688384.0549097424, Zone: 52S'
+---
+data: 'Easting: 249887.42820071348, Northing: 3688384.092263135, Zone: 52S'
+---
+data: 'Easting: 249887.27918723348, Northing: 3688384.0961022973, Zone: 52S'
+---
+data: 'Easting: 249887.13045951398, Northing: 3688384.11103289, Zone: 52S'
+---
+data: 'Easting: 249886.99133089525, Northing: 3688384.1368149654, Zone: 52S'
+---
+data: 'Easting: 249886.85220227722, Northing: 3688384.1625970434, Zone: 52S'
+---
+data: 'Easting: 249886.71307365972, Northing: 3688384.1883791243, Zone: 52S'
+---
+data: 'Easting: 249886.5925717247, Northing: 3688384.2136813095, Zone: 52S'
+---
+data: 'Easting: 249886.4537288674, Northing: 3688384.250554822, Zone: 52S'
+---
+data: 'Easting: 249886.3239135939, Northing: 3688384.2760969596, Zone: 52S'
+---
+data: 'Easting: 249886.22260986562, Northing: 3688384.3231021087, Zone: 52S'
+---
+data: 'Easting: 249886.10182217596, Northing: 3688384.3373128716, Zone: 52S'
+---
+data: 'Easting: 249885.98189176538, Northing: 3688384.384797923, Zone: 52S'
+---
+data: 'Easting: 249885.88030228004, Northing: 3688384.4207116473, Zone: 52S'
+---
+data: 'Easting: 249885.77871279526, Northing: 3688384.4566253736, Zone: 52S'
+---
+data: 'Easting: 249885.65849662744, Northing: 3688384.493019, Zone: 52S'
+---
+data: 'Easting: 249885.54787956222, Northing: 3688384.5402641064, Zone: 52S'
+---
+data: 'Easting: 249885.44600431967, Northing: 3688384.5650864067, Zone: 52S'
+---
+data: 'Easting: 249885.32550239377, Northing: 3688384.59038861, Zone: 52S'
+---
+data: 'Easting: 249885.20528622877, Northing: 3688384.6267822403, Zone: 52S'
+---
+data: 'Easting: 249885.08507006228, Northing: 3688384.6631758744, Zone: 52S'
+---
+data: 'Easting: 249884.9837663456, Northing: 3688384.710181038, Zone: 52S'
+---
+data: 'Easting: 249884.86297865893, Northing: 3688384.7243918157, Zone: 52S'
+---
+data: 'Easting: 249884.74219097724, Northing: 3688384.738602596, Zone: 52S'
+---
+data: 'Easting: 249884.6307166352, Northing: 3688384.752573427, Zone: 52S'
+---
+data: 'Easting: 249884.52855563269, Northing: 3688384.7663043104, Zone: 52S'
+---
+data: 'Easting: 249884.40748219035, Northing: 3688384.769423665, Zone: 52S'
+---
+data: 'Easting: 249884.29629361027, Northing: 3688384.79448593, Zone: 52S'
+---
+data: 'Easting: 249884.18510503077, Northing: 3688384.8195481957, Zone: 52S'
+---
+data: 'Easting: 249884.0826582674, Northing: 3688384.8221876533, Zone: 52S'
+---
+data: 'Easting: 249883.9711839266, Northing: 3688384.8361584935, Zone: 52S'
+---
+data: 'Easting: 249883.86902292763, Northing: 3688384.8498893813, Zone: 52S'
+---
+data: 'Easting: 249883.7665761692, Northing: 3688384.8525288426, Zone: 52S'
+---
+data: 'Easting: 249883.6647009304, Northing: 3688384.877351163, Zone: 52S'
+---
+data: 'Easting: 249883.56225417217, Northing: 3688384.879990628, Zone: 52S'
+---
+data: 'Easting: 249883.46009317387, Northing: 3688384.8937215214, Zone: 52S'
+---
+data: 'Easting: 249883.36695975487, Northing: 3688384.8961210363, Zone: 52S'
+---
+data: 'Easting: 249883.2647987569, Northing: 3688384.909851931, Zone: 52S'
+---
+data: 'Easting: 249883.16263775917, Northing: 3688384.9235828295, Zone: 52S'
+---
+data: 'Easting: 249883.0697901032, Northing: 3688384.937073774, Zone: 52S'
+---
+data: 'Easting: 249882.9676291058, Northing: 3688384.950804673, Zone: 52S'
+---
+data: 'Easting: 249882.86546810862, Northing: 3688384.9645355735, Zone: 52S'
+---
+data: 'Easting: 249882.76302135072, Northing: 3688384.967175045, Zone: 52S'
+---
+data: 'Easting: 249882.66086035146, Northing: 3688384.9809059487, Zone: 52S'
+---
+data: 'Easting: 249882.54938601312, Northing: 3688384.994876804, Zone: 52S'
+---
+data: 'Easting: 249882.43791167505, Northing: 3688385.0088476613, Zone: 52S'
+---
+data: 'Easting: 249882.31712399787, Northing: 3688385.02305847, Zone: 52S'
+---
+data: 'Easting: 249882.20564966014, Northing: 3688385.0370293297, Zone: 52S'
+---
+data: 'Easting: 249882.08457621466, Northing: 3688385.0401487146, Zone: 52S'
+---
+data: 'Easting: 249881.9637885358, Northing: 3688385.0543595296, Zone: 52S'
+---
+data: 'Easting: 249881.83368751543, Northing: 3688385.0688102995, Zone: 52S'
+---
+data: 'Easting: 249881.712899837, Northing: 3688385.0830211183, Zone: 52S'
+---
+data: 'Easting: 249881.58251305245, Northing: 3688385.0863804617, Zone: 52S'
+---
+data: 'Easting: 249881.4526977975, Northing: 3688385.1119226664, Zone: 52S'
+---
+data: 'Easting: 249881.3036843277, Northing: 3688385.1157619203, Zone: 52S'
+---
+data: 'Easting: 249881.16455573193, Northing: 3688385.1415440817, Zone: 52S'
+---
+data: 'Easting: 249881.0344547131, Northing: 3688385.1559948623, Zone: 52S'
+---
+data: 'Easting: 249880.88572700907, Northing: 3688385.1709255525, Zone: 52S'
+---
+data: 'Easting: 249880.7559117563, Northing: 3688385.1964677647, Zone: 52S'
+---
+data: 'Easting: 249880.61621163096, Northing: 3688385.200067076, Zone: 52S'
+---
+data: 'Easting: 249880.47708303755, Northing: 3688385.225849248, Zone: 52S'
+---
+data: 'Easting: 249880.32835533464, Northing: 3688385.2407799475, Zone: 52S'
+---
+data: 'Easting: 249880.1886552096, Northing: 3688385.2443792643, Zone: 52S'
+---
+data: 'Easting: 249880.04021327363, Northing: 3688385.2704013973, Zone: 52S'
+---
+data: 'Easting: 249879.9101122568, Northing: 3688385.284852192, Zone: 52S'
+---
+data: 'Easting: 249879.77012636524, Northing: 3688385.2773600873, Zone: 52S'
+---
+data: 'Easting: 249879.64876715644, Northing: 3688385.2693880717, Zone: 52S'
+---
+data: 'Easting: 249879.51838037273, Northing: 3688385.2727474445, Zone: 52S'
+---
+data: 'Easting: 249879.38799358904, Northing: 3688385.2761068176, Zone: 52S'
+---
+data: 'Easting: 249879.26663437948, Northing: 3688385.26813481, Zone: 52S'
+---
+data: 'Easting: 249879.1447036322, Northing: 3688385.2379799443, Zone: 52S'
+---
+data: 'Easting: 249879.02334442412, Northing: 3688385.2300079386, Zone: 52S'
+---
+data: 'Easting: 249878.9112985548, Northing: 3688385.2217959776, Zone: 52S'
+---
+data: 'Easting: 249878.7992526853, Northing: 3688385.2135840184, Zone: 52S'
+---
+data: 'Easting: 249878.67817923948, Northing: 3688385.216703447, Zone: 52S'
+---
+data: 'Easting: 249878.56584760125, Northing: 3688385.197400061, Zone: 52S'
+---
+data: 'Easting: 249878.4631150748, Northing: 3688385.1889481493, Zone: 52S'
+---
+data: 'Easting: 249878.36038254347, Northing: 3688385.1804962405, Zone: 52S'
+---
+data: 'Easting: 249878.25736424798, Northing: 3688385.160952902, Zone: 52S'
+---
+data: 'Easting: 249878.16394505766, Northing: 3688385.152261037, Zone: 52S'
+---
+data: 'Easting: 249878.06092676133, Northing: 3688385.132717701, Zone: 52S'
+---
+data: 'Easting: 249877.94888088928, Northing: 3688385.1245057527, Zone: 52S'
+---
+data: 'Easting: 249877.85546170038, Northing: 3688385.115813891, Zone: 52S'
+---
+data: 'Easting: 249877.76175674223, Northing: 3688385.0960306004, Zone: 52S'
+---
+data: 'Easting: 249877.65873844174, Northing: 3688385.0764872697, Zone: 52S'
+---
+data: 'Easting: 249877.5557201408, Northing: 3688385.056943938, Zone: 52S'
+---
+data: 'Easting: 249877.44367426695, Northing: 3688385.0487319953, Zone: 52S'
+---
+data: 'Easting: 249877.3310568537, Northing: 3688385.018337194, Zone: 52S'
+---
+data: 'Easting: 249877.21901097897, Northing: 3688385.0101252547, Zone: 52S'
+---
+data: 'Easting: 249877.10667933407, Northing: 3688384.9908218845, Zone: 52S'
+---
+data: 'Easting: 249876.98503434678, Northing: 3688384.9717584737, Zone: 52S'
+---
+data: 'Easting: 249876.87327424082, Northing: 3688384.9746379666, Zone: 52S'
+---
+data: 'Easting: 249876.76065682445, Northing: 3688384.9442431736, Zone: 52S'
+---
+data: 'Easting: 249876.63958337603, Northing: 3688384.947362625, Zone: 52S'
+---
+data: 'Easting: 249876.5185099277, Northing: 3688384.9504820798, Zone: 52S'
+---
+data: 'Easting: 249876.3968649357, Northing: 3688384.931418678, Zone: 52S'
+---
+data: 'Easting: 249876.28481905823, Northing: 3688384.923206747, Zone: 52S'
+---
+data: 'Easting: 249876.1730589513, Northing: 3688384.9260862474, Zone: 52S'
+---
+data: 'Easting: 249876.0516997336, Northing: 3688384.9181142775, Zone: 52S'
+---
+data: 'Easting: 249875.93908231327, Northing: 3688384.887719494, Zone: 52S'
+---
+data: 'Easting: 249875.836064003, Northing: 3688384.8681761804, Zone: 52S'
+---
+data: 'Easting: 249875.71499055537, Northing: 3688384.871295645, Zone: 52S'
+---
+data: 'Easting: 249875.60237313298, Northing: 3688384.840900865, Zone: 52S'
+---
+data: 'Easting: 249875.49004148145, Northing: 3688384.8215975137, Zone: 52S'
+---
+data: 'Easting: 249875.38759471258, Northing: 3688384.8242370635, Zone: 52S'
+---
+data: 'Easting: 249875.26566394846, Northing: 3688384.7940822453, Zone: 52S'
+---
+data: 'Easting: 249875.15333229536, Northing: 3688384.7747788997, Zone: 52S'
+---
+data: 'Easting: 249875.0503139817, Northing: 3688384.7552355956, Zone: 52S'
+---
+data: 'Easting: 249874.93798232745, Northing: 3688384.7359322505, Zone: 52S'
+---
+data: 'Easting: 249874.83524978987, Northing: 3688384.727480378, Zone: 52S'
+---
+data: 'Easting: 249874.7319457046, Northing: 3688384.696845647, Zone: 52S'
+---
+data: 'Easting: 249874.5165957349, Northing: 3688384.657999007, Zone: 52S'
+---
+data: 'Easting: 249874.40426407565, Northing: 3688384.638695669, Zone: 52S'
+---
+data: 'Easting: 249874.2916466454, Northing: 3688384.608300904, Zone: 52S'
+---
+data: 'Easting: 249874.16971587407, Northing: 3688384.5781460996, Zone: 52S'
+---
+data: 'Easting: 249874.03847175458, Northing: 3688384.548231258, Zone: 52S'
+---
+data: 'Easting: 249873.91682675484, Northing: 3688384.529167885, Zone: 52S'
+---
+data: 'Easting: 249873.79461020287, Northing: 3688384.4879216566, Zone: 52S'
+---
+data: 'Easting: 249873.66336608308, Northing: 3688384.4580068183, Zone: 52S'
+---
+data: 'Easting: 249873.5318361884, Northing: 3688384.4170005526, Zone: 52S'
+---
+data: 'Easting: 249873.40059206655, Northing: 3688384.3870857195, Zone: 52S'
+---
+data: 'Easting: 249873.26906216965, Northing: 3688384.3460794576, Zone: 52S'
+---
+data: 'Easting: 249873.12821892631, Northing: 3688384.3053131592, Zone: 52S'
+---
+data: 'Easting: 249872.99668902686, Northing: 3688384.2643069024, Zone: 52S'
+---
+data: 'Easting: 249872.8462466657, Northing: 3688384.212689139, Zone: 52S'
+---
+data: 'Easting: 249872.70540342058, Northing: 3688384.1719228467, Zone: 52S'
+---
+data: 'Easting: 249872.57415928956, Northing: 3688384.1420080243, Zone: 52S'
+---
+data: 'Easting: 249872.43388759202, Northing: 3688384.123424592, Zone: 52S'
+---
+data: 'Easting: 249872.28430255066, Northing: 3688384.1050811266, Zone: 52S'
+---
+data: 'Easting: 249872.14403085163, Northing: 3688384.0864977003, Zone: 52S'
+---
+data: 'Easting: 249872.02267161134, Northing: 3688384.0785257802, Zone: 52S'
+---
+data: 'Easting: 249871.8728007923, Northing: 3688384.0490908916, Zone: 52S'
+---
+data: 'Easting: 249871.74184243442, Northing: 3688384.0302675096, Zone: 52S'
+---
+data: 'Easting: 249871.59225738706, Northing: 3688384.0119240526, Zone: 52S'
+---
+data: 'Easting: 249871.4615848039, Northing: 3688384.0041921027, Zone: 52S'
+---
+data: 'Easting: 249871.3402255636, Northing: 3688383.996220192, Zone: 52S'
+---
+data: 'Easting: 249871.20955297974, Northing: 3688383.9884882444, Zone: 52S'
+---
+data: 'Easting: 249871.07859461888, Northing: 3688383.9696648703, Zone: 52S'
+---
+data: 'Easting: 249870.95723537737, Northing: 3688383.9616929637, Zone: 52S'
+---
+data: 'Easting: 249870.83616191015, Northing: 3688383.964812488, Zone: 52S'
+---
+data: 'Easting: 249870.7148026705, Northing: 3688383.956840584, Zone: 52S'
+---
+data: 'Easting: 249870.61235588952, Northing: 3688383.9594801846, Zone: 52S'
+---
+data: 'Easting: 249870.49128242672, Northing: 3688383.9625997134, Zone: 52S'
+---
+data: 'Easting: 249870.3888356456, Northing: 3688383.965239315, Zone: 52S'
+---
+data: 'Easting: 249870.27707552354, Northing: 3688383.9681188837, Zone: 52S'
+---
+data: 'Easting: 249870.17462874725, Northing: 3688383.970758487, Zone: 52S'
+---
+data: 'Easting: 249870.0724677461, Northing: 3688383.984489522, Zone: 52S'
+---
+data: 'Easting: 249869.97933431066, Northing: 3688383.986889165, Zone: 52S'
+---
+data: 'Easting: 249869.87745908793, Northing: 3688384.0117116314, Zone: 52S'
+---
+data: 'Easting: 249869.7843256525, Northing: 3688384.0141112767, Zone: 52S'
+---
+data: 'Easting: 249869.70079133872, Northing: 3688384.0273623858, Zone: 52S'
+---
+data: 'Easting: 249869.617257025, Northing: 3688384.040613497, Zone: 52S'
+---
+data: 'Easting: 249869.52440936814, Northing: 3688384.0541045726, Zone: 52S'
+---
+data: 'Easting: 249869.44087505713, Northing: 3688384.0673556854, Zone: 52S'
+---
+data: 'Easting: 249869.3480274008, Northing: 3688384.0808467628, Zone: 52S'
+---
+data: 'Easting: 249869.2740922097, Northing: 3688384.1049493416, Zone: 52S'
+---
+data: 'Easting: 249869.19055789683, Northing: 3688384.1182004553, Zone: 52S'
+---
+data: 'Easting: 249869.09799602235, Northing: 3688384.142782965, Zone: 52S'
+---
+data: 'Easting: 249869.02434661106, Northing: 3688384.1779769748, Zone: 52S'
+---
+data: 'Easting: 249868.931784735, Northing: 3688384.2025594865, Zone: 52S'
+---
+data: 'Easting: 249868.86744867024, Northing: 3688384.237513533, Zone: 52S'
+---
+data: 'Easting: 249868.78477169643, Northing: 3688384.2840389367, Zone: 52S'
+---
+data: 'Easting: 249868.7020947235, Northing: 3688384.3305643457, Zone: 52S'
+---
+data: 'Easting: 249868.60107684473, Northing: 3688384.388661113, Zone: 52S'
+---
+data: 'Easting: 249868.51839987581, Northing: 3688384.4351865207, Zone: 52S'
+---
+data: 'Easting: 249868.43629446448, Northing: 3688384.5038947896, Zone: 52S'
+---
+data: 'Easting: 249868.34458993186, Northing: 3688384.5617515966, Zone: 52S'
+---
+data: 'Easting: 249868.26248452286, Northing: 3688384.630459865, Zone: 52S'
+---
+data: 'Easting: 249868.18009333513, Northing: 3688384.6880767066, Zone: 52S'
+---
+data: 'Easting: 249868.10787283338, Northing: 3688384.778727869, Zone: 52S'
+---
+data: 'Easting: 249868.0263389882, Northing: 3688384.869619001, Zone: 52S'
+---
+data: 'Easting: 249867.954118487, Northing: 3688384.960270166, Zone: 52S'
+---
+data: 'Easting: 249867.89063977136, Northing: 3688385.028498508, Zone: 52S'
+---
+data: 'Easting: 249867.8280183954, Northing: 3688385.1300011366, Zone: 52S'
+---
+data: 'Easting: 249867.76539702088, Northing: 3688385.231503767, Zone: 52S'
+---
+data: 'Easting: 249867.71180321183, Northing: 3688385.321675002, Zone: 52S'
+---
+data: 'Easting: 249867.6491818399, Northing: 3688385.423177632, Zone: 52S'
+---
+data: 'Easting: 249867.59644537503, Northing: 3688385.546623156, Zone: 52S'
+---
+data: 'Easting: 249867.55216490896, Northing: 3688385.6365544265, Zone: 52S'
+---
+data: 'Easting: 249867.5084560077, Northing: 3688385.7486685533, Zone: 52S'
+---
+data: 'Easting: 249867.4833737908, Northing: 3688385.860302748, Zone: 52S'
+---
+data: 'Easting: 249867.44926401172, Northing: 3688385.98326834, Zone: 52S'
+---
+data: 'Easting: 249867.414868455, Northing: 3688386.0951425005, Zone: 52S'
+---
+data: 'Easting: 249867.38104446125, Northing: 3688386.2291995217, Zone: 52S'
+---
+data: 'Easting: 249867.33819290623, Northing: 3688386.37458794, Zone: 52S'
+---
+data: 'Easting: 249867.3037973527, Northing: 3688386.486462102, Zone: 52S'
+---
+data: 'Easting: 249867.26968757887, Northing: 3688386.609427694, Zone: 52S'
+---
+data: 'Easting: 249867.22655024886, Northing: 3688386.7437246838, Zone: 52S'
+---
+data: 'Easting: 249867.1927262609, Northing: 3688386.877781706, Zone: 52S'
+---
+data: 'Easting: 249867.1498747126, Northing: 3688387.0231701247, Zone: 52S'
+---
+data: 'Easting: 249867.12536406756, Northing: 3688387.15698718, Zone: 52S'
+---
+data: 'Easting: 249867.11948010384, Northing: 3688387.290324301, Zone: 52S'
+---
+data: 'Easting: 249867.11388192198, Northing: 3688387.434752851, Zone: 52S'
+---
+data: 'Easting: 249867.08005793908, Northing: 3688387.5688098734, Zone: 52S'
+---
+data: 'Easting: 249867.06457485555, Northing: 3688387.691295533, Zone: 52S'
+---
+data: 'Easting: 249867.05869089154, Northing: 3688387.8246326544, Zone: 52S'
+---
+data: 'Easting: 249867.03418025098, Northing: 3688387.9584497097, Zone: 52S'
+---
+data: 'Easting: 249867.01955451397, Northing: 3688388.1142096575, Zone: 52S'
+---
+data: 'Easting: 249867.00435721446, Northing: 3688388.2477867454, Zone: 52S'
+---
+data: 'Easting: 249866.98944569723, Northing: 3688388.392455265, Zone: 52S'
+---
+data: 'Easting: 249866.974248399, Northing: 3688388.526032354, Zone: 52S'
+---
+data: 'Easting: 249866.95962266246, Northing: 3688388.6817923016, Zone: 52S'
+---
+data: 'Easting: 249866.96305204323, Northing: 3688388.8148894557, Zone: 52S'
+---
+data: 'Easting: 249866.9478547467, Northing: 3688388.9484665445, Zone: 52S'
+---
+data: 'Easting: 249866.93265745076, Northing: 3688389.0820436333, Zone: 52S'
+---
+data: 'Easting: 249866.9360868324, Northing: 3688389.215140788, Zone: 52S'
+---
+data: 'Easting: 249866.90226286073, Northing: 3688389.3491978114, Zone: 52S'
+---
+data: 'Easting: 249866.84952642943, Northing: 3688389.472643341, Zone: 52S'
+---
+data: 'Easting: 249866.80610334035, Northing: 3688389.595848906, Zone: 52S'
+---
+data: 'Easting: 249866.7347402359, Northing: 3688389.7197743715, Zone: 52S'
+---
+data: 'Easting: 249866.65377801342, Northing: 3688389.8328483766, Zone: 52S'
+---
+data: 'Easting: 249866.5818433509, Northing: 3688389.934590986, Zone: 52S'
+---
+data: 'Easting: 249866.52910692754, Northing: 3688390.0580365174, Zone: 52S'
+---
+data: 'Easting: 249866.48568384573, Northing: 3688390.1812420827, Zone: 52S'
+---
+data: 'Easting: 249866.42306252287, Northing: 3688390.282744725, Zone: 52S'
+---
+data: 'Easting: 249866.37004032373, Northing: 3688390.3950988296, Zone: 52S'
+---
+data: 'Easting: 249866.3167323408, Northing: 3688390.496361505, Zone: 52S'
+---
+data: 'Easting: 249866.25411102205, Northing: 3688390.597864148, Zone: 52S'
+---
+data: 'Easting: 249866.20051726128, Northing: 3688390.688035395, Zone: 52S'
+---
+data: 'Easting: 249866.12801104228, Northing: 3688390.767595147, Zone: 52S'
+---
+data: 'Easting: 249866.07441728382, Northing: 3688390.857766393, Zone: 52S'
+---
+data: 'Easting: 249866.02082352396, Northing: 3688390.9479376418, Zone: 52S'
+---
+data: 'Easting: 249865.9666582014, Northing: 3688391.01592603, Zone: 52S'
+---
+data: 'Easting: 249865.91306444342, Northing: 3688391.1060972773, Zone: 52S'
+---
+data: 'Easting: 249865.84987156678, Northing: 3688391.185417066, Zone: 52S'
+---
+data: 'Easting: 249865.78610712697, Northing: 3688391.2425539955, Zone: 52S'
+---
+data: 'Easting: 249865.7133151324, Northing: 3688391.3110223217, Zone: 52S'
+---
+data: 'Easting: 249865.6402373577, Northing: 3688391.368399222, Zone: 52S'
+---
+data: 'Easting: 249865.5671595814, Northing: 3688391.42577612, Zone: 52S'
+---
+data: 'Easting: 249865.50425249344, Northing: 3688391.51618734, Zone: 52S'
+---
+data: 'Easting: 249865.44134540902, Northing: 3688391.6065985593, Zone: 52S'
+---
+data: 'Easting: 249865.35924008343, Northing: 3688391.6753068594, Zone: 52S'
+---
+data: 'Easting: 249865.2867338791, Northing: 3688391.754866622, Zone: 52S'
+---
+data: 'Easting: 249865.22382679838, Northing: 3688391.845277842, Zone: 52S'
+---
+data: 'Easting: 249865.1326939245, Northing: 3688391.9253175436, Zone: 52S'
+---
+data: 'Easting: 249865.04156105214, Northing: 3688392.005357244, Zone: 52S'
+---
+data: 'Easting: 249864.9507139657, Northing: 3688392.0964883775, Zone: 52S'
+---
+data: 'Easting: 249864.84066864048, Northing: 3688392.1659165905, Zone: 52S'
+---
+data: 'Easting: 249864.7492499906, Northing: 3688392.2348648654, Zone: 52S'
+---
+data: 'Easting: 249864.63920466835, Northing: 3688392.3042930816, Zone: 52S'
+---
+data: 'Easting: 249864.52915934756, Northing: 3688392.373721298, Zone: 52S'
+---
+data: 'Easting: 249864.40951490527, Northing: 3688392.4322980577, Zone: 52S'
+---
+data: 'Easting: 249864.28987046698, Northing: 3688392.4908748185, Zone: 52S'
+---
+data: 'Easting: 249864.1707976005, Northing: 3688392.57163444, Zone: 52S'
+---
+data: 'Easting: 249864.03252649435, Northing: 3688392.630691146, Zone: 52S'
+---
+data: 'Easting: 249863.89396960422, Northing: 3688392.678656422, Zone: 52S'
+---
+data: 'Easting: 249863.7463851634, Northing: 3688392.7379531018, Zone: 52S'
+---
+data: 'Easting: 249863.59765758275, Northing: 3688392.7528840653, Zone: 52S'
+---
+data: 'Easting: 249863.4585291213, Northing: 3688392.77866649, Zone: 52S'
+---
+data: 'Easting: 249863.3100873277, Northing: 3688392.8046888867, Zone: 52S'
+---
+data: 'Easting: 249863.15176062647, Northing: 3688392.8087683986, Zone: 52S'
+---
+data: 'Easting: 249862.98354901417, Northing: 3688392.790905026, Zone: 52S'
+---
+data: 'Easting: 249862.83424986078, Northing: 3688392.783653141, Zone: 52S'
+---
+data: 'Easting: 249862.67506579534, Northing: 3688392.7544583706, Zone: 52S'
+---
+data: 'Easting: 249862.51588173103, Northing: 3688392.725263604, Zone: 52S'
+---
+data: 'Easting: 249862.3575550278, Northing: 3688392.7293431284, Zone: 52S'
+---
+data: 'Easting: 249862.20739850716, Northing: 3688392.688816963, Zone: 52S'
+---
+data: 'Easting: 249862.06712689833, Northing: 3688392.670233689, Zone: 52S'
+---
+data: 'Easting: 249861.90765704203, Northing: 3688392.629947501, Zone: 52S'
+---
+data: 'Easting: 249861.74847297012, Northing: 3688392.6007527476, Zone: 52S'
+---
+data: 'Easting: 249861.60762978223, Northing: 3688392.559986619, Zone: 52S'
+---
+data: 'Easting: 249861.45747325727, Northing: 3688392.5194604658, Zone: 52S'
+---
+data: 'Easting: 249861.31634427563, Northing: 3688392.467602913, Zone: 52S'
+---
+data: 'Easting: 249861.1659019591, Northing: 3688392.415985335, Zone: 52S'
+---
+data: 'Easting: 249861.0247729765, Northing: 3688392.3641277845, Zone: 52S'
+---
+data: 'Easting: 249860.8827866229, Northing: 3688392.2789959484, Zone: 52S'
+---
+data: 'Easting: 249860.75971273013, Northing: 3688392.204475596, Zone: 52S'
+---
+data: 'Easting: 249860.63606725674, Northing: 3688392.1077723843, Zone: 52S'
+---
+data: 'Easting: 249860.5400760001, Northing: 3688391.999257825, Zone: 52S'
+---
+data: 'Easting: 249860.41643052193, Northing: 3688391.9025546173, Zone: 52S'
+---
+data: 'Easting: 249860.3023841673, Northing: 3688391.8167028655, Zone: 52S'
+---
+data: 'Easting: 249860.18776623113, Northing: 3688391.7086682576, Zone: 52S'
+---
+data: 'Easting: 249860.07314829246, Northing: 3688391.6006336487, Zone: 52S'
+---
+data: 'Easting: 249859.9585303513, Northing: 3688391.492599043, Zone: 52S'
+---
+data: 'Easting: 249859.85293995417, Northing: 3688391.3732330333, Zone: 52S'
+---
+data: 'Easting: 249859.7383220079, Northing: 3688391.265198428, Zone: 52S'
+---
+data: 'Easting: 249859.63273160582, Northing: 3688391.1458324203, Zone: 52S'
+---
+data: 'Easting: 249859.5364545406, Northing: 3688391.026226439, Zone: 52S'
+---
+data: 'Easting: 249859.42155079634, Northing: 3688390.907100409, Zone: 52S'
+---
+data: 'Easting: 249859.34390039876, Northing: 3688390.7870144793, Zone: 52S'
+---
+data: 'Easting: 249859.24762332442, Northing: 3688390.6674085013, Zone: 52S'
+---
+data: 'Easting: 249859.15134624782, Northing: 3688390.547802523, Zone: 52S'
+---
+data: 'Easting: 249859.06409671565, Northing: 3688390.416865141, Zone: 52S'
+---
+data: 'Easting: 249858.9858747306, Northing: 3688390.2745963535, Zone: 52S'
+---
+data: 'Easting: 249858.9079385322, Northing: 3688390.143418998, Zone: 52S'
+---
+data: 'Easting: 249858.84862901046, Northing: 3688390.0117616914, Zone: 52S'
+---
+data: 'Easting: 249858.78931948493, Northing: 3688389.880104386, Zone: 52S'
+---
+data: 'Easting: 249858.72041082833, Northing: 3688389.7375956257, Zone: 52S'
+---
+data: 'Easting: 249858.68875552647, Northing: 3688389.5941269645, Zone: 52S'
+---
+data: 'Easting: 249858.62916020787, Northing: 3688389.451378229, Zone: 52S'
+---
+data: 'Easting: 249858.58819156303, Northing: 3688389.3081495427, Zone: 52S'
+---
+data: 'Easting: 249858.5841904842, Northing: 3688389.1528695254, Zone: 52S'
+---
+data: 'Easting: 249858.54350763166, Northing: 3688389.0207322696, Zone: 52S'
+---
+data: 'Easting: 249858.53047900466, Northing: 3688388.8767836574, Zone: 52S'
+---
+data: 'Easting: 249858.52647792548, Northing: 3688388.7215036405, Zone: 52S'
+---
+data: 'Easting: 249858.5230484292, Northing: 3688388.588406482, Zone: 52S'
+---
+data: 'Easting: 249858.53767402965, Northing: 3688388.4326465125, Zone: 52S'
+---
+data: 'Easting: 249858.56132717946, Northing: 3688388.265555139, Zone: 52S'
+---
+data: 'Easting: 249858.58526612175, Northing: 3688388.1095551956, Zone: 52S'
+---
+data: 'Easting: 249858.61880419866, Northing: 3688387.9644067064, Zone: 52S'
+---
+data: 'Easting: 249858.66165561473, Northing: 3688387.819018241, Zone: 52S'
+---
+data: 'Easting: 249858.69547948526, Northing: 3688387.684961181, Zone: 52S'
+---
+data: 'Easting: 249858.7386166952, Northing: 3688387.550664148, Zone: 52S'
+---
+data: 'Easting: 249858.7721547749, Northing: 3688387.4055156587, Zone: 52S'
+---
+data: 'Easting: 249858.83391867141, Northing: 3688387.2707386743, Zone: 52S'
+---
+data: 'Easting: 249858.9049959108, Northing: 3688387.1357217166, Zone: 52S'
+---
+data: 'Easting: 249858.96704559957, Northing: 3688387.0120361634, Zone: 52S'
+---
+data: 'Easting: 249859.03812284296, Northing: 3688386.877019206, Zone: 52S'
+---
+data: 'Easting: 249859.10948587663, Northing: 3688386.7530936785, Zone: 52S'
+---
+data: 'Easting: 249859.1994755998, Northing: 3688386.6286882027, Zone: 52S'
+---
+data: 'Easting: 249859.2612395058, Northing: 3688386.4939112226, Zone: 52S'
+---
+data: 'Easting: 249859.3419158895, Northing: 3688386.369745722, Zone: 52S'
+---
+data: 'Easting: 249859.4036797995, Northing: 3688386.234968744, Zone: 52S'
+---
+data: 'Easting: 249859.46487213369, Northing: 3688386.078008904, Zone: 52S'
+---
+data: 'Easting: 249859.52692183983, Northing: 3688385.954323356, Zone: 52S'
+---
+data: 'Easting: 249859.60702664996, Northing: 3688385.8079750002, Zone: 52S'
+---
+data: 'Easting: 249859.6687905702, Northing: 3688385.6731980215, Zone: 52S'
+---
+data: 'Easting: 249859.7590660989, Northing: 3688385.559883983, Zone: 52S'
+---
+data: 'Easting: 249859.83888512905, Northing: 3688385.4024441987, Zone: 52S'
+---
+data: 'Easting: 249859.9285890836, Northing: 3688385.266947302, Zone: 52S'
+---
+data: 'Easting: 249860.0372055156, Northing: 3688385.142061887, Zone: 52S'
+---
+data: 'Easting: 249860.13650860524, Northing: 3688385.017416449, Zone: 52S'
+---
+data: 'Easting: 249860.23581169985, Northing: 3688384.8927710103, Zone: 52S'
+---
+data: 'Easting: 249860.33482900824, Northing: 3688384.7570341425, Zone: 52S'
+---
+data: 'Easting: 249860.45304458347, Northing: 3688384.6430001897, Zone: 52S'
+---
+data: 'Easting: 249860.5622326068, Northing: 3688384.540297643, Zone: 52S'
+---
+data: 'Easting: 249860.6714206325, Northing: 3688384.437595095, Zone: 52S'
+---
+data: 'Easting: 249860.7896362156, Northing: 3688384.323561147, Zone: 52S'
+---
+data: 'Easting: 249860.90842338034, Northing: 3688384.2317100586, Zone: 52S'
+---
+data: 'Easting: 249861.03680967668, Northing: 3688384.1507104295, Zone: 52S'
+---
+data: 'Easting: 249861.16462439919, Northing: 3688384.0475279433, Zone: 52S'
+---
+data: 'Easting: 249861.30260983153, Northing: 3688383.977379775, Zone: 52S'
+---
+data: 'Easting: 249861.44030947806, Northing: 3688383.8961401805, Zone: 52S'
+---
+data: 'Easting: 249861.57800912685, Northing: 3688383.814900586, Zone: 52S'
+---
+data: 'Easting: 249861.71628035474, Northing: 3688383.755843854, Zone: 52S'
+---
+data: 'Easting: 249861.8635791387, Northing: 3688383.685455722, Zone: 52S'
+---
+data: 'Easting: 249862.00185036982, Northing: 3688383.626398995, Zone: 52S'
+---
+data: 'Easting: 249862.1587482885, Northing: 3688383.566862325, Zone: 52S'
+---
+data: 'Easting: 249862.29701952045, Northing: 3688383.5078056008, Zone: 52S'
+---
+data: 'Easting: 249862.43500496758, Northing: 3688383.4376574503, Zone: 52S'
+---
+data: 'Easting: 249862.57327620522, Northing: 3688383.3786007306, Zone: 52S'
+---
+data: 'Easting: 249862.7211465724, Northing: 3688383.330395471, Zone: 52S'
+---
+data: 'Easting: 249862.8594178107, Northing: 3688383.2713387557, Zone: 52S'
+---
+data: 'Easting: 249862.99768905283, Northing: 3688383.212282042, Zone: 52S'
+---
+data: 'Easting: 249863.13567450855, Northing: 3688383.142133903, Zone: 52S'
+---
+data: 'Easting: 249863.26463240702, Northing: 3688383.083317163, Zone: 52S'
+---
+data: 'Easting: 249863.40290365161, Northing: 3688383.024260456, Zone: 52S'
+---
+data: 'Easting: 249863.5318615554, Northing: 3688382.965443722, Zone: 52S'
+---
+data: 'Easting: 249863.67013280303, Northing: 3688382.906387018, Zone: 52S'
+---
+data: 'Easting: 249863.80926140636, Northing: 3688382.8806046066, Zone: 52S'
+---
+data: 'Easting: 249863.92890596707, Northing: 3688382.822027848, Zone: 52S'
+---
+data: 'Easting: 249864.04855052914, Northing: 3688382.7634510887, Zone: 52S'
+---
+data: 'Easting: 249864.16819509483, Northing: 3688382.7048743344, Zone: 52S'
+---
+data: 'Easting: 249864.2694987515, Northing: 3688382.657868949, Zone: 52S'
+---
+data: 'Easting: 249864.3888575357, Northing: 3688382.588200766, Zone: 52S'
+---
+data: 'Easting: 249864.51810123195, Northing: 3688382.540475475, Zone: 52S'
+---
+data: 'Easting: 249864.6281466717, Northing: 3688382.4710472673, Zone: 52S'
+---
+data: 'Easting: 249864.7477912417, Northing: 3688382.412470517, Zone: 52S'
+---
+data: 'Easting: 249864.86743581315, Northing: 3688382.353893771, Zone: 52S'
+---
+data: 'Easting: 249864.98708038585, Northing: 3688382.295317025, Zone: 52S'
+---
+data: 'Easting: 249865.11575252205, Northing: 3688382.2254088847, Zone: 52S'
+---
+data: 'Easting: 249865.2263695354, Northing: 3688382.1781635405, Zone: 52S'
+---
+data: 'Easting: 249865.34572832924, Northing: 3688382.10849537, Zone: 52S'
+---
+data: 'Easting: 249865.45605956228, Northing: 3688382.0501586003, Zone: 52S'
+---
+data: 'Easting: 249865.5757041417, Northing: 3688381.991581863, Zone: 52S'
+---
+data: 'Easting: 249865.68603537956, Northing: 3688381.9332450954, Zone: 52S'
+---
+data: 'Easting: 249865.79579505147, Northing: 3688381.8527254704, Zone: 52S'
+---
+data: 'Easting: 249865.91543963292, Northing: 3688381.794148737, Zone: 52S'
+---
+data: 'Easting: 249866.03508422055, Northing: 3688381.735572006, Zone: 52S'
+---
+data: 'Easting: 249866.15472880716, Northing: 3688381.676995277, Zone: 52S'
+---
+data: 'Easting: 249866.28397252265, Northing: 3688381.62927001, Zone: 52S'
+---
+data: 'Easting: 249866.40390289348, Northing: 3688381.581784713, Zone: 52S'
+---
+data: 'Easting: 249866.52383326535, Northing: 3688381.534299417, Zone: 52S'
+---
+data: 'Easting: 249866.64376363833, Northing: 3688381.4868141245, Zone: 52S'
+---
+data: 'Easting: 249866.77300735837, Northing: 3688381.4390888643, Zone: 52S'
+---
+data: 'Easting: 249866.89322351455, Northing: 3688381.402695002, Zone: 52S'
+---
+data: 'Easting: 249867.013153893, Northing: 3688381.3552097133, Zone: 52S'
+---
+data: 'Easting: 249867.1333700487, Northing: 3688381.318815855, Zone: 52S'
+---
+data: 'Easting: 249867.2533004291, Northing: 3688381.27133057, Zone: 52S'
+---
+data: 'Easting: 249867.3735165888, Northing: 3688381.234936714, Zone: 52S'
+---
+data: 'Easting: 249867.48413362278, Northing: 3688381.1876913975, Zone: 52S'
+---
+data: 'Easting: 249867.61337734992, Northing: 3688381.13996615, Zone: 52S'
+---
+data: 'Easting: 249867.73330773212, Northing: 3688381.0924808695, Zone: 52S'
+---
+data: 'Easting: 249867.87243637026, Northing: 3688381.066698517, Zone: 52S'
+---
+data: 'Easting: 249867.99293831157, Northing: 3688381.0413960996, Zone: 52S'
+---
+data: 'Easting: 249868.12275360443, Northing: 3688381.0158537175, Zone: 52S'
+---
+data: 'Easting: 249868.25285467497, Northing: 3688381.001402767, Zone: 52S'
+---
+data: 'Easting: 249868.38324152512, Northing: 3688380.9980432456, Zone: 52S'
+---
+data: 'Easting: 249868.51334259595, Northing: 3688380.983592299, Zone: 52S'
+---
+data: 'Easting: 249868.6437294461, Northing: 3688380.9802327827, Zone: 52S'
+---
+data: 'Easting: 249868.77440207513, Northing: 3688380.987964697, Zone: 52S'
+---
+data: 'Easting: 249868.89547558114, Northing: 3688380.98484515, Zone: 52S'
+---
+data: 'Easting: 249869.02643398827, Northing: 3688381.0036684973, Zone: 52S'
+---
+data: 'Easting: 249869.13876570223, Northing: 3688381.0229717763, Zone: 52S'
+---
+data: 'Easting: 249869.26041076187, Northing: 3688381.0420350903, Zone: 52S'
+---
+data: 'Easting: 249869.39136916708, Northing: 3688381.060858443, Zone: 52S'
+---
+data: 'Easting: 249869.50398665742, Northing: 3688381.091253155, Zone: 52S'
+---
+data: 'Easting: 249869.62591749302, Northing: 3688381.1214079047, Zone: 52S'
+---
+data: 'Easting: 249869.7571616737, Northing: 3688381.1513226912, Zone: 52S'
+---
+data: 'Easting: 249869.87937828762, Northing: 3688381.192568871, Zone: 52S'
+---
+data: 'Easting: 249870.00130912036, Northing: 3688381.222723626, Zone: 52S'
+---
+data: 'Easting: 249870.13255329826, Northing: 3688381.2526384164, Zone: 52S'
+---
+data: 'Easting: 249870.2544841293, Northing: 3688381.282793173, Zone: 52S'
+---
+data: 'Easting: 249870.3764149594, Northing: 3688381.3129479317, Zone: 52S'
+---
+data: 'Easting: 249870.49806001177, Northing: 3688381.332011263, Zone: 52S'
+---
+data: 'Easting: 249870.61999084032, Northing: 3688381.362166024, Zone: 52S'
+---
+data: 'Easting: 249870.74192166797, Northing: 3688381.392320787, Zone: 52S'
+---
+data: 'Easting: 249870.86328094162, Northing: 3688381.4002926927, Zone: 52S'
+---
+data: 'Easting: 249870.98492599372, Northing: 3688381.419356029, Zone: 52S'
+---
+data: 'Easting: 249871.12491195797, Northing: 3688381.4268480116, Zone: 52S'
+---
+data: 'Easting: 249871.3772296243, Northing: 3688381.4536433, Zone: 52S'
+---
+data: 'Easting: 249871.49887467184, Northing: 3688381.472706644, Zone: 52S'
+---
+data: 'Easting: 249871.62023394313, Northing: 3688381.4806785574, Zone: 52S'
+---
+data: 'Easting: 249871.75090655967, Northing: 3688381.488410512, Zone: 52S'
+---
+data: 'Easting: 249871.87226583273, Northing: 3688381.49638243, Zone: 52S'
+---
+data: 'Easting: 249872.00322422135, Northing: 3688381.515205817, Zone: 52S'
+---
+data: 'Easting: 249872.1242977183, Northing: 3688381.512086308, Zone: 52S'
+---
+data: 'Easting: 249872.24565698794, Northing: 3688381.5200582314, Zone: 52S'
+---
+data: 'Easting: 249872.37604382783, Northing: 3688381.5166987656, Zone: 52S'
+---
+data: 'Easting: 249872.49711732223, Northing: 3688381.513579263, Zone: 52S'
+---
+data: 'Easting: 249872.6184765911, Northing: 3688381.521551188, Zone: 52S'
+---
+data: 'Easting: 249872.7488634331, Northing: 3688381.518191727, Zone: 52S'
+---
+data: 'Easting: 249872.86033780727, Northing: 3688381.5042207614, Zone: 52S'
+---
+data: 'Easting: 249872.98169707326, Northing: 3688381.5121926926, Zone: 52S'
+---
+data: 'Easting: 249873.10277056965, Northing: 3688381.509073197, Zone: 52S'
+---
+data: 'Easting: 249873.22384406353, Northing: 3688381.5059537026, Zone: 52S'
+---
+data: 'Easting: 249873.3449175574, Northing: 3688381.5028342092, Zone: 52S'
+---
+data: 'Easting: 249873.46599105117, Northing: 3688381.499714718, Zone: 52S'
+---
+data: 'Easting: 249873.5876360918, Northing: 3688381.5187780885, Zone: 52S'
+---
+data: 'Easting: 249873.70025355977, Northing: 3688381.549172849, Zone: 52S'
+---
+data: 'Easting: 249873.83121194452, Northing: 3688381.567996259, Zone: 52S'
+---
+data: 'Easting: 249873.95257121252, Northing: 3688381.5759682027, Zone: 52S'
+---
+data: 'Easting: 249874.06518867833, Northing: 3688381.606362967, Zone: 52S'
+---
+data: 'Easting: 249874.1778061433, Northing: 3688381.636757733, Zone: 52S'
+---
+data: 'Easting: 249874.29945117774, Northing: 3688381.655821109, Zone: 52S'
+---
+data: 'Easting: 249874.4208104438, Northing: 3688381.6637930605, Zone: 52S'
+---
+data: 'Easting: 249874.5424554795, Northing: 3688381.6828564396, Zone: 52S'
+---
+data: 'Easting: 249874.66381474235, Northing: 3688381.6908283923, Zone: 52S'
+---
+data: 'Easting: 249874.79477312227, Northing: 3688381.709651816, Zone: 52S'
+---
+data: 'Easting: 249874.91613238442, Northing: 3688381.7176237726, Zone: 52S'
+---
+data: 'Easting: 249875.04709076317, Northing: 3688381.7364472, Zone: 52S'
+---
+data: 'Easting: 249875.16902156768, Northing: 3688381.7666020165, Zone: 52S'
+---
+data: 'Easting: 249875.28106748336, Northing: 3688381.7748139356, Zone: 52S'
+---
+data: 'Easting: 249875.40271251515, Northing: 3688381.793877328, Zone: 52S'
+---
+data: 'Easting: 249875.53367089134, Northing: 3688381.812700761, Zone: 52S'
+---
+data: 'Easting: 249875.65531592423, Northing: 3688381.831764155, Zone: 52S'
+---
+data: 'Easting: 249875.7769609542, Northing: 3688381.850827551, Zone: 52S'
+---
+data: 'Easting: 249875.90820509935, Northing: 3688381.880742417, Zone: 52S'
+---
+data: 'Easting: 249876.05721862378, Northing: 3688381.876903083, Zone: 52S'
+---
+data: 'Easting: 249876.31913536708, Northing: 3688381.914549969, Zone: 52S'
+---
+data: 'Easting: 249876.45912131594, Northing: 3688381.92204203, Zone: 52S'
+---
+data: 'Easting: 249876.58076634232, Northing: 3688381.9411054337, Zone: 52S'
+---
+data: 'Easting: 249876.70241136805, Northing: 3688381.960168841, Zone: 52S'
+---
+data: 'Easting: 249876.80485816396, Northing: 3688381.9575293073, Zone: 52S'
+---
+data: 'Easting: 249876.917189844, Northing: 3688381.976832675, Zone: 52S'
+---
+data: 'Easting: 249877.029235754, Northing: 3688381.985044613, Zone: 52S'
+---
+data: 'Easting: 249877.14156743302, Northing: 3688382.004347983, Zone: 52S'
+---
+data: 'Easting: 249877.254184881, Northing: 3688382.034742783, Zone: 52S'
+---
+data: 'Easting: 249877.36623078963, Northing: 3688382.042954726, Zone: 52S'
+---
+data: 'Easting: 249877.47827669795, Northing: 3688382.0511666713, Zone: 52S'
+---
+data: 'Easting: 249877.58100926128, Northing: 3688382.0596185746, Zone: 52S'
+---
+data: 'Easting: 249877.6930551691, Northing: 3688382.067830521, Zone: 52S'
+---
+data: 'Easting: 249877.79578773194, Northing: 3688382.076282426, Zone: 52S'
+---
+data: 'Easting: 249877.89852029452, Northing: 3688382.084734333, Zone: 52S'
+---
+data: 'Easting: 249878.01085196983, Northing: 3688382.1040377114, Zone: 52S'
+---
+data: 'Easting: 249878.1135845317, Northing: 3688382.1124896198, Zone: 52S'
+---
+data: 'Easting: 249878.21631709332, Northing: 3688382.120941531, Zone: 52S'
+---
+data: 'Easting: 249878.3286487673, Northing: 3688382.1402449138, Zone: 52S'
+---
+data: 'Easting: 249878.43138132815, Northing: 3688382.148696824, Zone: 52S'
+---
+data: 'Easting: 249878.54314146566, Northing: 3688382.145817352, Zone: 52S'
+---
+data: 'Easting: 249878.64587402603, Northing: 3688382.1542692664, Zone: 52S'
+---
+data: 'Easting: 249878.7669475078, Northing: 3688382.15114984, Zone: 52S'
+---
+data: 'Easting: 249878.87899341233, Northing: 3688382.159361802, Zone: 52S'
+---
+data: 'Easting: 249878.98144020475, Northing: 3688382.1567222895, Zone: 52S'
+---
+data: 'Easting: 249879.09320034165, Northing: 3688382.1538428236, Zone: 52S'
+---
+data: 'Easting: 249879.2052462456, Northing: 3688382.1620547883, Zone: 52S'
+---
+data: 'Easting: 249879.31700638228, Northing: 3688382.1591753247, Zone: 52S'
+---
+data: 'Easting: 249879.42876651892, Northing: 3688382.156295864, Zone: 52S'
+---
+data: 'Easting: 249879.5402408888, Northing: 3688382.1423249734, Zone: 52S'
+---
+data: 'Easting: 249879.65228679206, Northing: 3688382.1505369428, Zone: 52S'
+---
+data: 'Easting: 249879.76404692858, Northing: 3688382.1476574847, Zone: 52S'
+---
+data: 'Easting: 249879.8848346431, Northing: 3688382.1334466445, Zone: 52S'
+---
+data: 'Easting: 249879.99630901354, Northing: 3688382.11947576, Zone: 52S'
+---
+data: 'Easting: 249880.10806915016, Northing: 3688382.116596305, Zone: 52S'
+---
+data: 'Easting: 249880.21954352074, Northing: 3688382.1026254236, Zone: 52S'
+---
+data: 'Easting: 249880.33073212582, Northing: 3688382.0775631145, Zone: 52S'
+---
+data: 'Easting: 249880.44220649707, Northing: 3688382.0635922365, Zone: 52S'
+---
+data: 'Easting: 249880.56327997852, Northing: 3688382.0604728335, Zone: 52S'
+---
+data: 'Easting: 249880.77662961194, Northing: 3688382.021679606, Zone: 52S'
+---
+data: 'Easting: 249880.8878182188, Northing: 3688381.9966173037, Zone: 52S'
+---
+data: 'Easting: 249881.0086059358, Northing: 3688381.9824064765, Zone: 52S'
+---
+data: 'Easting: 249881.11048119894, Northing: 3688381.95758413, Zone: 52S'
+---
+data: 'Easting: 249881.2309831517, Northing: 3688381.9322818783, Zone: 52S'
+---
+data: 'Easting: 249881.3511993404, Northing: 3688381.895888197, Zone: 52S'
+---
+data: 'Easting: 249881.46238794972, Northing: 3688381.8708259016, Zone: 52S'
+---
+data: 'Easting: 249881.57357655946, Northing: 3688381.845763607, Zone: 52S'
+---
+data: 'Easting: 249881.68476516966, Northing: 3688381.8207013127, Zone: 52S'
+---
+data: 'Easting: 249881.79566801633, Northing: 3688381.784547593, Zone: 52S'
+---
+data: 'Easting: 249881.91616997233, Northing: 3688381.7592453496, Zone: 52S'
+---
+data: 'Easting: 249882.03610040364, Northing: 3688381.711760249, Zone: 52S'
+---
+data: 'Easting: 249882.14700325247, Northing: 3688381.675606532, Zone: 52S'
+---
+data: 'Easting: 249882.25790610208, Northing: 3688381.6394528165, Zone: 52S'
+---
+data: 'Easting: 249882.3685231889, Northing: 3688381.5922076744, Zone: 52S'
+---
+data: 'Easting: 249882.4701126951, Northing: 3688381.5562939136, Zone: 52S'
+---
+data: 'Easting: 249882.58072978377, Northing: 3688381.509048772, Zone: 52S'
+---
+data: 'Easting: 249882.6820335263, Northing: 3688381.4620435853, Zone: 52S'
+---
+data: 'Easting: 249882.79265061673, Northing: 3688381.4147984474, Zone: 52S'
+---
+data: 'Easting: 249883.0229123859, Northing: 3688381.308976796, Zone: 52S'
+---
+data: 'Easting: 249883.12421613213, Northing: 3688381.2619716134, Zone: 52S'
+---
+data: 'Easting: 249883.23454746453, Northing: 3688381.203635052, Zone: 52S'
+---
+data: 'Easting: 249883.33585121745, Northing: 3688381.156629871, Zone: 52S'
+---
+data: 'Easting: 249883.43686920445, Northing: 3688381.098533264, Zone: 52S'
+---
+data: 'Easting: 249883.54691477827, Northing: 3688381.029105277, Zone: 52S'
+---
+data: 'Easting: 249883.64793277008, Northing: 3688380.9710086714, Zone: 52S'
+---
+data: 'Easting: 249883.76757745416, Northing: 3688380.912432166, Zone: 52S'
+---
+data: 'Easting: 249883.88693638015, Northing: 3688380.8427642332, Zone: 52S'
+---
+data: 'Easting: 249883.9876686119, Northing: 3688380.7735762023, Zone: 52S'
+---
+data: 'Easting: 249884.097714193, Northing: 3688380.704148223, Zone: 52S'
+---
+data: 'Easting: 249884.20775977575, Northing: 3688380.6347202454, Zone: 52S'
+---
+data: 'Easting: 249884.31780535993, Northing: 3688380.5652922676, Zone: 52S'
+---
+data: 'Easting: 249884.427850948, Northing: 3688380.495864292, Zone: 52S'
+---
+data: 'Easting: 249884.53761077445, Northing: 3688380.415344889, Zone: 52S'
+---
+data: 'Easting: 249884.64737060262, Northing: 3688380.334825487, Zone: 52S'
+---
+data: 'Easting: 249884.74753132355, Northing: 3688380.2434546067, Zone: 52S'
+---
+data: 'Easting: 249884.85729115544, Northing: 3688380.1629352095, Zone: 52S'
+---
+data: 'Easting: 249884.9481385364, Northing: 3688380.0718042827, Zone: 52S'
+---
+data: 'Easting: 249885.16680092886, Northing: 3688379.877491206, Zone: 52S'
+---
+data: 'Easting: 249885.25707679542, Northing: 3688379.764177422, Zone: 52S'
+---
+data: 'Easting: 249885.3479241838, Northing: 3688379.6730464995, Zone: 52S'
+---
+data: 'Easting: 249885.43877157412, Northing: 3688379.5819155793, Zone: 52S'
+---
+data: 'Easting: 249885.51013499117, Northing: 3688379.4579902706, Zone: 52S'
+---
+data: 'Easting: 249885.66246094264, Northing: 3688379.220991135, Zone: 52S'
+---
+data: 'Easting: 249885.72479677788, Northing: 3688379.108397206, Zone: 52S'
+---
+data: 'Easting: 249885.80547355238, Northing: 3688378.9842319507, Zone: 52S'
+---
+data: 'Easting: 249885.87683698154, Northing: 3688378.8603066457, Zone: 52S'
+---
+data: 'Easting: 249885.93888706298, Northing: 3688378.7366212895, Zone: 52S'
+---
+data: 'Easting: 249885.98231045337, Northing: 3688378.6134158312, Zone: 52S'
+---
+data: 'Easting: 249886.0251623248, Northing: 3688378.4680275163, Zone: 52S'
+---
+data: 'Easting: 249886.06829995892, Northing: 3688378.33373063, Zone: 52S'
+---
+data: 'Easting: 249886.12075094003, Northing: 3688378.1991937957, Zone: 52S'
+---
+data: 'Easting: 249886.18251527305, Northing: 3688378.0644170125, Zone: 52S'
+---
+data: 'Easting: 249886.22565290943, Northing: 3688377.930120128, Zone: 52S'
+---
+data: 'Easting: 249886.27810389784, Northing: 3688377.7955832933, Zone: 52S'
+---
+data: 'Easting: 249886.33026912695, Northing: 3688377.649955032, Zone: 52S'
+---
+data: 'Easting: 249886.38243436025, Northing: 3688377.5043267715, Zone: 52S'
+---
+data: 'Easting: 249886.41625865383, Northing: 3688377.370269835, Zone: 52S'
+---
+data: 'Easting: 249886.4407696021, Northing: 3688377.236452847, Zone: 52S'
+---
+data: 'Easting: 249886.48362148856, Northing: 3688377.0910645365, Zone: 52S'
+---
+data: 'Easting: 249886.51716002732, Northing: 3688376.945916171, Zone: 52S'
+---
+data: 'Easting: 249886.550984328, Northing: 3688376.811859236, Zone: 52S'
+---
+data: 'Easting: 249886.59412197673, Northing: 3688376.677562353, Zone: 52S'
+---
+data: 'Easting: 249886.66548543575, Northing: 3688376.5536370566, Zone: 52S'
+---
+data: 'Easting: 249886.73684889663, Northing: 3688376.429711759, Zone: 52S'
+---
+data: 'Easting: 249886.7799865502, Northing: 3688376.295414879, Zone: 52S'
+---
+data: 'Easting: 249886.8414651494, Northing: 3688376.149546673, Zone: 52S'
+---
+data: 'Easting: 249886.9128286136, Northing: 3688376.025621378, Zone: 52S'
+---
+data: 'Easting: 249886.97487873206, Northing: 3688375.901936031, Zone: 52S'
+---
+data: 'Easting: 249887.02704398462, Northing: 3688375.7563077747, Zone: 52S'
+---
+data: 'Easting: 249887.08909410663, Northing: 3688375.6326224287, Zone: 52S'
+---
+data: 'Easting: 249887.1601718234, Northing: 3688375.4976057075, Zone: 52S'
+---
+data: 'Easting: 249887.24084864778, Northing: 3688375.3734404673, Zone: 52S'
+---
+data: 'Easting: 249887.30261301808, Northing: 3688375.2386636958, Zone: 52S'
+---
+data: 'Easting: 249887.38328984677, Northing: 3688375.1144984565, Zone: 52S'
+---
+data: 'Easting: 249887.47328003097, Northing: 3688374.990093273, Zone: 52S'
+---
+data: 'Easting: 249887.54435775845, Northing: 3688374.8550765547, Zone: 52S'
+---
+data: 'Easting: 249887.60669365057, Northing: 3688374.7424826417, Zone: 52S'
+---
+data: 'Easting: 249887.68737048758, Northing: 3688374.6183174057, Zone: 52S'
+---
+data: 'Easting: 249887.76804732933, Northing: 3688374.4941521734, Zone: 52S'
+---
+data: 'Easting: 249887.83941082165, Northing: 3688374.370226886, Zone: 52S'
+---
+data: 'Easting: 249887.9296867755, Northing: 3688374.2569131353, Zone: 52S'
+---
+data: 'Easting: 249888.01996273157, Northing: 3688374.143599385, Zone: 52S'
+---
+data: 'Easting: 249888.09161198378, Northing: 3688374.03076553, Zone: 52S'
+---
+data: 'Easting: 249888.1728603481, Northing: 3688373.928783158, Zone: 52S'
+---
+data: 'Easting: 249888.2634220662, Northing: 3688373.8265608386, Zone: 52S'
+---
+data: 'Easting: 249888.3353570797, Northing: 3688373.7248184136, Zone: 52S'
+---
+data: 'Easting: 249888.40700634135, Northing: 3688373.6119845617, Zone: 52S'
+---
+data: 'Easting: 249888.4789413604, Northing: 3688373.510242136, Zone: 52S'
+---
+data: 'Easting: 249888.53196392077, Northing: 3688373.397888176, Zone: 52S'
+---
+data: 'Easting: 249888.58498648, Northing: 3688373.2855342175, Zone: 52S'
+---
+data: 'Easting: 249888.65720725906, Northing: 3688373.194883222, Zone: 52S'
+---
+data: 'Easting: 249888.7105155766, Northing: 3688373.0936206933, Zone: 52S'
+---
+data: 'Easting: 249888.75422478706, Northing: 3688372.98150668, Zone: 52S'
+---
+data: 'Easting: 249888.8264455702, Northing: 3688372.8908556877, Zone: 52S'
+---
+data: 'Easting: 249888.87946813845, Northing: 3688372.778501729, Zone: 52S'
+---
+data: 'Easting: 249888.9327764608, Northing: 3688372.6772392006, Zone: 52S'
+---
+data: 'Easting: 249888.98579903177, Northing: 3688372.5648852433, Zone: 52S'
+---
+data: 'Easting: 249889.04842070985, Northing: 3688372.46338277, Zone: 52S'
+---
+data: 'Easting: 249889.09241568498, Northing: 3688372.362360188, Zone: 52S'
+---
+data: 'Easting: 249889.14543825752, Northing: 3688372.2500062324, Zone: 52S'
+---
+data: 'Easting: 249889.22697240367, Northing: 3688372.159115298, Zone: 52S'
+---
+data: 'Easting: 249889.29862168874, Northing: 3688372.046281453, Zone: 52S'
+---
+data: 'Easting: 249889.37055672766, Northing: 3688371.944539037, Zone: 52S'
+---
+data: 'Easting: 249889.4518051243, Northing: 3688371.842556677, Zone: 52S'
+---
+data: 'Easting: 249889.53276776845, Northing: 3688371.7294828906, Zone: 52S'
+---
+data: 'Easting: 249889.6332143852, Northing: 3688371.649203498, Zone: 52S'
+---
+data: 'Easting: 249889.72406189298, Northing: 3688371.5580726243, Zone: 52S'
+---
+data: 'Easting: 249889.8239370076, Northing: 3688371.455610378, Zone: 52S'
+---
+data: 'Easting: 249889.93369698382, Northing: 3688371.3750910456, Zone: 52S'
+---
+data: 'Easting: 249890.04345696175, Northing: 3688371.294571716, Zone: 52S'
+---
+data: 'Easting: 249890.16224454241, Northing: 3688371.202721013, Zone: 52S'
+---
+data: 'Easting: 249890.28103212526, Northing: 3688371.110870313, Zone: 52S'
+---
+data: 'Easting: 249890.39050635588, Northing: 3688371.0192595585, Zone: 52S'
+---
+data: 'Easting: 249890.5092939431, Northing: 3688370.9274088605, Zone: 52S'
+---
+data: 'Easting: 249890.6280815325, Northing: 3688370.8355581644, Zone: 52S'
+---
+data: 'Easting: 249890.7381272749, Northing: 3688370.76613027, Zone: 52S'
+---
+data: 'Easting: 249890.85691486843, Northing: 3688370.6742795776, Zone: 52S'
+---
+data: 'Easting: 249890.9663891092, Northing: 3688370.5826688297, Zone: 52S'
+---
+data: 'Easting: 249891.09506156688, Northing: 3688370.512761053, Zone: 52S'
+---
+data: 'Easting: 249891.20453581153, Northing: 3688370.421150308, Zone: 52S'
+---
+data: 'Easting: 249891.3326367711, Northing: 3688370.329059679, Zone: 52S'
+---
+data: 'Easting: 249891.4613092345, Northing: 3688370.2591519076, Zone: 52S'
+---
+data: 'Easting: 249891.57078348548, Northing: 3688370.1675411672, Zone: 52S'
+---
+data: 'Easting: 249891.70905505962, Northing: 3688370.1084848843, Zone: 52S'
+---
+data: 'Easting: 249891.8473266353, Northing: 3688370.0494286055, Zone: 52S'
+---
+data: 'Easting: 249891.9666857525, Northing: 3688369.9797607833, Zone: 52S'
+---
+data: 'Easting: 249892.11484218697, Northing: 3688369.9426474213, Zone: 52S'
+---
+data: 'Easting: 249892.2440861649, Northing: 3688369.8949225196, Zone: 52S'
+---
+data: 'Easting: 249892.3826434972, Northing: 3688369.8469576747, Zone: 52S'
+---
+data: 'Easting: 249892.52177233432, Northing: 3688369.8211756903, Zone: 52S'
+---
+data: 'Easting: 249892.66004391824, Northing: 3688369.7621194213, Zone: 52S'
+---
+data: 'Easting: 249892.79831550378, Northing: 3688369.703063156, Zone: 52S'
+---
+data: 'Easting: 249892.93744434128, Northing: 3688369.677281177, Zone: 52S'
+---
+data: 'Easting: 249893.06640257358, Northing: 3688369.618464856, Zone: 52S'
+---
+data: 'Easting: 249893.22415812666, Northing: 3688369.5922029987, Zone: 52S'
+---
+data: 'Easting: 249893.49453120105, Northing: 3688369.5963361384, Zone: 52S'
+---
+data: 'Easting: 249893.63394579044, Northing: 3688369.5816455963, Zone: 52S'
+---
+data: 'Easting: 249893.7821022376, Northing: 3688369.5445322613, Zone: 52S'
+---
+data: 'Easting: 249893.93111593282, Northing: 3688369.540693213, Zone: 52S'
+---
+data: 'Easting: 249894.08012963017, Northing: 3688369.536854167, Zone: 52S'
+---
+data: 'Easting: 249894.2288575764, Northing: 3688369.5219236943, Zone: 52S'
+---
+data: 'Easting: 249894.36827216722, Northing: 3688369.5072331647, Zone: 52S'
+---
+data: 'Easting: 249894.50797250666, Northing: 3688369.5036340645, Zone: 52S'
+---
+data: 'Easting: 249894.6665853082, Northing: 3688369.5106465155, Zone: 52S'
+---
+data: 'Easting: 249894.80657139522, Northing: 3688369.5181388482, Zone: 52S'
+---
+data: 'Easting: 249894.93695837827, Northing: 3688369.5147796944, Zone: 52S'
+---
+data: 'Easting: 249895.07665871942, Northing: 3688369.5111806034, Zone: 52S'
+---
+data: 'Easting: 249895.22595816155, Northing: 3688369.5184330014, Zone: 52S'
+---
+data: 'Easting: 249895.35691663902, Northing: 3688369.5372567093, Zone: 52S'
+---
+data: 'Easting: 249895.49747421892, Northing: 3688369.566931909, Zone: 52S'
+---
+data: 'Easting: 249895.64648791455, Northing: 3688369.5630928874, Zone: 52S'
+---
+data: 'Easting: 249895.7867597459, Northing: 3688369.581676662, Zone: 52S'
+---
+data: 'Easting: 249895.93605918527, Northing: 3688369.5889290716, Zone: 52S'
+---
+data: 'Easting: 249896.08507288015, Northing: 3688369.5850900556, Zone: 52S'
+---
+data: 'Easting: 249896.2253447098, Northing: 3688369.6036738376, Zone: 52S'
+---
+data: 'Easting: 249896.3746441504, Northing: 3688369.6109262556, Zone: 52S'
+---
+data: 'Easting: 249896.51434448655, Northing: 3688369.6073271837, Zone: 52S'
+---
+data: 'Easting: 249896.66392967012, Northing: 3688369.6256710333, Zone: 52S'
+---
+data: 'Easting: 249896.79545963334, Northing: 3688369.6666776165, Zone: 52S'
+---
+data: 'Easting: 249896.92756108663, Northing: 3688369.7298670574, Zone: 52S'
+---
+data: 'Easting: 249897.05937679263, Northing: 3688369.7819650723, Zone: 52S'
+---
+data: 'Easting: 249897.18216488947, Northing: 3688369.845394454, Zone: 52S'
+---
+data: 'Easting: 249897.28718350505, Northing: 3688369.9425779977, Zone: 52S'
+---
+data: 'Easting: 249897.44779650884, Northing: 3688370.0272304895, Zone: 52S'
+---
+data: 'Easting: 249897.57115608736, Northing: 3688370.1128427316, Zone: 52S'
+---
+data: 'Easting: 249897.6575479886, Northing: 3688370.210506153, Zone: 52S'
+---
+data: 'Easting: 249897.78964942836, Northing: 3688370.2736956044, Zone: 52S'
+---
+data: 'Easting: 249897.91243751135, Northing: 3688370.3371249945, Zone: 52S'
+---
+data: 'Easting: 249898.02676947127, Northing: 3688370.434068608, Zone: 52S'
+---
+data: 'Easting: 249898.1131613652, Northing: 3688370.531732031, Zone: 52S'
+---
+data: 'Easting: 249898.2088666118, Northing: 3688370.629155519, Zone: 52S'
+---
+data: 'Easting: 249898.3141709552, Northing: 3688370.7374304994, Zone: 52S'
+---
+data: 'Easting: 249898.4095904515, Northing: 3688370.8237625607, Zone: 52S'
+---
+data: 'Easting: 249898.48724047188, Northing: 3688370.9438487794, Zone: 52S'
+---
+data: 'Easting: 249898.54654952633, Northing: 3688371.0755062997, Zone: 52S'
+---
+data: 'Easting: 249898.6233423118, Northing: 3688371.1623182357, Zone: 52S'
+---
+data: 'Easting: 249898.7286466427, Northing: 3688371.270593219, Zone: 52S'
+---
+data: 'Easting: 249898.79726904584, Northing: 3688371.4020108045, Zone: 52S'
+---
+data: 'Easting: 249898.9113152412, Northing: 3688371.4878629996, Zone: 52S'
+---
+data: 'Easting: 249898.98867950492, Northing: 3688371.5968577927, Zone: 52S'
+---
+data: 'Easting: 249899.08524196528, Northing: 3688371.7275555716, Zone: 52S'
+---
+data: 'Easting: 249899.1259242988, Northing: 3688371.859692967, Zone: 52S'
+---
+data: 'Easting: 249899.1482656684, Northing: 3688372.0034016585, Zone: 52S'
+---
+data: 'Easting: 249899.1976898667, Northing: 3688372.113116261, Zone: 52S'
+---
+data: 'Easting: 249899.26631225864, Northing: 3688372.244533849, Zone: 52S'
+---
+data: 'Easting: 249899.33522038974, Northing: 3688372.387042866, Zone: 52S'
+---
+data: 'Easting: 249899.41287038775, Northing: 3688372.5071290894, Zone: 52S'
+---
+data: 'Easting: 249899.46258032642, Northing: 3688372.6279351222, Zone: 52S'
+---
+data: 'Easting: 249899.52188935698, Northing: 3688372.759592648, Zone: 52S'
+---
+data: 'Easting: 249899.58091264576, Northing: 3688372.8801587443, Zone: 52S'
+---
+data: 'Easting: 249899.63090832136, Northing: 3688373.012056205, Zone: 52S'
+---
+data: 'Easting: 249899.699816445, Northing: 3688373.154565222, Zone: 52S'
+---
+data: 'Easting: 249899.749812118, Northing: 3688373.286462683, Zone: 52S'
+---
+data: 'Easting: 249899.80912114153, Northing: 3688373.418120209, Zone: 52S'
+---
+data: 'Easting: 249899.85008920546, Northing: 3688373.561349034, Zone: 52S'
+---
+data: 'Easting: 249899.90037061754, Northing: 3688373.7043379224, Zone: 52S'
+---
+data: 'Easting: 249899.94105293666, Northing: 3688373.8364753183, Zone: 52S'
+---
+data: 'Easting: 249899.99076286142, Northing: 3688373.957281353, Zone: 52S'
+---
+data: 'Easting: 249900.05007187853, Northing: 3688374.08893888, Zone: 52S'
+---
+data: 'Easting: 249900.0910399371, Northing: 3688374.232167704, Zone: 52S'
+---
+data: 'Easting: 249900.1314365098, Northing: 3688374.3532136735, Zone: 52S'
+---
+data: 'Easting: 249900.20005887386, Northing: 3688374.4846312674, Zone: 52S'
+---
+data: 'Easting: 249900.250626022, Northing: 3688374.638711586, Zone: 52S'
+---
+data: 'Easting: 249900.30033593965, Northing: 3688374.7595176217, Zone: 52S'
+---
+data: 'Easting: 249900.3686725592, Northing: 3688374.8798437864, Zone: 52S'
+---
+data: 'Easting: 249900.43729491683, Northing: 3688375.0112613817, Zone: 52S'
+---
+data: 'Easting: 249900.50591727294, Northing: 3688375.1426789765, Zone: 52S'
+---
+data: 'Easting: 249900.56522627972, Northing: 3688375.274336506, Zone: 52S'
+---
+data: 'Easting: 249900.65161810865, Northing: 3688375.3719999488, Zone: 52S'
+---
+data: 'Easting: 249900.73886715906, Northing: 3688375.5029376764, Zone: 52S'
+---
+data: 'Easting: 249900.81680286006, Northing: 3688375.6341153383, Zone: 52S'
+---
+data: 'Easting: 249900.89416707563, Northing: 3688375.7431101454, Zone: 52S'
+---
+data: 'Easting: 249900.99044372988, Northing: 3688375.8627165114, Zone: 52S'
+---
+data: 'Easting: 249901.06837942495, Northing: 3688375.9938941756, Zone: 52S'
+---
+data: 'Easting: 249901.27898793534, Northing: 3688376.210444191, Zone: 52S'
+---
+data: 'Easting: 249901.36537974924, Northing: 3688376.3081076387, Zone: 52S'
+---
+data: 'Easting: 249901.46137065132, Northing: 3688376.4166225824, Zone: 52S'
+---
+data: 'Easting: 249901.56610341807, Northing: 3688376.502714737, Zone: 52S'
+---
+data: 'Easting: 249901.67083618292, Northing: 3688376.5888068923, Zone: 52S'
+---
+data: 'Easting: 249901.78488229436, Northing: 3688376.674659116, Zone: 52S'
+---
+data: 'Easting: 249901.90824175224, Northing: 3688376.7602714063, Zone: 52S'
+---
+data: 'Easting: 249902.03074398628, Northing: 3688376.812609415, Zone: 52S'
+---
+data: 'Easting: 249902.15381769981, Northing: 3688376.8871302824, Zone: 52S'
+---
+data: 'Easting: 249902.27717715155, Northing: 3688376.972742578, Zone: 52S'
+---
+data: 'Easting: 249902.39967938073, Northing: 3688377.02508059, Zone: 52S'
+---
+data: 'Easting: 249902.5221816108, Northing: 3688377.0774186053, Zone: 52S'
+---
+data: 'Easting: 249902.6446838349, Northing: 3688377.129756622, Zone: 52S'
+---
+data: 'Easting: 249902.75844419122, Northing: 3688377.2045174274, Zone: 52S'
+---
+data: 'Easting: 249902.88066067503, Northing: 3688377.2457640176, Zone: 52S'
+---
+data: 'Easting: 249903.0121905077, Northing: 3688377.286770679, Zone: 52S'
+---
+data: 'Easting: 249903.153319424, Northing: 3688377.3386288355, Zone: 52S'
+---
+data: 'Easting: 249903.28456351266, Northing: 3688377.368544073, Zone: 52S'
+---
+data: 'Easting: 249903.4067799916, Northing: 3688377.4097906686, Zone: 52S'
+---
+data: 'Easting: 249903.53859555835, Northing: 3688377.461888765, Zone: 52S'
+---
+data: 'Easting: 249903.67915299133, Northing: 3688377.491564073, Zone: 52S'
+---
+data: 'Easting: 249903.80165520523, Northing: 3688377.5439021043, Zone: 52S'
+---
+data: 'Easting: 249903.94278411276, Northing: 3688377.5957602733, Zone: 52S'
+---
+data: 'Easting: 249904.08334154217, Northing: 3688377.6254355875, Zone: 52S'
+---
+data: 'Easting: 249904.2148713635, Northing: 3688377.666442264, Zone: 52S'
+---
+data: 'Easting: 249904.34668691916, Northing: 3688377.7185403695, Zone: 52S'
+---
+data: 'Easting: 249904.47878821116, Northing: 3688377.7817299035, Zone: 52S'
+---
+data: 'Easting: 249904.61060376363, Northing: 3688377.833828013, Zone: 52S'
+---
+data: 'Easting: 249904.733391705, Northing: 3688377.8972574826, Zone: 52S'
+---
+data: 'Easting: 249904.87452060144, Northing: 3688377.949115664, Zone: 52S'
+---
+data: 'Easting: 249905.00662188884, Northing: 3688378.0123052057, Zone: 52S'
+---
+data: 'Easting: 249905.12940982505, Northing: 3688378.0757346805, Zone: 52S'
+---
+data: 'Easting: 249905.26151110642, Northing: 3688378.138924225, Zone: 52S'
+---
+data: 'Easting: 249905.37555716594, Northing: 3688378.2247764873, Zone: 52S'
+---
+data: 'Easting: 249905.50765844353, Northing: 3688378.2879660353, Zone: 52S'
+---
+data: 'Easting: 249905.63947398277, Northing: 3688378.3400641577, Zone: 52S'
+---
+data: 'Easting: 249905.76254764665, Northing: 3688378.414585067, Zone: 52S'
+---
+data: 'Easting: 249905.90367653154, Northing: 3688378.4664432635, Zone: 52S'
+---
+data: 'Easting: 249906.0354920659, Northing: 3688378.518541391, Zone: 52S'
+---
+data: 'Easting: 249906.1579942523, Northing: 3688378.57087945, Zone: 52S'
+---
+data: 'Easting: 249906.28952404784, Northing: 3688378.611886151, Zone: 52S'
+---
+data: 'Easting: 249906.43036718847, Northing: 3688378.6526529277, Zone: 52S'
+---
+data: 'Easting: 249906.5618969838, Northing: 3688378.6936596334, Zone: 52S'
+---
+data: 'Easting: 249906.69342677557, Northing: 3688378.73466634, Zone: 52S'
+---
+data: 'Easting: 249906.83398417715, Northing: 3688378.764341695, Zone: 52S'
+---
+data: 'Easting: 249906.9748273127, Northing: 3688378.8051084783, Zone: 52S'
+---
+data: 'Easting: 249907.10607136585, Northing: 3688378.8350237645, Zone: 52S'
+---
+data: 'Easting: 249907.24662876653, Northing: 3688378.8646991234, Zone: 52S'
+---
+data: 'Easting: 249907.3784442869, Northing: 3688378.9167972677, Zone: 52S'
+---
+data: 'Easting: 249907.5187159486, Northing: 3688378.935381203, Zone: 52S'
+---
+data: 'Easting: 249907.65024573205, Northing: 3688378.976387923, Zone: 52S'
+---
+data: 'Easting: 249907.80011647433, Northing: 3688379.0058233626, Zone: 52S'
+---
+data: 'Easting: 249907.9307890535, Northing: 3688379.013555803, Zone: 52S'
+---
+data: 'Easting: 249908.08037405775, Northing: 3688379.0318998178, Zone: 52S'
+---
+data: 'Easting: 249908.2209314516, Northing: 3688379.0615751916, Zone: 52S'
+---
+data: 'Easting: 249908.35160402907, Northing: 3688379.0693076383, Zone: 52S'
+---
+data: 'Easting: 249908.51050237703, Northing: 3688379.087411733, Zone: 52S'
+---
+data: 'Easting: 249908.65077403266, Northing: 3688379.1059956835, Zone: 52S'
+---
+data: 'Easting: 249908.79161715586, Northing: 3688379.146762492, Zone: 52S'
+---
+data: 'Easting: 249908.93188880975, Northing: 3688379.1653464483, Zone: 52S'
+---
+data: 'Easting: 249909.0543909696, Northing: 3688379.21768454, Zone: 52S'
+---
+data: 'Easting: 249909.17603593052, Northing: 3688379.2367483526, Zone: 52S'
+---
+data: 'Easting: 249909.2886532775, Northing: 3688379.26714352, Zone: 52S'
+---
+data: 'Easting: 249909.4105839693, Northing: 3688379.2972987625, Zone: 52S'
+---
+data: 'Easting: 249909.52320131476, Northing: 3688379.327693932, Zone: 52S'
+---
+data: 'Easting: 249909.6355329272, Northing: 3688379.346997676, Zone: 52S'
+---
+data: 'Easting: 249909.75746361676, Northing: 3688379.3771529226, Zone: 52S'
+---
+data: 'Easting: 249909.8610533462, Northing: 3688379.418879449, Zone: 52S'
+---
+data: 'Easting: 249909.97309922497, Northing: 3688379.427091769, Zone: 52S'
+---
+data: 'Easting: 249910.084859372, Northing: 3688379.424212662, Zone: 52S'
+---
+data: 'Easting: 249910.1881633677, Northing: 3688379.454847764, Zone: 52S'
+---
+data: 'Easting: 249910.29061016894, Northing: 3688379.4522085846, Zone: 52S'
+---
+data: 'Easting: 249910.39334270128, Northing: 3688379.460660834, Zone: 52S'
+---
+data: 'Easting: 249910.49664669554, Northing: 3688379.4912959416, Zone: 52S'
+---
+data: 'Easting: 249910.58949441987, Northing: 3688379.477805262, Zone: 52S'
+---
+data: 'Easting: 249910.68319933699, Northing: 3688379.4975888673, Zone: 52S'
+---
+data: 'Easting: 249910.77633279216, Northing: 3688379.495189617, Zone: 52S'
+---
+data: 'Easting: 249910.85083955424, Northing: 3688379.49327022, Zone: 52S'
+---
+data: 'Easting: 249910.95385781574, Northing: 3688379.5128139025, Zone: 52S'
+---
+data: 'Easting: 249911.0280788496, Northing: 3688379.499803077, Zone: 52S'
+---
+data: 'Easting: 249911.10258561166, Northing: 3688379.49788368, Zone: 52S'
+---
+data: 'Easting: 249911.1960047992, Northing: 3688379.506575862, Zone: 52S'
+---
+data: 'Easting: 249911.27051156113, Northing: 3688379.504656467, Zone: 52S'
+---
+data: 'Easting: 249911.3447325952, Northing: 3688379.491645645, Zone: 52S'
+---
+data: 'Easting: 249911.42883843236, Northing: 3688379.500577754, Zone: 52S'
+---
+data: 'Easting: 249911.51237281197, Northing: 3688379.487327008, Zone: 52S'
+---
+data: 'Easting: 249911.5959071916, Northing: 3688379.4740762645, Zone: 52S'
+---
+data: 'Easting: 249911.67972730115, Northing: 3688379.471916948, Zone: 52S'
+---
+data: 'Easting: 249911.76354740842, Northing: 3688379.469757632, Zone: 52S'
+---
+data: 'Easting: 249911.85639513368, Northing: 3688379.456266966, Zone: 52S'
+---
+data: 'Easting: 249911.9399295138, Northing: 3688379.443016224, Zone: 52S'
+---
+data: 'Easting: 249912.04237631394, Northing: 3688379.4403770636, Zone: 52S'
+---
+data: 'Easting: 249912.13522403967, Northing: 3688379.4268863993, Zone: 52S'
+---
+data: 'Easting: 249912.22778603647, Northing: 3688379.4023043085, Zone: 52S'
+---
+data: 'Easting: 249912.33926045313, Northing: 3688379.3883338002, Zone: 52S'
+---
+data: 'Easting: 249912.4318224483, Northing: 3688379.363751712, Zone: 52S'
+---
+data: 'Easting: 249912.54329686795, Northing: 3688379.349781205, Zone: 52S'
+---
+data: 'Easting: 249912.63557313514, Northing: 3688379.3141076914, Zone: 52S'
+---
+data: 'Easting: 249912.73716275065, Northing: 3688379.278194255, Zone: 52S'
+---
+data: 'Easting: 249912.9496553317, Northing: 3688379.2061274634, Zone: 52S'
+---
+data: 'Easting: 249913.0422173297, Northing: 3688379.1815453796, Zone: 52S'
+---
+data: 'Easting: 249913.15283456526, Northing: 3688379.1343005984, Zone: 52S'
+---
+data: 'Easting: 249913.2634518018, Northing: 3688379.0870558186, Zone: 52S'
+---
+data: 'Easting: 249913.38366811274, Northing: 3688379.0506625446, Zone: 52S'
+---
+data: 'Easting: 249913.5033129716, Northing: 3688378.9920864166, Zone: 52S'
+---
+data: 'Easting: 249913.6232435545, Northing: 3688378.944601718, Zone: 52S'
+---
+data: 'Easting: 249913.74260268616, Northing: 3688378.874934166, Zone: 52S'
+---
+data: 'Easting: 249913.95983699246, Northing: 3688378.625164635, Zone: 52S'
+---
+data: 'Easting: 249914.0794818597, Northing: 3688378.5665885154, Zone: 52S'
+---
+data: 'Easting: 249914.19884099907, Northing: 3688378.49692097, Zone: 52S'
+---
+data: 'Easting: 249914.3086010675, Northing: 3688378.4164019185, Zone: 52S'
+---
+data: 'Easting: 249914.41836113762, Northing: 3688378.335882869, Zone: 52S'
+---
+data: 'Easting: 249914.5377202821, Northing: 3688378.2662153286, Zone: 52S'
+---
+data: 'Easting: 249914.64748035578, Northing: 3688378.1856962815, Zone: 52S'
+---
+data: 'Easting: 249914.7572404312, Northing: 3688378.1051772367, Zone: 52S'
+---
+data: 'Easting: 249914.85740143602, Northing: 3688378.0138066867, Zone: 52S'
+---
+data: 'Easting: 249914.9671615151, Northing: 3688377.933287644, Zone: 52S'
+---
+data: 'Easting: 249915.0676082494, Northing: 3688377.853008524, Zone: 52S'
+---
+data: 'Easting: 249915.16805498517, Northing: 3688377.772729405, Zone: 52S'
+---
+data: 'Easting: 249915.25861692516, Northing: 3688377.6705073533, Zone: 52S'
+---
+data: 'Easting: 249915.34946458996, Northing: 3688377.5793767283, Zone: 52S'
+---
+data: 'Easting: 249915.44962560807, Northing: 3688377.4880061843, Zone: 52S'
+---
+data: 'Easting: 249915.53087420424, Northing: 3688377.3860240565, Zone: 52S'
+---
+data: 'Easting: 249915.6313209488, Northing: 3688377.3057449413, Zone: 52S'
+---
+data: 'Easting: 249915.7125695508, Northing: 3688377.2037628135, Zone: 52S'
+---
+data: 'Easting: 249915.8037029515, Northing: 3688377.123723623, Zone: 52S'
+---
+data: 'Easting: 249915.92334784498, Northing: 3688377.065147527, Zone: 52S'
+---
+data: 'Easting: 249916.01476697085, Northing: 3688376.9961997643, Zone: 52S'
+---
+data: 'Easting: 249916.10561465388, Northing: 3688376.905069148, Zone: 52S'
+---
+data: 'Easting: 249916.20634712998, Northing: 3688376.8358814684, Zone: 52S'
+---
+data: 'Easting: 249916.28873863892, Northing: 3688376.7782650567, Zone: 52S'
+---
+data: 'Easting: 249916.37987204822, Northing: 3688376.6982258707, Zone: 52S'
+---
+data: 'Easting: 249916.49020360244, Northing: 3688376.639889702, Zone: 52S'
+---
+data: 'Easting: 249916.57173794304, Northing: 3688376.54899901, Zone: 52S'
+---
+data: 'Easting: 249916.65355800898, Northing: 3688376.469199746, Zone: 52S'
+---
+data: 'Easting: 249916.74469142186, Northing: 3688376.389160563, Zone: 52S'
+---
+data: 'Easting: 249916.8358248387, Northing: 3688376.3091213824, Zone: 52S'
+---
+data: 'Easting: 249916.90833156064, Northing: 3688376.2295620395, Zone: 52S'
+---
+data: 'Easting: 249916.9901516322, Northing: 3688376.1497627804, Zone: 52S'
+---
+data: 'Easting: 249917.07197170256, Northing: 3688376.069963519, Zone: 52S'
+---
+data: 'Easting: 249917.14419270534, Northing: 3688375.9793127514, Zone: 52S'
+---
+data: 'Easting: 249917.21669943247, Northing: 3688375.8997534113, Zone: 52S'
+---
+data: 'Easting: 249917.298519507, Northing: 3688375.819954153, Zone: 52S'
+---
+data: 'Easting: 249917.37074051384, Northing: 3688375.729303388, Zone: 52S'
+---
+data: 'Easting: 249917.4522748706, Northing: 3688375.638412704, Zone: 52S'
+---
+data: 'Easting: 249917.53438067427, Northing: 3688375.5697048763, Zone: 52S'
+---
+data: 'Easting: 249917.6068874078, Northing: 3688375.4901455394, Zone: 52S'
+---
+data: 'Easting: 249917.7073341866, Northing: 3688375.409866449, Zone: 52S'
+---
+data: 'Easting: 249917.78915427174, Northing: 3688375.3300671964, Zone: 52S'
+---
+data: 'Easting: 249917.87097435817, Northing: 3688375.2502679434, Zone: 52S'
+---
+data: 'Easting: 249917.96239351714, Northing: 3688375.1813202025, Zone: 52S'
+---
+data: 'Easting: 249918.0442136062, Northing: 3688375.1015209514, Zone: 52S'
+---
+data: 'Easting: 249918.12603369428, Northing: 3688375.0217217025, Zone: 52S'
+---
+data: 'Easting: 249918.2270519283, Northing: 3688374.9636254734, Zone: 52S'
+---
+data: 'Easting: 249918.3178996489, Northing: 3688374.8724948796, Zone: 52S'
+---
+data: 'Easting: 249918.40931881437, Northing: 3688374.8035471416, Zone: 52S'
+---
+data: 'Easting: 249918.51936468008, Northing: 3688374.734119573, Zone: 52S'
+---
+data: 'Easting: 249918.60118477754, Northing: 3688374.6543203266, Zone: 52S'
+---
+data: 'Easting: 249918.69231822348, Northing: 3688374.5742811635, Zone: 52S'
+---
+data: 'Easting: 249918.78373739455, Northing: 3688374.5053334306, Zone: 52S'
+---
+data: 'Easting: 249918.8751565667, Northing: 3688374.4363856986, Zone: 52S'
+---
+data: 'Easting: 249918.96629001937, Northing: 3688374.3563465406, Zone: 52S'
+---
+data: 'Easting: 249919.05713775265, Northing: 3688374.2652159547, Zone: 52S'
+---
+data: 'Easting: 249919.13895785846, Northing: 3688374.1854167148, Zone: 52S'
+---
+data: 'Easting: 249919.2396903839, Northing: 3688374.1162290694, Zone: 52S'
+---
+data: 'Easting: 249919.33082384485, Northing: 3688374.0361899147, Zone: 52S'
+---
+data: 'Easting: 249919.4219573026, Northing: 3688373.9561507604, Zone: 52S'
+---
+data: 'Easting: 249919.49446406384, Northing: 3688373.8765914403, Zone: 52S'
+---
+data: 'Easting: 249919.59491087706, Northing: 3688373.796312371, Zone: 52S'
+---
+data: 'Easting: 249919.67673098893, Northing: 3688373.716513137, Zone: 52S'
+---
+data: 'Easting: 249919.76757873746, Northing: 3688373.6253825584, Zone: 52S'
+---
+data: 'Easting: 249919.84939885212, Northing: 3688373.545583325, Zone: 52S'
+---
+data: 'Easting: 249919.94081804084, Northing: 3688373.4766356037, Zone: 52S'
+---
+data: 'Easting: 249920.0226381606, Northing: 3688373.396836371, Zone: 52S'
+---
+data: 'Easting: 249920.10445827947, Northing: 3688373.31703714, Zone: 52S'
+---
+data: 'Easting: 249920.19587747206, Northing: 3688373.2480894215, Zone: 52S'
+---
+data: 'Easting: 249920.28729666598, Northing: 3688373.179141704, Zone: 52S'
+---
+data: 'Easting: 249920.3688310721, Northing: 3688373.0882510487, Zone: 52S'
+---
+data: 'Easting: 249920.54207039668, Northing: 3688372.939504106, Zone: 52S'
+---
+data: 'Easting: 249920.63320387466, Northing: 3688372.8594649644, Zone: 52S'
+---
+data: 'Easting: 249920.7153097241, Northing: 3688372.790757166, Zone: 52S'
+---
+data: 'Easting: 249920.8157565586, Northing: 3688372.710478112, Zone: 52S'
+---
+data: 'Easting: 249920.88854905928, Northing: 3688372.6420102296, Zone: 52S'
+---
+data: 'Easting: 249920.97036919405, Northing: 3688372.5622110064, Zone: 52S'
+---
+data: 'Easting: 249921.05218933005, Northing: 3688372.482411785, Zone: 52S'
+---
+data: 'Easting: 249921.14332281647, Northing: 3688372.402372649, Zone: 52S'
+---
+data: 'Easting: 249921.24434109466, Northing: 3688372.344276453, Zone: 52S'
+---
+data: 'Easting: 249921.33518886843, Northing: 3688372.2531458936, Zone: 52S'
+---
+data: 'Easting: 249921.4266080796, Northing: 3688372.1841981863, Zone: 52S'
+---
+data: 'Easting: 249921.4991148685, Northing: 3688372.104638883, Zone: 52S'
+---
+data: 'Easting: 249921.59024836452, Northing: 3688372.0245997524, Zone: 52S'
+---
+data: 'Easting: 249921.67178279272, Northing: 3688371.9337091073, Zone: 52S'
+---
+data: 'Easting: 249921.76320200917, Northing: 3688371.8647614047, Zone: 52S'
+---
+data: 'Easting: 249921.845307875, Northing: 3688371.7960536177, Zone: 52S'
+---
+data: 'Easting: 249921.93644137448, Northing: 3688371.71601449, Zone: 52S'
+---
+data: 'Easting: 249922.0182615257, Northing: 3688371.636215277, Zone: 52S'
+---
+data: 'Easting: 249922.1187083827, Northing: 3688371.555936238, Zone: 52S'
+---
+data: 'Easting: 249922.20984188895, Northing: 3688371.475897113, Zone: 52S'
+---
+data: 'Easting: 249922.31114589958, Northing: 3688371.4288923573, Zone: 52S'
+---
+data: 'Easting: 249922.3929660562, Northing: 3688371.3490931476, Zone: 52S'
+---
+data: 'Easting: 249922.4936986359, Northing: 3688371.2799055404, Zone: 52S'
+---
+data: 'Easting: 249922.5947169333, Northing: 3688371.2218093597, Zone: 52S'
+---
+data: 'Easting: 249922.68585044416, Northing: 3688371.141770241, Zone: 52S'
+---
+data: 'Easting: 249922.786868744, Northing: 3688371.0836740616, Zone: 52S'
+---
+data: 'Easting: 249922.87800226014, Northing: 3688371.003634945, Zone: 52S'
+---
+data: 'Easting: 249922.97902056263, Northing: 3688370.9455387685, Zone: 52S'
+---
+data: 'Easting: 249923.07072551342, Northing: 3688370.8876825077, Zone: 52S'
+---
+data: 'Easting: 249923.17145810224, Northing: 3688370.8184949066, Zone: 52S'
+---
+data: 'Easting: 249923.2724764082, Northing: 3688370.7603987353, Zone: 52S'
+---
+data: 'Easting: 249923.3732089998, Northing: 3688370.6912111365, Zone: 52S'
+---
+data: 'Easting: 249923.47451302363, Northing: 3688370.6442063944, Zone: 52S'
+---
+data: 'Easting: 249923.56593226228, Northing: 3688370.575258711, Zone: 52S'
+---
+data: 'Easting: 249923.65763722218, Northing: 3688370.5174024547, Zone: 52S'
+---
+data: 'Easting: 249923.74934217823, Northing: 3688370.4595461986, Zone: 52S'
+---
+data: 'Easting: 249923.85007477622, Northing: 3688370.390358607, Zone: 52S'
+---
+data: 'Easting: 249923.94149402215, Northing: 3688370.321410927, Zone: 52S'
+---
+data: 'Easting: 249924.0425123376, Northing: 3688370.2633147635, Zone: 52S'
+---
+data: 'Easting: 249924.12461823266, Northing: 3688370.194606997, Zone: 52S'
+---
+data: 'Easting: 249924.2346641893, Northing: 3688370.125179498, Zone: 52S'
+---
+data: 'Easting: 249924.307456731, Northing: 3688370.056711643, Zone: 52S'
+---
+data: 'Easting: 249924.40818933686, Northing: 3688369.9875240577, Zone: 52S'
+---
+data: 'Easting: 249924.49960859047, Northing: 3688369.9185763835, Zone: 52S'
+---
+data: 'Easting: 249924.59102784525, Northing: 3688369.8496287116, Zone: 52S'
+---
+data: 'Easting: 249924.68216138755, Northing: 3688369.7695896104, Zone: 52S'
+---
+data: 'Easting: 249924.7735806451, Northing: 3688369.70064194, Zone: 52S'
+---
+data: 'Easting: 249924.85540083388, Northing: 3688369.6208427516, Zone: 52S'
+---
+data: 'Easting: 249924.96544680203, Northing: 3688369.551415262, Zone: 52S'
+---
+data: 'Easting: 249925.05686606347, Northing: 3688369.482467593, Zone: 52S'
+---
+data: 'Easting: 249925.15759868047, Northing: 3688369.4132800153, Zone: 52S'
+---
+data: 'Easting: 249925.24873223144, Northing: 3688369.3332409216, Zone: 52S'
+---
+data: 'Easting: 249925.3494648513, Northing: 3688369.264053346, Zone: 52S'
+---
+data: 'Easting: 249925.45019747247, Northing: 3688369.1948657716, Zone: 52S'
+---
+data: 'Easting: 249925.56024344938, Northing: 3688369.125438289, Zone: 52S'
+---
+data: 'Easting: 249925.6609760734, Northing: 3688369.056250716, Zone: 52S'
+---
+data: 'Easting: 249925.77130776612, Northing: 3688368.9979146617, Zone: 52S'
+---
+data: 'Easting: 249925.87232610534, Northing: 3688368.9398185187, Zone: 52S'
+---
+data: 'Easting: 249925.98237208804, Northing: 3688368.8703910415, Zone: 52S'
+---
+data: 'Easting: 249926.08339042967, Northing: 3688368.812294899, Zone: 52S'
+---
+data: 'Easting: 249926.19372212738, Northing: 3688368.7539588516, Zone: 52S'
+---
+data: 'Easting: 249926.29445475948, Northing: 3688368.684771287, Zone: 52S'
+---
+data: 'Easting: 249926.4138141027, Northing: 3688368.6151039046, Zone: 52S'
+---
+data: 'Easting: 249926.5241458043, Northing: 3688368.5567678586, Zone: 52S'
+---
+data: 'Easting: 249926.6251641523, Northing: 3688368.498671723, Zone: 52S'
+---
+data: 'Easting: 249926.74480921138, Northing: 3688368.440095772, Zone: 52S'
+---
+data: 'Easting: 249926.85514091677, Northing: 3688368.3817597316, Zone: 52S'
+---
+data: 'Easting: 249926.96547262341, Northing: 3688368.3234236925, Zone: 52S'
+---
+data: 'Easting: 249927.08540339756, Northing: 3688368.2759391717, Zone: 52S'
+---
+data: 'Easting: 249927.18642175142, Northing: 3688368.2178430445, Zone: 52S'
+---
+data: 'Easting: 249927.29703917252, Northing: 3688368.170598435, Zone: 52S'
+---
+data: 'Easting: 249927.4076565946, Northing: 3688368.123353829, Zone: 52S'
+---
+data: 'Easting: 249927.52730166243, Northing: 3688368.064777887, Zone: 52S'
+---
+data: 'Easting: 249927.64723244193, Northing: 3688368.017293374, Zone: 52S'
+---
+data: 'Easting: 249927.75784986716, Northing: 3688367.9700487717, Zone: 52S'
+---
+data: 'Easting: 249927.86846729345, Northing: 3688367.9228041703, Zone: 52S'
+---
+data: 'Easting: 249927.9787990107, Northing: 3688367.864468143, Zone: 52S'
+---
+data: 'Easting: 249928.0894164391, Northing: 3688367.8172235433, Zone: 52S'
+---
+data: 'Easting: 249928.209347224, Northing: 3688367.7697390383, Zone: 52S'
+---
+data: 'Easting: 249928.43086779516, Northing: 3688367.6863412736, Zone: 52S'
+---
+data: 'Easting: 249928.54148522735, Northing: 3688367.6390966796, Zone: 52S'
+---
+data: 'Easting: 249928.6523883698, Northing: 3688367.602943515, Zone: 52S'
+---
+data: 'Easting: 249928.7723191597, Northing: 3688367.555459017, Zone: 52S'
+---
+data: 'Easting: 249928.8925356618, Northing: 3688367.519065947, Zone: 52S'
+---
+data: 'Easting: 249929.0127521623, Northing: 3688367.4826728785, Zone: 52S'
+---
+data: 'Easting: 249929.1233695992, Northing: 3688367.435428292, Zone: 52S'
+---
+data: 'Easting: 249929.2438718099, Northing: 3688367.4101266535, Zone: 52S'
+---
+data: 'Easting: 249929.354774957, Northing: 3688367.3739734967, Zone: 52S'
+---
+data: 'Easting: 249929.47499146056, Northing: 3688367.337580434, Zone: 52S'
+---
+data: 'Easting: 249929.5858946091, Northing: 3688367.30142728, Zone: 52S'
+---
+data: 'Easting: 249929.71542447023, Northing: 3688367.2647943157, Zone: 52S'
+---
+data: 'Easting: 249929.82632762025, Northing: 3688367.2286411636, Zone: 52S'
+---
+data: 'Easting: 249929.92791741513, Northing: 3688367.192727918, Zone: 52S'
+---
+data: 'Easting: 249930.04841963007, Northing: 3688367.1674262914, Zone: 52S'
+---
+data: 'Easting: 249930.15960848963, Northing: 3688367.14236457, Zone: 52S'
+---
+data: 'Easting: 249930.2705116423, Northing: 3688367.106211424, Zone: 52S'
+---
+data: 'Easting: 249930.40032721506, Northing: 3688367.0806698934, Zone: 52S'
+---
+data: 'Easting: 249930.5112303692, Northing: 3688367.04451675, Zone: 52S'
+---
+data: 'Easting: 249930.62241923081, Northing: 3688367.0194550366, Zone: 52S'
+---
+data: 'Easting: 249930.74320715593, Northing: 3688367.0052448427, Zone: 52S'
+---
+data: 'Easting: 249930.85439601843, Northing: 3688366.980183131, Zone: 52S'
+---
+data: 'Easting: 249930.96529917498, Northing: 3688366.944029993, Zone: 52S'
+---
+data: 'Easting: 249931.08608710344, Northing: 3688366.9298198046, Zone: 52S'
+---
+data: 'Easting: 249931.19699026115, Northing: 3688366.893666667, Zone: 52S'
+---
+data: 'Easting: 249931.30817912586, Northing: 3688366.8686049627, Zone: 52S'
+---
+data: 'Easting: 249931.41965369685, Northing: 3688366.8546346817, Zone: 52S'
+---
+data: 'Easting: 249931.53084256212, Northing: 3688366.829572977, Zone: 52S'
+---
+data: 'Easting: 249931.6516304899, Northing: 3688366.815362796, Zone: 52S'
+---
+data: 'Easting: 249931.76281935617, Northing: 3688366.790301095, Zone: 52S'
+---
+data: 'Easting: 249931.87372251743, Northing: 3688366.7541479673, Zone: 52S'
+---
+data: 'Easting: 249931.9755980284, Northing: 3688366.729326172, Zone: 52S'
+---
+data: 'Easting: 249932.0961002524, Northing: 3688366.7040245696, Zone: 52S'
+---
+data: 'Easting: 249932.21631677187, Northing: 3688366.6676315414, Zone: 52S'
+---
+data: 'Easting: 249932.3179065795, Northing: 3688366.6317183245, Zone: 52S'
+---
+data: 'Easting: 249932.43812310047, Northing: 3688366.5953252995, Zone: 52S'
+---
+data: 'Easting: 249932.54902626603, Northing: 3688366.55917218, Zone: 52S'
+---
+data: 'Easting: 249932.6506160756, Northing: 3688366.523258965, Zone: 52S'
+---
+data: 'Easting: 249932.75277729478, Northing: 3688366.509528604, Zone: 52S'
+---
+data: 'Easting: 249932.8633947578, Northing: 3688366.462284062, Zone: 52S'
+---
+data: 'Easting: 249932.97429792595, Northing: 3688366.4261309477, Zone: 52S'
+---
+data: 'Easting: 249933.08520109483, Northing: 3688366.389977834, Zone: 52S'
+---
+data: 'Easting: 249933.19638996833, Northing: 3688366.364916149, Zone: 52S'
+---
+data: 'Easting: 249933.307864546, Northing: 3688366.3509458923, Zone: 52S'
+---
+data: 'Easting: 249933.41905342028, Northing: 3688366.325884209, Zone: 52S'
+---
+data: 'Easting: 249933.53024229503, Northing: 3688366.300822528, Zone: 52S'
+---
+data: 'Easting: 249933.6321178136, Northing: 3688366.276000751, Zone: 52S'
+---
+data: 'Easting: 249933.7433066893, Northing: 3688366.250939073, Zone: 52S'
+---
+data: 'Easting: 249933.8547812686, Northing: 3688366.236968821, Zone: 52S'
+---
+data: 'Easting: 249933.966255848, Northing: 3688366.222998572, Zone: 52S'
+---
+data: 'Easting: 249934.07773042776, Northing: 3688366.209028324, Zone: 52S'
+---
+data: 'Easting: 249934.18891930493, Northing: 3688366.183966651, Zone: 52S'
+---
+data: 'Easting: 249934.29108052843, Northing: 3688366.1702363067, Zone: 52S'
+---
+data: 'Easting: 249934.40255510886, Northing: 3688366.156266061, Zone: 52S'
+---
+data: 'Easting: 249934.50443063042, Northing: 3688366.131444293, Zone: 52S'
+---
+data: 'Easting: 249934.61590521137, Northing: 3688366.117474051, Zone: 52S'
+---
+data: 'Easting: 249934.71835213562, Northing: 3688366.114835138, Zone: 52S'
+---
+data: 'Easting: 249934.8298267169, Northing: 3688366.1008648993, Zone: 52S'
+---
+data: 'Easting: 249934.9413013008, Northing: 3688366.0868946607, Zone: 52S'
+---
+data: 'Easting: 249935.0530615842, Northing: 3688366.0840158514, Zone: 52S'
+---
+data: 'Easting: 249935.16453616592, Northing: 3688366.070045616, Zone: 52S'
+---
+data: 'Easting: 249935.2669830927, Northing: 3688366.0674067084, Zone: 52S'
+---
+data: 'Easting: 249935.37845767473, Northing: 3688366.053436475, Zone: 52S'
+---
+data: 'Easting: 249935.4811903028, Northing: 3688366.061888997, Zone: 52S'
+---
+data: 'Easting: 249935.59266488504, Northing: 3688366.0479187663, Zone: 52S'
+---
+data: 'Easting: 249935.7044251685, Northing: 3688366.045039964, Zone: 52S'
+---
+data: 'Easting: 249935.8065863918, Northing: 3688366.031309636, Zone: 52S'
+---
+data: 'Easting: 249935.9093190193, Northing: 3688366.039762162, Zone: 52S'
+---
+data: 'Easting: 249936.02107930268, Northing: 3688366.036883363, Zone: 52S'
+---
+data: 'Easting: 249936.13255388534, Northing: 3688366.0229131384, Zone: 52S'
+---
+data: 'Easting: 249936.24488557177, Northing: 3688366.0422171946, Zone: 52S'
+---
+data: 'Easting: 249936.35664585483, Northing: 3688366.0393384, Zone: 52S'
+---
+data: 'Easting: 249936.46840613784, Northing: 3688366.0364596057, Zone: 52S'
+---
+data: 'Easting: 249936.5801664208, Northing: 3688366.033580814, Zone: 52S'
+---
+data: 'Easting: 249936.6828990469, Northing: 3688366.042033348, Zone: 52S'
+---
+data: 'Easting: 249936.78506027086, Northing: 3688366.0283030313, Zone: 52S'
+---
+data: 'Easting: 249936.89682055358, Northing: 3688366.025424241, Zone: 52S'
+---
+data: 'Easting: 249937.0088665359, Northing: 3688366.0336368806, Zone: 52S'
+---
+data: 'Easting: 249937.1296544782, Northing: 3688366.0194267677, Zone: 52S'
+---
+data: 'Easting: 249937.23210140187, Northing: 3688366.016787882, Zone: 52S'
+---
+data: 'Easting: 249937.33454832784, Northing: 3688366.014148997, Zone: 52S'
+---
+data: 'Easting: 249937.4463086104, Northing: 3688366.011270215, Zone: 52S'
+---
+data: 'Easting: 249937.54875553638, Northing: 3688366.008631332, Zone: 52S'
+---
+data: 'Easting: 249937.66051581886, Northing: 3688366.005752551, Zone: 52S'
+---
+data: 'Easting: 249937.77199040516, Northing: 3688365.9917823463, Zone: 52S'
+---
+data: 'Easting: 249937.88403638618, Northing: 3688365.999994995, Zone: 52S'
+---
+data: 'Easting: 249937.99579666852, Northing: 3688365.9971162183, Zone: 52S'
+---
+data: 'Easting: 249938.08864453706, Northing: 3688365.9836258134, Zone: 52S'
+---
+data: 'Easting: 249938.20971817616, Northing: 3688365.9805071414, Zone: 52S'
+---
+data: 'Easting: 249938.32119276057, Northing: 3688365.966536942, Zone: 52S'
+---
+data: 'Easting: 249938.43295304306, Northing: 3688365.963658171, Zone: 52S'
+---
+data: 'Easting: 249938.5540266845, Northing: 3688365.960539503, Zone: 52S'
+---
+data: 'Easting: 249938.65618791027, Northing: 3688365.9468092066, Zone: 52S'
+---
+data: 'Easting: 249938.7679481927, Northing: 3688365.9439304387, Zone: 52S'
+---
+data: 'Easting: 249938.87970847526, Northing: 3688365.9410516727, Zone: 52S'
+---
+data: 'Easting: 249938.99118306037, Northing: 3688365.9270814825, Zone: 52S'
+---
+data: 'Easting: 249939.102943343, Northing: 3688365.9242027183, Zone: 52S'
+---
+data: 'Easting: 249939.21441792828, Northing: 3688365.9102325295, Zone: 52S'
+---
+data: 'Easting: 249939.3261782109, Northing: 3688365.907353768, Zone: 52S'
+---
+data: 'Easting: 249939.44725185237, Northing: 3688365.9042351125, Zone: 52S'
+---
+data: 'Easting: 249939.55901213485, Northing: 3688365.901356354, Zone: 52S'
+---
+data: 'Easting: 249939.67020102433, Northing: 3688365.8762947447, Zone: 52S'
+---
+data: 'Easting: 249939.7819613069, Northing: 3688365.873415989, Zone: 52S'
+---
+data: 'Easting: 249939.89372158947, Northing: 3688365.870537234, Zone: 52S'
+---
+data: 'Easting: 249940.00519617603, Northing: 3688365.856567056, Zone: 52S'
+---
+data: 'Easting: 249940.11667076265, Northing: 3688365.842596877, Zone: 52S'
+---
+data: 'Easting: 249940.21883199044, Northing: 3688365.828866596, Zone: 52S'
+---
+data: 'Easting: 249940.33030657758, Northing: 3688365.8148964196, Zone: 52S'
+---
+data: 'Easting: 249940.44178116482, Northing: 3688365.8009262467, Zone: 52S'
+---
+data: 'Easting: 249940.54451378883, Northing: 3688365.809378822, Zone: 52S'
+---
+data: 'Easting: 249940.65598837633, Northing: 3688365.7954086494, Zone: 52S'
+---
+data: 'Easting: 249940.77677631835, Northing: 3688365.781198584, Zone: 52S'
+---
+data: 'Easting: 249940.89756426532, Northing: 3688365.766988519, Zone: 52S'
+---
+data: 'Easting: 249940.99972549442, Northing: 3688365.7532582465, Zone: 52S'
+---
+data: 'Easting: 249941.1298267985, Northing: 3688365.7388082906, Zone: 52S'
+---
+data: 'Easting: 249941.2509004385, Northing: 3688365.7356896563, Zone: 52S'
+---
+data: 'Easting: 249941.36266072158, Northing: 3688365.732810919, Zone: 52S'
+---
+data: 'Easting: 249941.4831629727, Northing: 3688365.7075094366, Zone: 52S'
+---
+data: 'Easting: 249941.5946375618, Northing: 3688365.6935392744, Zone: 52S'
+---
+data: 'Easting: 249941.70639784515, Northing: 3688365.690660541, Zone: 52S'
+---
+data: 'Easting: 249941.8184438225, Northing: 3688365.698873237, Zone: 52S'
+---
+data: 'Easting: 249941.93134688088, Northing: 3688365.740360209, Zone: 52S'
+---
+data: 'Easting: 249942.04396424463, Northing: 3688365.770755759, Zone: 52S'
+---
+data: 'Easting: 249942.15658160753, Northing: 3688365.8011513106, Zone: 52S'
+---
+data: 'Easting: 249942.26045700005, Northing: 3688365.853969609, Zone: 52S'
+---
+data: 'Easting: 249942.37336005448, Northing: 3688365.895456589, Zone: 52S'
+---
+data: 'Easting: 249942.4856917213, Northing: 3688365.9147607153, Zone: 52S'
+---
+data: 'Easting: 249942.59802338766, Northing: 3688365.9340648446, Zone: 52S'
+---
+data: 'Easting: 249942.7013273901, Northing: 3688365.9647002965, Zone: 52S'
+---
+data: 'Easting: 249942.80463139166, Northing: 3688365.995335747, Zone: 52S'
+---
+data: 'Easting: 249942.92627641265, Northing: 3688366.0143999867, Zone: 52S'
+---
+data: 'Easting: 249943.02958041278, Northing: 3688366.0450354405, Zone: 52S'
+---
+data: 'Easting: 249943.14191207607, Northing: 3688366.0643395763, Zone: 52S'
+---
+data: 'Easting: 249943.25452943126, Northing: 3688366.094735139, Zone: 52S'
+---
+data: 'Easting: 249943.36686109327, Northing: 3688366.1140392763, Zone: 52S'
+---
+data: 'Easting: 249943.46170881082, Northing: 3688366.178188907, Zone: 52S'
+---
+data: 'Easting: 249943.57461185526, Northing: 3688366.2196758995, Zone: 52S'
+---
+data: 'Easting: 249943.6779158507, Northing: 3688366.25031136, Zone: 52S'
+---
+data: 'Easting: 249943.7815055373, Northing: 3688366.292038247, Zone: 52S'
+---
+data: 'Easting: 249943.88509522288, Northing: 3688366.333765136, Zone: 52S'
+---
+data: 'Easting: 249943.99799826334, Northing: 3688366.375252134, Zone: 52S'
+---
+data: 'Easting: 249944.10158794696, Northing: 3688366.416979025, Zone: 52S'
+---
+data: 'Easting: 249944.20517762718, Northing: 3688366.4587059165, Zone: 52S'
+---
+data: 'Easting: 249944.327679714, Northing: 3688366.5110444524, Zone: 52S'
+---
+data: 'Easting: 249944.4408684413, Northing: 3688366.563622881, Zone: 52S'
+---
+data: 'Easting: 249944.55377147644, Northing: 3688366.6051098853, Zone: 52S'
+---
+data: 'Easting: 249944.6672458919, Northing: 3688366.6687797415, Zone: 52S'
+---
+data: 'Easting: 249944.78043461536, Northing: 3688366.7213581745, Zone: 52S'
+---
+data: 'Easting: 249944.89362333735, Northing: 3688366.7739366074, Zone: 52S'
+---
+data: 'Easting: 249945.00681205813, Northing: 3688366.826515043, Zone: 52S'
+---
+data: 'Easting: 249945.1202864679, Northing: 3688366.890184906, Zone: 52S'
+---
+data: 'Easting: 249945.24307423152, Northing: 3688366.953614878, Zone: 52S'
+---
+data: 'Easting: 249945.36557630327, Northing: 3688367.0059534255, Zone: 52S'
+---
+data: 'Easting: 249945.47962208814, Northing: 3688367.091806144, Zone: 52S'
+---
+data: 'Easting: 249945.61172320173, Northing: 3688367.1549962303, Zone: 52S'
+---
+data: 'Easting: 249945.74411000303, Northing: 3688367.2292777454, Zone: 52S'
+---
+data: 'Easting: 249945.87592542334, Northing: 3688367.2813764075, Zone: 52S'
+---
+data: 'Easting: 249946.0170541993, Northing: 3688367.333235182, Zone: 52S'
+---
+data: 'Easting: 249946.13984195073, Northing: 3688367.3966651647, Zone: 52S'
+---
+data: 'Easting: 249946.27194305533, Northing: 3688367.4598552594, Zone: 52S'
+---
+data: 'Easting: 249946.41307182386, Northing: 3688367.511714039, Zone: 52S'
+---
+data: 'Easting: 249946.55420059082, Northing: 3688367.5635728217, Zone: 52S'
+---
+data: 'Easting: 249946.69532935848, Northing: 3688367.6154316054, Zone: 52S'
+---
+data: 'Easting: 249946.83617243357, Northing: 3688367.6561989663, Zone: 52S'
+---
+data: 'Easting: 249946.98690024082, Northing: 3688367.71890929, Zone: 52S'
+---
+data: 'Easting: 249947.11842995626, Northing: 3688367.7599165435, Zone: 52S'
+---
+data: 'Easting: 249947.2688720719, Northing: 3688367.811535447, Zone: 52S'
+---
+data: 'Easting: 249947.42805616208, Northing: 3688367.8407316105, Zone: 52S'
+---
+data: 'Easting: 249947.57821258693, Northing: 3688367.881259091, Zone: 52S'
+---
+data: 'Easting: 249947.7283690079, Northing: 3688367.9217865746, Zone: 52S'
+---
+data: 'Easting: 249947.87852542728, Northing: 3688367.96231406, Zone: 52S'
+---
+data: 'Easting: 249948.0283961607, Northing: 3688367.9917501225, Zone: 52S'
+---
+data: 'Easting: 249948.17826689058, Northing: 3688368.021186187, Zone: 52S'
+---
+data: 'Easting: 249948.3278519327, Northing: 3688368.0395308263, Zone: 52S'
+---
+data: 'Easting: 249948.46869499548, Northing: 3688368.0802982086, Zone: 52S'
+---
+data: 'Easting: 249948.60896668167, Northing: 3688368.0988827418, Zone: 52S'
+---
+data: 'Easting: 249948.75855172353, Northing: 3688368.11722739, Zone: 52S'
+---
+data: 'Easting: 249948.88048238636, Northing: 3688368.1473831274, Zone: 52S'
+---
+data: 'Easting: 249949.0204683844, Northing: 3688368.154876239, Zone: 52S'
+---
+data: 'Easting: 249949.15114102812, Northing: 3688368.162609242, Zone: 52S'
+---
+data: 'Easting: 249949.27278600313, Northing: 3688368.1816735584, Zone: 52S'
+---
+data: 'Easting: 249949.40374433144, Northing: 3688368.20049799, Zone: 52S'
+---
+data: 'Easting: 249949.53413128832, Northing: 3688368.19713957, Zone: 52S'
+---
+data: 'Easting: 249949.66508961807, Northing: 3688368.215964005, Zone: 52S'
+---
+data: 'Easting: 249949.7873059611, Northing: 3688368.25721118, Zone: 52S'
+---
+data: 'Easting: 249949.90020894914, Northing: 3688368.298698243, Zone: 52S'
+---
+data: 'Easting: 249950.00351289762, Northing: 3688368.3293337687, Zone: 52S'
+---
+data: 'Easting: 249950.14407026028, Northing: 3688368.359009749, Zone: 52S'
+---
+data: 'Easting: 249950.33148007694, Northing: 3688368.398577726, Zone: 52S'
+---
+data: 'Easting: 249950.46272408342, Northing: 3688368.428493596, Zone: 52S'
+---
+data: 'Easting: 249950.61259479626, Northing: 3688368.457929698, Zone: 52S'
+---
+data: 'Easting: 249950.75286647264, Northing: 3688368.4765142603, Zone: 52S'
+---
+data: 'Easting: 249950.88353910617, Northing: 3688368.4842472854, Zone: 52S'
+---
+data: 'Easting: 249951.05117947469, Northing: 3688368.4799293433, Zone: 52S'
+---
+data: 'Easting: 249951.1911654636, Northing: 3688368.4874224872, Zone: 52S'
+---
+data: 'Easting: 249951.34920679475, Northing: 3688368.4722530083, Zone: 52S'
+---
+data: 'Easting: 249951.50724812382, Northing: 3688368.457083535, Zone: 52S'
+---
+data: 'Easting: 249951.64694843141, Northing: 3688368.453485259, Zone: 52S'
+---
+data: 'Easting: 249951.8047040781, Northing: 3688368.4272243637, Zone: 52S'
+---
+data: 'Easting: 249951.94326165295, Northing: 3688368.3792603873, Zone: 52S'
+---
+data: 'Easting: 249952.09113258505, Northing: 3688368.33105653, Zone: 52S'
+---
+data: 'Easting: 249952.23900351598, Northing: 3688368.282852674, Zone: 52S'
+---
+data: 'Easting: 249952.37727541252, Northing: 3688368.223797278, Zone: 52S'
+---
+data: 'Easting: 249952.50566259268, Northing: 3688368.142798918, Zone: 52S'
+---
+data: 'Easting: 249952.6433631313, Northing: 3688368.061560674, Zone: 52S'
+---
+data: 'Easting: 249952.77175031576, Northing: 3688367.9805623177, Zone: 52S'
+---
+data: 'Easting: 249952.89053846686, Northing: 3688367.8887124197, Zone: 52S'
+---
+data: 'Easting: 249953.00904093872, Northing: 3688367.7857710994, Zone: 52S'
+---
+data: 'Easting: 249953.11823005893, Northing: 3688367.6830696627, Zone: 52S'
+---
+data: 'Easting: 249953.23644685472, Northing: 3688367.569036918, Zone: 52S'
+---
+data: 'Easting: 249953.34535029877, Northing: 3688367.4552440597, Zone: 52S'
+---
+data: 'Easting: 249953.45453942628, Northing: 3688367.3525426257, Zone: 52S'
+---
+data: 'Easting: 249953.58235526536, Northing: 3688367.2493614308, Zone: 52S'
+---
+data: 'Easting: 249953.68223104297, Northing: 3688367.146899883, Zone: 52S'
+---
+data: 'Easting: 249953.80101921273, Northing: 3688367.0550499987, Zone: 52S'
+---
+data: 'Easting: 249953.90992266935, Northing: 3688366.9412571467, Zone: 52S'
+---
+data: 'Easting: 249954.00048509878, Northing: 3688366.8390354873, Zone: 52S'
+---
+data: 'Easting: 249954.09133321032, Northing: 3688366.7479052544, Zone: 52S'
+---
+data: 'Easting: 249954.16412597316, Northing: 3688366.6794376387, Zone: 52S'
+---
+data: 'Easting: 249954.20955002896, Northing: 3688366.633872523, Zone: 52S'
+---
+data: 'Easting: 249954.23691873465, Northing: 3688366.610970024, Zone: 52S'
+---
+data: 'Easting: 249954.25525976747, Northing: 3688366.599398834, Zone: 52S'
+---
+data: 'Easting: 249954.26428744278, Northing: 3688366.588067525, Zone: 52S'
+---
+data: 'Easting: 249954.26428744278, Northing: 3688366.588067525, Zone: 52S'
+---
+data: 'Easting: 249954.26428744278, Northing: 3688366.588067525, Zone: 52S'
+---
+data: 'Easting: 249954.26428744278, Northing: 3688366.588067525, Zone: 52S'
+---
+data: 'Easting: 249954.26428744278, Northing: 3688366.588067525, Zone: 52S'
+---
+data: 'Easting: 249954.27360079793, Northing: 3688366.5878276434, Zone: 52S'
+---
+data: 'Easting: 249954.26428744278, Northing: 3688366.588067525, Zone: 52S'
+---
+data: 'Easting: 249954.26428744278, Northing: 3688366.588067525, Zone: 52S'
+---
+data: 'Easting: 249954.27331511807, Northing: 3688366.576736218, Zone: 52S'
+---
+data: 'Easting: 249954.27360079793, Northing: 3688366.5878276434, Zone: 52S'
+---
+data: 'Easting: 249954.26428744278, Northing: 3688366.588067525, Zone: 52S'
+---
+data: 'Easting: 249954.26428744278, Northing: 3688366.588067525, Zone: 52S'
+---
+data: 'Easting: 249954.26428744278, Northing: 3688366.588067525, Zone: 52S'
+---
+data: 'Easting: 249954.264001763, Northing: 3688366.576976099, Zone: 52S'
+---
+data: 'Easting: 249954.26428744278, Northing: 3688366.588067525, Zone: 52S'
+---
+data: 'Easting: 249954.26428744278, Northing: 3688366.588067525, Zone: 52S'
+---
+data: 'Easting: 249954.26428744278, Northing: 3688366.588067525, Zone: 52S'
+---
+data: 'Easting: 249954.26428744278, Northing: 3688366.588067525, Zone: 52S'
+---
+data: 'Easting: 249954.26428744278, Northing: 3688366.588067525, Zone: 52S'
+---
+data: 'Easting: 249954.26428744278, Northing: 3688366.588067525, Zone: 52S'
+---
+data: 'Easting: 249954.26428744278, Northing: 3688366.588067525, Zone: 52S'
+---
+data: 'Easting: 249954.26428744278, Northing: 3688366.588067525, Zone: 52S'
+---
+data: 'Easting: 249954.26428744278, Northing: 3688366.588067525, Zone: 52S'
+---
+data: 'Easting: 249954.26428744278, Northing: 3688366.588067525, Zone: 52S'
+---
+data: 'Easting: 249954.26428744278, Northing: 3688366.588067525, Zone: 52S'
+---
+data: 'Easting: 249954.25497408755, Northing: 3688366.588307407, Zone: 52S'
+---
+data: 'Easting: 249954.25468840782, Northing: 3688366.5772159826, Zone: 52S'
+---
+data: 'Easting: 249954.25497408755, Northing: 3688366.588307407, Zone: 52S'
+---
+data: 'Easting: 249954.26428744278, Northing: 3688366.588067525, Zone: 52S'
+---
+data: 'Easting: 249954.264001763, Northing: 3688366.576976099, Zone: 52S'
+---
+data: 'Easting: 249954.264001763, Northing: 3688366.576976099, Zone: 52S'
+---
+data: 'Easting: 249954.264001763, Northing: 3688366.576976099, Zone: 52S'
+---
+data: 'Easting: 249954.25468840782, Northing: 3688366.5772159826, Zone: 52S'
+---
+data: 'Easting: 249954.26428744278, Northing: 3688366.588067525, Zone: 52S'
+---
+data: 'Easting: 249954.264001763, Northing: 3688366.576976099, Zone: 52S'
+---
+data: 'Easting: 249954.264001763, Northing: 3688366.576976099, Zone: 52S'
+---
+data: 'Easting: 249954.264001763, Northing: 3688366.576976099, Zone: 52S'
+---
+data: 'Easting: 249954.264001763, Northing: 3688366.576976099, Zone: 52S'
+---
+data: 'Easting: 249954.26428744278, Northing: 3688366.588067525, Zone: 52S'
+---
+data: 'Easting: 249954.264001763, Northing: 3688366.576976099, Zone: 52S'
+---
+data: 'Easting: 249954.26428744278, Northing: 3688366.588067525, Zone: 52S'
+---
+data: 'Easting: 249954.26428744278, Northing: 3688366.588067525, Zone: 52S'
+---
+data: 'Easting: 249954.26428744278, Northing: 3688366.588067525, Zone: 52S'
+---
+data: 'Easting: 249954.26428744278, Northing: 3688366.588067525, Zone: 52S'
+---
+data: 'Easting: 249954.26428744278, Northing: 3688366.588067525, Zone: 52S'
+---
+data: 'Easting: 249954.26428744278, Northing: 3688366.588067525, Zone: 52S'
+---
+data: 'Easting: 249954.26428744278, Northing: 3688366.588067525, Zone: 52S'
+---
