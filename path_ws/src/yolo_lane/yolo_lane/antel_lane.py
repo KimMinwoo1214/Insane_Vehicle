@@ -19,7 +19,7 @@ class HybridLaneAngleEstimator(Node):
         self.roi_ymax = 400
         self.slice_step = 10
         self.reference_point = np.array([320.0, 480.0])
-        self.alpha = 0.2  # 중심 유지에 대한 가중치
+        self.alpha = 0.0501  # 중심 유지에 대한 가중치
 
         self.visualize = True
 

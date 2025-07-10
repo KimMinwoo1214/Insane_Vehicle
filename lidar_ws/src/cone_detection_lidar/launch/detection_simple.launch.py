@@ -43,7 +43,7 @@ def generate_launch_description():
                 {'eps': 0.3},
                 {'cluster_points_min': 10},
                 {'cluster_points_max': 25000},
-                {'minX': 0.1},
+                {'minX': 0.0},
                 {'maxX': 5.0},
                 {'minY': -5.0},
                 {'maxY': 5.0},

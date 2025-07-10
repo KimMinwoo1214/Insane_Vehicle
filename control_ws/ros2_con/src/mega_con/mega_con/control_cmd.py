@@ -10,9 +10,9 @@ class ControlCmdPublisher(Node):
 
         # 파라미터 선언
         self.declare_parameter('emergency_topic', '/emergency')
-        self.declare_parameter('cone_angle_topic', 'cone_steering_angle')
-        self.declare_parameter('lane_angle_topic', 'lane_steering_angle')
-        self.declare_parameter('control_cmd_topic', 'control_cmd')
+        self.declare_parameter('cone_angle_topic', '/cone_steering_angle')
+        self.declare_parameter('lane_angle_topic', '/lane_steering_angle')
+        self.declare_parameter('control_cmd_topic', '/control_cmd')
         self.declare_parameter('publish_rate', 10.0)  # Hz로 명령 전송 주기
 
         # 파라미터 취득
@@ -26,13 +26,13 @@ class ControlCmdPublisher(Node):
         self.pub_cmd = self.create_publisher(String, control_topic, 10)
 
         # 상태 저장용 변수
-        self._last_steering = 1400
-        self._last_throttle = 350
+        self._last_steering = 2100
+        self._last_throttle = 550
         self._last_sent_cmd = None
         self._last_sent_raw_angle = None
         self._last_mode = "Unknown"
         self.emergency_flag = False
-        self.cone_angle = None
+        self.cone_angle = 0
         self.lane_angle = None
 
         # 구독: steering 토픽
@@ -79,7 +79,7 @@ class ControlCmdPublisher(Node):
             angle = round(angle)
 
             min_a, max_a = 67.5, 112.5
-            min_p, max_p = 800, 1900
+            min_p, max_p = 1350, 2800
             if angle <= min_a:
                 sp = min_p
             elif angle >= max_a:
@@ -95,7 +95,7 @@ class ControlCmdPublisher(Node):
             if angle is None:
                 tp = self._last_throttle
             else:
-                tp = 310 if (angle < 67.5 or angle > 112.5) else 350
+                tp = 500 if (angle < 67.5 or angle > 112.5) else 550
         self._last_throttle = tp
 
     def _timer_publish(self):
@@ -111,7 +111,7 @@ class ControlCmdPublisher(Node):
 
         send = False
         if raw_angle is not None:
-            if self._last_sent_raw_angle is None or abs(raw_angle - self._last_sent_raw_angle) >= 2.0:
+            if self._last_sent_raw_angle is None or abs(raw_angle - self._last_sent_raw_angle) >= 0.2:
                 send = True
                 self._last_sent_raw_angle = raw_angle
         else:

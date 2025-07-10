@@ -22,6 +22,7 @@ setup(
         'console_scripts': [
         'pub = ros2_cv_cam.cam_pub:main',
         'sub = ros2_cv_cam.cam_sub:main',
+        'record = ros2_cv_cam.record:main'
         ],
     },
 )
