@@ -8,18 +8,18 @@ from geometry_msgs.msg import PolygonStamped
 import numpy as np
 import cv2
 
-class HybridTargetSliceAngleEstimator(Node):
+class EfficientHybridAngleEstimator(Node):
     def __init__(self):
-        super().__init__('hybrid_target_slice_angle_node')
+        super().__init__('efficient_hybrid_angle_node')
 
         # ===== 하이퍼파라미터 =====
         self.img_w = 640
         self.img_h = 480
-        self.roi_ymin = 300
-        self.roi_ymax = 400
-        self.reference_point = np.array([320.0, 480.0])  # 기준점
-        self.alpha = 0.005  # 중심 유지 비중
-        self.slice_step = 10  # 10픽셀 간격
+        self.reference_point = np.array([320.0, 480.0])  # 중심 기준
+        self.slice_interval = 10
+        self.num_slices = 9
+        self.alpha = 0.005
+
         self.visualize = True
 
         qos = QoSProfile(
@@ -31,87 +31,90 @@ class HybridTargetSliceAngleEstimator(Node):
 
         self.sub = self.create_subscription(
             PolygonStamped,
-            '/yolo_lane_polygon',
+            '/yolo_polygon',
             self.callback,
             qos
         )
         self.pub = self.create_publisher(Float32, '/lane_steering_angle', qos)
 
-        self.get_logger().info("✅ HybridTargetSliceAngleEstimator 시작됨")
+        self.get_logger().info("✅ Efficient Hybrid Angle Estimator 시작됨")
 
     def callback(self, msg):
         if len(msg.polygon.points) < 3:
             self.pub.publish(Float32(data=0.0))
             return
 
-        # Polygon → contour mask 생성
-        pts = np.array([[p.x, p.y] for p in msg.polygon.points], dtype=np.int32)
-        mask = np.zeros((self.img_h, self.img_w), dtype=np.uint8)
-        cv2.polylines(mask, [pts.reshape(-1, 1, 2)], isClosed=True, color=255, thickness=2)
+        pts = np.array([[p.x, p.y] for p in msg.polygon.points], dtype=np.float32)
 
-        contours, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
-        if not contours:
+        # === 기준 y 리스트 만들기 (하단 slice 기준)
+        y_base = self.img_h - self.slice_interval * self.num_slices
+        y_slices = [y_base + i * self.slice_interval for i in range(self.num_slices)]
+
+        # === 각 슬라이스에 속하는 점 누적 (한 번의 루프)
+        bins = {y: [] for y in y_slices}
+        half = self.slice_interval / 2
+        for pt in pts:
+            y = pt[1]
+            for y_target in y_slices:
+                if abs(y - y_target) < half:
+                    bins[y_target].append(pt)
+                    break
+
+        # === 각 슬라이스별 평균점 계산
+        ref_pts = []
+        for y in y_slices:
+            bin_pts = bins[y]
+            if len(bin_pts) >= 2:
+                mean_pt = np.mean(bin_pts, axis=0)
+                ref_pts.append(mean_pt)
+
+        if len(ref_pts) < 2:
             self.pub.publish(Float32(data=0.0))
             return
 
-        # 가장 큰 contour 기준
-        contour = max(contours, key=cv2.contourArea)
-        contour_pts = contour.reshape(-1, 2)
+        ref_pts = np.array(ref_pts)
 
-        # === 타겟 y 지점 9개 (roi_ymax부터 하단 방향으로 slice_step 간격) ===
-        y_targets = np.arange(self.roi_ymax, self.roi_ymin - 1, -self.slice_step)
-        target_pts = []
-        for y in y_targets:
-            y_mask = np.abs(contour_pts[:, 1] - y) < self.slice_step / 2
-            xs = contour_pts[y_mask][:, 0]
-            if len(xs) >= 1:
-                center_x = np.mean(xs)
-                target_pts.append([center_x, y])
-        target_pts = np.array(target_pts)
+        # === base point: 가장 아래 y의 평균점
+        base_pt = ref_pts[-1]
 
-        if len(target_pts) < 2:
-            self.pub.publish(Float32(data=0.0))
-            return
+        # === 기준점 기반 기울기
+        angles_direct = []
+        for pt in ref_pts[:-1]:
+            dx = pt[0] - base_pt[0]
+            dy = base_pt[1] - pt[1]
+            if dy == 0:
+                continue
+            angle_rad = np.arctan2(dx, dy)
+            angles_direct.append(90.0 + np.rad2deg(angle_rad))
+        angle_direct = np.mean(angles_direct)
 
-        # === 중심 기반 보정용 각도 ===
-        ref = self.reference_point
+        # === 중심 기준 기울기
         angles_center = []
-        for pt in target_pts:
+        ref = self.reference_point
+        for pt in ref_pts:
             dx = pt[0] - ref[0]
             dy = ref[1] - pt[1]
             if dy == 0:
                 continue
             angle_rad = np.arctan2(dx, dy)
             angles_center.append(90.0 + np.rad2deg(angle_rad))
-        angle_centered = np.mean(angles_center) if len(angles_center) > 0 else 90.0
+        angle_center = np.mean(angles_center)
 
-        # === 기준점 기준 벡터 각도 평균 ===
-        angles_direct = []
-        for pt in target_pts:
-            dx = pt[0] - ref[0]
-            dy = ref[1] - pt[1]
-            if dy == 0:
-                continue
-            angle_rad = np.arctan2(dx, dy)
-            angles_direct.append(90.0 + np.rad2deg(angle_rad))
-        angle_direct = np.mean(angles_direct) if len(angles_direct) > 0 else 90.0
-
-        # === 하이브리드 조합 ===
-        final_angle = (1 - self.alpha) * angle_direct + self.alpha * angle_centered
+        # === 혼합 조향각
+        final_angle = (1 - self.alpha) * angle_direct + self.alpha * angle_center
         self.pub.publish(Float32(data=final_angle))
-        self.get_logger().info(f"✅ Hybrid angle: direct={angle_direct:.2f}°, center={angle_centered:.2f}° → final={final_angle:.2f}°")
+        self.get_logger().info(f"✅ Hybrid angle: direct={angle_direct:.2f}°, center={angle_center:.2f}° → final={final_angle:.2f}°")
 
         # === 시각화 ===
         if self.visualize:
-            vis = np.zeros((self.img_h, self.img_w, 3), dtype=np.uint8)
-            for pt in target_pts:
-                pt = tuple(np.round(pt).astype(int))
-                cv2.circle(vis, pt, 3, (0, 255, 0), -1)
-                cv2.line(vis, tuple(self.reference_point.astype(int)), pt, (255, 255, 255), 1)
-            cv2.circle(vis, tuple(self.reference_point.astype(int)), 4, (0, 0, 255), -1)
-            cv2.putText(vis, f"{final_angle:.2f} deg", (10, 30),
+            vis_img = np.zeros((self.img_h, self.img_w, 3), dtype=np.uint8)
+            for pt in ref_pts:
+                cv2.circle(vis_img, (int(pt[0]), int(pt[1])), 3, (0, 255, 0), -1)
+                cv2.line(vis_img, tuple(base_pt.astype(int)), tuple(pt.astype(int)), (0, 255, 255), 1)
+            cv2.circle(vis_img, tuple(self.reference_point.astype(int)), 4, (255, 255, 255), -1)
+            cv2.putText(vis_img, f"{final_angle:.2f} deg", (10, 30),
                         cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2)
-            cv2.imshow("Hybrid Target Angle", vis)
+            cv2.imshow("Efficient Hybrid Angle", vis_img)
             cv2.waitKey(1)
 
     def destroy_node(self):
@@ -120,7 +123,7 @@ class HybridTargetSliceAngleEstimator(Node):
 
 def main(args=None):
     rclpy.init(args=args)
-    node = HybridTargetSliceAngleEstimator()
+    node = EfficientHybridAngleEstimator()
     try:
         rclpy.spin(node)
     except KeyboardInterrupt:
