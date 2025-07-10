@@ -18,7 +18,7 @@ class ControlCmdPublisher(Node):
     def __init__(self):
         super().__init__('control_cmd_publisher')
 
-        # 파라미터 선언/취득
+        # 파라미터 선언 및 취득
         self.declare_parameter('emergency_topic', '/emergency')
         self.declare_parameter('cone_angle_topic', '/cone_steering_angle')
         self.declare_parameter('lane_angle_topic', '/lane_steering_angle')
@@ -38,7 +38,7 @@ class ControlCmdPublisher(Node):
         self.create_subscription(Int32,   self.emergency_topic, self._emergency_cb, 10)
         self.create_subscription(Joy,     'joy', self._joy_cb, 10)
 
-        # 내부 상태
+        # 내부 상태 변수
         self._last_steering     = 2100
         self._last_throttle     = 550
         self._last_sent_cmd     = None
@@ -51,13 +51,12 @@ class ControlCmdPublisher(Node):
 
         # 조이스틱 제어 관련
         self.joy_axes = [0.0, 0.0]   # [steer, throttle]
-        self.joy_mode = False        # False=자동, True=직접
+        self.joy_mode = False        # False=자동, True=조이스틱 직접
 
-        # 버튼 연속 눌림 카운터
-        self.btn5_count = 0
-        self.btn4_count = 0
-        self.btn3_count = 0
-        self.BUTTON_HOLD_THRESHOLD = 5  # 연속 콜백 수
+        # 버튼 연속 감지용 카운터
+        self.combo1_count = 0  # (-5, -4) 동시에 눌림 카운트
+        self.combo2_count = 0  # (-3, -2) 동시에 눌림 카운트
+        self.COMBO_THRESHOLD = 10  # 연속 콜백 수
 
         # 주기 타이머
         self.create_timer(1.0 / rate_hz, self._timer_publish)
@@ -76,42 +75,35 @@ class ControlCmdPublisher(Node):
         self.lane_angle = msg.data
 
     def _joy_cb(self, msg: Joy):
-        # 버튼 상태를 list로
         buttons = list(msg.buttons)
         n = len(buttons)
-        idx5 = n - 5
-        idx4 = n - 4
-        idx3 = n - 3
+        idx5, idx4 = n-5, n-4
+        idx3, idx2 = n-3, n-2
 
-        # 5번째 버튼 카운트
-        if buttons[idx5] == 1:
-            self.btn5_count += 1
+        # combo1: 끝에서 5번째 & 4번째 동시 누름
+        if buttons[idx5] == 1 and buttons[idx4] == 1:
+            self.combo1_count += 1
         else:
-            self.btn5_count = 0
-        if self.btn5_count == self.BUTTON_HOLD_THRESHOLD:
-            # 즉시 throttle 컷오프
+            self.combo1_count = 0
+
+        if self.combo1_count == self.COMBO_THRESHOLD:
+            # throttle 즉시 0, joystick mode on
             self._last_throttle = 0
+            self.joy_mode = True
             cmd = f"{self._last_steering},{self._last_throttle}"
             self.pub_cmd.publish(String(data=cmd))
-            self.get_logger().info(f"[BUTTON_5 x{self.BUTTON_HOLD_THRESHOLD}] 즉시 퍼블리시 → '{cmd}'")
+            self.get_logger().info(f"[COMBO1 x{self.COMBO_THRESHOLD}] STOP & JOYSTICK ON → '{cmd}'")
 
-        # 4번째 버튼 카운트
-        if buttons[idx4] == 1:
-            self.btn4_count += 1
+        # combo2: 끝에서 3번째 & 2번째 동시 누름
+        if buttons[idx3] == 1 and buttons[idx2] == 1:
+            self.combo2_count += 1
         else:
-            self.btn4_count = 0
-        if self.btn4_count == self.BUTTON_HOLD_THRESHOLD:
-            self.joy_mode = True
-            self.get_logger().info(f"[BUTTON_4 x{self.BUTTON_HOLD_THRESHOLD}] JOYSTICK MODE ON")
+            self.combo2_count = 0
 
-        # 3번째 버튼 카운트
-        if buttons[idx3] == 1:
-            self.btn3_count += 1
-        else:
-            self.btn3_count = 0
-        if self.btn3_count == self.BUTTON_HOLD_THRESHOLD:
+        if self.combo2_count == self.COMBO_THRESHOLD:
+            # auto mode 복귀
             self.joy_mode = False
-            self.get_logger().info(f"[BUTTON_3 x{self.BUTTON_HOLD_THRESHOLD}] AUTO MODE ON")
+            self.get_logger().info(f"[COMBO2 x{self.COMBO_THRESHOLD}] AUTO MODE ON")
 
         # 데드존 적용 후 축 값 저장
         raw_steer    = msg.axes[0]
@@ -121,7 +113,7 @@ class ControlCmdPublisher(Node):
         self.joy_axes = [steer, throttle]
 
     def _compute_command(self):
-        # 1) 조이스틱 직접 제어 모드
+        # 1) joystick 직접 제어 모드
         if self.joy_mode:
             steer_axis    = self.joy_axes[0]
             throttle_axis = self.joy_axes[1]
@@ -178,7 +170,6 @@ class ControlCmdPublisher(Node):
                 sp = int(round(slope * angle + (min_p - slope * min_a)))
             self._last_steering = sp
 
-        # throttle 계산
         if self.emergency_flag:
             tp = 0
         else:
