@@ -13,6 +13,8 @@
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
 #include <pcl_conversions/pcl_conversions.h>
+#include <pcl/filters/crop_box.h>
+#include <Eigen/Dense>
 
 using namespace std::chrono_literals;
 
@@ -21,11 +23,12 @@ public:
   EmergencyDetector()
   : Node("emergency_detector")
   {
+    // 기본 ROI 파라미터 선언
     declare_parameter<std::string>("cloud_topic", "/clustered_points");
     declare_parameter<std::string>("emergency_topic", "/emergency");
     declare_parameter<float>("roi_min_x", 0.3f);
     declare_parameter<float>("roi_max_x",  1.0f);
-    declare_parameter<float>("roi_min_y", -0.3f); //실전 상황에서 동적 장애물 등장 방향보고 비대칭적 ROI 적용하기
+    declare_parameter<float>("roi_min_y", -0.3f);
     declare_parameter<float>("roi_max_y",  0.3f);
     declare_parameter<double>("min_dist", 1.0);
 
@@ -43,7 +46,7 @@ public:
     );
     pub_emergency_ = create_publisher<std_msgs::msg::Int32>(emergency_topic_, 10);
 
-    RCLCPP_INFO(this->get_logger(), "EmergencyDetector node started with clustered_points ROI + min_dist check");
+    RCLCPP_INFO(this->get_logger(), "EmergencyDetector node started with optimizations: tunnel override + cropbox ROI");
   }
 
 private:
@@ -55,22 +58,52 @@ private:
   rclcpp::Publisher<std_msgs::msg::Int32>::SharedPtr pub_emergency_;
 
   void cloud_cb(const sensor_msgs::msg::PointCloud2::ConstSharedPtr &msg) {
-    pcl::PointCloud<pcl::PointXYZRGB> cloud;
-    pcl::fromROSMsg(*msg, cloud);
+    // PCL 클라우드 변환
+    pcl::PointCloud<pcl::PointXYZRGB>::Ptr cloud(new pcl::PointCloud<pcl::PointXYZRGB>);
+    pcl::fromROSMsg(*msg, *cloud);
 
+    // 1) 터널 ROI 검사 (수동 루프 + 임계치 도달 시 조기 탈출)
+    const size_t TUNNEL_THRESHOLD = 5000;
+    size_t tunnel_count = 0;
+    for (const auto &pt : cloud->points) {
+      if (pt.x >= 0.0f && pt.x <= 1.5f &&
+          pt.y >= -1.0f && pt.y <= 1.0f &&
+          pt.z >= 0.3f && pt.z <= 1.0f) {
+        if (++tunnel_count >= TUNNEL_THRESHOLD) {
+          break;  // 임계치 이상이면 루프 즉시 탈출
+        }
+      }
+    }
+
+    std_msgs::msg::Int32 out;
+    if (tunnel_count >= TUNNEL_THRESHOLD) {
+      // 터널 오버라이드: Emergency OFF
+      out.data = 0;
+      pub_emergency_->publish(out);
+      RCLCPP_WARN_THROTTLE(this->get_logger(), *this->get_clock(), 10,
+        "Tunnel override active: %zu points (>=5000) -> Emergency force OFF", tunnel_count);
+      return;
+    }
+
+    // 2) 기본 ROI에 대해 PCL CropBox 필터 적용
+    pcl::CropBox<pcl::PointXYZRGB> crop;
+    crop.setInputCloud(cloud);
+    crop.setMin(Eigen::Vector4f(roi_min_x_, roi_min_y_, -FLT_MAX, 1.0f));
+    crop.setMax(Eigen::Vector4f(roi_max_x_, roi_max_y_,  FLT_MAX, 1.0f));
+
+    pcl::PointCloud<pcl::PointXYZRGB>::Ptr roi_cloud(new pcl::PointCloud<pcl::PointXYZRGB>);
+    crop.filter(*roi_cloud);
+
+    // 3) ROI 내 최단 거리 계산
     double closest = DBL_MAX;
-
-    for (const auto &pt : cloud.points) {
-      if (pt.x >= roi_min_x_ && pt.x <= roi_max_x_ &&
-          pt.y >= roi_min_y_ && pt.y <= roi_max_y_) {
-        double d = std::hypot(pt.x, pt.y);
-        if (d < closest) closest = d;
+    for (const auto &pt : roi_cloud->points) {
+      double d = std::hypot(pt.x, pt.y);
+      if (d < closest) {
+        closest = d;
       }
     }
 
     bool emergency = (closest < min_dist_);
-
-    std_msgs::msg::Int32 out;
     out.data = emergency ? 1 : 0;
     pub_emergency_->publish(out);
 
