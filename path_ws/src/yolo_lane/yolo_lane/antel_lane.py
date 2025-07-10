@@ -15,10 +15,10 @@ class EfficientHybridAngleEstimator(Node):
         # ===== 하이퍼파라미터 =====
         self.img_w = 640
         self.img_h = 480
-        self.reference_point = np.array([320.0, 480.0])  # 중심 기준
         self.slice_interval = 10
         self.num_slices = 9
-        self.alpha = 0.005
+        self.minx = 150
+        self.maxx = 490
 
         self.visualize = True
 
@@ -74,36 +74,35 @@ class EfficientHybridAngleEstimator(Node):
 
         ref_pts = np.array(ref_pts)
 
-        # === base point: 가장 아래 y의 평균점
+        # === 최하단 기준점 (가장 y 큰 ref_pt)
         base_pt = ref_pts[-1]
 
-        # === 기준점 기반 기울기
-        angles_direct = []
+        # === 각도 계산
+        angles = []
         for pt in ref_pts[:-1]:
             dx = pt[0] - base_pt[0]
             dy = base_pt[1] - pt[1]
             if dy == 0:
                 continue
             angle_rad = np.arctan2(dx, dy)
-            angles_direct.append(90.0 + np.rad2deg(angle_rad))
-        angle_direct = np.mean(angles_direct)
+            angles.append(90.0 + np.rad2deg(angle_rad))
 
-        # === 중심 기준 기울기
-        angles_center = []
-        ref = self.reference_point
-        for pt in ref_pts:
-            dx = pt[0] - ref[0]
-            dy = ref[1] - pt[1]
-            if dy == 0:
-                continue
-            angle_rad = np.arctan2(dx, dy)
-            angles_center.append(90.0 + np.rad2deg(angle_rad))
-        angle_center = np.mean(angles_center)
+        if len(angles) == 0:
+            self.pub.publish(Float32(data=0.0))
+            return
 
-        # === 혼합 조향각
-        final_angle = (1 - self.alpha) * angle_direct + self.alpha * angle_center
+        final_angle = np.mean(angles)
+
+        # === 좌우 보정
+        if base_pt[0] < self.minx:
+            final_angle -= 10.0
+            self.get_logger().info("🔄 최하단 기준점 좌측 → 좌측으로 보정 (-10°)")
+        elif base_pt[0] > self.maxx:
+            final_angle += 10.0
+            self.get_logger().info("🔄 최하단 기준점 우측 → 우측으로 보정 (+10°)")
+
         self.pub.publish(Float32(data=final_angle))
-        self.get_logger().info(f"✅ Hybrid angle: direct={angle_direct:.2f}°, center={angle_center:.2f}° → final={final_angle:.2f}°")
+        self.get_logger().info(f"✅ 조향각 계산 완료: {final_angle:.2f}°")
 
         # === 시각화 ===
         if self.visualize:
@@ -111,7 +110,7 @@ class EfficientHybridAngleEstimator(Node):
             for pt in ref_pts:
                 cv2.circle(vis_img, (int(pt[0]), int(pt[1])), 3, (0, 255, 0), -1)
                 cv2.line(vis_img, tuple(base_pt.astype(int)), tuple(pt.astype(int)), (0, 255, 255), 1)
-            cv2.circle(vis_img, tuple(self.reference_point.astype(int)), 4, (255, 255, 255), -1)
+            cv2.circle(vis_img, tuple(base_pt.astype(int)), 5, (0, 0, 255), -1)
             cv2.putText(vis_img, f"{final_angle:.2f} deg", (10, 30),
                         cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2)
             cv2.imshow("Efficient Hybrid Angle", vis_img)
