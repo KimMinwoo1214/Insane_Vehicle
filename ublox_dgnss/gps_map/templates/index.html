@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>GPS 지도</title>
+  <style>
+    html, body { height:100%; margin:0; padding:0; overflow:hidden; }
+    #map-wrapper { position: relative; width:100%; height:70vh; }
+    #map { width:100%; height:100%; }
+    #import-btn {
+      position: absolute; bottom:20px; right:20px; z-index:1000;
+      padding:8px 12px; font-size:14px;
+      background:#fff; border:1px solid #ccc;
+      border-radius:4px; cursor:pointer;
+      box-shadow:0 2px 4px rgba(0,0,0,0.2);
+    }
+    #info {
+      width:100%; height:20vh; padding:10px;
+      box-sizing:border-box; font-size:14px;
+      background:#f5f5f5; border-top:1px solid #ddd;
+      overflow-y:auto;
+    }
+    #file-input { display:none; }
+  </style>
+  <script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=ab5bb7d9234aa75b71012d7f965ffd0a&libraries=clusterer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.6.1/socket.io.min.js"></script>
+</head>
+<body>
+  <div id="map-wrapper">
+    <div id="map"></div>
+    <button id="import-btn">CSV 불러오기</button>
+    <input type="file" id="file-input" accept=".csv" />
+  </div>
+  <div id="info">최신 좌표 대기 중...</div>
+
+  <script>
+    kakao.maps.load(function() {
+      // 지도 초기화
+      const map = new kakao.maps.Map(
+        document.getElementById('map'),
+        { center: new kakao.maps.LatLng(0,0), level:3 }
+      );
+      map.setMapTypeId(kakao.maps.MapTypeId.SKYVIEW);
+      map.addControl(new kakao.maps.ZoomControl(), kakao.maps.ControlPosition.RIGHT);
+
+      // 클러스터러 설정
+      const liveClusterer = new kakao.maps.MarkerClusterer({
+        map, averageCenter:true, minLevel:10, disableClickZoom:true,
+        styles:[{ width:'40px', height:'40px', background:'rgba(0,123,255,0.8)',
+                  borderRadius:'20px', color:'#fff', textAlign:'center',
+                  fontSize:'14px', fontWeight:'bold', lineHeight:'40px' }]
+      });
+      const csvClusterer = new kakao.maps.MarkerClusterer({
+        map, averageCenter:true, minLevel:10, disableClickZoom:true,
+        styles:[{ width:'40px', height:'40px', background:'rgba(0,200,0,0.8)',
+                  borderRadius:'20px', color:'#fff', textAlign:'center',
+                  fontSize:'14px', fontWeight:'bold', lineHeight:'40px' }]
+      });
+
+      // 빨간 마커 아이콘과 저장 변수
+      const redIcon = new kakao.maps.MarkerImage(
+       'https://i.imgur.com/kFtwE0Z.png',
+        new kakao.maps.Size(24,35),
+        { offset: new kakao.maps.Point(12,35) }
+      );
+      let lastMarker = null;
+
+      // 공통 변수
+      const csvIcon = new kakao.maps.MarkerImage('https://i.imgur.com/otGComF.png',
+
+        new kakao.maps.Size(24,35),
+        { offset: new kakao.maps.Point(12,35) }
+      );
+      let isFirst = true, currentInfoWindow = null;
+      const infoDiv = document.getElementById('info');
+
+      // 지도 클릭 시 팝업 닫기
+      kakao.maps.event.addListener(map, 'click', () => {
+        if (currentInfoWindow) currentInfoWindow.close();
+      });
+
+      // 마지막 빨간점 표시 함수
+      function markLast(pos) {
+        if (lastMarker) lastMarker.setMap(null);
+        lastMarker = new kakao.maps.Marker({ position: pos, image: redIcon, map });
+      }
+
+      // 실시간 좌표 처리
+      const socket = io();
+      socket.on('new_coord', ({lat, lon}) => {
+        const pos = new kakao.maps.LatLng(lat, lon);
+        // 클러스터러에 추가
+        const marker = new kakao.maps.Marker({ position: pos, image: csvIcon });
+        liveClusterer.addMarker(marker);
+
+        // InfoWindow
+        const info = new kakao.maps.InfoWindow({
+          content: `<div style="padding:5px;">
+                      경도: ${lon.toFixed(7)}<br>위도: ${lat.toFixed(7)}
+                    </div>`
+        });
+        kakao.maps.event.addListener(marker, 'click', () => {
+          if (currentInfoWindow) currentInfoWindow.close();
+          info.open(map, marker);
+          currentInfoWindow = info;
+        });
+
+        // 첫 중심 이동
+        if (isFirst) { map.setCenter(pos); isFirst=false; }
+
+        // 마지막 빨간점
+        markLast(pos);
+
+        // 하단 기록
+        const entry = document.createElement('div');
+        entry.textContent = `경도: ${lon.toFixed(6)}, 위도: ${lat.toFixed(6)} (${new Date().toLocaleTimeString()})`;
+        infoDiv.prepend(entry);
+      });
+
+      // CSV 임포트 처리
+      document.getElementById('import-btn').onclick = () =>
+        document.getElementById('file-input').click();
+
+      document.getElementById('file-input').onchange = ev => {
+        const file = ev.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = e => {
+          e.target.result.trim().split(/\r?\n/).forEach((line,idx) => {
+            if (!line || (idx===0 && isNaN(+line.split(',')[0]))) return;
+            const [lon, lat] = line.split(',').map(Number);
+            if (isNaN(lat)||isNaN(lon)) return;
+
+            const pos = new kakao.maps.LatLng(lat, lon);
+            // CSV 클러스터러에 추가
+            const marker = new kakao.maps.Marker({ position: pos});
+            csvClusterer.addMarker(marker);
+
+            // InfoWindow
+            const info = new kakao.maps.InfoWindow({
+              content: `<div style="padding:5px;">
+                          CSV<br>경도: ${lon.toFixed(6)}<br>위도: ${lat.toFixed(6)}
+                        </div>`
+            });
+            kakao.maps.event.addListener(marker, 'click', () => {
+              if (currentInfoWindow) currentInfoWindow.close();
+              info.open(map, marker);
+              currentInfoWindow = info;
+            });
+
+            // 마지막 빨간점
+            markLast(pos);
+
+            // 하단 기록
+            const entry = document.createElement('div');
+            entry.textContent = `CSV) 경도: ${lon.toFixed(6)}, 위도: ${lat.toFixed(6)}`;
+            infoDiv.prepend(entry);
+          });
+        };
+        reader.readAsText(file,'utf-8');
+      };
+    });
+  </script>
+</body>
+</html>
