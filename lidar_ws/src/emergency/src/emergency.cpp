@@ -24,9 +24,9 @@ public:
     declare_parameter<std::string>("cloud_topic", "/clustered_points");
     declare_parameter<std::string>("emergency_topic", "/emergency");
     declare_parameter<float>("roi_min_x", 0.3f);
-    declare_parameter<float>("roi_max_x",  3.0f);
-    declare_parameter<float>("roi_min_y", -0.9f); //실전 상황에서 동적 장애물 등장 방향보고 비대칭적 ROI 적용하기
-    declare_parameter<float>("roi_max_y",  0.9f);
+    declare_parameter<float>("roi_max_x",  1.0f);
+    declare_parameter<float>("roi_min_y", -0.3f); //실전 상황에서 동적 장애물 등장 방향보고 비대칭적 ROI 적용하기
+    declare_parameter<float>("roi_max_y",  0.3f);
     declare_parameter<double>("min_dist", 1.0);
 
     get_parameter("cloud_topic", cloud_topic_);
