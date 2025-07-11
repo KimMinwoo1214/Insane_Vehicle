@@ -29,8 +29,8 @@ class GpsActionNode(Node):
         
         self.targets = [
             {"lat_lon": (33.305571, 126.313477), "action": {"angle": 120.0, "duration": 4.0}},
-            {"lat_lon": (36.032394, 128.203948), "action": {"angle": 120.0, "duration": 0.5}}
-        ]
+            {"lat_lon": (33.305538, 126.313632), "action": {"angle": 120.0, "duration": 0.5}}
+        ] 	
         self.target_index = 0
         self.current_target_utm = None
         self.action_triggered_for_target = False
