@@ -12,7 +12,6 @@ class HybridTargetSliceAngleEstimator(Node):
     def __init__(self):
         super().__init__('hybrid_target_slice_angle_node')
 
-        # ===== Configuration Parameters =====
         self.config = {
             'img_w': 640,
             'img_h': 480,
@@ -20,9 +19,8 @@ class HybridTargetSliceAngleEstimator(Node):
             'roi_ymax': 400,
             'slice_step': 10,
             'visualize': True,
-            'blend_ratio': 0.7,  # 방법 B 벡터평균 비율 (0.0~1.0)
+            'num_bottom_slices': 3,  # 벡터 평균에 사용할 하단 인접 쌍 수
         }
-        self.reference_point = np.array([self.config['img_w'] / 2.0, self.config['img_h']])
 
         qos = QoSProfile(
             reliability=QoSReliabilityPolicy.RELIABLE,
@@ -39,7 +37,7 @@ class HybridTargetSliceAngleEstimator(Node):
         )
         self.pub = self.create_publisher(Float32, '/lane_steering_angle', qos)
 
-        self.get_logger().info("✅ HybridTargetSliceAngleEstimator (Multi-Vector B) started.")
+        self.get_logger().info("✅ HybridTargetSliceAngleEstimator (벡터기반) 시작됨")
 
     def callback(self, msg):
         if len(msg.polygon.points) < 3:
@@ -58,6 +56,7 @@ class HybridTargetSliceAngleEstimator(Node):
         contour = max(contours, key=cv2.contourArea)
         contour_pts = contour.reshape(-1, 2)
 
+        # === ROI 영역에서 슬라이싱 후 중앙점 추출 ===
         sliced_lanes = {}
         for x, y in contour_pts:
             if self.config['roi_ymin'] <= y <= self.config['roi_ymax']:
@@ -67,79 +66,62 @@ class HybridTargetSliceAngleEstimator(Node):
                 sliced_lanes[slice_idx].append(x)
 
         target_pts = []
-        for slice_idx in sorted(sliced_lanes.keys()):
+        for slice_idx in sorted(sliced_lanes.keys(), reverse=True):  # 하단부터
             x_list = sliced_lanes[slice_idx]
-            if len(x_list) < 3:
+            if len(x_list) < 2:
                 continue
-            center_x = np.median(x_list)
+            center_x = (np.min(x_list) + np.max(x_list)) / 2.0
             center_y = self.config['roi_ymin'] + slice_idx * self.config['slice_step'] + self.config['slice_step'] / 2
             target_pts.append([center_x, center_y])
 
-        target_pts = np.array(target_pts)
-
-        if len(target_pts) < 2:
+        if len(target_pts) < self.config['num_bottom_slices'] + 1:
             self.pub.publish(Float32(data=0.0))
             return
 
-        # === 방법 A: 참조점 방향각 평균 ===
-        ref_angles = []
-        for pt in target_pts:
-            dx = pt[0] - self.reference_point[0]
-            dy = self.reference_point[1] - pt[1]
-            if dy == 0:
+        target_pts = np.array(target_pts)
+
+        # === 벡터 각도 계산 ===
+        bottom_pts = target_pts[:self.config['num_bottom_slices'] + 1]
+        angles = []
+        for i in range(len(bottom_pts) - 1):
+            dx = bottom_pts[i + 1][0] - bottom_pts[i][0]
+            dy = bottom_pts[i + 1][1] - bottom_pts[i][1]
+            if abs(dy) < 1e-6:
                 continue
             angle_rad = np.arctan2(dx, dy)
-            ref_angles.append(90.0 + np.rad2deg(angle_rad))
-        angle_from_ref = np.mean(ref_angles) if len(ref_angles) > 0 else 90.0
+            angle_deg = np.rad2deg(angle_rad)
 
-        # === 방법 B: near ~ 중간들 ~ far 벡터각 평균 ===
-        pt_near = target_pts[0]
-        vec_angles = []
+            # 0~180도 범위로 정규화
+            angle_deg = (angle_deg + 360) % 360
+            angle_deg = angle_deg if angle_deg <= 180 else 360 - angle_deg
+            angles.append(angle_deg)
 
-        N = len(target_pts)
-        if N >= 4:
-            mid1 = target_pts[N // 3]
-            mid2 = target_pts[(2 * N) // 3]
-            pt_far = target_pts[-1]
-            points_to_use = [mid1, mid2, pt_far]
-        else:
-            pt_far = target_pts[-1]
-            points_to_use = [pt_far]
+        if len(angles) == 0:
+            self.pub.publish(Float32(data=0.0))
+            return
 
-        for pt in points_to_use:
-            dx = pt[0] - pt_near[0]
-            dy = pt_near[1] - pt[1]
-            angle_rad = np.arctan2(dx, dy)
-            vec_angles.append(90.0 + np.rad2deg(angle_rad))
-
-        angle_from_vec = np.mean(vec_angles)
-
-        # === Blending A+B ===
-        blend_ratio = self.config['blend_ratio']
-        final_angle = blend_ratio * angle_from_vec + (1.0 - blend_ratio) * angle_from_ref
-
-        # === 퍼블리시 ===
+        final_angle = np.mean(angles)
         self.pub.publish(Float32(data=final_angle))
-        self.get_logger().info(
-            f"✅ vec(B multi): {angle_from_vec:.2f}°, ref(A): {angle_from_ref:.2f}°, final: {final_angle:.2f}°"
-        )
+        self.get_logger().info(f"✅ Steering angle (vector-based): {final_angle:.2f}°")
 
+        # === 시각화 ===
         if self.config['visualize']:
             try:
                 vis = np.zeros((self.config['img_h'], self.config['img_w'], 3), dtype=np.uint8)
                 for pt in target_pts:
                     pt_int = tuple(np.round(pt).astype(int))
                     cv2.circle(vis, pt_int, 3, (0, 255, 0), -1)
-                    cv2.line(vis, tuple(self.reference_point.astype(int)), pt_int, (255, 255, 255), 1)
+                for i in range(len(bottom_pts) - 1):
+                    pt1 = tuple(np.round(bottom_pts[i]).astype(int))
+                    pt2 = tuple(np.round(bottom_pts[i + 1]).astype(int))
+                    cv2.line(vis, pt1, pt2, (0, 255, 255), 1)
 
-                cv2.circle(vis, tuple(self.reference_point.astype(int)), 4, (0, 0, 255), -1)
                 cv2.putText(vis, f"{final_angle:.2f} deg", (10, 30),
                             cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2)
-
-                cv2.imshow("Lane Center Target", vis)
+                cv2.imshow("Vector Angle ROI", vis)
                 cv2.waitKey(1)
             except cv2.error:
-                self.get_logger().warn("Visualization failed. Disabling.")
+                self.get_logger().warn("시각화 실패. 비활성화합니다.")
                 self.config['visualize'] = False
 
     def destroy_node(self):
