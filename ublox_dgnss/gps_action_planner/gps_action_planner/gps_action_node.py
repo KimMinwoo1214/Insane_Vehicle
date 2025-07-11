@@ -49,9 +49,13 @@ class GpsActionNode(Node):
             self.get_logger().info("All targets reached. Node will continue to monitor GPS but no further actions.")
 
     def gps_callback(self, msg):
+        # Assuming msg.data is a string like "utm_easting,utm_northing"
         data_parts = msg.data.split(',')
-        self.current_pos = (data_parts[0], data_parts[1])
-        self.check_distance_and_act()
+        try:
+            self.current_pos = (float(data_parts[0]), float(data_parts[1]))
+            self.check_distance_and_act()
+        except ValueError:
+            self.get_logger().warn(f"Could not parse GPS data: {msg.data}. Expected two float values separated by a comma.")
 
     def check_distance_and_act(self):
         # Proceed only if we have a position and the action hasn't been triggered yet for the current target
