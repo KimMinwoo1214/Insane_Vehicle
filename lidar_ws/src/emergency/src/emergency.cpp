@@ -27,7 +27,7 @@ public:
     declare_parameter<float>("roi_max_x",  1.0f);
     declare_parameter<float>("roi_min_y", -0.3f); //실전 상황에서 동적 장애물 등장 방향보고 비대칭적 ROI 적용하기
     declare_parameter<float>("roi_max_y",  0.3f);
-    declare_parameter<double>("min_dist", 1.0);
+    declare_parameter<double>("min_dist", 0.8);
 
     get_parameter("cloud_topic", cloud_topic_);
     get_parameter("emergency_topic", emergency_topic_);

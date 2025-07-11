@@ -18,6 +18,7 @@ class GPSNode(Node):
         )
 
         self.gps_publisher = self.create_publisher(String, 'gps', 10)
+        self.get_logger().info("GPS Node initialized, waiting for messages...")
 
         self.create_subscription(UBXNavHPPosLLH, '/ubx_nav_hp_pos_llh', self.hp_pos_callback, qos)
         self.create_subscription(UBXNavPVT, '/ubx_nav_pvt', self.pvt_callback, qos)

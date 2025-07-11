@@ -21,7 +21,9 @@ setup(
     entry_points={
         'console_scripts': [
             'antel_lane = yolo_lane.antel_lane:main',
-            'parkm_lane = yolo_lane.parkm_lane:main'# ✅ 실행 엔트리포인트 등록
+            'parkm_lane = yolo_lane.parkm_lane:main',
+            'alsgur_lane = yolo_lane.antel_lane_editted:main',
+            'mix_lane = yolo_lane.antel_lane_blended:main'# ✅ 실행 엔트리포인트 등록
         ],
     },
 )

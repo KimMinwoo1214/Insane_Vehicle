@@ -27,7 +27,8 @@ class GPSMapNode(Node):
             # 모든 클라이언트에게 전송
             socketio.emit('new_coord', data)
         except Exception as e:
-            self.get_logger().error(f"파싱 오류: {e}, 원본: '{msg.data}'")
+            lon_str, lat_str = msg.data.split(',')
+            data = {'lat': float(lat_str), 'lon': float(lon_str)}
 
 def start_ros_spin(node):
     rclpy.spin(node)

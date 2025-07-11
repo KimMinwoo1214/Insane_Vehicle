@@ -22,7 +22,8 @@ setup(
         'console_scripts': [
             'gps = gps.gps:main',
             'pub = gps.pub:main',
-            'way = gps.waypoint:main'
+            'way = gps.waypoint:main',
+            'gps_action = gps.gps_hard:main',
         ],
     },
 )

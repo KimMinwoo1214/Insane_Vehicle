@@ -16,7 +16,7 @@ class YOLOSegEngineNode(Node):
 
         # ✅ TensorRT YOLO 엔진 모델 로드 (.engine + task="segment")
         self.model = YOLO(
-            "/home/parkm04/PycharmProjects/Insane_Vehicle/lane_ws/train9/weights/best.engine",
+            "/home/parkm04/PycharmProjects/Insane_Vehicle/lane_ws/train10/weights/best.engine",
             task="segment"
         )
 

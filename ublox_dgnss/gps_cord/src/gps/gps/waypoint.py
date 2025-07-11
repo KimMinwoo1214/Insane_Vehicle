@@ -4,6 +4,8 @@ from rclpy.qos import QoSProfile, QoSReliabilityPolicy, QoSHistoryPolicy, QoSDur
 from std_msgs.msg import String
 import pandas as pd
 import numpy as np
+from geodesy.utm import fromLatLong
+
 
 
 class FastAngleNode(Node):
@@ -33,7 +35,7 @@ class FastAngleNode(Node):
         self.prev_x = None
         self.prev_y = None
 
-        file_path = '/home/moon/Desktop/ublox_dgnss/output.csv'
+        file_path = '/home/parkm04/PycharmProjects/Insane_Vehicle/ublox_dgnss/output.csv'
         try:
             df = pd.read_csv(file_path)
             self.points = df[["UTM_X(East)", "UTM_Y(North)"]].to_numpy()
@@ -50,8 +52,9 @@ class FastAngleNode(Node):
             return
 
         try:
-            x = float(data_parts[0])
-            y = float(data_parts[1])
+            utm_pt = fromLatLong(float(data_parts[1]), float(data_parts[0]))
+            x = utm_pt.easting
+            y = utm_pt.northing
         except ValueError:
             self.get_logger().warn(f"Could not parse coordinates: {msg.data}")
             return
@@ -74,9 +77,7 @@ class FastAngleNode(Node):
         self.prev_y = y
 
         # 이동 거리가 매우 작으면 방향 계산이 무의미하므로 건너뜁니다.
-        if np.sqrt(dx**2 + dy**2) < 0.01: # 1cm 미만 이동은 무시
-            self.get_logger().info("Movement too small to determine direction.")
-            return
+
 
         # 4. 경로 탐색 로직
         # 주변 경로 포인트 필터링

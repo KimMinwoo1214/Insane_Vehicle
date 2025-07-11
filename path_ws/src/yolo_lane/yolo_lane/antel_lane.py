@@ -18,6 +18,7 @@ class HybridTargetSliceAngleEstimator(Node):
             'roi_ymin': 300,
             'roi_ymax': 400,
             'slice_step': 10,
+
             'visualize': True,
             'num_bottom_slices': 3,  # 벡터 평균에 사용할 하단 인접 쌍 수
         }
@@ -88,12 +89,8 @@ class HybridTargetSliceAngleEstimator(Node):
             dy = bottom_pts[i + 1][1] - bottom_pts[i][1]
             if abs(dy) < 1e-6:
                 continue
-            angle_rad = np.arctan2(dx, dy)
-            angle_deg = np.rad2deg(angle_rad)
-
-            # 0~180도 범위로 정규화
-            angle_deg = (angle_deg + 360) % 360
-            angle_deg = angle_deg if angle_deg <= 180 else 360 - angle_deg
+            angle_rad = np.arctan2(dx, -dy)
+            angle_deg = np.rad2deg(angle_rad) + 90
             angles.append(angle_deg)
 
         if len(angles) == 0:
