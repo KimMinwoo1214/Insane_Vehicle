@@ -49,7 +49,8 @@ class GpsActionNode(Node):
             self.get_logger().info("All targets reached. Node will continue to monitor GPS but no further actions.")
 
     def gps_callback(self, msg):
-        self.current_pos = (msg.x, msg.y)
+        data_parts = msg.data.split(',')
+        self.current_pos = (data_parts[0], data_parts[1])
         self.check_distance_and_act()
 
     def check_distance_and_act(self):
