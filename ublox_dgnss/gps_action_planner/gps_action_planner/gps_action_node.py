@@ -64,6 +64,11 @@ class GpsActionNode(Node):
                 # Move to the next target after action is triggered
                 self.target_index += 1
                 self.update_current_target()
+            else:
+                msg = Float32()
+                msg.data = -1.0
+                self.publisher.publish(msg)
+                self.get_logger().info(f"Distance {distance:.2f} is outside threshold {self.threshold}. Publishing -1.")
 
 
     def execute_action(self, action_params):
